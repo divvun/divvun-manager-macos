@@ -19,7 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         let mgr = WindowManager()
         
-        mgr.show(MainWindow.self)
+        mgr.show(MainWindowController.self)
 //        let w = WindowController<MainWindow>()
 //        window = w.contentWindow
 //        w.showWindow(nil)

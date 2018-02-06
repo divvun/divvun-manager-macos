@@ -18,21 +18,24 @@ import RxSwift
 class WindowManager {
     private var instances = [String: NSWindowController]()
     
-    func get<Window, T: WindowController<Window>>(_ type: Window.Type) -> T {
-        if let instance = instances[type.nibPath] as? T {
+    func get<T: WindowControllerType>(_ type: T.Type) -> T {
+        if let instance = instances[T.windowNibPath] as? T {
             return instance
         }
         
         let instance = T()
-        instances[type.nibPath] = instance
+        guard let nsInstance = instance as? NSWindowController else {
+            fatalError("wat")
+        }
+        instances[T.windowNibPath] = nsInstance
         return instance
     }
     
-    func show<Window, T: WindowController<Window>>(_ type: Window.Type) {
+    func show<Window, T: WindowController<Window>>(_ type: T.Type) {
         get(type).showWindow(nil)
     }
     
-    func close<Window, T: WindowController<Window>>(_ type: Window.Type) {
+    func close<Window, T: WindowController<Window>>(_ type: T.Type) {
         get(type).close()
     }
 }

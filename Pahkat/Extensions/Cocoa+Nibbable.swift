@@ -27,15 +27,33 @@ class ViewController<T: View>: NSViewController {
     }
 }
 
-class Window: NSWindow, Nibbable {}
-class WindowController<T: Window>: NSWindowController {
+class Window: NSWindow, Nibbable {
+    public func set(viewController: NSViewController) {
+        self.contentViewController = viewController
+        self.bind(.title, to: viewController, withKeyPath: "title", options: nil)
+    }
+}
+
+protocol WindowControllerType: class {
+    associatedtype T: Window
+    init()
+}
+
+extension WindowControllerType {
+    static var windowNibPath: String { return T.nibPath }
+}
+
+class WindowController<W: Window>: NSWindowController, WindowControllerType {
+    typealias T = W
+    
     static var windowNibPath: String { return T.nibPath }
     
     let contentWindow = T.loadFromNib()
     
     required init() {
         super.init(window: contentWindow)
-        window = contentWindow
+        self.windowWillLoad()
+        self.windowDidLoad()
     }
     
     required init?(coder aDecoder: NSCoder) {

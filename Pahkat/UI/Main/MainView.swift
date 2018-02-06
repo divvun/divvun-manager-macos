@@ -7,6 +7,12 @@
 //
 
 import Cocoa
+import RxSwift
+import RxCocoa
 
 class MainView: View {
+    @IBOutlet weak var primaryButton: NSButton!
+    @IBOutlet weak var outlineView: NSOutlineView!
 }
+
+
