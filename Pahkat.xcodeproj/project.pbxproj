@@ -11,9 +11,15 @@
 		C69F948E2028B1EA00127A47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69F948D2028B1EA00127A47 /* AppDelegate.swift */; };
 		C69F94902028B1EA00127A47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C69F948F2028B1EA00127A47 /* Assets.xcassets */; };
 		C69F94932028B1EA00127A47 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C69F94912028B1EA00127A47 /* MainMenu.xib */; };
+		C6CC91272028E69300CB0B10 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6CC91262028E69300CB0B10 /* MainWindow.xib */; };
+		C6CC912A20291A2D00CB0B10 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CC912920291A2D00CB0B10 /* APIService.swift */; };
 		C6F8A8162028B2C0009A016E /* Operators+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F8A8152028B2C0009A016E /* Operators+Rx.swift */; };
 		C6F8A8182028B3C1009A016E /* Cocoa+Nibbable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F8A8172028B3C1009A016E /* Cocoa+Nibbable.swift */; };
 		C6F8A81B2028B404009A016E /* Cocoa.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F8A81A2028B404009A016E /* Cocoa.swift */; };
+		C6F8A81E2028B996009A016E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F8A81D2028B996009A016E /* MainView.swift */; };
+		C6F8A8202028BBC2009A016E /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6F8A81F2028BBC2009A016E /* MainView.xib */; };
+		C6F8A8232028BC07009A016E /* WindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F8A8222028BC07009A016E /* WindowManager.swift */; };
+		C6F8A8262028BD91009A016E /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F8A8252028BD91009A016E /* MainWindow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,9 +32,15 @@
 		C69F94922028B1EA00127A47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		C69F94942028B1EA00127A47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C69F94952028B1EA00127A47 /* Pahkat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pahkat.entitlements; sourceTree = "<group>"; };
+		C6CC91262028E69300CB0B10 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		C6CC912920291A2D00CB0B10 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		C6F8A8152028B2C0009A016E /* Operators+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Operators+Rx.swift"; sourceTree = "<group>"; };
 		C6F8A8172028B3C1009A016E /* Cocoa+Nibbable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocoa+Nibbable.swift"; sourceTree = "<group>"; };
 		C6F8A81A2028B404009A016E /* Cocoa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cocoa.swift; sourceTree = "<group>"; };
+		C6F8A81D2028B996009A016E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		C6F8A81F2028BBC2009A016E /* MainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainView.xib; sourceTree = "<group>"; };
+		C6F8A8222028BC07009A016E /* WindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManager.swift; sourceTree = "<group>"; };
+		C6F8A8252028BD91009A016E /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +85,9 @@
 		C69F948C2028B1EA00127A47 /* Pahkat */ = {
 			isa = PBXGroup;
 			children = (
+				C6CC912820291A1B00CB0B10 /* Services */,
+				C6F8A8242028BD87009A016E /* Windows */,
+				C6F8A8212028BBFC009A016E /* Managers */,
 				C69F94952028B1EA00127A47 /* Pahkat.entitlements */,
 				C69F94942028B1EA00127A47 /* Info.plist */,
 				C69F948D2028B1EA00127A47 /* AppDelegate.swift */,
@@ -81,6 +96,14 @@
 				C6F8A81C2028B486009A016E /* Views */,
 			);
 			path = Pahkat;
+			sourceTree = "<group>";
+		};
+		C6CC912820291A1B00CB0B10 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C6CC912920291A2D00CB0B10 /* APIService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		C6F8A8192028B3F3009A016E /* Extensions */ = {
@@ -97,8 +120,27 @@
 			isa = PBXGroup;
 			children = (
 				C69F94912028B1EA00127A47 /* MainMenu.xib */,
+				C6F8A81D2028B996009A016E /* MainView.swift */,
+				C6F8A81F2028BBC2009A016E /* MainView.xib */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		C6F8A8212028BBFC009A016E /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				C6F8A8222028BC07009A016E /* WindowManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		C6F8A8242028BD87009A016E /* Windows */ = {
+			isa = PBXGroup;
+			children = (
+				C6F8A8252028BD91009A016E /* MainWindow.swift */,
+				C6CC91262028E69300CB0B10 /* MainWindow.xib */,
+			);
+			path = Windows;
 			sourceTree = "<group>";
 		};
 		FA0E3526D5964C9EC14FAF12 /* Frameworks */ = {
@@ -171,6 +213,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6CC91272028E69300CB0B10 /* MainWindow.xib in Resources */,
+				C6F8A8202028BBC2009A016E /* MainView.xib in Resources */,
 				C69F94902028B1EA00127A47 /* Assets.xcassets in Resources */,
 				C69F94932028B1EA00127A47 /* MainMenu.xib in Resources */,
 			);
@@ -219,11 +263,17 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Pahkat/Pods-Pahkat-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
@@ -242,7 +292,11 @@
 				C69F948E2028B1EA00127A47 /* AppDelegate.swift in Sources */,
 				C6F8A8182028B3C1009A016E /* Cocoa+Nibbable.swift in Sources */,
 				C6F8A8162028B2C0009A016E /* Operators+Rx.swift in Sources */,
+				C6F8A81E2028B996009A016E /* MainView.swift in Sources */,
 				C6F8A81B2028B404009A016E /* Cocoa.swift in Sources */,
+				C6F8A8232028BC07009A016E /* WindowManager.swift in Sources */,
+				C6CC912A20291A2D00CB0B10 /* APIService.swift in Sources */,
+				C6F8A8262028BD91009A016E /* MainWindow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,7 +362,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -359,7 +413,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

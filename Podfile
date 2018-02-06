@@ -8,4 +8,6 @@ target 'Pahkat' do
   # Pods for Pahkat
   pod 'RxSwift'
   pod 'RxCocoa'
+  pod 'Moya'
+  pod 'Moya/RxSwift'
 end
