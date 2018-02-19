@@ -15,7 +15,7 @@
             <subviews>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tyg-AS-Em8">
                     <rect key="frame" x="470" y="223" width="53" height="32"/>
-                    <buttonCell key="cell" type="push" title="--" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UhP-sj-SxF">
+                    <buttonCell key="cell" type="push" title="--" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UhP-sj-SxF">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -23,7 +23,7 @@
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wg3-4c-mmT">
                     <rect key="frame" x="20" y="20" width="497" height="195"/>
                     <clipView key="contentView" id="FKL-qK-06d">
-                        <rect key="frame" x="1" y="23" width="495" height="171"/>
+                        <rect key="frame" x="1" y="0.0" width="495" height="194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="461-7f-8Pl" viewBased="YES" indentationPerLevel="16" outlineTableColumn="eoz-CG-bZB" id="qQh-sV-PqP">

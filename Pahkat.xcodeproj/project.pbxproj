@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		276391A0203ADDC30096E10C /* InstallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2763919F203ADDC30096E10C /* InstallViewController.swift */; };
+		276391A2203ADDD60096E10C /* InstallPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276391A1203ADDD60096E10C /* InstallPresenter.swift */; };
+		276391A4203AE2660096E10C /* CompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276391A3203AE2660096E10C /* CompletionViewController.swift */; };
+		276391A6203AECE30096E10C /* CompletionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276391A5203AECE30096E10C /* CompletionView.swift */; };
+		278A10B5203ADAB2007C3DC8 /* InstallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278A10B4203ADAB2007C3DC8 /* InstallView.xib */; };
+		278A10B7203ADACD007C3DC8 /* InstallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278A10B6203ADACD007C3DC8 /* InstallView.swift */; };
 		960DCF4737BF0B93EE5A96C6 /* Pods_Pahkat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D1F698D729533B781C38BEB /* Pods_Pahkat.framework */; };
 		C622703F20358F1B00DBCD65 /* RepositoryIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622703E20358F1B00DBCD65 /* RepositoryIndex.swift */; };
 		C6227041203599BA00DBCD65 /* PackageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6227040203599BA00DBCD65 /* PackageService.swift */; };
@@ -62,6 +68,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2763919F203ADDC30096E10C /* InstallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallViewController.swift; sourceTree = "<group>"; };
+		276391A1203ADDD60096E10C /* InstallPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallPresenter.swift; sourceTree = "<group>"; };
+		276391A3203AE2660096E10C /* CompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionViewController.swift; sourceTree = "<group>"; };
+		276391A5203AECE30096E10C /* CompletionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionView.swift; sourceTree = "<group>"; };
+		278A10B4203ADAB2007C3DC8 /* InstallView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstallView.xib; sourceTree = "<group>"; };
+		278A10B6203ADACD007C3DC8 /* InstallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallView.swift; sourceTree = "<group>"; };
 		4911F9B189408032AD636861 /* Pods-Pahkat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pahkat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pahkat/Pods-Pahkat.debug.xcconfig"; sourceTree = "<group>"; };
 		4D1F698D729533B781C38BEB /* Pods_Pahkat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pahkat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56F306996B41415DC22AAB5C /* Pods-Pahkat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pahkat.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pahkat/Pods-Pahkat.release.xcconfig"; sourceTree = "<group>"; };
@@ -275,6 +287,10 @@
 			isa = PBXGroup;
 			children = (
 				C6F4BC752031E0A3002EE523 /* InstallViewable.swift */,
+				278A10B4203ADAB2007C3DC8 /* InstallView.xib */,
+				278A10B6203ADACD007C3DC8 /* InstallView.swift */,
+				2763919F203ADDC30096E10C /* InstallViewController.swift */,
+				276391A1203ADDD60096E10C /* InstallPresenter.swift */,
 			);
 			path = Install;
 			sourceTree = "<group>";
@@ -283,6 +299,8 @@
 			isa = PBXGroup;
 			children = (
 				C6F4BC772031E0AD002EE523 /* CompletionViewable.swift */,
+				276391A3203AE2660096E10C /* CompletionViewController.swift */,
+				276391A5203AECE30096E10C /* CompletionView.swift */,
 			);
 			path = Completion;
 			sourceTree = "<group>";
@@ -416,6 +434,7 @@
 				C622704E2035C61000DBCD65 /* UpdateView.xib in Resources */,
 				C6CC91272028E69300CB0B10 /* MainWindow.xib in Resources */,
 				C6F8A8202028BBC2009A016E /* MainView.xib in Resources */,
+				278A10B5203ADAB2007C3DC8 /* InstallView.xib in Resources */,
 				C69F94902028B1EA00127A47 /* Assets.xcassets in Resources */,
 				C69F94932028B1EA00127A47 /* MainMenu.xib in Resources */,
 				C62270642039E08B00DBCD65 /* Localizable.strings in Resources */,
@@ -512,7 +531,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C62270482035C5D700DBCD65 /* UpdateWindow.swift in Sources */,
+				278A10B7203ADACD007C3DC8 /* InstallView.swift in Sources */,
 				C622704C2035C60500DBCD65 /* UpdateViewable.swift in Sources */,
+				276391A6203AECE30096E10C /* CompletionView.swift in Sources */,
 				C69F948E2028B1EA00127A47 /* AppDelegate.swift in Sources */,
 				C6F4BC5B2029BC57002EE523 /* MainViewController.swift in Sources */,
 				C6F4BC6E2031DBCB002EE523 /* DownloadViewController.swift in Sources */,
@@ -524,6 +545,7 @@
 				C6F4BC7B2031E18A002EE523 /* ProcessResult.swift in Sources */,
 				C6F4BC572029BC05002EE523 /* MainViewable.swift in Sources */,
 				C62270672039E9CD00DBCD65 /* AppStore.swift in Sources */,
+				276391A4203AE2660096E10C /* CompletionViewController.swift in Sources */,
 				C6F4BC662031DB81002EE523 /* DownloadViewable.swift in Sources */,
 				C6F8A81E2028B996009A016E /* MainView.swift in Sources */,
 				C6F4BC592029BC2C002EE523 /* MainPresenter.swift in Sources */,
@@ -533,6 +555,7 @@
 				C6F8A81B2028B404009A016E /* Cocoa.swift in Sources */,
 				C622706B203A247300DBCD65 /* ISO639.swift in Sources */,
 				C6227041203599BA00DBCD65 /* PackageService.swift in Sources */,
+				276391A2203ADDD60096E10C /* InstallPresenter.swift in Sources */,
 				C6F8A8232028BC07009A016E /* WindowManager.swift in Sources */,
 				C62270502035C61900DBCD65 /* UpdateViewController.swift in Sources */,
 				C622705F2039DEC800DBCD65 /* Strings.swift in Sources */,
@@ -540,6 +563,7 @@
 				C6F4BC782031E0AD002EE523 /* CompletionViewable.swift in Sources */,
 				C6F4BC5F202A43BC002EE523 /* RxStore.swift in Sources */,
 				C622704A2035C5FC00DBCD65 /* UpdateView.swift in Sources */,
+				276391A0203ADDC30096E10C /* InstallViewController.swift in Sources */,
 				C6F8A8262028BD91009A016E /* MainWindow.swift in Sources */,
 				C6F4BC722031DCF7002EE523 /* Cocoa+Rx.swift in Sources */,
 				C62270562036EA9E00DBCD65 /* Models.swift in Sources */,

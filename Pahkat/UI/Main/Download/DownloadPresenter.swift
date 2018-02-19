@@ -18,7 +18,24 @@ class DownloadPresenter {
         self.packages = packages
     }
     
+    private func download() -> Disposable {
+        return Observable.from(packages)
+            .map({ package in
+                try AppContext.rpc.download(package, target: .user).map({(package, $0)})
+            })
+            .merge(maxConcurrent: 3).do(onNext: { [weak self] (package, status) in
+                self?.view.setStatus(package: package, status: status)
+            })
+            .toArray().subscribe(
+                onError: { [weak self] in
+                    self?.view.handle(error: $0)},
+                onCompleted: { [weak self] in
+                    guard let `self` = self else { return }
+                    self.view.startInstallation(packages: self.packages)
+            })
+    }
+    
     func start() -> Disposable {
-        return Observable<Void>.empty().subscribe()
+        return CompositeDisposable.init(disposables: [self.download()])
     }
 }

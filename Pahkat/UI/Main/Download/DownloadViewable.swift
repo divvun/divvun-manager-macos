@@ -7,7 +7,14 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
+
 
 protocol DownloadViewable: class {
-    
+    var onCancelTapped: Driver<Void> { get }
+    func setStatus(package: Package, status: PackageDownloadStatus)
+    func cancel()
+    func startInstallation(packages: [Package])
+    func handle(error: Error)
 }

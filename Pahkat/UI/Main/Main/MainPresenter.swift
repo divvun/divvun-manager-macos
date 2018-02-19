@@ -8,9 +8,11 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 class MainPresenter {
-    private weak var view: MainViewable?
+    private unowned var view: MainViewable
+    private var repo: RepositoryIndex? = nil
     
     init(view: MainViewable) {
         self.view = view
@@ -25,10 +27,12 @@ class MainPresenter {
             .filter { $0.repository != nil }
             .map { $0.repository! }
             .distinctUntilChanged()
-            .subscribe(onNext: { repo in
+            .subscribe(onNext: { [weak self] repo in
                 // TODO: do what is needed to cause the outline view to update.
+                self?.repo = repo
                 print(repo.meta)
-            }, onError: { [weak self] in self?.view?.handle(error: $0) })
+        })
+//            }, onError: { [weak self] in self?.view?.handle(error: $0) })
     }
     
 //    private func bindPackageToggled() -> Disposable {
@@ -39,12 +43,16 @@ class MainPresenter {
 //
 //    }
 //
-//    private func bindPrimaryButton() -> Disposable {
-//
-//    }
+    private func bindPrimaryButton() -> Disposable {
+        return view.onPrimaryButtonPressed.drive(onNext: { [weak self] in
+            guard let repo = self?.repo else { fatalError() }
+            let window = AppContext.windows.get(MainWindowController.self)
+            window.contentWindow.set(viewController: DownloadViewController.init(packages:[ repo.packages["sme-keyboard"]!]))
+        })
+    }
     
     func start() -> Disposable {
-        guard let view = view else { return Disposables.create() }
+        //guard let view = view else { return Disposables.create() }
         
         view.update(title: Strings.loading)
         
@@ -53,7 +61,7 @@ class MainPresenter {
             bindUpdatePackageList(),
 //            bindPackageToggled(),
 //            bindGroupToggled(),
-//            bindPrimaryButton()
+            bindPrimaryButton()
         ])
         
 //        return view.onPrimaryButtonPressed.drive(onNext: {

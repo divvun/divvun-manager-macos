@@ -17,8 +17,8 @@ enum PeriodInterval: String {
 }
 
 struct SettingsState {
-    fileprivate(set) var repositoryURL: URL =
-        UserDefaults.standard.url(forKey: "repositoryURL") ?? URL(string: "http://localhost:8000")!
+    fileprivate(set) var repositoryURL: URL = URL(string: "https://x.brendan.so/macos-repo/")!
+        //UserDefaults.standard.url(forKey: "repositoryURL") ?? URL(string: "http://localhost:8000")!
     fileprivate(set) var updateCheckInterval: PeriodInterval =
         PeriodInterval(rawValue: UserDefaults.standard.string(forKey: "updateCheckInterval") ?? "") ?? .daily
     fileprivate(set) var nextUpdateCheck: Date =
