@@ -15,7 +15,7 @@
             <subviews>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tyg-AS-Em8">
                     <rect key="frame" x="470" y="223" width="53" height="32"/>
-                    <buttonCell key="cell" type="push" title="--" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UhP-sj-SxF">
+                    <buttonCell key="cell" type="push" title="--" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UhP-sj-SxF">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>

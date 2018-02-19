@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 
 class MainPresenter {
-    private weak var view: MainViewable?
+    private unowned var view: MainViewable
     
     init(view: MainViewable) {
         self.view = view
@@ -28,7 +28,7 @@ class MainPresenter {
             .subscribe(onNext: { repo in
                 // TODO: do what is needed to cause the outline view to update.
                 print(repo.meta)
-            }, onError: { [weak self] in self?.view?.handle(error: $0) })
+            }, onError: { [weak self] in self?.view.handle(error: $0) })
     }
     
 //    private func bindPackageToggled() -> Disposable {
@@ -39,12 +39,15 @@ class MainPresenter {
 //
 //    }
 //
-//    private func bindPrimaryButton() -> Disposable {
-//
-//    }
+    private func bindPrimaryButton() -> Disposable {
+        return view.onPrimaryButtonPressed.drive(onNext: {
+            let mainWindow = AppContext.windows.get(MainWindowController.self)
+            mainWindow.contentWindow.set(viewController: DownloadViewController(packages: []))
+        })
+    }
     
     func start() -> Disposable {
-        guard let view = view else { return Disposables.create() }
+        //guard let view = view else { return Disposables.create() }
         
         view.update(title: Strings.loading)
         
@@ -53,12 +56,11 @@ class MainPresenter {
             bindUpdatePackageList(),
 //            bindPackageToggled(),
 //            bindGroupToggled(),
-//            bindPrimaryButton()
+            bindPrimaryButton()
         ])
         
 //        return view.onPrimaryButtonPressed.drive(onNext: {
-//            let mainWindow = AppContext.windowManager.get(MainWindowController.self)
-//            mainWindow.contentWindow.set(viewController: DownloadViewController())
+//
 //        }, onCompleted: nil, onDisposed: nil)
     }
 }
