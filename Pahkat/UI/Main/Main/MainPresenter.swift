@@ -31,8 +31,7 @@ class MainPresenter {
                 // TODO: do what is needed to cause the outline view to update.
                 self?.repo = repo
                 print(repo.meta)
-        })
-//            }, onError: { [weak self] in self?.view?.handle(error: $0) })
+            }, onError: { [weak self] in self?.view.handle(error: $0) })
     }
     
 //    private func bindPackageToggled() -> Disposable {
@@ -65,8 +64,7 @@ class MainPresenter {
         ])
         
 //        return view.onPrimaryButtonPressed.drive(onNext: {
-//            let mainWindow = AppContext.windowManager.get(MainWindowController.self)
-//            mainWindow.contentWindow.set(viewController: DownloadViewController())
+//
 //        }, onCompleted: nil, onDisposed: nil)
     }
 }
