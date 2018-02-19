@@ -34,18 +34,7 @@ class Window: NSWindow, Nibbable {
     }
 }
 
-protocol WindowControllerType: class {
-    associatedtype T: Window
-    init()
-}
-
-extension WindowControllerType {
-    static var windowNibPath: String { return T.nibPath }
-}
-
-class WindowController<W: Window>: NSWindowController, WindowControllerType {
-    typealias T = W
-    
+class WindowController<T: Window>: NSWindowController {
     static var windowNibPath: String { return T.nibPath }
     
     let contentWindow = T.loadFromNib()

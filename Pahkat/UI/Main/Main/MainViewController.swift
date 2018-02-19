@@ -10,12 +10,10 @@ import Cocoa
 import RxSwift
 import RxCocoa
 
-class MainViewController: ViewController<MainView>, MainViewable {
-    private var bag = DisposeBag()
-    private var presenter: MainPresenter!
+class MainViewController: DisposableViewController<MainView>, MainViewable {
+    private lazy var presenter = { MainPresenter(view: self) }()
     
     var onPackageToggled: Observable<Package> = Observable.empty()
-    
     var onGroupToggled: Observable<[Package]> = Observable.empty()
     
     lazy var onPrimaryButtonPressed: Driver<Void> = {
@@ -26,8 +24,8 @@ class MainViewController: ViewController<MainView>, MainViewable {
         self.title = title
     }
     
-    func showDownloadView() {
-        fatalError("Not implemented")
+    func showDownloadView(with packages: [Package]) {
+        AppContext.windows.set(DownloadViewController(packages: packages), for: MainWindowController.self)
     }
     
     func updatePrimaryButton(isEnabled: Bool, label: String) {
@@ -37,30 +35,12 @@ class MainViewController: ViewController<MainView>, MainViewable {
     
     func handle(error: Error) {
         print(error)
+        // TODO: show errors in a meaningful way to the user
         fatalError("Not implemented")
-    }
-    
-    
-    override init() {
-        super.init()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        presenter = MainPresenter(view: self)
     }
     
     override func viewWillAppear() {
         super.viewWillAppear()
         presenter.start().disposed(by: bag)
-    }
-    
-    override func viewWillDisappear() {
-        super.viewWillDisappear()
-        bag = DisposeBag()
     }
 }

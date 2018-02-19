@@ -8,6 +8,8 @@ target 'Pahkat' do
   # Pods for Pahkat
   pod 'RxSwift'
   pod 'RxCocoa'
-  pod 'Moya'
+  pod 'RxFeedback'
+  pod 'Moya', '~> 10'
   pod 'Moya/RxSwift'
+  pod 'JSONRPCKit'
 end

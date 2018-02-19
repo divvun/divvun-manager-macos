@@ -15,7 +15,7 @@ public class MoyaConfigurableProvider<T: TargetType>: MoyaProvider<T> {
                 manager: Manager = MoyaProvider<Target>.defaultAlamofireManager(),
                 plugins: [PluginType] = [],
                 trackInflights: Bool = false) {
-        
+
         let newEndpointClosure: EndpointClosure = { target in
             let httpHeader = headers.merging(target.headers ?? [:], uniquingKeysWith: { _, new in new })
             
@@ -37,10 +37,9 @@ enum PahkatApi: TargetType {
     case packagesIndex
     case virtualsIndex
     case virtual(packageId: String)
-    
-    // Note: this is a stub URL; ConfigurableTargetType overrides this.
-    var baseURL: URL { return URL(string: "http://localhost")! }
-    
+
+    var baseURL: URL { fatalError("baseURL must be set by the provider.") }
+
     var sampleData: Data {
         return Data()
     }
@@ -61,7 +60,7 @@ enum PahkatApi: TargetType {
             return "/virtuals/\(packageId)/index.json"
         }
     }
-    
+
     var method: Moya.Method {
         switch self {
         case .repositoryIndex:
@@ -74,7 +73,7 @@ enum PahkatApi: TargetType {
             return .get
         }
     }
-    
+
     var task: Task {
         switch self {
         case .repositoryIndex:
@@ -91,29 +90,29 @@ enum PahkatApi: TargetType {
 
 public class PahkatApiService {
     private let provider: MoyaConfigurableProvider<PahkatApi>
-    
+
     public init(baseURL: URL) {
         provider = MoyaConfigurableProvider(baseURL: baseURL)
     }
-    
+
     func repositoryIndex() -> Single<Repository> {
         return provider.rx.request(PahkatApi.repositoryIndex)
             .filterSuccessfulStatusAndRedirectCodes()
             .map(Repository.self)
     }
-    
+
     func packagesIndex() -> Single<Packages> {
         return provider.rx.request(PahkatApi.packagesIndex)
             .filterSuccessfulStatusAndRedirectCodes()
             .map(Packages.self)
     }
-    
+
     func virtualsIndex() -> Single<Virtuals> {
         return provider.rx.request(PahkatApi.virtualsIndex)
             .filterSuccessfulStatusAndRedirectCodes()
             .map(Virtuals.self)
     }
-    
+
     func virtual(packageId: String) -> Single<Virtual> {
         return provider.rx.request(PahkatApi.virtual(packageId: packageId))
             .filterSuccessfulStatusAndRedirectCodes()
@@ -129,7 +128,7 @@ public struct Repository: Hashable, Codable {
     let description: [String: String]
     let primaryFilter: PrimaryFilter
     let channels: [Channels]
-    
+
     public var hashValue: Int {
         var v = 0
         v ^= _type?.hashValue ?? 0
@@ -141,7 +140,7 @@ public struct Repository: Hashable, Codable {
         v += channels.count
         return v
     }
-    
+
     public static func ==(lhs: Repository, rhs: Repository) -> Bool {
         if lhs._type == nil && rhs._type != nil { return false }
         if lhs._type != nil && rhs._type == nil { return false }
@@ -154,10 +153,10 @@ public struct Repository: Hashable, Codable {
         if lhs.description != rhs.description { return false }
         if lhs.primaryFilter != rhs.primaryFilter { return false }
         if lhs.channels != rhs.channels { return false }
-        
+
         return true
     }
-    
+
     private enum CodingKeys: String, CodingKey {
         case _type = "@type"
         case agent = "agent"
@@ -167,16 +166,16 @@ public struct Repository: Hashable, Codable {
         case primaryFilter = "primaryFilter"
         case channels = "channels"
     }
-    
+
     public enum _Type: String, Codable {
         case repository = "Repository"
     }
-    
+
     public enum PrimaryFilter: String, Codable {
         case category = "category"
         case language = "language"
     }
-    
+
     public enum Channels: String, Codable {
         case stable = "stable"
         case beta = "beta"
@@ -189,7 +188,7 @@ public struct RepositoryAgent: Hashable, Codable {
     let name: String
     let version: String
     let url: URL?
-    
+
     public var hashValue: Int {
         var v = 0
         v ^= name.hashValue
@@ -197,50 +196,50 @@ public struct RepositoryAgent: Hashable, Codable {
         v ^= url?.hashValue ?? 0
         return v
     }
-    
+
     public static func ==(lhs: RepositoryAgent, rhs: RepositoryAgent) -> Bool {
         if lhs.name != rhs.name { return false }
         if lhs.version != rhs.version { return false }
         if lhs.url == nil && rhs.url != nil { return false }
         if lhs.url != nil && rhs.url == nil { return false }
         if let lv = lhs.url, let rv = rhs.url, lv != rv { return false }
-        
+
         return true
     }
-    
+
     private enum CodingKeys: String, CodingKey {
         case name = "name"
         case version = "version"
         case url = "url"
     }
-    
+
 }
 
 public struct Packages: Hashable, Codable {
     let _type: _Type?
     let packages: [String: Package]
-    
+
     public var hashValue: Int {
         var v = 0
         v ^= _type?.hashValue ?? 0
         v += packages.count
         return v
     }
-    
+
     public static func ==(lhs: Packages, rhs: Packages) -> Bool {
         if lhs._type == nil && rhs._type != nil { return false }
         if lhs._type != nil && rhs._type == nil { return false }
         if let lv = lhs._type, let rv = rhs._type, lv != rv { return false }
         if lhs.packages != rhs.packages { return false }
-        
+
         return true
     }
-    
+
     private enum CodingKeys: String, CodingKey {
         case _type = "@type"
         case packages = "packages"
     }
-    
+
     public enum _Type: String, Codable {
         case packages = "Packages"
     }
@@ -258,7 +257,7 @@ public struct Package: Hashable, Codable {
     let dependencies: [String: String]
     let virtualDependencies: [String: String]
     let installer: Installer
-    
+
     public var hashValue: Int {
         var v = 0
         v ^= _type?.hashValue ?? 0
@@ -274,7 +273,7 @@ public struct Package: Hashable, Codable {
         v ^= installer.hashValue
         return v
     }
-    
+
     public static func ==(lhs: Package, rhs: Package) -> Bool {
         if lhs._type == nil && rhs._type != nil { return false }
         if lhs._type != nil && rhs._type == nil { return false }
@@ -289,10 +288,10 @@ public struct Package: Hashable, Codable {
         if lhs.dependencies != rhs.dependencies { return false }
         if lhs.virtualDependencies != rhs.virtualDependencies { return false }
         if lhs.installer != rhs.installer { return false }
-        
+
         return true
     }
-    
+
     private enum CodingKeys: String, CodingKey {
         case _type = "@type"
         case id = "id"
@@ -306,18 +305,21 @@ public struct Package: Hashable, Codable {
         case virtualDependencies = "virtualDependencies"
         case installer = "installer"
     }
-    
+
     public enum _Type: String, Codable {
         case package = "Package"
     }
-    
+
     public enum Installer: Hashable, Codable {
         case windowsInstaller(WindowsInstaller)
+        case macOsInstaller(MacOsInstaller)
         case tarballInstaller(TarballInstaller)
-        
+
         public static func ==(lhs: Installer, rhs: Installer) -> Bool {
             switch (lhs, rhs) {
             case let (.windowsInstaller(a), .windowsInstaller(b)):
+                return a == b
+            case let (.macOsInstaller(a), .macOsInstaller(b)):
                 return a == b
             case let (.tarballInstaller(a), .tarballInstaller(b)):
                 return a == b
@@ -325,43 +327,50 @@ public struct Package: Hashable, Codable {
                 return false
             }
         }
-        
+
         public var hashValue: Int {
             switch self {
             case let .windowsInstaller(value):
+                return value.hashValue
+            case let .macOsInstaller(value):
                 return value.hashValue
             case let .tarballInstaller(value):
                 return value.hashValue
             }
         }
-        
+
         private enum CodingKeys: String, CodingKey {
             case discriminator = "@type"
         }
-        
+
         private enum DiscriminatorKeys: String, Codable {
             case windowsInstaller = "WindowsInstaller"
+            case macOsInstaller = "MacOSInstaller"
             case tarballInstaller = "TarballInstaller"
         }
-        
+
         public func encode(to encoder: Encoder) throws {
             var container = encoder.singleValueContainer()
             switch self {
             case let .windowsInstaller(value):
                 try container.encode(value)
+            case let .macOsInstaller(value):
+                try container.encode(value)
             case let .tarballInstaller(value):
                 try container.encode(value)
             }
         }
-        
+
         public init(from decoder: Decoder) throws {
             let value = try decoder.singleValueContainer()
             let values = try decoder.container(keyedBy: CodingKeys.self)
             let discriminator = try values.decode(DiscriminatorKeys.self, forKey: .discriminator)
-            
+
             switch discriminator {
             case .windowsInstaller:
                 self = .windowsInstaller(try value.decode(WindowsInstaller.self))
+            case .macOsInstaller:
+                self = .macOsInstaller(try value.decode(MacOsInstaller.self))
             case .tarballInstaller:
                 self = .tarballInstaller(try value.decode(TarballInstaller.self))
             }
@@ -374,7 +383,7 @@ public struct TarballInstaller: Hashable, Codable {
     let url: URL
     let size: UInt64
     let installedSize: UInt64
-    
+
     public var hashValue: Int {
         var v = 0
         v ^= _type?.hashValue ?? 0
@@ -383,7 +392,7 @@ public struct TarballInstaller: Hashable, Codable {
         v ^= installedSize.hashValue
         return v
     }
-    
+
     public static func ==(lhs: TarballInstaller, rhs: TarballInstaller) -> Bool {
         if lhs._type == nil && rhs._type != nil { return false }
         if lhs._type != nil && rhs._type == nil { return false }
@@ -391,17 +400,17 @@ public struct TarballInstaller: Hashable, Codable {
         if lhs.url != rhs.url { return false }
         if lhs.size != rhs.size { return false }
         if lhs.installedSize != rhs.installedSize { return false }
-        
+
         return true
     }
-    
+
     private enum CodingKeys: String, CodingKey {
         case _type = "@type"
         case url = "url"
         case size = "size"
         case installedSize = "installedSize"
     }
-    
+
     public enum _Type: String, Codable {
         case tarballInstaller = "TarballInstaller"
     }
@@ -414,11 +423,11 @@ public struct WindowsInstaller: Hashable, Codable {
     let args: String?
     let uninstallArgs: String?
     let productCode: String
-    let requiresReboot: Bool?
-    let requiresUninstallReboot: Bool?
+    let requiresReboot: Bool
+    let requiresUninstallReboot: Bool
     let size: UInt64
     let installedSize: UInt64
-    
+
     public var hashValue: Int {
         var v = 0
         v ^= _type?.hashValue ?? 0
@@ -427,13 +436,13 @@ public struct WindowsInstaller: Hashable, Codable {
         v ^= args?.hashValue ?? 0
         v ^= uninstallArgs?.hashValue ?? 0
         v ^= productCode.hashValue
-        v ^= requiresReboot?.hashValue ?? 0
-        v ^= requiresUninstallReboot?.hashValue ?? 0
+        v ^= requiresReboot.hashValue
+        v ^= requiresUninstallReboot.hashValue
         v ^= size.hashValue
         v ^= installedSize.hashValue
         return v
     }
-    
+
     public static func ==(lhs: WindowsInstaller, rhs: WindowsInstaller) -> Bool {
         if lhs._type == nil && rhs._type != nil { return false }
         if lhs._type != nil && rhs._type == nil { return false }
@@ -449,18 +458,14 @@ public struct WindowsInstaller: Hashable, Codable {
         if lhs.uninstallArgs != nil && rhs.uninstallArgs == nil { return false }
         if let lv = lhs.uninstallArgs, let rv = rhs.uninstallArgs, lv != rv { return false }
         if lhs.productCode != rhs.productCode { return false }
-        if lhs.requiresReboot == nil && rhs.requiresReboot != nil { return false }
-        if lhs.requiresReboot != nil && rhs.requiresReboot == nil { return false }
-        if let lv = lhs.requiresReboot, let rv = rhs.requiresReboot, lv != rv { return false }
-        if lhs.requiresUninstallReboot == nil && rhs.requiresUninstallReboot != nil { return false }
-        if lhs.requiresUninstallReboot != nil && rhs.requiresUninstallReboot == nil { return false }
-        if let lv = lhs.requiresUninstallReboot, let rv = rhs.requiresUninstallReboot, lv != rv { return false }
+        if lhs.requiresReboot != rhs.requiresReboot { return false }
+        if lhs.requiresUninstallReboot != rhs.requiresUninstallReboot { return false }
         if lhs.size != rhs.size { return false }
         if lhs.installedSize != rhs.installedSize { return false }
-        
+
         return true
     }
-    
+
     private enum CodingKeys: String, CodingKey {
         case _type = "@type"
         case url = "url"
@@ -473,11 +478,11 @@ public struct WindowsInstaller: Hashable, Codable {
         case size = "size"
         case installedSize = "installedSize"
     }
-    
+
     public enum _Type: String, Codable {
         case windowsInstaller = "WindowsInstaller"
     }
-    
+
     public enum Type_: String, Codable {
         case msi = "msi"
         case inno = "inno"
@@ -485,31 +490,90 @@ public struct WindowsInstaller: Hashable, Codable {
     }
 }
 
+public struct MacOsInstaller: Hashable, Codable {
+    let _type: _Type?
+    let url: URL
+    let pkgId: String
+    let targets: [Targets]
+    let requiresReboot: Bool
+    let requiresUninstallReboot: Bool
+    let size: UInt64
+    let installedSize: UInt64
+
+    public var hashValue: Int {
+        var v = 0
+        v ^= _type?.hashValue ?? 0
+        v ^= url.hashValue
+        v ^= pkgId.hashValue
+        v += targets.count
+        v ^= requiresReboot.hashValue
+        v ^= requiresUninstallReboot.hashValue
+        v ^= size.hashValue
+        v ^= installedSize.hashValue
+        return v
+    }
+
+    public static func ==(lhs: MacOsInstaller, rhs: MacOsInstaller) -> Bool {
+        if lhs._type == nil && rhs._type != nil { return false }
+        if lhs._type != nil && rhs._type == nil { return false }
+        if let lv = lhs._type, let rv = rhs._type, lv != rv { return false }
+        if lhs.url != rhs.url { return false }
+        if lhs.pkgId != rhs.pkgId { return false }
+        if lhs.targets != rhs.targets { return false }
+        if lhs.requiresReboot != rhs.requiresReboot { return false }
+        if lhs.requiresUninstallReboot != rhs.requiresUninstallReboot { return false }
+        if lhs.size != rhs.size { return false }
+        if lhs.installedSize != rhs.installedSize { return false }
+
+        return true
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case _type = "@type"
+        case url = "url"
+        case pkgId = "pkgId"
+        case targets = "targets"
+        case requiresReboot = "requiresReboot"
+        case requiresUninstallReboot = "requiresUninstallReboot"
+        case size = "size"
+        case installedSize = "installedSize"
+    }
+
+    public enum _Type: String, Codable {
+        case macOsInstaller = "MacOSInstaller"
+    }
+
+    public enum Targets: String, Codable {
+        case system = "system"
+        case user = "user"
+    }
+}
+
 public struct Virtuals: Hashable, Codable {
     let _type: _Type?
     let virtuals: [String: String]
-    
+
     public var hashValue: Int {
         var v = 0
         v ^= _type?.hashValue ?? 0
         v += virtuals.count
         return v
     }
-    
+
     public static func ==(lhs: Virtuals, rhs: Virtuals) -> Bool {
         if lhs._type == nil && rhs._type != nil { return false }
         if lhs._type != nil && rhs._type == nil { return false }
         if let lv = lhs._type, let rv = rhs._type, lv != rv { return false }
         if lhs.virtuals != rhs.virtuals { return false }
-        
+
         return true
     }
-    
+
     private enum CodingKeys: String, CodingKey {
         case _type = "@type"
         case virtuals = "virtuals"
     }
-    
+
     public enum _Type: String, Codable {
         case virtuals = "Virtuals"
     }
@@ -524,7 +588,7 @@ public struct Virtual: Hashable, Codable {
     let version: String
     let url: URL
     let target: VirtualTarget
-    
+
     public var hashValue: Int {
         var v = 0
         v ^= _type?.hashValue ?? 0
@@ -537,7 +601,7 @@ public struct Virtual: Hashable, Codable {
         v ^= target.hashValue
         return v
     }
-    
+
     public static func ==(lhs: Virtual, rhs: Virtual) -> Bool {
         if lhs._type == nil && rhs._type != nil { return false }
         if lhs._type != nil && rhs._type == nil { return false }
@@ -549,10 +613,10 @@ public struct Virtual: Hashable, Codable {
         if lhs.version != rhs.version { return false }
         if lhs.url != rhs.url { return false }
         if lhs.target != rhs.target { return false }
-        
+
         return true
     }
-    
+
     private enum CodingKeys: String, CodingKey {
         case _type = "@type"
         case virtual = "virtual"
@@ -563,7 +627,7 @@ public struct Virtual: Hashable, Codable {
         case url = "url"
         case target = "target"
     }
-    
+
     public enum _Type: String, Codable {
         case virtual = "Virtual"
     }
@@ -571,23 +635,23 @@ public struct Virtual: Hashable, Codable {
 
 public struct VirtualTarget: Hashable, Codable {
     let registryKey: RegistryKey
-    
+
     public var hashValue: Int {
         var v = 0
         v ^= registryKey.hashValue
         return v
     }
-    
+
     public static func ==(lhs: VirtualTarget, rhs: VirtualTarget) -> Bool {
         if lhs.registryKey != rhs.registryKey { return false }
-        
+
         return true
     }
-    
+
     private enum CodingKeys: String, CodingKey {
         case registryKey = "registryKey"
     }
-    
+
 }
 
 public struct RegistryKey: Hashable, Codable {
@@ -595,7 +659,7 @@ public struct RegistryKey: Hashable, Codable {
     let name: String?
     let value: String?
     let valueKind: ValueKind?
-    
+
     public var hashValue: Int {
         var v = 0
         v ^= path.hashValue
@@ -604,7 +668,7 @@ public struct RegistryKey: Hashable, Codable {
         v ^= valueKind?.hashValue ?? 0
         return v
     }
-    
+
     public static func ==(lhs: RegistryKey, rhs: RegistryKey) -> Bool {
         if lhs.path != rhs.path { return false }
         if lhs.name == nil && rhs.name != nil { return false }
@@ -616,17 +680,17 @@ public struct RegistryKey: Hashable, Codable {
         if lhs.valueKind == nil && rhs.valueKind != nil { return false }
         if lhs.valueKind != nil && rhs.valueKind == nil { return false }
         if let lv = lhs.valueKind, let rv = rhs.valueKind, lv != rv { return false }
-        
+
         return true
     }
-    
+
     private enum CodingKeys: String, CodingKey {
         case path = "path"
         case name = "name"
         case value = "value"
         case valueKind = "valueKind"
     }
-    
+
     public enum ValueKind: String, Codable {
         case string = "string"
         case dword = "dword"
@@ -634,4 +698,3 @@ public struct RegistryKey: Hashable, Codable {
         case etc = "etc"
     }
 }
-

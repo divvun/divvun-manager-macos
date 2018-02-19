@@ -9,26 +9,22 @@
 import Cocoa
 import RxSwift
 
-//protocol WindowConfig<T>: class {
-//    let windowType: T.Type
-//    let instance: NSWindow
-//}
-
-
 class WindowManager {
     private var instances = [String: NSWindowController]()
     
-    func get<T: WindowControllerType>(_ type: T.Type) -> T {
+    func get<W, T: WindowController<W>>(_ type: T.Type) -> T {
         if let instance = instances[T.windowNibPath] as? T {
             return instance
         }
         
         let instance = T()
-        guard let nsInstance = instance as? NSWindowController else {
-            fatalError("wat")
-        }
-        instances[T.windowNibPath] = nsInstance
+        instances[T.windowNibPath] = instance
         return instance
+    }
+    
+    func set<W, T: WindowController<W>>(_ viewController: NSViewController, for type: T.Type) {
+        let windowController = get(type)
+        windowController.contentWindow.set(viewController: viewController)
     }
     
     func show<Window, T: WindowController<Window>>(_ type: T.Type) {
@@ -39,5 +35,3 @@ class WindowManager {
         get(type).close()
     }
 }
-
-

@@ -8,6 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		960DCF4737BF0B93EE5A96C6 /* Pods_Pahkat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D1F698D729533B781C38BEB /* Pods_Pahkat.framework */; };
+		C622703F20358F1B00DBCD65 /* RepositoryIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622703E20358F1B00DBCD65 /* RepositoryIndex.swift */; };
+		C6227041203599BA00DBCD65 /* PackageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6227040203599BA00DBCD65 /* PackageService.swift */; };
+		C62270482035C5D700DBCD65 /* UpdateWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62270472035C5D700DBCD65 /* UpdateWindow.swift */; };
+		C622704A2035C5FC00DBCD65 /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62270492035C5FC00DBCD65 /* UpdateView.swift */; };
+		C622704C2035C60500DBCD65 /* UpdateViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622704B2035C60500DBCD65 /* UpdateViewable.swift */; };
+		C622704E2035C61000DBCD65 /* UpdateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C622704D2035C61000DBCD65 /* UpdateView.xib */; };
+		C62270502035C61900DBCD65 /* UpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622704F2035C61900DBCD65 /* UpdateViewController.swift */; };
+		C62270522035C69000DBCD65 /* UpdateWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C62270512035C69000DBCD65 /* UpdateWindow.xib */; };
+		C62270562036EA9E00DBCD65 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62270552036EA9E00DBCD65 /* Models.swift */; };
+		C62270582037132200DBCD65 /* RPCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62270572037132200DBCD65 /* RPCService.swift */; };
+		C622705F2039DEC800DBCD65 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622705E2039DEC800DBCD65 /* Strings.swift */; };
+		C62270642039E08B00DBCD65 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C62270622039E08B00DBCD65 /* Localizable.strings */; };
+		C62270672039E9CD00DBCD65 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62270662039E9CD00DBCD65 /* AppStore.swift */; };
+		C6227069203A243700DBCD65 /* iso639-autonyms.tsv in Resources */ = {isa = PBXBuildFile; fileRef = C6227068203A243700DBCD65 /* iso639-autonyms.tsv */; };
+		C622706B203A247300DBCD65 /* ISO639.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622706A203A247300DBCD65 /* ISO639.swift */; };
 		C69F948E2028B1EA00127A47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69F948D2028B1EA00127A47 /* AppDelegate.swift */; };
 		C69F94902028B1EA00127A47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C69F948F2028B1EA00127A47 /* Assets.xcassets */; };
 		C69F94932028B1EA00127A47 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C69F94912028B1EA00127A47 /* MainMenu.xib */; };
@@ -16,6 +31,17 @@
 		C6F4BC572029BC05002EE523 /* MainViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC562029BC05002EE523 /* MainViewable.swift */; };
 		C6F4BC592029BC2C002EE523 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC582029BC2C002EE523 /* MainPresenter.swift */; };
 		C6F4BC5B2029BC57002EE523 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC5A2029BC57002EE523 /* MainViewController.swift */; };
+		C6F4BC5D202A410A002EE523 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC5C202A410A002EE523 /* SettingsStore.swift */; };
+		C6F4BC5F202A43BC002EE523 /* RxStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC5E202A43BC002EE523 /* RxStore.swift */; };
+		C6F4BC662031DB81002EE523 /* DownloadViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC652031DB81002EE523 /* DownloadViewable.swift */; };
+		C6F4BC6A2031DBA4002EE523 /* DownloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC692031DBA4002EE523 /* DownloadView.swift */; };
+		C6F4BC6C2031DBC0002EE523 /* DownloadPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC6B2031DBC0002EE523 /* DownloadPresenter.swift */; };
+		C6F4BC6E2031DBCB002EE523 /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC6D2031DBCB002EE523 /* DownloadViewController.swift */; };
+		C6F4BC702031DBD3002EE523 /* DownloadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6F4BC6F2031DBD3002EE523 /* DownloadView.xib */; };
+		C6F4BC722031DCF7002EE523 /* Cocoa+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC712031DCF7002EE523 /* Cocoa+Rx.swift */; };
+		C6F4BC762031E0A3002EE523 /* InstallViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC752031E0A3002EE523 /* InstallViewable.swift */; };
+		C6F4BC782031E0AD002EE523 /* CompletionViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC772031E0AD002EE523 /* CompletionViewable.swift */; };
+		C6F4BC7B2031E18A002EE523 /* ProcessResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC7A2031E18A002EE523 /* ProcessResult.swift */; };
 		C6F8A8162028B2C0009A016E /* Operators+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F8A8152028B2C0009A016E /* Operators+Rx.swift */; };
 		C6F8A8182028B3C1009A016E /* Cocoa+Nibbable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F8A8172028B3C1009A016E /* Cocoa+Nibbable.swift */; };
 		C6F8A81B2028B404009A016E /* Cocoa.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F8A81A2028B404009A016E /* Cocoa.swift */; };
@@ -25,10 +51,38 @@
 		C6F8A8262028BD91009A016E /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F8A8252028BD91009A016E /* MainWindow.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C60B81AC20348A1200D3E093 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C69F94822028B1EA00127A47 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C60B81A5203478E400D3E093;
+			remoteInfo = "pahkat-client";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		4911F9B189408032AD636861 /* Pods-Pahkat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pahkat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pahkat/Pods-Pahkat.debug.xcconfig"; sourceTree = "<group>"; };
 		4D1F698D729533B781C38BEB /* Pods_Pahkat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pahkat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56F306996B41415DC22AAB5C /* Pods-Pahkat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pahkat.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pahkat/Pods-Pahkat.release.xcconfig"; sourceTree = "<group>"; };
+		C60B81A9203489B800D3E093 /* Pahkat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pahkat-Bridging-Header.h"; sourceTree = "<group>"; };
+		C622703E20358F1B00DBCD65 /* RepositoryIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryIndex.swift; sourceTree = "<group>"; };
+		C6227040203599BA00DBCD65 /* PackageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageService.swift; sourceTree = "<group>"; };
+		C62270472035C5D700DBCD65 /* UpdateWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateWindow.swift; sourceTree = "<group>"; };
+		C62270492035C5FC00DBCD65 /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
+		C622704B2035C60500DBCD65 /* UpdateViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewable.swift; sourceTree = "<group>"; };
+		C622704D2035C61000DBCD65 /* UpdateView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdateView.xib; sourceTree = "<group>"; };
+		C622704F2035C61900DBCD65 /* UpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewController.swift; sourceTree = "<group>"; };
+		C62270512035C69000DBCD65 /* UpdateWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdateWindow.xib; sourceTree = "<group>"; };
+		C62270552036EA9E00DBCD65 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		C62270572037132200DBCD65 /* RPCService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPCService.swift; sourceTree = "<group>"; };
+		C622705B203734F300DBCD65 /* pahkatc */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = pahkatc; path = "../pahkat-client/target/debug/pahkatc"; sourceTree = "<group>"; };
+		C622705E2039DEC800DBCD65 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		C62270632039E08B00DBCD65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Pahkat/Base.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+		C62270652039E09600DBCD65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = ../en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C62270662039E9CD00DBCD65 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
+		C6227068203A243700DBCD65 /* iso639-autonyms.tsv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "iso639-autonyms.tsv"; sourceTree = SOURCE_ROOT; };
+		C622706A203A247300DBCD65 /* ISO639.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISO639.swift; sourceTree = "<group>"; };
 		C69F948A2028B1EA00127A47 /* Pahkat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pahkat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C69F948D2028B1EA00127A47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C69F948F2028B1EA00127A47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -40,6 +94,17 @@
 		C6F4BC562029BC05002EE523 /* MainViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewable.swift; sourceTree = "<group>"; };
 		C6F4BC582029BC2C002EE523 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		C6F4BC5A2029BC57002EE523 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		C6F4BC5C202A410A002EE523 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
+		C6F4BC5E202A43BC002EE523 /* RxStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxStore.swift; sourceTree = "<group>"; };
+		C6F4BC652031DB81002EE523 /* DownloadViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadViewable.swift; sourceTree = "<group>"; };
+		C6F4BC692031DBA4002EE523 /* DownloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadView.swift; sourceTree = "<group>"; };
+		C6F4BC6B2031DBC0002EE523 /* DownloadPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadPresenter.swift; sourceTree = "<group>"; };
+		C6F4BC6D2031DBCB002EE523 /* DownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadViewController.swift; sourceTree = "<group>"; };
+		C6F4BC6F2031DBD3002EE523 /* DownloadView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadView.xib; sourceTree = "<group>"; };
+		C6F4BC712031DCF7002EE523 /* Cocoa+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocoa+Rx.swift"; sourceTree = "<group>"; };
+		C6F4BC752031E0A3002EE523 /* InstallViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallViewable.swift; sourceTree = "<group>"; };
+		C6F4BC772031E0AD002EE523 /* CompletionViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionViewable.swift; sourceTree = "<group>"; };
+		C6F4BC7A2031E18A002EE523 /* ProcessResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessResult.swift; sourceTree = "<group>"; };
 		C6F8A8152028B2C0009A016E /* Operators+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Operators+Rx.swift"; sourceTree = "<group>"; };
 		C6F8A8172028B3C1009A016E /* Cocoa+Nibbable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocoa+Nibbable.swift"; sourceTree = "<group>"; };
 		C6F8A81A2028B404009A016E /* Cocoa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cocoa.swift; sourceTree = "<group>"; };
@@ -70,13 +135,70 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C62270432035C1BE00DBCD65 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				C6F8A81D2028B996009A016E /* MainView.swift */,
+				C6F8A81F2028BBC2009A016E /* MainView.xib */,
+				C6F4BC562029BC05002EE523 /* MainViewable.swift */,
+				C6F4BC582029BC2C002EE523 /* MainPresenter.swift */,
+				C6F4BC5A2029BC57002EE523 /* MainViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		C62270442035C1DA00DBCD65 /* Updater */ = {
+			isa = PBXGroup;
+			children = (
+				C62270492035C5FC00DBCD65 /* UpdateView.swift */,
+				C622704D2035C61000DBCD65 /* UpdateView.xib */,
+				C622704B2035C60500DBCD65 /* UpdateViewable.swift */,
+				C622704F2035C61900DBCD65 /* UpdateViewController.swift */,
+				C62270472035C5D700DBCD65 /* UpdateWindow.swift */,
+				C62270512035C69000DBCD65 /* UpdateWindow.xib */,
+			);
+			path = Updater;
+			sourceTree = "<group>";
+		};
+		C62270532036EA8D00DBCD65 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				C6F4BC5E202A43BC002EE523 /* RxStore.swift */,
+				C62270542036EA9300DBCD65 /* JSON-RPC */,
+				C622706A203A247300DBCD65 /* ISO639.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		C62270542036EA9300DBCD65 /* JSON-RPC */ = {
+			isa = PBXGroup;
+			children = (
+				C62270552036EA9E00DBCD65 /* Models.swift */,
+			);
+			path = "JSON-RPC";
+			sourceTree = "<group>";
+		};
+		C62270592037344E00DBCD65 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				C6227068203A243700DBCD65 /* iso639-autonyms.tsv */,
+				C62270622039E08B00DBCD65 /* Localizable.strings */,
+				C69F948F2028B1EA00127A47 /* Assets.xcassets */,
+				C69F94952028B1EA00127A47 /* Pahkat.entitlements */,
+				C69F94942028B1EA00127A47 /* Info.plist */,
+				C60B81A9203489B800D3E093 /* Pahkat-Bridging-Header.h */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
 		C69F94812028B1EA00127A47 = {
 			isa = PBXGroup;
 			children = (
-				C69F948C2028B1EA00127A47 /* Pahkat */,
-				C69F948B2028B1EA00127A47 /* Products */,
-				04A89B0A12655C2C13F8D8DA /* Pods */,
 				FA0E3526D5964C9EC14FAF12 /* Frameworks */,
+				C69F948C2028B1EA00127A47 /* Pahkat */,
+				04A89B0A12655C2C13F8D8DA /* Pods */,
+				C69F948B2028B1EA00127A47 /* Products */,
+				C622705B203734F300DBCD65 /* pahkatc */,
 			);
 			sourceTree = "<group>";
 		};
@@ -91,14 +213,15 @@
 		C69F948C2028B1EA00127A47 /* Pahkat */ = {
 			isa = PBXGroup;
 			children = (
-				C6CC912B2029A56F00CB0B10 /* UI */,
-				C6CC912820291A1B00CB0B10 /* Services */,
-				C6F8A8212028BBFC009A016E /* Managers */,
-				C69F94952028B1EA00127A47 /* Pahkat.entitlements */,
-				C69F94942028B1EA00127A47 /* Info.plist */,
 				C69F948D2028B1EA00127A47 /* AppDelegate.swift */,
-				C69F948F2028B1EA00127A47 /* Assets.xcassets */,
+				C622705E2039DEC800DBCD65 /* Strings.swift */,
 				C6F8A8192028B3F3009A016E /* Extensions */,
+				C6F8A8212028BBFC009A016E /* Managers */,
+				C6F4BC792031E17E002EE523 /* Models */,
+				C6CC912820291A1B00CB0B10 /* Services */,
+				C62270592037344E00DBCD65 /* Support */,
+				C6CC912B2029A56F00CB0B10 /* UI */,
+				C62270532036EA8D00DBCD65 /* Utilities */,
 			);
 			path = Pahkat;
 			sourceTree = "<group>";
@@ -107,6 +230,8 @@
 			isa = PBXGroup;
 			children = (
 				C6CC912920291A2D00CB0B10 /* APIService.swift */,
+				C6227040203599BA00DBCD65 /* PackageService.swift */,
+				C62270572037132200DBCD65 /* RPCService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -114,9 +239,7 @@
 		C6CC912B2029A56F00CB0B10 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				C6F8A8252028BD91009A016E /* MainWindow.swift */,
-				C6CC91262028E69300CB0B10 /* MainWindow.xib */,
-				C69F94912028B1EA00127A47 /* MainMenu.xib */,
+				C62270442035C1DA00DBCD65 /* Updater */,
 				C6CC912C2029A57700CB0B10 /* Main */,
 			);
 			path = UI;
@@ -125,13 +248,54 @@
 		C6CC912C2029A57700CB0B10 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				C6F8A81D2028B996009A016E /* MainView.swift */,
-				C6F8A81F2028BBC2009A016E /* MainView.xib */,
-				C6F4BC562029BC05002EE523 /* MainViewable.swift */,
-				C6F4BC582029BC2C002EE523 /* MainPresenter.swift */,
-				C6F4BC5A2029BC57002EE523 /* MainViewController.swift */,
+				C69F94912028B1EA00127A47 /* MainMenu.xib */,
+				C6F8A8252028BD91009A016E /* MainWindow.swift */,
+				C6CC91262028E69300CB0B10 /* MainWindow.xib */,
+				C6F4BC742031E096002EE523 /* Completion */,
+				C6F4BC732031E08C002EE523 /* Install */,
+				C6F4BC642031DB6C002EE523 /* Download */,
+				C62270432035C1BE00DBCD65 /* Main */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		C6F4BC642031DB6C002EE523 /* Download */ = {
+			isa = PBXGroup;
+			children = (
+				C6F4BC652031DB81002EE523 /* DownloadViewable.swift */,
+				C6F4BC692031DBA4002EE523 /* DownloadView.swift */,
+				C6F4BC6B2031DBC0002EE523 /* DownloadPresenter.swift */,
+				C6F4BC6D2031DBCB002EE523 /* DownloadViewController.swift */,
+				C6F4BC6F2031DBD3002EE523 /* DownloadView.xib */,
+			);
+			path = Download;
+			sourceTree = "<group>";
+		};
+		C6F4BC732031E08C002EE523 /* Install */ = {
+			isa = PBXGroup;
+			children = (
+				C6F4BC752031E0A3002EE523 /* InstallViewable.swift */,
+			);
+			path = Install;
+			sourceTree = "<group>";
+		};
+		C6F4BC742031E096002EE523 /* Completion */ = {
+			isa = PBXGroup;
+			children = (
+				C6F4BC772031E0AD002EE523 /* CompletionViewable.swift */,
+			);
+			path = Completion;
+			sourceTree = "<group>";
+		};
+		C6F4BC792031E17E002EE523 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C6F4BC5C202A410A002EE523 /* SettingsStore.swift */,
+				C6F4BC7A2031E18A002EE523 /* ProcessResult.swift */,
+				C622703E20358F1B00DBCD65 /* RepositoryIndex.swift */,
+				C62270662039E9CD00DBCD65 /* AppStore.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		C6F8A8192028B3F3009A016E /* Extensions */ = {
@@ -140,6 +304,7 @@
 				C6F8A81A2028B404009A016E /* Cocoa.swift */,
 				C6F8A8172028B3C1009A016E /* Cocoa+Nibbable.swift */,
 				C6F8A8152028B2C0009A016E /* Operators+Rx.swift */,
+				C6F4BC712031DCF7002EE523 /* Cocoa+Rx.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -162,6 +327,23 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXLegacyTarget section */
+		C60B81A5203478E400D3E093 /* pahkat-client */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = C60B81A8203478E400D3E093 /* Build configuration list for PBXLegacyTarget "pahkat-client" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "$(PROJECT_DIR)/../pahkat-client";
+			dependencies = (
+			);
+			name = "pahkat-client";
+			passBuildSettingsInEnvironment = 1;
+			productName = "pahkat-client";
+		};
+/* End PBXLegacyTarget section */
+
 /* Begin PBXNativeTarget section */
 		C69F94892028B1EA00127A47 /* Pahkat */ = {
 			isa = PBXNativeTarget;
@@ -171,12 +353,14 @@
 				C69F94862028B1EA00127A47 /* Sources */,
 				C69F94872028B1EA00127A47 /* Frameworks */,
 				C69F94882028B1EA00127A47 /* Resources */,
+				C622705D203735FD00DBCD65 /* Copy pahkatc Into App Bundle */,
 				E627452B56407B0E8E4FE3E0 /* [CP] Embed Pods Frameworks */,
 				C384180AD53213270088D961 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C60B81AD20348A1200D3E093 /* PBXTargetDependency */,
 			);
 			name = Pahkat;
 			productName = Pahkat;
@@ -193,8 +377,13 @@
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = Divvun;
 				TargetAttributes = {
+					C60B81A5203478E400D3E093 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
 					C69F94892028B1EA00127A47 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -213,6 +402,7 @@
 			projectRoot = "";
 			targets = (
 				C69F94892028B1EA00127A47 /* Pahkat */,
+				C60B81A5203478E400D3E093 /* pahkat-client */,
 			);
 		};
 /* End PBXProject section */
@@ -222,10 +412,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6227069203A243700DBCD65 /* iso639-autonyms.tsv in Resources */,
+				C622704E2035C61000DBCD65 /* UpdateView.xib in Resources */,
 				C6CC91272028E69300CB0B10 /* MainWindow.xib in Resources */,
 				C6F8A8202028BBC2009A016E /* MainView.xib in Resources */,
 				C69F94902028B1EA00127A47 /* Assets.xcassets in Resources */,
 				C69F94932028B1EA00127A47 /* MainMenu.xib in Resources */,
+				C62270642039E08B00DBCD65 /* Localizable.strings in Resources */,
+				C62270522035C69000DBCD65 /* UpdateWindow.xib in Resources */,
+				C6F4BC702031DBD3002EE523 /* DownloadView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,6 +460,20 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pahkat/Pods-Pahkat-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C622705D203735FD00DBCD65 /* Copy pahkatc Into App Bundle */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy pahkatc Into App Bundle";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "RESOURCE_PATH=$SRCROOT/../pahkat-client/target/${CONFIGURATION}/pahkatc\n\nBUILD_APP_DIR=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\n\ncp $RESOURCE_PATH $BUILD_APP_DIR/Contents/MacOS/";
+		};
 		E627452B56407B0E8E4FE3E0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -273,17 +482,21 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Pahkat/Pods-Pahkat-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/JSONRPCKit/JSONRPCKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxFeedback/RxFeedback.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSONRPCKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxFeedback.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -298,23 +511,61 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C62270482035C5D700DBCD65 /* UpdateWindow.swift in Sources */,
+				C622704C2035C60500DBCD65 /* UpdateViewable.swift in Sources */,
 				C69F948E2028B1EA00127A47 /* AppDelegate.swift in Sources */,
 				C6F4BC5B2029BC57002EE523 /* MainViewController.swift in Sources */,
+				C6F4BC6E2031DBCB002EE523 /* DownloadViewController.swift in Sources */,
+				C6F4BC6C2031DBC0002EE523 /* DownloadPresenter.swift in Sources */,
+				C62270582037132200DBCD65 /* RPCService.swift in Sources */,
 				C6F8A8182028B3C1009A016E /* Cocoa+Nibbable.swift in Sources */,
 				C6F8A8162028B2C0009A016E /* Operators+Rx.swift in Sources */,
+				C6F4BC5D202A410A002EE523 /* SettingsStore.swift in Sources */,
+				C6F4BC7B2031E18A002EE523 /* ProcessResult.swift in Sources */,
 				C6F4BC572029BC05002EE523 /* MainViewable.swift in Sources */,
+				C62270672039E9CD00DBCD65 /* AppStore.swift in Sources */,
+				C6F4BC662031DB81002EE523 /* DownloadViewable.swift in Sources */,
 				C6F8A81E2028B996009A016E /* MainView.swift in Sources */,
 				C6F4BC592029BC2C002EE523 /* MainPresenter.swift in Sources */,
+				C6F4BC6A2031DBA4002EE523 /* DownloadView.swift in Sources */,
+				C6F4BC762031E0A3002EE523 /* InstallViewable.swift in Sources */,
+				C622703F20358F1B00DBCD65 /* RepositoryIndex.swift in Sources */,
 				C6F8A81B2028B404009A016E /* Cocoa.swift in Sources */,
+				C622706B203A247300DBCD65 /* ISO639.swift in Sources */,
+				C6227041203599BA00DBCD65 /* PackageService.swift in Sources */,
 				C6F8A8232028BC07009A016E /* WindowManager.swift in Sources */,
+				C62270502035C61900DBCD65 /* UpdateViewController.swift in Sources */,
+				C622705F2039DEC800DBCD65 /* Strings.swift in Sources */,
 				C6CC912A20291A2D00CB0B10 /* APIService.swift in Sources */,
+				C6F4BC782031E0AD002EE523 /* CompletionViewable.swift in Sources */,
+				C6F4BC5F202A43BC002EE523 /* RxStore.swift in Sources */,
+				C622704A2035C5FC00DBCD65 /* UpdateView.swift in Sources */,
 				C6F8A8262028BD91009A016E /* MainWindow.swift in Sources */,
+				C6F4BC722031DCF7002EE523 /* Cocoa+Rx.swift in Sources */,
+				C62270562036EA9E00DBCD65 /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		C60B81AD20348A1200D3E093 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C60B81A5203478E400D3E093 /* pahkat-client */;
+			targetProxy = C60B81AC20348A1200D3E093 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		C62270622039E08B00DBCD65 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C62270632039E08B00DBCD65 /* Base */,
+				C62270652039E09600DBCD65 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		C69F94912028B1EA00127A47 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -326,6 +577,39 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		C60B81A6203478E400D3E093 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CARGO_BIN = pahkatc;
+				CARGO_FEATURES = "ipc,binaries";
+				CARGO_HOME = "$(HOME)/.cargo";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 2K5J2584NX;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C60B81A7203478E400D3E093 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CARGO_BIN = pahkatc;
+				CARGO_FEATURES = "ipc,binaries";
+				CARGO_HOME = "$(HOME)/.cargo";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 2K5J2584NX;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		C69F94962028B1EA00127A47 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -437,15 +721,35 @@
 			baseConfigurationReference = 4911F9B189408032AD636861 /* Pods-Pahkat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Pahkat/Pahkat.entitlements;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Pahkat/Support/Pahkat.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 2K5J2584NX;
-				INFOPLIST_FILE = Pahkat/Info.plist;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../pahkat-client/src/";
+				INFOPLIST_FILE = Pahkat/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../pahkat-client/target/debug";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"Moya\"",
+					"-framework",
+					"\"Result\"",
+					"-framework",
+					"\"RxCocoa\"",
+					"-framework",
+					"\"RxFeedback\"",
+					"-framework",
+					"\"RxSwift\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = no.divvun.Pahkat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Pahkat/Support/Pahkat-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -455,15 +759,34 @@
 			baseConfigurationReference = 56F306996B41415DC22AAB5C /* Pods-Pahkat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Pahkat/Pahkat.entitlements;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Pahkat/Support/Pahkat.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 2K5J2584NX;
-				INFOPLIST_FILE = Pahkat/Info.plist;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../pahkat-client/src/";
+				INFOPLIST_FILE = Pahkat/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../pahkat-client/target/release";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"Moya\"",
+					"-framework",
+					"\"Result\"",
+					"-framework",
+					"\"RxCocoa\"",
+					"-framework",
+					"\"RxFeedback\"",
+					"-framework",
+					"\"RxSwift\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = no.divvun.Pahkat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Pahkat/Support/Pahkat-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
@@ -471,6 +794,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C60B81A8203478E400D3E093 /* Build configuration list for PBXLegacyTarget "pahkat-client" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C60B81A6203478E400D3E093 /* Debug */,
+				C60B81A7203478E400D3E093 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C69F94852028B1EA00127A47 /* Build configuration list for PBXProject "Pahkat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -15,7 +15,7 @@ protocol MainViewable: class {
     var onGroupToggled: Observable<[Package]> { get }
     var onPrimaryButtonPressed: Driver<Void> { get }
     func update(title: String)
-    func showDownloadView()
+    func showDownloadView(with packages: [Package])
     func updatePrimaryButton(isEnabled: Bool, label: String)
     func handle(error: Error)
 }
