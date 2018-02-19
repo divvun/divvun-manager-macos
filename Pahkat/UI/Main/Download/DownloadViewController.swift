@@ -25,7 +25,7 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
     }
     
     func startInstallation(packages: [Package]) {
-        print(packages)
+        AppContext.windows.set(InstallViewController(packages: packages), for: MainWindowController.self)
     }
     
     func handle(error: Error) {
