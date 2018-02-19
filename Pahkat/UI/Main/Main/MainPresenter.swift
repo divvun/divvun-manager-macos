@@ -27,9 +27,12 @@ class MainPresenter {
             .filter { $0.repository != nil }
             .map { $0.repository! }
             .distinctUntilChanged()
+            .observeOn(MainScheduler.instance)
+            .subscribeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] repo in
                 // TODO: do what is needed to cause the outline view to update.
                 self?.repo = repo
+                self?.view.setRepository(repo: repo)
                 print(repo.meta)
             }, onError: { [weak self] in self?.view.handle(error: $0) })
     }
@@ -46,7 +49,7 @@ class MainPresenter {
         return view.onPrimaryButtonPressed.drive(onNext: { [weak self] in
             guard let repo = self?.repo else { fatalError() }
             let window = AppContext.windows.get(MainWindowController.self)
-            window.contentWindow.set(viewController: DownloadViewController.init(packages:[ repo.packages["sme-keyboard"]!]))
+            window.contentWindow.set(viewController: DownloadViewController.init(packages:[repo.packages["sme-keyboard"]!]))
         })
     }
     
