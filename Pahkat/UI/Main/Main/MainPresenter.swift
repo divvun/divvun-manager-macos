@@ -13,6 +13,7 @@ import RxCocoa
 class MainPresenter {
     private unowned var view: MainViewable
     private var repo: RepositoryIndex? = nil
+    private var selectedPackages = Set<Package>()
     
     init(view: MainViewable) {
         self.view = view
@@ -52,9 +53,24 @@ class MainPresenter {
             }, onError: { [weak self] in self?.view.handle(error: $0) })
     }
     
-//    private func bindPackageToggled() -> Disposable {
-//
-//    }
+    private func bindPackageToggled() -> Disposable {
+        return view.onPackagesToggled.subscribe(onNext: { [weak self] packages in
+            guard let `self` = self else { return }
+            
+            for package in packages {
+                if self.selectedPackages.contains(package) {
+                    self.selectedPackages.remove(package)
+                } else {
+                    self.selectedPackages.insert(package)
+                }
+            }
+            
+            self.view.updateSelectedPackages(packages: self.selectedPackages)
+//            print($0.name["en"])
+            
+            
+        })
+    }
 //
 //    private func bindGroupToggled() -> Disposable {
 //
@@ -76,7 +92,7 @@ class MainPresenter {
         return CompositeDisposable(disposables: [
 //            bindPrimaryButtonLabel(),
             bindUpdatePackageList(),
-//            bindPackageToggled(),
+            bindPackageToggled(),
 //            bindGroupToggled(),
             bindPrimaryButton()
         ])

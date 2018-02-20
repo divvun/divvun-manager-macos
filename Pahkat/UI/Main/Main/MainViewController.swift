@@ -11,12 +11,17 @@ import RxSwift
 import RxCocoa
 
 class MainViewController: DisposableViewController<MainView>, MainViewable, NSToolbarDelegate {
+    
+    
     private lazy var presenter = { MainPresenter(view: self) }()
     private var repo: RepositoryIndex? = nil
     
     private var dataSource: MainViewControllerDataSource! = nil
     
-    var onPackageToggled: Observable<Package> = Observable.empty()
+    let onPackagesToggledSubject = PublishSubject<[Package]>()
+    var onPackagesToggled: Observable<[Package]> {
+        return onPackagesToggledSubject.asObservable()
+    }
     var onGroupToggled: Observable<[Package]> = Observable.empty()
     
     lazy var onPrimaryButtonPressed: Driver<Void> = {
@@ -26,7 +31,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     func setRepository(repo: RepositoryIndex, statuses: [String: PackageInstallStatus]) {
         //print(repo)
         self.repo = repo
-        dataSource = MainViewControllerDataSource(with: repo, statuses: statuses, filter: repo.meta.primaryFilter)
+        dataSource = MainViewControllerDataSource(with: repo, statuses: statuses, filter: repo.meta.primaryFilter, outlet: onPackagesToggledSubject)
         contentView.outlineView.delegate = self.dataSource
         contentView.outlineView.dataSource = self.dataSource
     }
@@ -65,6 +70,15 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         }
         
         return nil
+    }
+    
+    func updateSelectedPackages(packages: Set<Package>) {
+        self.dataSource.selectedPackages = packages
+        // TODO: handle race condition with animation of checkboxes, because you chose to do this contract. You idiot.
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+//            print("PEW PEW PEW")
+            self.contentView.outlineView.reloadData()
+//        }
     }
     
     override func viewDidLoad() {
@@ -133,23 +147,32 @@ fileprivate func languageFilter(repo: RepositoryIndex) -> PackageMap {
     return data
 }
 
+fileprivate let DIRTY = UnsafeMutableRawPointer.allocate(bytes: 1, alignedTo: 0)
+
 class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutlineViewDelegate {
+    let bag = DisposeBag()
+    
+    private let outlet: PublishSubject<[Package]>
+    
     private let data: PackageMap
     private let statuses: [String: PackageInstallStatus]
     private let filter: Repository.PrimaryFilter
+    var selectedPackages = Set<Package>()
     
     private let byteCountFormatter = ByteCountFormatter()
     
-    init(with repo: RepositoryIndex, statuses: [String: PackageInstallStatus], filter: Repository.PrimaryFilter) {
+    init(with repo: RepositoryIndex, statuses: [String: PackageInstallStatus], filter: Repository.PrimaryFilter, outlet: PublishSubject<[Package]>) {
         switch filter {
-        case .category:
+        //case .category:
+        default:
             self.data = categoryFilter(repo: repo)
-        case .language:
-            self.data = languageFilter(repo: repo)
+        //case .language:
+        //    self.data = languageFilter(repo: repo)
         }
         
         self.statuses = statuses
         self.filter = filter
+        self.outlet = outlet
         
         super.init()
     }
@@ -185,7 +208,17 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
         if let package = item as? Package {
             switch column {
             case .name:
-                cell.textField?.stringValue = package.name[Strings.languageCode ?? "en"] ?? ""
+                let packageName = package.name[Strings.languageCode ?? "en"] ?? ""
+                cell.textField?.stringValue = packageName
+                if let button = cell.nextKeyView as? RxCheckbox {
+                    button.set(onToggle: { [weak self] _ in
+                        self?.outlet.onNext([package])
+                    })
+                    button.toolTip = packageName
+                    button.state = selectedPackages.contains(package) ? .on : .off
+                } else {
+                    print("could not get button")
+                }
             case .version:
                 cell.textField?.stringValue = "\(package.version) (\(byteCountFormatter.string(fromByteCount: package.installer.size)))"
             case .state:
@@ -193,6 +226,31 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
             }
         } else if let header = item as? String {
             guard case .name = column else { return cell }
+            
+            if let button = cell.nextKeyView as? RxCheckbox {
+                button.set(onToggle: { [weak self] _ in
+                    guard let `self` = self else { return }
+                    print(self.data[header]!.count)
+                    self.outlet.onNext(self.data[header]!)
+                })
+                button.toolTip = header
+                button.state = {
+                    for index in 0..<outlineView.numberOfChildren(ofItem: header) {
+                        let child = outlineView.child(index, ofItem: header)!
+                        let view = self.outlineView(outlineView, viewFor: tableColumn, item: child) as? NSTableCellView
+                        if let button = view?.nextKeyView as? NSButton {
+                            if(button.state == .on) {
+                                return .on
+                            }
+                        }
+                    }
+                    return NSControl.StateValue.off
+                }()
+            } else {
+                print("could not get button")
+            }
+            
+            
             
             let bold = [kCTFontAttributeName as NSAttributedStringKey: NSFont.boldSystemFont(ofSize: 13)]
             switch filter {
@@ -208,5 +266,39 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
         
         return cell
     }
+    
+    deinit {
+        outlet.onCompleted()
+    }
+    
+//    private func outlineView(didCollapse outlineView: NSOutlineView, withKey key: String) {
+//        for index in 0..<outlineView.numberOfChildren(ofItem: key) {
+//            let child = outlineView.child(index, ofItem: key)!
+//            let view = self.outlineView(outlineView, viewFor: tableColumn, item: child) as? NSTableCellView
+//            view?.textField?.stringValue="This View"
+//            if let button = view?.nextKeyView as? NSButton {
+//                button.setNextState()
+//                button.isEnabled = false
+//                //print(button.title)
+//            } else {
+//                print("could not find button")
+//            }
+//        }
+//        button.rx.state.changed
+//            .observeOn(MainScheduler.instance)
+//            .subscribeOn(MainScheduler.instance)
+//            .subscribe(onNext: { _ in
+//                print(outlineView.numberOfChildren(ofItem: item))
+//
+//            })
+//            .disposed(by: bag)
+//
+//    }
+//
+//    func outlineViewItemDidCollapse(_ notification: Notification) {
+//        if let view = notification.object as? NSOutlineView, let key = notification.userInfo?["NSObject"] as? String {
+//            outlineView(didCollapse: view, withKey: key)
+//        }
+//    }
 }
 
