@@ -34,6 +34,7 @@
 		C69F94932028B1EA00127A47 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C69F94912028B1EA00127A47 /* MainMenu.xib */; };
 		C6CC91272028E69300CB0B10 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6CC91262028E69300CB0B10 /* MainWindow.xib */; };
 		C6CC912A20291A2D00CB0B10 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CC912920291A2D00CB0B10 /* APIService.swift */; };
+		C6F2676D203B96E8006EC59C /* APIService+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F2676C203B96E8006EC59C /* APIService+Extensions.swift */; };
 		C6F4BC572029BC05002EE523 /* MainViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC562029BC05002EE523 /* MainViewable.swift */; };
 		C6F4BC592029BC2C002EE523 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC582029BC2C002EE523 /* MainPresenter.swift */; };
 		C6F4BC5B2029BC57002EE523 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC5A2029BC57002EE523 /* MainViewController.swift */; };
@@ -103,6 +104,7 @@
 		C69F94952028B1EA00127A47 /* Pahkat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pahkat.entitlements; sourceTree = "<group>"; };
 		C6CC91262028E69300CB0B10 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		C6CC912920291A2D00CB0B10 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		C6F2676C203B96E8006EC59C /* APIService+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Extensions.swift"; sourceTree = "<group>"; };
 		C6F4BC562029BC05002EE523 /* MainViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewable.swift; sourceTree = "<group>"; };
 		C6F4BC582029BC2C002EE523 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		C6F4BC5A2029BC57002EE523 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 		C6F8A8192028B3F3009A016E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C6F2676C203B96E8006EC59C /* APIService+Extensions.swift */,
 				C6F8A81A2028B404009A016E /* Cocoa.swift */,
 				C6F8A8172028B3C1009A016E /* Cocoa+Nibbable.swift */,
 				C6F8A8152028B2C0009A016E /* Operators+Rx.swift */,
@@ -557,6 +560,7 @@
 				C6227041203599BA00DBCD65 /* PackageService.swift in Sources */,
 				276391A2203ADDD60096E10C /* InstallPresenter.swift in Sources */,
 				C6F8A8232028BC07009A016E /* WindowManager.swift in Sources */,
+				C6F2676D203B96E8006EC59C /* APIService+Extensions.swift in Sources */,
 				C62270502035C61900DBCD65 /* UpdateViewController.swift in Sources */,
 				C622705F2039DEC800DBCD65 /* Strings.swift in Sources */,
 				C6CC912A20291A2D00CB0B10 /* APIService.swift in Sources */,

@@ -27,13 +27,28 @@ class MainPresenter {
             .filter { $0.repository != nil }
             .map { $0.repository! }
             .distinctUntilChanged()
+            .flatMapLatest { (repo: RepositoryIndex) -> Observable<(RepositoryIndex, [String: PackageInstallStatus])> in
+                let statuses = repo.packages.values.flatMap { package in
+                    try? AppContext.rpc.status(of: package, target: .user)
+                        .map { (package.id, $0) }
+                        .asObservable()
+                }
+                
+                return Observable.merge(statuses)
+                    .toArray()
+                    .map({ (pairs: [(String, PackageInstallStatus)]) -> (RepositoryIndex, [String: PackageInstallStatus]) in
+                        var out = [String: PackageInstallStatus]()
+                        pairs.forEach { out[$0.0] = $0.1 }
+                        return (repo, out)
+                    })
+            }
             .observeOn(MainScheduler.instance)
             .subscribeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] repo in
+            .subscribe(onNext: { [weak self] (repo, statuses) in
                 // TODO: do what is needed to cause the outline view to update.
                 self?.repo = repo
-                self?.view.setRepository(repo: repo)
-                print(repo.meta)
+                self?.view.setRepository(repo: repo, statuses: statuses)
+//                print(repo.meta)
             }, onError: { [weak self] in self?.view.handle(error: $0) })
     }
     

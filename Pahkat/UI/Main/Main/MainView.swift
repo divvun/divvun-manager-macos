@@ -11,11 +11,16 @@ import RxSwift
 import RxCocoa
 
 class MainView: View {
+    @IBOutlet weak var primaryLabel: NSTextField!
     @IBOutlet weak var primaryButton: NSButton!
     @IBOutlet weak var outlineView: NSOutlineView!
     
     override func awakeFromNib() {
-        primaryButton.title = Strings.noPackagesSelected
+        primaryButton.title = Strings.processNPackages(count: String(3))
+        primaryButton.sizeToFit()
+        
+        primaryLabel.stringValue = Strings.appName
+        primaryLabel.sizeToFit()
     }
 }
 

@@ -8,10 +8,16 @@
 
 import Cocoa
 
-class MainWindow: Window {}
+class MainWindow: Window {
+    @IBOutlet weak var titleLabel: NSTextField!
+    @IBOutlet weak var titleButton: NSButton!
+}
 
 class MainWindowController: WindowController<MainWindow> {
+    
     override func windowDidLoad() {
-        self.contentWindow.set(viewController: MainViewController())
+        DispatchQueue.main.async {
+            self.contentWindow.set(viewController: MainViewController())
+        }
     }
 }

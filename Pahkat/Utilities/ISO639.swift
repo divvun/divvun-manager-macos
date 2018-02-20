@@ -12,14 +12,14 @@ struct ISO639Data {
     let tag3: String
     let tag1: String
     let name: String
-    let autonym: String
+    let autonym: String?
     let source: String
     
     fileprivate init(row: [String]) {
         tag1 = row[0]
         tag3 = row[1]
         name = row[2]
-        autonym = row[3]
+        autonym = row[3] == "" ? nil : row[3]
         source = row[4]
     }
 }

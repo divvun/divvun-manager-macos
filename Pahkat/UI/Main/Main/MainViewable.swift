@@ -18,5 +18,5 @@ protocol MainViewable: class {
     func showDownloadView(with packages: [Package])
     func updatePrimaryButton(isEnabled: Bool, label: String)
     func handle(error: Error)
-    func setRepository(repo: RepositoryIndex)
+    func setRepository(repo: RepositoryIndex, statuses: [String: PackageInstallStatus])
 }

@@ -29,11 +29,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         AppDelegate.instance = self
         NSApp.mainMenu = NSMenu.loadFromNib(path: "MainMenu")
         
-        print(Strings.appName)
-        
         // TODO: Check if run at startup and don't show window.
         AppContext.windows.show(MainWindowController.self)
-        
+
         // If the repository URL settings are changed, download new repo and push into AppStore.
         AppContext.settings.state.map { $0.repositoryURL }
             .distinctUntilChanged()
@@ -41,7 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .subscribe(onNext: { AppContext.store.dispatch(event: AppEvent.setRepository($0)) })
             .disposed(by: bag)
         
-        print(ISO639.get(tag: "kpv"))
+//        print(ISO639.get(tag: "kpv"))
         
         // Wake RPC service
 //        _ = AppContext.rpc
@@ -63,7 +61,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //            }
 //            .filter { tuple in
 //                let progress: PackageDownloadStatus = tuple.1
-//                
+//
 //                if case PackageDownloadStatus.completed = progress {
 //                    return true
 //                } else {

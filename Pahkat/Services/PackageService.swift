@@ -14,6 +14,19 @@ enum PackageInstallStatus: String, Codable {
     case upToDate
     case requiresUpdate
     case versionSkipped
+    
+    var description: String {
+        switch self {
+        case .notInstalled:
+            return Strings.notInstalled
+        case .upToDate:
+            return Strings.installed
+        case .requiresUpdate:
+            return Strings.updateAvailable
+        case .versionSkipped:
+            return Strings.versionSkipped
+        }
+    }
 }
 
 struct DownloadError: Error, Codable {
