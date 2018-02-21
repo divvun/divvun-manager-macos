@@ -10,4 +10,6 @@ import Cocoa
 
 class DownloadView: View {
     @IBOutlet weak var primaryButton: NSButton!
+    @IBOutlet weak var scrollView: NSScrollView!
+    @IBOutlet weak var tableView: NSTableView!
 }

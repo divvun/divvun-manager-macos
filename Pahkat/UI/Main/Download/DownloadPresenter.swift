@@ -18,6 +18,20 @@ class DownloadPresenter {
         self.packages = packages
     }
     
+    func downloadTest() -> Observable<PackageDownloadStatus> {
+        // TODO: subprocess
+        let foo: [PackageDownloadStatus] = [.notStarted,
+                                            .starting,
+                                            .progress(downloaded: 0, total: 100),
+                                            .progress(downloaded: 50, total: 100),
+                                            .progress(downloaded: 100, total: 100),
+                                            .completed]
+        return Observable.interval(1.0, scheduler: MainScheduler.instance)
+            .map {
+                foo[$0]
+            }.take(foo.count)
+    }
+    
     private func download() -> Disposable {
         
 //        return try! AppContext.rpc.download(packages[0], target: .user).do(onNext: { [weak self] status in

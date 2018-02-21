@@ -12,6 +12,8 @@
 		276391A4203AE2660096E10C /* CompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276391A3203AE2660096E10C /* CompletionViewController.swift */; };
 		276391A6203AECE30096E10C /* CompletionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276391A5203AECE30096E10C /* CompletionView.swift */; };
 		276391A8203C69670096E10C /* RxCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276391A7203C69670096E10C /* RxCheckbox.swift */; };
+		276391AC203D7F620096E10C /* DownloadProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276391AB203D7F620096E10C /* DownloadProgressView.swift */; };
+		276391AE203DA3020096E10C /* DownloadProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 276391AD203DA3020096E10C /* DownloadProgressView.xib */; };
 		278A10B5203ADAB2007C3DC8 /* InstallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278A10B4203ADAB2007C3DC8 /* InstallView.xib */; };
 		278A10B7203ADACD007C3DC8 /* InstallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278A10B6203ADACD007C3DC8 /* InstallView.swift */; };
 		960DCF4737BF0B93EE5A96C6 /* Pods_Pahkat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D1F698D729533B781C38BEB /* Pods_Pahkat.framework */; };
@@ -75,6 +77,8 @@
 		276391A3203AE2660096E10C /* CompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionViewController.swift; sourceTree = "<group>"; };
 		276391A5203AECE30096E10C /* CompletionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionView.swift; sourceTree = "<group>"; };
 		276391A7203C69670096E10C /* RxCheckbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxCheckbox.swift; sourceTree = "<group>"; };
+		276391AB203D7F620096E10C /* DownloadProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadProgressView.swift; sourceTree = "<group>"; };
+		276391AD203DA3020096E10C /* DownloadProgressView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadProgressView.xib; sourceTree = "<group>"; };
 		278A10B4203ADAB2007C3DC8 /* InstallView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstallView.xib; sourceTree = "<group>"; };
 		278A10B6203ADACD007C3DC8 /* InstallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallView.swift; sourceTree = "<group>"; };
 		4911F9B189408032AD636861 /* Pods-Pahkat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pahkat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pahkat/Pods-Pahkat.debug.xcconfig"; sourceTree = "<group>"; };
@@ -284,6 +288,8 @@
 				C6F4BC6B2031DBC0002EE523 /* DownloadPresenter.swift */,
 				C6F4BC6D2031DBCB002EE523 /* DownloadViewController.swift */,
 				C6F4BC6F2031DBD3002EE523 /* DownloadView.xib */,
+				276391AB203D7F620096E10C /* DownloadProgressView.swift */,
+				276391AD203DA3020096E10C /* DownloadProgressView.xib */,
 			);
 			path = Download;
 			sourceTree = "<group>";
@@ -441,6 +447,7 @@
 				C6CC91272028E69300CB0B10 /* MainWindow.xib in Resources */,
 				C6F8A8202028BBC2009A016E /* MainView.xib in Resources */,
 				278A10B5203ADAB2007C3DC8 /* InstallView.xib in Resources */,
+				276391AE203DA3020096E10C /* DownloadProgressView.xib in Resources */,
 				C69F94902028B1EA00127A47 /* Assets.xcassets in Resources */,
 				C69F94932028B1EA00127A47 /* MainMenu.xib in Resources */,
 				C62270642039E08B00DBCD65 /* Localizable.strings in Resources */,
@@ -549,6 +556,7 @@
 				C6F8A8162028B2C0009A016E /* Operators+Rx.swift in Sources */,
 				C6F4BC5D202A410A002EE523 /* SettingsStore.swift in Sources */,
 				C6F4BC7B2031E18A002EE523 /* ProcessResult.swift in Sources */,
+				276391AC203D7F620096E10C /* DownloadProgressView.swift in Sources */,
 				C6F4BC572029BC05002EE523 /* MainViewable.swift in Sources */,
 				C62270672039E9CD00DBCD65 /* AppStore.swift in Sources */,
 				276391A4203AE2660096E10C /* CompletionViewController.swift in Sources */,
