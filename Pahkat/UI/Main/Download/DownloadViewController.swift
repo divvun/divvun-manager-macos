@@ -20,24 +20,27 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
     func setStatus(package: Package, status: PackageDownloadStatus) {
         //print(package)
         print(status)
-        // TODO make this main thread and also have good strings.
-        if let view = self.delegate.tableView(contentView.tableView, viewFor: package) as? DownloadProgressView {
-            switch(status) {
-            case .notStarted:
-                view.progressLabel.stringValue = "Not Started"
-            case .starting:
-                view.progressLabel.stringValue = "Starting…"
-            case .progress(let downloaded, let total):
-                view.progressBar.maxValue = Double(total)
-                view.progressBar.minValue = 0
-                view.progressBar.doubleValue = Double(downloaded)
-            case .completed:
-                view.progressLabel.stringValue = "Completed"
-            case .error:
-                view.progressLabel.stringValue = "Error"
+        // TODO make this main thread and also have good strings (localise).
+        DispatchQueue.main.async {
+            if let view = self.delegate.tableView(self.contentView.tableView, viewFor: package) as? DownloadProgressView {
+                switch(status) {
+                case .notStarted:
+                    view.progressLabel.stringValue = "Not Started"
+                case .starting:
+                    view.progressLabel.stringValue = "Starting…"
+                case .progress(let downloaded, let total):
+                    view.progressBar.maxValue = Double(total)
+                    view.progressBar.minValue = 0
+                    view.progressBar.doubleValue = Double(downloaded)
+                    view.progressLabel.stringValue = "Downloading…"
+                case .completed:
+                    view.progressLabel.stringValue = "Completed"
+                case .error:
+                    view.progressLabel.stringValue = "Error"
+                }
+            } else {
+                print("couldn't get downloadProgressView")
             }
-        } else {
-            print("couldn't get downloadProgressView")
         }
     }
     
