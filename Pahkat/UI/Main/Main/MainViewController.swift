@@ -15,7 +15,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     
     private lazy var presenter = { MainPresenter(view: self) }()
     private var repo: RepositoryIndex? = nil
-    
+    private var statuses = [String: PackageInstallStatus]()
     private var dataSource: MainViewControllerDataSource! = nil
     
     let onPackagesToggledSubject = PublishSubject<[Package]>()
@@ -31,6 +31,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     func setRepository(repo: RepositoryIndex, statuses: [String: PackageInstallStatus]) {
         //print(repo)
         self.repo = repo
+        self.statuses = statuses
         dataSource = MainViewControllerDataSource(with: repo, statuses: statuses, filter: repo.meta.primaryFilter, outlet: onPackagesToggledSubject)
         contentView.outlineView.delegate = self.dataSource
         contentView.outlineView.dataSource = self.dataSource
@@ -47,6 +48,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     func updatePrimaryButton(isEnabled: Bool, label: String) {
         contentView.primaryButton.isEnabled = isEnabled
         contentView.primaryButton.title = label
+        contentView.primaryButton.sizeToFit()
     }
     
     func handle(error: Error) {
@@ -58,8 +60,11 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
         if itemIdentifier == NSToolbarItem.Identifier(rawValue: "button") {
             let item = NSToolbarItem(itemIdentifier: NSToolbarItem.Identifier(rawValue: "button"))
+            
             item.label = "Hello"
             item.view = contentView.primaryButton
+            item.maxSize = NSSize.init(width: 175, height: item.view?.frame.height ?? 0)
+            item.minSize = NSSize.init(width: 150, height: item.view?.frame.height ?? 0)
             return item
         } else if itemIdentifier == NSToolbarItem.Identifier(rawValue: "title") {
             let item = NSToolbarItem(itemIdentifier: NSToolbarItem.Identifier(rawValue: "title"))
@@ -74,6 +79,23 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     
     func updateSelectedPackages(packages: Set<Package>) {
         self.dataSource.selectedPackages = packages
+        
+        updatePrimaryButton(isEnabled: packages.count>0,
+            label: {
+                if (packages.count == 0) {
+                    return Strings.noPackagesSelected
+                }
+                var initial: PackageInstallStatus?
+                for package in packages {
+                    if (initial == nil) {
+                        initial = statuses[package.id]
+                    } else if (!(statuses[package.id] == initial)) {
+                        return Strings.processNPackages(count: String(packages.count))
+                    }
+                }
+                return Strings.processNPackages(count: String(packages.count) + " single")
+            }())
+        
         // TODO: handle race condition with animation of checkboxes, because you chose to do this contract. You idiot.
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
 //            print("PEW PEW PEW")
@@ -89,10 +111,13 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         
         window.toolbar!.delegate = self
         window.toolbar!.insertItem(withItemIdentifier: NSToolbarItem.Identifier(rawValue: "title"), at: 1)
+        window.toolbar!.insertItem(withItemIdentifier: NSToolbarItem.Identifier(rawValue: "flexibleSpace"), at: 2)
         window.toolbar!.insertItem(withItemIdentifier: NSToolbarItem.Identifier(rawValue: "button"), at: 3)
         
         contentView.primaryLabel.stringValue = Strings.appName
         contentView.primaryLabel.sizeToFit()
+        
+        updatePrimaryButton(isEnabled: false, label: Strings.noPackagesSelected)
     }
     
     override func viewWillAppear() {
