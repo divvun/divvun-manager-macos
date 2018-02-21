@@ -12,11 +12,16 @@ import RxCocoa
 
 class InstallViewController: DisposableViewController<InstallView>, InstallViewable {
     func setStarting(package: Package) {
-        
+        print("Starting package")
+        DispatchQueue.main.async {
+            self.contentView.nameLabel.stringValue = "Installing \(package.name[Strings.languageCode ?? "en"] ?? "") \(package.version)…"
+        }
     }
     
     func setEnding(package: Package) {
-        
+        DispatchQueue.main.async {
+            self.contentView.horizontalIndicator.increment(by: 1.0)
+        }
     }
     
     private let packages: [Package]
@@ -38,8 +43,13 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
     }
     
     func set(totalPackages total: Int) {
-        contentView.horizontalIndicator.isIndeterminate = (total == 1)
-        contentView.horizontalIndicator.maxValue = Double(total)
+        print("Settings total packages")
+        if (total == 1) {
+            contentView.horizontalIndicator.isIndeterminate = true
+            contentView.horizontalIndicator.startAnimation(self)
+        } else {
+            contentView.horizontalIndicator.maxValue = Double(total)
+        }
     }
     
     func showCompletion(isCancelled: Bool, results: [ProcessResult]) {

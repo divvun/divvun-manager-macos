@@ -13,27 +13,43 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <progressIndicator wantsLayer="YES" fixedFrame="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="0ui-NS-5Sb">
-                    <rect key="frame" x="90" y="74" width="300" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <progressIndicator wantsLayer="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="0ui-NS-5Sb">
+                    <rect key="frame" x="90" y="126" width="300" height="20"/>
                 </progressIndicator>
-                <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="87t-B2-3VL">
-                    <rect key="frame" x="124" y="127" width="16" height="16"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                </progressIndicator>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0wv-yC-LZH">
-                    <rect key="frame" x="146" y="127" width="37" height="17"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="cRe-VJ-Rwo">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0wv-yC-LZH">
+                    <rect key="frame" x="88" y="153" width="304" height="17"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="300" id="1OE-XU-JN2"/>
+                    </constraints>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Installing Inari Sami Keyboard 1.0.1…" id="cRe-VJ-Rwo">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kE1-15-EK2">
+                    <rect key="frame" x="180" y="102" width="120" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="1 items remaining…" id="iP2-p2-uKW">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
             </subviews>
+            <constraints>
+                <constraint firstItem="0ui-NS-5Sb" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="LqS-d1-28X"/>
+                <constraint firstItem="kE1-15-EK2" firstAttribute="top" secondItem="0ui-NS-5Sb" secondAttribute="bottom" constant="8" id="P9M-jd-Gfi"/>
+                <constraint firstAttribute="trailing" secondItem="0ui-NS-5Sb" secondAttribute="trailing" constant="90" id="VKn-Ej-orc"/>
+                <constraint firstItem="0ui-NS-5Sb" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="Wb3-wJ-Mbe"/>
+                <constraint firstItem="0wv-yC-LZH" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="a2C-87-slw"/>
+                <constraint firstItem="0ui-NS-5Sb" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="90" id="f3K-X1-Bbr"/>
+                <constraint firstItem="kE1-15-EK2" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="oQu-gQ-KNI"/>
+                <constraint firstItem="0ui-NS-5Sb" firstAttribute="top" secondItem="0wv-yC-LZH" secondAttribute="bottom" constant="8" id="whS-oY-D9e"/>
+            </constraints>
             <connections>
                 <outlet property="horizontalIndicator" destination="0ui-NS-5Sb" id="eEm-E6-d6T"/>
                 <outlet property="nameLabel" destination="0wv-yC-LZH" id="ilP-OA-age"/>
+                <outlet property="remainingLabel" destination="kE1-15-EK2" id="ngJ-Th-SpY"/>
             </connections>
         </customView>
     </objects>

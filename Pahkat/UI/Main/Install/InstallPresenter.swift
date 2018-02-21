@@ -16,6 +16,8 @@ class InstallPresenter {
     init(view: InstallViewable, packages: [Package]) {
         self.view = view
         self.packages = packages
+        
+        self.view.set(totalPackages: packages.count)
     }
     
     
