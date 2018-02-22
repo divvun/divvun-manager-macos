@@ -73,6 +73,23 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     
     func updateSelectedPackages(packages: Set<Package>) {
         self.dataSource.selectedPackages = packages
+        
+        updatePrimaryButton(isEnabled: packages.count>0,
+            label: {
+                if (packages.count == 0) {
+                    return Strings.noPackagesSelected
+                }
+                var initial: PackageInstallStatus?
+                for package in packages {
+                    if (initial == nil) {
+                        initial = statuses[package.id]
+                    } else if (!(statuses[package.id] == initial)) {
+                        return Strings.processNPackages(count: String(packages.count))
+                    }
+                }
+                return Strings.processNPackages(count: String(packages.count) + " single")
+            }())
+        
         // TODO: handle race condition with animation of checkboxes, because you chose to do this contract. You idiot.
         //        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
         //            print("PEW PEW PEW")
