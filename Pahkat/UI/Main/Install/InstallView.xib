@@ -10,46 +10,52 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe" customClass="InstallView" customModule="Pahkat" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <rect key="frame" x="0.0" y="0.0" width="480" height="250"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <progressIndicator wantsLayer="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="0ui-NS-5Sb">
-                    <rect key="frame" x="90" y="126" width="300" height="20"/>
+                    <rect key="frame" x="90" y="115" width="300" height="20"/>
                 </progressIndicator>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0wv-yC-LZH">
-                    <rect key="frame" x="88" y="153" width="304" height="17"/>
+                    <rect key="frame" x="222" y="142" width="21" height="17"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="300" id="1OE-XU-JN2"/>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="260" id="1OE-XU-JN2"/>
                     </constraints>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Installing Inari Sami Keyboard 1.0.1…" id="cRe-VJ-Rwo">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="--" id="cRe-VJ-Rwo">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kE1-15-EK2">
-                    <rect key="frame" x="180" y="102" width="120" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="1 items remaining…" id="iP2-p2-uKW">
+                    <rect key="frame" x="232" y="91" width="17" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="--" id="iP2-p2-uKW">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" doubleValue="1" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="3V2-0b-TjC">
+                    <rect key="frame" x="249" y="142" width="16" height="16"/>
+                </progressIndicator>
             </subviews>
             <constraints>
                 <constraint firstItem="0ui-NS-5Sb" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="LqS-d1-28X"/>
                 <constraint firstItem="kE1-15-EK2" firstAttribute="top" secondItem="0ui-NS-5Sb" secondAttribute="bottom" constant="8" id="P9M-jd-Gfi"/>
                 <constraint firstAttribute="trailing" secondItem="0ui-NS-5Sb" secondAttribute="trailing" constant="90" id="VKn-Ej-orc"/>
                 <constraint firstItem="0ui-NS-5Sb" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="Wb3-wJ-Mbe"/>
-                <constraint firstItem="0wv-yC-LZH" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="a2C-87-slw"/>
+                <constraint firstItem="0wv-yC-LZH" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" constant="-8" id="a2C-87-slw"/>
                 <constraint firstItem="0ui-NS-5Sb" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="90" id="f3K-X1-Bbr"/>
+                <constraint firstItem="3V2-0b-TjC" firstAttribute="leading" secondItem="0wv-yC-LZH" secondAttribute="trailing" constant="8" id="l49-Xa-RNo"/>
                 <constraint firstItem="kE1-15-EK2" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="oQu-gQ-KNI"/>
                 <constraint firstItem="0ui-NS-5Sb" firstAttribute="top" secondItem="0wv-yC-LZH" secondAttribute="bottom" constant="8" id="whS-oY-D9e"/>
+                <constraint firstItem="0ui-NS-5Sb" firstAttribute="top" secondItem="3V2-0b-TjC" secondAttribute="bottom" constant="8" id="zwI-dO-cki"/>
             </constraints>
             <connections>
                 <outlet property="horizontalIndicator" destination="0ui-NS-5Sb" id="eEm-E6-d6T"/>
                 <outlet property="nameLabel" destination="0wv-yC-LZH" id="ilP-OA-age"/>
                 <outlet property="remainingLabel" destination="kE1-15-EK2" id="ngJ-Th-SpY"/>
+                <outlet property="spinningIndicator" destination="3V2-0b-TjC" id="Bu2-1N-Nt1"/>
             </connections>
         </customView>
     </objects>

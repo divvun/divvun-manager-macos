@@ -10,17 +10,17 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe" customClass="DownloadView" customModule="Pahkat" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <rect key="frame" x="0.0" y="0.0" width="480" height="300"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uxU-RT-v8I">
-                    <rect key="frame" x="20" y="20" width="440" height="232"/>
+                    <rect key="frame" x="20" y="20" width="440" height="260"/>
                     <clipView key="contentView" id="Hu9-x9-Jzw">
-                        <rect key="frame" x="1" y="1" width="438" height="230"/>
+                        <rect key="frame" x="1" y="1" width="438" height="258"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="30" viewBased="YES" id="v4I-Bo-sEC">
-                                <rect key="frame" x="0.0" y="0.0" width="438" height="230"/>
+                                <rect key="frame" x="0.0" y="0.0" width="438" height="258"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
