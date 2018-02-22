@@ -41,14 +41,16 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         self.title = title
     }
     
-    func showDownloadView(with packages: [Package]) {
+    func showDownloadView(with packages: [String: PackageAction]) {
         AppContext.windows.set(DownloadViewController(packages: packages), for: MainWindowController.self)
     }
     
     func updatePrimaryButton(isEnabled: Bool, label: String) {
         contentView.primaryButton.isEnabled = isEnabled
         contentView.primaryButton.title = label
+        
         contentView.primaryButton.sizeToFit()
+        contentView.primaryLabel.sizeToFit()
         
         let window = AppContext.windows.get(MainWindowController.self).contentWindow
         window.toolbar!.redraw()
@@ -63,38 +65,20 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
         switch itemIdentifier.rawValue {
         case "button":
+            contentView.primaryButton.sizeToFit()
             return NSToolbarItem(view: contentView.primaryButton, identifier: itemIdentifier)
         case "title":
+            
+            contentView.primaryLabel.sizeToFit()
             return NSToolbarItem(view: contentView.primaryLabel, identifier: itemIdentifier)
         default:
             return nil
         }
     }
     
-    func updateSelectedPackages(packages: Set<Package>) {
+    func updateSelectedPackages(packages: [String: PackageAction]) {
         self.dataSource.selectedPackages = packages
-        
-        updatePrimaryButton(isEnabled: packages.count>0,
-            label: {
-                if (packages.count == 0) {
-                    return Strings.noPackagesSelected
-                }
-                var initial: PackageInstallStatus?
-                for package in packages {
-                    if (initial == nil) {
-                        initial = statuses[package.id]
-                    } else if (!(statuses[package.id] == initial)) {
-                        return Strings.processNPackages(count: String(packages.count))
-                    }
-                }
-                return Strings.processNPackages(count: String(packages.count) + " single")
-            }())
-        
-        // TODO: handle race condition with animation of checkboxes, because you chose to do this contract. You idiot.
-        //        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-        //            print("PEW PEW PEW")
         self.contentView.outlineView.reloadData()
-        //        }
         
     }
     
@@ -105,6 +89,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         window.titleVisibility = .hidden
         
         window.toolbar!.delegate = self
+        contentView.primaryLabel.stringValue = Strings.appName
         
         let toolbarItems = [NSToolbarItem.Identifier.flexibleSpace.rawValue,
                             NSToolbarItem.Identifier.flexibleSpace.rawValue,
@@ -113,10 +98,8 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
                             NSToolbarItem.Identifier.flexibleSpace.rawValue,
                             NSToolbarItem.Identifier.flexibleSpace.rawValue,
                             "button"]
-        window.toolbar!.setItems(toolbarItems)
         
-        contentView.primaryLabel.stringValue = Strings.appName
-//        contentView.primaryLabel.sizeToFit()
+        window.toolbar!.setItems(toolbarItems)
         
         updatePrimaryButton(isEnabled: false, label: Strings.noPackagesSelected)
     }
@@ -210,7 +193,7 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
     private let data: PackageMap
     private let statuses: [String: PackageInstallStatus]
     private let filter: Repository.PrimaryFilter
-    var selectedPackages = Set<Package>()
+    var selectedPackages = [String: PackageAction]()
     
     private let byteCountFormatter = ByteCountFormatter()
     
@@ -268,14 +251,30 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                         self?.outlet.onNext([package])
                     })
                     button.toolTip = packageName
-                    button.state = selectedPackages.contains(package) ? .on : .off
+                    if let selectedPackage = selectedPackages[package.id] {
+                        button.state = .on
+                    } else {
+                        button.state = .off
+                    }
+                    
                 } else {
                     print("could not get button")
                 }
             case .version:
                 cell.textField?.stringValue = "\(package.version) (\(byteCountFormatter.string(fromByteCount: package.installer.size)))"
             case .state:
-                cell.textField?.stringValue = statuses[package.id]!.description
+                if let selectedPackage = selectedPackages[package.id] {
+                    let paraStyle = NSMutableParagraphStyle()
+                    paraStyle.alignment = .right
+                    
+                    let attrs: [NSAttributedStringKey: Any] = [
+                        NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: 13),
+                        NSAttributedStringKey.paragraphStyle: paraStyle
+                    ]
+                    cell.textField?.attributedStringValue = NSAttributedString(string: selectedPackage.description, attributes: attrs)
+                } else {
+                    cell.textField?.stringValue = statuses[package.id]!.description
+                }
             }
         } else if let header = item as? String {
             guard case .name = column else { return cell }

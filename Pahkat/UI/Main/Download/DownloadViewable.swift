@@ -15,6 +15,7 @@ protocol DownloadViewable: class {
     var onCancelTapped: Driver<Void> { get }
     func setStatus(package: Package, status: PackageDownloadStatus)
     func cancel()
-    func startInstallation(packages: [Package])
+    func initializeDownloads(packages: [Package])
+    func startInstallation(packages: [String: PackageAction])
     func handle(error: Error)
 }

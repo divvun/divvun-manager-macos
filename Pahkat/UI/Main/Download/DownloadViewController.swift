@@ -13,6 +13,7 @@ import RxCocoa
 class DownloadViewController: DisposableViewController<DownloadView>, DownloadViewable {
     private let byteCountFormatter = ByteCountFormatter()
     private var delegate: DownloadProgressTableDelegate! = nil
+    
     var onCancelTapped: Driver<Void>{
         return self.contentView.primaryButton.rx.tap.asDriver()
     }
@@ -55,7 +56,7 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
         print("cancel")
     }
     
-    func startInstallation(packages: [Package]) {
+    func startInstallation(packages: [String: PackageAction]) {
         AppContext.windows.set(InstallViewController(packages: packages), for: MainWindowController.self)
     }
     
@@ -63,10 +64,10 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
         print(error)
     }
     
-    private let packages: [Package]
+    private let packages: [String: PackageAction]
     internal lazy var presenter = { DownloadPresenter(view: self, packages: packages) }()
     
-    init(packages: [Package]) {
+    init(packages: [String: PackageAction]) {
         self.packages = packages
         super.init()
     }
@@ -81,11 +82,12 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
         let window = AppContext.windows.get(MainWindowController.self)
         window.contentWindow.titleVisibility = .visible
         window.contentWindow.toolbar = nil
-        
-        self.delegate = DownloadProgressTableDelegate.init(withPackages: packages)
+    }
+    
+    func initializeDownloads(packages: [Package]) {
+        self.delegate = DownloadProgressTableDelegate(with: packages)
         contentView.tableView.delegate = self.delegate
         contentView.tableView.dataSource = self.delegate
-
     }
     
     override func viewWillAppear() {
@@ -95,18 +97,17 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
 }
 
 class DownloadProgressTableDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegate {
-    
     private var views = [View]()
-    private var packages = [Package]()
+    private let packages: [Package]
     
-    init(withPackages packages:[Package]) {
+    init(with packages: [Package]) {
+        self.packages = packages
+        
         for package in packages {
             let view = DownloadProgressView.loadFromNib()
-            let name = package.name[Strings.languageCode ?? "en"] ?? ""
+            let name = package.nativeName
             view.nameLabel.stringValue = "\(name) \(package.version)"
-//            view.versionLabel.stringValue = package.version
             self.views.append(view)
-            self.packages.append(package)
         }
     }
     

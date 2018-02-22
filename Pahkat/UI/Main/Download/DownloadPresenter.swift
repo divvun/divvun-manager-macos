@@ -11,9 +11,9 @@ import RxSwift
 
 class DownloadPresenter {
     private weak var view: DownloadViewable!
-    let packages: [Package]
+    let packages: [String: PackageAction]
     
-    required init(view: DownloadViewable, packages: [Package]) {
+    required init(view: DownloadViewable, packages: [String: PackageAction]) {
         self.view = view
         self.packages = packages
     }
@@ -37,13 +37,21 @@ class DownloadPresenter {
             }.take(foo.count)
     }
     
+    func downloadablePackages() -> [Package] {
+        return packages.values
+            .filter { $0.isInstalling }
+            .map { $0.package }
+    }
+    
+    
     private func download() -> Disposable {
         
 //        return try! AppContext.rpc.download(packages[0], target: .user).do(onNext: { [weak self] status in
 //            self?.view.setStatus(package: self!.packages[0], status: status)
 //        }).subscribe()
         
-        return Observable.from(packages).map { (package: Package) -> Observable<(Package, PackageDownloadStatus)> in
+        return Observable.from(downloadablePackages())
+            .map { (package: Package) -> Observable<(Package, PackageDownloadStatus)> in
             //try AppContext.rpc.download(package, target: .user)
             self.downloadTest()
                 .do(onNext: { [weak self] status in
@@ -81,6 +89,10 @@ class DownloadPresenter {
     }
     
     func start() -> Disposable {
-        return CompositeDisposable.init(disposables: [self.download()])
+        self.view.initializeDownloads(packages: downloadablePackages())
+        
+        return CompositeDisposable.init(disposables: [
+            self.download()
+        ])
     }
 }

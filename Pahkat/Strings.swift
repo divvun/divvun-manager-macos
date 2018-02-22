@@ -230,9 +230,21 @@ class Strings {
         return string(for: "processCompletedTitle")
     }
 
-    /** Process {count} Items */
-    static func processNPackages(count: String) -> String {
-        let format = string(for: "processNPackages")
+    /** Install {count} Items */
+    static func installNPackages(count: String) -> String {
+        let format = string(for: "installNPackages")
+        return String(format: format, count)
+    }
+
+    /** Uninstall {count} Items */
+    static func uninstallNPackages(count: String) -> String {
+        let format = string(for: "uninstallNPackages")
+        return String(format: format, count)
+    }
+
+    /** Install/Uninstall {count} Items */
+    static func installUninstallNPackages(count: String) -> String {
+        let format = string(for: "installUninstallNPackages")
         return String(format: format, count)
     }
 

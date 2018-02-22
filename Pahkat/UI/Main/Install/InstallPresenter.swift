@@ -11,9 +11,9 @@ import RxSwift
 
 class InstallPresenter {
     private unowned var view: InstallViewable
-    private let packages: [Package]
+    private let packages: [String: PackageAction]
     
-    init(view: InstallViewable, packages: [Package]) {
+    init(view: InstallViewable, packages: [String: PackageAction]) {
         self.view = view
         self.packages = packages
         
@@ -28,17 +28,17 @@ class InstallPresenter {
     
     func start() -> Disposable {
         // TODO: check the starting response to make sure we're in a sane state
-        return try! Observable.concat(packages.map({ [weak self] package -> Observable<PackageInstallStatus> in
+        return try! Observable.concat(packages.values.map({ [weak self] action -> Observable<PackageInstallStatus> in
 //            try AppContext.rpc.install(package, target: .user)
             installTest()
                 .do(
                     onSuccess: ({ _ in
                         print("I did a success")
-                        self?.view.setEnding(package: package)
+                        self?.view.setEnding(action: action)
                     }),
                     onSubscribe: {
                         print ("I did a subscribe")
-                        self?.view.setStarting(package: package)
+                        self?.view.setStarting(action: action)
                     }
                 ).asObservable()
 //                .observeOn(MainScheduler.instance).subscribeOn(MainScheduler.instance)

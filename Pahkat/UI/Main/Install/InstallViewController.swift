@@ -10,15 +10,29 @@ import Cocoa
 import RxSwift
 import RxCocoa
 
+extension Package {
+    var nativeName: String {
+        return self.name[Strings.languageCode ?? "en"] ?? ""
+    }
+}
+
 class InstallViewController: DisposableViewController<InstallView>, InstallViewable {
-    func setStarting(package: Package) {
-        print("Starting package")
+    func setStarting(action: PackageAction) {
         DispatchQueue.main.async {
-            self.contentView.nameLabel.stringValue = "Installing \(package.name[Strings.languageCode ?? "en"] ?? "") \(package.version)…"
+            let label: String
+            
+            switch action {
+            case let .install(package):
+                label = Strings.installingPackage(name: package.nativeName, version: package.version)
+            case let .uninstall(package):
+                label = Strings.uninstallingPackage(name: package.nativeName, version: package.version)
+            }
+            
+            self.contentView.nameLabel.stringValue = label
         }
     }
     
-    func setEnding(package: Package) {
+    func setEnding(action: PackageAction) {
         DispatchQueue.main.async {
             self.contentView.horizontalIndicator.increment(by: 1.0)
             
@@ -26,14 +40,14 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
             let max = Int(self.contentView.horizontalIndicator.maxValue)
             let value = Int(self.contentView.horizontalIndicator.doubleValue)
             
-            self.contentView.remainingLabel.stringValue = "REMAINING LOL \(max - value)"
+            self.contentView.remainingLabel.stringValue = Strings.nItemsRemaining(count: String(max - value))
         }
     }
     
-    private let packages: [Package]
+    private let packages: [String: PackageAction]
     private lazy var presenter = { InstallPresenter(view: self, packages: packages) }()
     
-    init(packages: [Package]) {
+    init(packages: [String: PackageAction]) {
         self.packages = packages
         super.init()
     }

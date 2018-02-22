@@ -38,7 +38,9 @@
 "openPackageManager" = "Open Package Manager";
 "processCompletedBody" = "You may now close this window, or return to the main screen.";
 "processCompletedTitle" = "Done!";
-"processNPackages" = "Process %1$@ Items";
+"installNPackages" = "Install %1$@ Items";
+"uninstallNPackages" = "Uninstall %1$@ Items";
+"installUninstallNPackages" = "Install/Uninstall %1$@ Items";
 "remindMeLater" = "Remind Me Later";
 "repository" = "Repository";
 "repositoryError" = "Repository Error";
