@@ -87,7 +87,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
 
         let window = AppContext.windows.get(MainWindowController.self).contentWindow
         window.titleVisibility = .hidden
-        
+        window.toolbar!.isVisible = true
         window.toolbar!.delegate = self
         contentView.primaryLabel.stringValue = Strings.appName
         

@@ -20,8 +20,35 @@ class CompletionViewController: DisposableViewController<CompletionView>, Comple
     var onRestartButtonTapped: Observable<Void> = Observable.empty()
     var onFinishButtonTapped: Observable<Void> = Observable.empty()
     
-    override init() {
+    private let packages: [String:PackageAction]!
+    private var requiresReboot: Bool = false
+    
+    init(with packages:[String: PackageAction]) {
+        self.packages = packages
         super.init()
+        
+        self.packages.values.forEach({ action in
+            switch action {
+            case let .install(package):
+                switch(package.installer) {
+                case .macOsInstaller(let installer):
+                    if (installer.requiresReboot) {
+                        self.requiresReboot = true
+                    }
+                default:
+                    break
+                }
+            case let .uninstall(package):
+                switch(package.installer) {
+                case .macOsInstaller(let installer):
+                    if (installer.requiresUninstallReboot) {
+                        self.requiresReboot = true
+                    }
+                default:
+                    break
+                }
+            }
+        })
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -37,12 +64,56 @@ class CompletionViewController: DisposableViewController<CompletionView>, Comple
     }
     
     func showMain() {
-        
+        AppContext.windows.set(MainViewController(), for: MainWindowController.self)
     }
     
     func rebootSystem() {
+        let source = "tell application \"Finder\"\nshut down\nend tell"
+        let script = NSAppleScript(source: source)
+        script?.executeAndReturnError(nil)
+        
+    }
+    
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        
+        if (self.requiresReboot) {
+            contentView.leftButton.title = Strings.restartLater
+            contentView.rightButton.title = Strings.restartNow
+            contentView.leftButton.sizeToFit()
+            contentView.rightButton.sizeToFit()
+            contentView.leftButton.isHidden = false
+            
+            contentView.leftButton.rx.tap.subscribe(onNext: { [weak self] _ in
+                self?.showMain()
+            }).disposed(by: bag)
+            
+            contentView.rightButton.rx.tap.subscribe(onNext: { [weak self] _ in
+                self?.rebootSystem()
+            }).disposed(by: bag)
+            
+        } else {
+            contentView.rightButton.title = Strings.finish
+            contentView.rightButton.sizeToFit()
+            contentView.leftButton.isHidden = true
+            
+            contentView.rightButton.rx.tap.subscribe(onNext: { [weak self] _ in
+                self?.showMain()
+            }).disposed(by: bag)
+        }
         
     }
     
     
+}
+
+extension Package.Installer {
+    func isCompatible() -> Bool {
+        switch self {
+        case .macOsInstaller(_):
+            return true
+        default:
+            return false
+        }
+    }
 }

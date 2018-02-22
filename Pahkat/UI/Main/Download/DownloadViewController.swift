@@ -81,7 +81,8 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
         
         let window = AppContext.windows.get(MainWindowController.self)
         window.contentWindow.titleVisibility = .visible
-        window.contentWindow.toolbar = nil
+        window.contentWindow.toolbar!.isVisible = false
+        //window.contentWindow.toolbar = nil
     }
     
     func initializeDownloads(packages: [Package]) {

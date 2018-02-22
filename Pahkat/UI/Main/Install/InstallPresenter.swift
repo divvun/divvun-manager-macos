@@ -46,8 +46,9 @@ class InstallPresenter {
             .observeOn(MainScheduler.instance)
             .subscribeOn(MainScheduler.instance)
         .toArray()
-        .subscribe(onNext: { _ in
-            AppContext.windows.set(CompletionViewController(), for: MainWindowController.self)
+        .subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            AppContext.windows.set(CompletionViewController(with: self.packages), for: MainWindowController.self)
         })
     }
 }

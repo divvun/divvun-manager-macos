@@ -4,6 +4,7 @@
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner"/>
@@ -12,6 +13,55 @@
         <customView id="c22-O7-iKe" customClass="CompletionView" customModule="Pahkat" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="480" height="250"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kXG-lJ-9NX">
+                    <rect key="frame" x="14" y="13" width="81" height="32"/>
+                    <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lfN-Oz-eND">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tOX-kq-Mco">
+                    <rect key="frame" x="385" y="13" width="81" height="32"/>
+                    <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="giE-Cy-7zE">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="XV7-5f-VcM">
+                    <rect key="frame" x="43" y="108" width="394" height="34"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="It is highly recommended that you restart your computer in order for some changes to take effect" id="Leg-PF-Csu">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Egi-4f-pHE">
+                    <rect key="frame" x="186" y="150" width="109" height="19"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Time to reboot" id="xI5-iT-pXg">
+                        <font key="font" metaFont="systemSemibold" size="15"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="XV7-5f-VcM" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="1yW-va-4he"/>
+                <constraint firstAttribute="bottom" secondItem="kXG-lJ-9NX" secondAttribute="bottom" constant="20" id="6mC-eJ-ies"/>
+                <constraint firstAttribute="trailing" secondItem="XV7-5f-VcM" secondAttribute="trailing" constant="45" id="8RX-D6-BWv"/>
+                <constraint firstItem="Egi-4f-pHE" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="DN0-pG-qwj"/>
+                <constraint firstItem="kXG-lJ-9NX" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" id="Q2I-hE-vN3"/>
+                <constraint firstItem="XV7-5f-VcM" firstAttribute="top" secondItem="Egi-4f-pHE" secondAttribute="bottom" constant="8" id="TRW-bE-LTW"/>
+                <constraint firstAttribute="trailing" secondItem="tOX-kq-Mco" secondAttribute="trailing" constant="20" id="Tuv-FE-xWM"/>
+                <constraint firstAttribute="bottom" secondItem="tOX-kq-Mco" secondAttribute="bottom" constant="20" id="lIM-Ph-biz"/>
+                <constraint firstItem="XV7-5f-VcM" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="45" id="mOs-Rn-WQJ"/>
+            </constraints>
+            <connections>
+                <outlet property="contentLabel" destination="XV7-5f-VcM" id="MJE-xQ-B98"/>
+                <outlet property="headerLabel" destination="Egi-4f-pHE" id="RGp-yn-ndz"/>
+                <outlet property="leftButton" destination="kXG-lJ-9NX" id="ZpA-Yc-lzJ"/>
+                <outlet property="rightButton" destination="tOX-kq-Mco" id="Qap-4e-IyM"/>
+            </connections>
         </customView>
     </objects>
 </document>
