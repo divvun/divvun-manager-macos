@@ -20,11 +20,34 @@ class InstallPresenter {
         self.view.set(totalPackages: packages.count)
     }
     
-    
+    func installTest() -> Single<PackageInstallStatus> {
+        // TODO: subprocess
+        return Single.just(PackageInstallStatus.notInstalled)
+//            .delay(2.0, scheduler: MainScheduler.instance)
+    }
     
     func start() -> Disposable {
-        return try! Observable.concat(packages.map({ [weak self] package in
-            try AppContext.rpc.install(package, target: .user).do(onSuccess: ({ _ in  self?.view.setEnding(package: package)}), onSubscribe: {self?.view.setStarting(package: package)}).asObservable()
-        })).subscribe()
+        // TODO: check the starting response to make sure we're in a sane state
+        return try! Observable.concat(packages.map({ [weak self] package -> Observable<PackageInstallStatus> in
+//            try AppContext.rpc.install(package, target: .user)
+            installTest()
+                .do(
+                    onSuccess: ({ _ in
+                        print("I did a success")
+                        self?.view.setEnding(package: package)
+                    }),
+                    onSubscribe: {
+                        print ("I did a subscribe")
+                        self?.view.setStarting(package: package)
+                    }
+                ).asObservable()
+//                .observeOn(MainScheduler.instance).subscribeOn(MainScheduler.instance)
+        }))
+            .observeOn(MainScheduler.instance)
+            .subscribeOn(MainScheduler.instance)
+        .toArray()
+        .subscribe(onNext: { _ in
+            AppContext.windows.set(CompletionViewController(), for: MainWindowController.self)
+        })
     }
 }

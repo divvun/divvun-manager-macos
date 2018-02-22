@@ -21,6 +21,12 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
     func setEnding(package: Package) {
         DispatchQueue.main.async {
             self.contentView.horizontalIndicator.increment(by: 1.0)
+            
+            // Shhhhh
+            let max = Int(self.contentView.horizontalIndicator.maxValue)
+            let value = Int(self.contentView.horizontalIndicator.doubleValue)
+            
+            self.contentView.remainingLabel.stringValue = "REMAINING LOL \(max - value)"
         }
     }
     
@@ -61,5 +67,10 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
     
     func processCancelled() {
         
+    }
+    
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        self.presenter.start().disposed(by: bag)
     }
 }

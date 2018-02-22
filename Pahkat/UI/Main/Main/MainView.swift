@@ -16,11 +16,8 @@ class MainView: View {
     @IBOutlet weak var outlineView: NSOutlineView!
     
     override func awakeFromNib() {
-        primaryButton.title = Strings.processNPackages(count: String(3))
-        primaryButton.sizeToFit()
-        
+        primaryButton.title = Strings.noPackagesSelected
         primaryLabel.stringValue = Strings.appName
-        primaryLabel.sizeToFit()
     }
 }
 

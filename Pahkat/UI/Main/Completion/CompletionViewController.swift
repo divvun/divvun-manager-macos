@@ -11,14 +11,22 @@ import RxSwift
 import RxCocoa
 
 class CompletionViewController: DisposableViewController<CompletionView>, CompletionViewable {
-        
+//        
+//    required init?(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+    
+    
+    var onRestartButtonTapped: Observable<Void> = Observable.empty()
+    var onFinishButtonTapped: Observable<Void> = Observable.empty()
+    
+    override init() {
+        super.init()
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    var onRestartButtonTapped: Observable<Void>
-    
-    var onFinishButtonTapped: Observable<Void>
     
     func show(errors: [ProcessResult]) {
     

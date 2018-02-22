@@ -9,35 +9,33 @@
         <customObject id="-2" userLabel="File's Owner"/>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="c22-O7-iKe" customClass="DownloadProgressView" customModule="Pahkat" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="440" height="44"/>
+        <customView misplaced="YES" id="c22-O7-iKe" customClass="DownloadProgressView" customModule="Pahkat" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="567" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="G48-xu-njn">
-                    <rect key="frame" x="8" y="13" width="125" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Inari Sami Keyboard" id="zNh-Ay-Op6">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5R4-rQ-12d">
-                    <rect key="frame" x="137" y="13" width="30" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="1.0.1" id="nHt-X8-464">
+                    <rect key="frame" x="8" y="13" width="184" height="17"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="180" id="8sG-k6-rA6"/>
+                    </constraints>
+                    <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" title="Inari Sami Keyboard" id="zNh-Ay-Op6">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <progressIndicator wantsLayer="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="fer-Kl-XWi">
-                    <rect key="frame" x="173" y="12" width="170" height="20"/>
+                    <rect key="frame" x="201" y="12" width="200" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="200" id="9yY-J9-KJt"/>
+                    </constraints>
                 </progressIndicator>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="X9F-og-TVb">
-                    <rect key="frame" x="352" y="13" width="85" height="17"/>
+                    <rect key="frame" x="410" y="13" width="154" height="17"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="81" id="e5t-YN-bv2"/>
+                        <constraint firstAttribute="width" constant="150" id="e5t-YN-bv2"/>
                     </constraints>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Downloaded" id="R1Q-aO-tVz">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Downloaded" id="R1Q-aO-tVz">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -45,23 +43,20 @@
                 </textField>
             </subviews>
             <constraints>
+                <constraint firstItem="fer-Kl-XWi" firstAttribute="leading" secondItem="G48-xu-njn" secondAttribute="trailing" constant="11" id="7GP-PC-oe1"/>
                 <constraint firstItem="G48-xu-njn" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="Cet-Km-JSc"/>
                 <constraint firstItem="G48-xu-njn" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="10" id="Dr2-2y-qyL"/>
-                <constraint firstItem="fer-Kl-XWi" firstAttribute="leading" secondItem="5R4-rQ-12d" secondAttribute="trailing" constant="8" id="FlD-7Y-hM0"/>
                 <constraint firstAttribute="trailing" secondItem="X9F-og-TVb" secondAttribute="trailing" constant="5" id="GnM-GG-sXp"/>
                 <constraint firstItem="X9F-og-TVb" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="VSB-q4-7yk"/>
-                <constraint firstItem="5R4-rQ-12d" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="WVc-8h-81U"/>
                 <constraint firstItem="fer-Kl-XWi" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="e6M-5Z-jGn"/>
-                <constraint firstItem="5R4-rQ-12d" firstAttribute="leading" secondItem="G48-xu-njn" secondAttribute="trailing" constant="8" id="h2p-xi-VWS"/>
                 <constraint firstItem="X9F-og-TVb" firstAttribute="leading" secondItem="fer-Kl-XWi" secondAttribute="trailing" constant="11" id="v5T-u7-jJ5"/>
             </constraints>
             <connections>
                 <outlet property="nameLabel" destination="G48-xu-njn" id="tvP-rF-hiU"/>
                 <outlet property="progressBar" destination="fer-Kl-XWi" id="1ch-PF-duL"/>
                 <outlet property="progressLabel" destination="X9F-og-TVb" id="QRq-Oz-VE6"/>
-                <outlet property="versionLabel" destination="5R4-rQ-12d" id="EQp-Gg-pwC"/>
             </connections>
-            <point key="canvasLocation" x="139" y="282"/>
+            <point key="canvasLocation" x="81" y="282"/>
         </customView>
     </objects>
 </document>

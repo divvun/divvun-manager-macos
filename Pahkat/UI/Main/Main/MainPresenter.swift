@@ -78,9 +78,9 @@ class MainPresenter {
 //
     private func bindPrimaryButton() -> Disposable {
         return view.onPrimaryButtonPressed.drive(onNext: { [weak self] in
-            guard let repo = self?.repo else { fatalError() }
+            guard let `self` = self else { return }
             let window = AppContext.windows.get(MainWindowController.self)
-            window.contentWindow.set(viewController: DownloadViewController.init(packages:[repo.packages["sme-keyboard"]!]))
+            window.contentWindow.set(viewController: DownloadViewController(packages: Array(self.selectedPackages)))
         })
     }
     

@@ -1,0 +1,195 @@
+# Original: Páhkat
+appName: Páhkat
+
+# Original: Automatically Send Crash Reports
+autoCrashReporting: Automatically Send Crash Reports
+
+# Original: Páhkat v{0} is now available. It is highly recommended that you update as soon as possible. Update now?
+appUpdateBody: >-
+  Páhkat v{version} is now available. It is highly recommended that you update as soon
+  as possible. Update now?
+
+# Original: Páhkat Update Available
+appUpdateTitle: Páhkat Update Available
+
+# Original: Cancel
+cancel: Cancel
+
+# Original: Are you sure you want to cancel all downloads?
+cancelDownloadsBody: Are you sure you want to cancel all downloads?
+
+# Original: Cancel Downloads
+cancelDownloadsTitle: Cancel Downloads
+
+# Original: Check For Updates...
+checkForUpdates: Check For Updates...
+
+# Original: Do you wish to send a crash report to the developers? No personal or private information is sent. (Recommended)
+crashReportBody: >-
+  Do you wish to send a crash report to the developers? No personal or private
+  information is sent. (Recommended)
+
+# Original: Send Crash Report
+crashReportTitle: Send Crash Report
+
+# Original: Daily
+daily: Daily
+
+# Original: Error 😞
+downloadError: "Error \U0001F61E"
+
+# Original: Downloaded
+downloaded: Downloaded
+
+# Original: Downloading...
+downloading: Downloading...
+
+# Original: Error
+error: Error
+
+# Original: Error: Invalid Version
+errorInvalidVersion: 'Error: Invalid Version'
+
+# Original: Error: No Installer
+errorNoInstaller: 'Error: No Installer'
+
+# Original: Error: Unknown Item
+errorUnknownPackage: 'Error: Unknown Item'
+
+# Original: Every 4 Weeks
+everyFourWeeks: Every 4 Weeks
+
+# Original: Every 2 Weeks
+everyTwoWeeks: Every 2 Weeks
+
+# Original: Exit
+exit: Exit
+
+# Original: Finish
+finish: Finish
+
+# Original: Install
+install: Install
+
+# Original: Installed
+installed: Installed
+
+# Original: Installing {0} {1}...
+installingPackage: 'Installing {name} {version}...'
+
+# Original: Interface Language
+interfaceLanguage: Interface Language
+
+# Original: Loading...
+loading: Loading...
+
+# Original: {0} items remaining.
+nItemsRemaining: '{count} items remaining.'
+
+# Original: {0} Updates Available
+nUpdatesAvailable: '{count} Updates Available'
+
+# Original: Never
+never: Never
+
+# Original: Next update check at: {0}
+nextUpdateDue: 'Next update check at: {date}'
+
+# Original: No Items Selected
+noPackagesSelected: No Items Selected
+
+# Original: No new updates were found.
+noUpdatesBody: No new updates were found.
+
+# Original: No Updates
+noUpdatesTitle: No Updates
+
+# Original: --
+notApplicable: '--'
+
+# Original: Not Installed
+notInstalled: Not Installed
+
+# Original: OK
+ok: OK
+
+# Original: Open Package Manager
+openPackageManager: Open Package Manager
+
+# Original: You may now close this window, or return to the main screen.
+processCompletedBody: 'You may now close this window, or return to the main screen.'
+
+# Original: Done!
+processCompletedTitle: Done!
+
+# Original: Process {0} Items
+installNPackages: 'Install {count} Items'
+uninstallNPackages: 'Uninstall {count} Items'
+installUninstallNPackages: 'Install/Uninstall {count} Items'
+
+# Original: Remind Me Later
+remindMeLater: Remind Me Later
+
+# Original: Repository
+repository: Repository
+
+# Original: Repository Error
+repositoryError: Repository Error
+
+# Original: There was an error while opening the repository:
+# 
+# {0}
+repositoryErrorBody: |-
+  There was an error while opening the repository:
+
+  {message}
+
+# Original: Restart Later
+restartLater: Restart Later
+
+# Original: Restart Now
+restartNow: Restart Now
+
+# Original: It is highly recommended that you restart your computer in order for some changes to take effect.
+restartRequiredBody: >-
+  It is highly recommended that you restart your computer in order for some
+  changes to take effect.
+
+# Original: Time to reboot!
+restartRequiredTitle: Time to reboot!
+
+# Original: Save
+save: Save
+
+# Original: Settings
+settings: Settings
+
+# Original: Skip These Updates
+skipTheseUpdates: Skip These Updates
+
+# Original: Starting...
+starting: Starting...
+
+# Original: Uninstall
+uninstall: Uninstall
+
+# Original: Uninstalling {0} {1}...
+uninstallingPackage: 'Uninstalling {name} {version}...'
+
+# Original: Update Available
+updateAvailable: Update Available
+
+# Original: Update Channel
+updateChannel: Update Channel
+
+# Original: Update Frequency
+updateFrequency: Update Frequency
+
+# Original: Version Skipped
+versionSkipped: Version Skipped
+
+# Original: Waiting for process to finish...
+waitingForCompletion: Waiting for process to finish...
+
+# Original: Weekly
+weekly: Weekly

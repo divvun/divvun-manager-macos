@@ -82,11 +82,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="Ufb-8f-hMp">
-                                                <rect key="frame" x="204" y="2" width="115" height="17"/>
+                                                <rect key="frame" x="204" y="2" width="114" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XJP-WT-JeE">
-                                                        <rect key="frame" x="0.0" y="0.0" width="115" height="17"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="114" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" id="HMQ-mI-ray">
                                                             <font key="font" metaFont="system"/>
@@ -115,11 +115,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="l9E-YA-dEy">
-                                                <rect key="frame" x="322" y="2" width="126" height="17"/>
+                                                <rect key="frame" x="321.5" y="2" width="125" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nuQ-Ev-b9d">
-                                                        <rect key="frame" x="0.0" y="0.0" width="126" height="17"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="125" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="ajh-bL-B7O">
                                                             <font key="font" metaFont="system"/>
@@ -162,7 +162,7 @@
             <point key="canvasLocation" x="-280.5" y="175.5"/>
         </customView>
         <button verticalHuggingPriority="750" id="T51-sJ-RHe">
-            <rect key="frame" x="0.0" y="0.0" width="82" height="32"/>
+            <rect key="frame" x="0.0" y="0.0" width="200" height="32"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="EXm-lp-gh3">
                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

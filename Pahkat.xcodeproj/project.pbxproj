@@ -32,6 +32,8 @@
 		C62270672039E9CD00DBCD65 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62270662039E9CD00DBCD65 /* AppStore.swift */; };
 		C6227069203A243700DBCD65 /* iso639-autonyms.tsv in Resources */ = {isa = PBXBuildFile; fileRef = C6227068203A243700DBCD65 /* iso639-autonyms.tsv */; };
 		C622706B203A247300DBCD65 /* ISO639.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622706A203A247300DBCD65 /* ISO639.swift */; };
+		C656A693203ECAF80004E7F1 /* CompletionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C656A692203ECAF80004E7F1 /* CompletionView.xib */; };
+		C656A696203EE5190004E7F1 /* base.yaml in Resources */ = {isa = PBXBuildFile; fileRef = C656A695203EE5190004E7F1 /* base.yaml */; };
 		C69F948E2028B1EA00127A47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69F948D2028B1EA00127A47 /* AppDelegate.swift */; };
 		C69F94902028B1EA00127A47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C69F948F2028B1EA00127A47 /* Assets.xcassets */; };
 		C69F94932028B1EA00127A47 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C69F94912028B1EA00127A47 /* MainMenu.xib */; };
@@ -102,6 +104,8 @@
 		C62270662039E9CD00DBCD65 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		C6227068203A243700DBCD65 /* iso639-autonyms.tsv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "iso639-autonyms.tsv"; sourceTree = SOURCE_ROOT; };
 		C622706A203A247300DBCD65 /* ISO639.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISO639.swift; sourceTree = "<group>"; };
+		C656A692203ECAF80004E7F1 /* CompletionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompletionView.xib; sourceTree = "<group>"; };
+		C656A695203EE5190004E7F1 /* base.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = base.yaml; path = Pahkat/Support/LocalisationResources/base.yaml; sourceTree = SOURCE_ROOT; };
 		C69F948A2028B1EA00127A47 /* Pahkat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pahkat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C69F948D2028B1EA00127A47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C69F948F2028B1EA00127A47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -202,6 +206,7 @@
 		C62270592037344E00DBCD65 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				C656A694203EE4F80004E7F1 /* LocalisationResources */,
 				C6227068203A243700DBCD65 /* iso639-autonyms.tsv */,
 				C62270622039E08B00DBCD65 /* Localizable.strings */,
 				C69F948F2028B1EA00127A47 /* Assets.xcassets */,
@@ -210,6 +215,14 @@
 				C60B81A9203489B800D3E093 /* Pahkat-Bridging-Header.h */,
 			);
 			path = Support;
+			sourceTree = "<group>";
+		};
+		C656A694203EE4F80004E7F1 /* LocalisationResources */ = {
+			isa = PBXGroup;
+			children = (
+				C656A695203EE5190004E7F1 /* base.yaml */,
+			);
+			path = LocalisationResources;
 			sourceTree = "<group>";
 		};
 		C69F94812028B1EA00127A47 = {
@@ -312,6 +325,7 @@
 				C6F4BC772031E0AD002EE523 /* CompletionViewable.swift */,
 				276391A3203AE2660096E10C /* CompletionViewController.swift */,
 				276391A5203AECE30096E10C /* CompletionView.swift */,
+				C656A692203ECAF80004E7F1 /* CompletionView.xib */,
 			);
 			path = Completion;
 			sourceTree = "<group>";
@@ -443,6 +457,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6227069203A243700DBCD65 /* iso639-autonyms.tsv in Resources */,
+				C656A696203EE5190004E7F1 /* base.yaml in Resources */,
 				C622704E2035C61000DBCD65 /* UpdateView.xib in Resources */,
 				C6CC91272028E69300CB0B10 /* MainWindow.xib in Resources */,
 				C6F8A8202028BBC2009A016E /* MainView.xib in Resources */,
@@ -450,6 +465,7 @@
 				276391AE203DA3020096E10C /* DownloadProgressView.xib in Resources */,
 				C69F94902028B1EA00127A47 /* Assets.xcassets in Resources */,
 				C69F94932028B1EA00127A47 /* MainMenu.xib in Resources */,
+				C656A693203ECAF80004E7F1 /* CompletionView.xib in Resources */,
 				C62270642039E08B00DBCD65 /* Localizable.strings in Resources */,
 				C62270522035C69000DBCD65 /* UpdateWindow.xib in Resources */,
 				C6F4BC702031DBD3002EE523 /* DownloadView.xib in Resources */,
