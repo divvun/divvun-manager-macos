@@ -60,6 +60,7 @@
                 <constraint firstItem="uxU-RT-v8I" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" id="pTO-Sc-mEh"/>
             </constraints>
             <connections>
+                <outlet property="clipView" destination="Hu9-x9-Jzw" id="CGZ-42-lBU"/>
                 <outlet property="tableView" destination="v4I-Bo-sEC" id="klA-Ot-FJw"/>
             </connections>
         </customView>

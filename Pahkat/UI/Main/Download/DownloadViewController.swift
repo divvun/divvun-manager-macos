@@ -28,6 +28,9 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
                     view.progressLabel.stringValue = "Queued"
                 case .starting:
                     view.progressLabel.stringValue = "Starting…"
+                    if let cellOrigin: NSPoint = view.superview?.frame.origin {
+                        self.contentView.clipView.animate(to: cellOrigin, with: 0.5)
+                    }
                 case .progress(let downloaded, let total):
                     view.progressBar.maxValue = Double(total)
                     view.progressBar.minValue = 0
@@ -125,3 +128,15 @@ class DownloadProgressTableDelegate: NSObject, NSTableViewDataSource, NSTableVie
     }
 }
 
+extension NSClipView {
+    func animate(to point:NSPoint, with duration:TimeInterval) {
+        NSAnimationContext.beginGrouping()
+        NSAnimationContext.current.duration = duration
+        NSAnimationContext.current.timingFunction = CAMediaTimingFunction.init(name: kCAMediaTimingFunctionDefault)
+        self.animator().setBoundsOrigin(point)
+        if let scrollView = self.superview as? NSScrollView {
+            scrollView.reflectScrolledClipView(self)
+        }
+        NSAnimationContext.endGrouping()
+    }
+}
