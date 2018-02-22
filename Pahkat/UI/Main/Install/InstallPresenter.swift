@@ -16,8 +16,6 @@ class InstallPresenter {
     init(view: InstallViewable, packages: [String: PackageAction]) {
         self.view = view
         self.packages = packages
-        
-        self.view.set(totalPackages: packages.count)
     }
     
     func installTest() -> Single<PackageInstallStatus> {
@@ -27,6 +25,8 @@ class InstallPresenter {
     }
     
     func start() -> Disposable {
+        self.view.set(totalPackages: packages.count)
+        
         // TODO: check the starting response to make sure we're in a sane state
         return try! Observable.concat(packages.values.map({ [weak self] action -> Observable<PackageInstallStatus> in
 //            try AppContext.rpc.install(package, target: .user)

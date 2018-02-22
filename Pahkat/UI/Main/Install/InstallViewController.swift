@@ -17,6 +17,14 @@ extension Package {
 }
 
 class InstallViewController: DisposableViewController<InstallView>, InstallViewable {
+    private func setRemaining() {
+        // Shhhhh
+        let max = Int(self.contentView.horizontalIndicator.maxValue)
+        let value = Int(self.contentView.horizontalIndicator.doubleValue)
+        
+        self.contentView.remainingLabel.stringValue = Strings.nItemsRemaining(count: String(max - value))
+    }
+    
     func setStarting(action: PackageAction) {
         DispatchQueue.main.async {
             let label: String
@@ -29,18 +37,14 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
             }
             
             self.contentView.nameLabel.stringValue = label
+            self.setRemaining()
         }
     }
     
     func setEnding(action: PackageAction) {
         DispatchQueue.main.async {
             self.contentView.horizontalIndicator.increment(by: 1.0)
-            
-            // Shhhhh
-            let max = Int(self.contentView.horizontalIndicator.maxValue)
-            let value = Int(self.contentView.horizontalIndicator.doubleValue)
-            
-            self.contentView.remainingLabel.stringValue = Strings.nItemsRemaining(count: String(max - value))
+            self.setRemaining()
         }
     }
     
