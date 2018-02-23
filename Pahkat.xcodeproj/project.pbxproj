@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		271249B32040118A009EE80B /* UpdatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271249B22040118A009EE80B /* UpdatePresenter.swift */; };
+		271249B7204043F7009EE80B /* SettingsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 271249B6204043F7009EE80B /* SettingsWindow.xib */; };
+		271249B920404409009EE80B /* SettingsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271249B820404409009EE80B /* SettingsWindow.swift */; };
+		271249BB2040446A009EE80B /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 271249BA2040446A009EE80B /* SettingsView.xib */; };
+		271249BD2040448B009EE80B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271249BC2040448B009EE80B /* SettingsView.swift */; };
+		271249BF20404495009EE80B /* SettingsViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271249BE20404494009EE80B /* SettingsViewable.swift */; };
+		271249C12040449E009EE80B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271249C02040449E009EE80B /* SettingsViewController.swift */; };
+		271249C3204044B0009EE80B /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271249C2204044B0009EE80B /* SettingsPresenter.swift */; };
+		271249C5204055EC009EE80B /* UpdateFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271249C4204055EC009EE80B /* UpdateFrequency.swift */; };
+		271249C720405649009EE80B /* UpdateChannels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271249C620405649009EE80B /* UpdateChannels.swift */; };
 		276391A0203ADDC30096E10C /* InstallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2763919F203ADDC30096E10C /* InstallViewController.swift */; };
 		276391A2203ADDD60096E10C /* InstallPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276391A1203ADDD60096E10C /* InstallPresenter.swift */; };
 		276391A4203AE2660096E10C /* CompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276391A3203AE2660096E10C /* CompletionViewController.swift */; };
@@ -76,6 +85,15 @@
 
 /* Begin PBXFileReference section */
 		271249B22040118A009EE80B /* UpdatePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePresenter.swift; sourceTree = "<group>"; };
+		271249B6204043F7009EE80B /* SettingsWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsWindow.xib; sourceTree = "<group>"; };
+		271249B820404409009EE80B /* SettingsWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindow.swift; sourceTree = "<group>"; };
+		271249BA2040446A009EE80B /* SettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsView.xib; sourceTree = "<group>"; };
+		271249BC2040448B009EE80B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		271249BE20404494009EE80B /* SettingsViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewable.swift; sourceTree = "<group>"; };
+		271249C02040449E009EE80B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		271249C2204044B0009EE80B /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
+		271249C4204055EC009EE80B /* UpdateFrequency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateFrequency.swift; sourceTree = "<group>"; };
+		271249C620405649009EE80B /* UpdateChannels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateChannels.swift; sourceTree = "<group>"; };
 		2763919F203ADDC30096E10C /* InstallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallViewController.swift; sourceTree = "<group>"; };
 		276391A1203ADDD60096E10C /* InstallPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallPresenter.swift; sourceTree = "<group>"; };
 		276391A3203AE2660096E10C /* CompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionViewController.swift; sourceTree = "<group>"; };
@@ -159,6 +177,20 @@
 				56F306996B41415DC22AAB5C /* Pods-Pahkat.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		271249B5204043E2009EE80B /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				271249B6204043F7009EE80B /* SettingsWindow.xib */,
+				271249B820404409009EE80B /* SettingsWindow.swift */,
+				271249BA2040446A009EE80B /* SettingsView.xib */,
+				271249BC2040448B009EE80B /* SettingsView.swift */,
+				271249BE20404494009EE80B /* SettingsViewable.swift */,
+				271249C02040449E009EE80B /* SettingsViewController.swift */,
+				271249C2204044B0009EE80B /* SettingsPresenter.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		C62270432035C1BE00DBCD65 /* Main */ = {
@@ -276,6 +308,7 @@
 		C6CC912B2029A56F00CB0B10 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				271249B5204043E2009EE80B /* Settings */,
 				C62270442035C1DA00DBCD65 /* Updater */,
 				C6CC912C2029A57700CB0B10 /* Main */,
 			);
@@ -340,6 +373,8 @@
 				C6F4BC7A2031E18A002EE523 /* ProcessResult.swift */,
 				C622703E20358F1B00DBCD65 /* RepositoryIndex.swift */,
 				C62270662039E9CD00DBCD65 /* AppStore.swift */,
+				271249C4204055EC009EE80B /* UpdateFrequency.swift */,
+				271249C620405649009EE80B /* UpdateChannels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -459,11 +494,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				271249B7204043F7009EE80B /* SettingsWindow.xib in Resources */,
 				C6227069203A243700DBCD65 /* iso639-autonyms.tsv in Resources */,
 				C656A696203EE5190004E7F1 /* base.yaml in Resources */,
 				C622704E2035C61000DBCD65 /* UpdateView.xib in Resources */,
 				C6CC91272028E69300CB0B10 /* MainWindow.xib in Resources */,
 				C6F8A8202028BBC2009A016E /* MainView.xib in Resources */,
+				271249BB2040446A009EE80B /* SettingsView.xib in Resources */,
 				278A10B5203ADAB2007C3DC8 /* InstallView.xib in Resources */,
 				276391AE203DA3020096E10C /* DownloadProgressView.xib in Resources */,
 				C69F94902028B1EA00127A47 /* Assets.xcassets in Resources */,
@@ -570,14 +607,18 @@
 				C6F4BC5B2029BC57002EE523 /* MainViewController.swift in Sources */,
 				C6F4BC6E2031DBCB002EE523 /* DownloadViewController.swift in Sources */,
 				C6F4BC6C2031DBC0002EE523 /* DownloadPresenter.swift in Sources */,
+				271249C12040449E009EE80B /* SettingsViewController.swift in Sources */,
 				C62270582037132200DBCD65 /* RPCService.swift in Sources */,
 				C6F8A8182028B3C1009A016E /* Cocoa+Nibbable.swift in Sources */,
 				C6F8A8162028B2C0009A016E /* Operators+Rx.swift in Sources */,
 				C6F4BC5D202A410A002EE523 /* SettingsStore.swift in Sources */,
+				271249BD2040448B009EE80B /* SettingsView.swift in Sources */,
+				271249B920404409009EE80B /* SettingsWindow.swift in Sources */,
 				271249B32040118A009EE80B /* UpdatePresenter.swift in Sources */,
 				C6F4BC7B2031E18A002EE523 /* ProcessResult.swift in Sources */,
 				276391AC203D7F620096E10C /* DownloadProgressView.swift in Sources */,
 				C6F4BC572029BC05002EE523 /* MainViewable.swift in Sources */,
+				271249C3204044B0009EE80B /* SettingsPresenter.swift in Sources */,
 				C62270672039E9CD00DBCD65 /* AppStore.swift in Sources */,
 				276391A4203AE2660096E10C /* CompletionViewController.swift in Sources */,
 				C6F4BC662031DB81002EE523 /* DownloadViewable.swift in Sources */,
@@ -593,15 +634,18 @@
 				276391A2203ADDD60096E10C /* InstallPresenter.swift in Sources */,
 				C6F8A8232028BC07009A016E /* WindowManager.swift in Sources */,
 				C6F2676D203B96E8006EC59C /* APIService+Extensions.swift in Sources */,
+				271249C5204055EC009EE80B /* UpdateFrequency.swift in Sources */,
 				C62270502035C61900DBCD65 /* UpdateViewController.swift in Sources */,
 				C622705F2039DEC800DBCD65 /* Strings.swift in Sources */,
 				C6CC912A20291A2D00CB0B10 /* APIService.swift in Sources */,
 				C6F4BC782031E0AD002EE523 /* CompletionViewable.swift in Sources */,
+				271249BF20404495009EE80B /* SettingsViewable.swift in Sources */,
 				C6F4BC5F202A43BC002EE523 /* RxStore.swift in Sources */,
 				C622704A2035C5FC00DBCD65 /* UpdateView.swift in Sources */,
 				276391A0203ADDC30096E10C /* InstallViewController.swift in Sources */,
 				C6F8A8262028BD91009A016E /* MainWindow.swift in Sources */,
 				C6F4BC722031DCF7002EE523 /* Cocoa+Rx.swift in Sources */,
+				271249C720405649009EE80B /* UpdateChannels.swift in Sources */,
 				C62270562036EA9E00DBCD65 /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
