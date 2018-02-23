@@ -7,3 +7,13 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
+
+protocol UpdateViewable: class {
+    func setPackages(packages: [Package])
+    var onInstallButtonPressed: Driver<Void> { get }
+    var onSkipButtonPressed: Driver<Void> { get }
+    var onRemindButtonPressed: Driver<Void> { get }
+    func updateSelectedPackages(packages: [Package])
+}
