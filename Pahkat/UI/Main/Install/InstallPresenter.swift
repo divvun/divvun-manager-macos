@@ -21,15 +21,25 @@ class InstallPresenter {
     func installTest() -> Single<PackageInstallStatus> {
         // TODO: subprocess
         return Single.just(PackageInstallStatus.notInstalled)
-//            .delay(2.0, scheduler: MainScheduler.instance)
+            .delay(2.0, scheduler: MainScheduler.instance)
     }
     
     func start() -> Disposable {
         self.view.set(totalPackages: packages.count)
         
         // TODO: check the starting response to make sure we're in a sane state
-        return try! Observable.concat(packages.values.map({ [weak self] action -> Observable<PackageInstallStatus> in
+        return try! Observable.concat(packages.values
+            .sorted(by: { (a, b) in
+                if (a.isInstalling && b.isInstalling) || (a.isUninstalling && b.isUninstalling) {
+                    // TODO: fix when dependency management is added
+                    return a.package.id < b.package.id
+                }
+                
+                return a.isUninstalling
+            })
+            .map({ [weak self] action -> Observable<PackageInstallStatus> in
 //            try AppContext.rpc.install(package, target: .user)
+                // TODO Implement cancel with flatMapLatest
             installTest()
                 .do(
                     onSuccess: ({ _ in

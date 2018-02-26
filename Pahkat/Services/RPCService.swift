@@ -71,6 +71,22 @@ extension DownloadSubscriptionRequest: JSONRPCSubscriptionRequest {
     var callback: String { return "download" }
 }
 
+struct SettingsRequest: JSONRPCRequest {
+    typealias Response = SettingsState
+    
+    var method: String { return "settings" }
+    var params: Any? { return [] }
+}
+
+struct SetSettingsRequest: JSONRPCRequest {
+    let settings: SettingsState
+    
+    typealias Response = Bool
+    
+    var method: String { return "set_settings" }
+    var params: Any? { return [settings] }
+}
+
 protocol PahkatRPCServiceable: class {
 //    func get(repository url: URL) throws -> Single<RepositoryRequest.Response>
 //    func status(of packages: [Package], forRepository url: URL) throws -> Single<PackageInstallStatusesRequest.Response>
@@ -169,6 +185,14 @@ class PahkatRPCService: PahkatRPCServiceable {
 
     func uninstall(_ package: Package, target: MacOsInstaller.Targets) throws -> Single<UninstallRequest.Response> {
         return try rpc.send(request: UninstallRequest(package: package, target: target))
+    }
+    
+    func settings() throws -> Single<SettingsRequest.Response> {
+        return try rpc.send(request: SettingsRequest())
+    }
+    
+    func set(settings: SettingsState) throws -> Single<SetSettingsRequest.Response> {
+        return try rpc.send(request: SetSettingsRequest(settings: settings))
     }
 }
 

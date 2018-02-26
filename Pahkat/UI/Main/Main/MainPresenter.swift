@@ -107,7 +107,7 @@ class MainPresenter {
             guard let `self` = self else { return }
             
             for package in packages {
-                if let packageAction = self.selectedPackages[package.id] {
+                if let _ = self.selectedPackages[package.id] {
                     self.selectedPackages.removeValue(forKey: package.id)
                 } else {
                     guard let status = self.statuses[package.id] else { fatalError("No status found for package \(package.id)") }
@@ -149,6 +149,12 @@ class MainPresenter {
 //
 //    }
 //
+    private func bindSettingsButton() -> Disposable {
+        return view.onSettingsTapped.drive(onNext: { [weak self] in
+            self?.view.showSettings()
+        })
+    }
+    
     private func bindPrimaryButton() -> Disposable {
         return view.onPrimaryButtonPressed.drive(onNext: { [weak self] in
             guard let `self` = self else { return }
@@ -157,21 +163,18 @@ class MainPresenter {
         })
     }
     
-    func start() -> Disposable {
-        //guard let view = view else { return Disposables.create() }
-        
-        view.update(title: Strings.loading)
+    func start() -> Disposable {        
+        print("WE ARE STARTING")
         
         return CompositeDisposable(disposables: [
-//            bindPrimaryButtonLabel(),
+            bindSettingsButton(),
             bindUpdatePackageList(),
             bindPackageToggled(),
-//            bindGroupToggled(),
             bindPrimaryButton()
         ])
-        
-//        return view.onPrimaryButtonPressed.drive(onNext: {
-//
-//        }, onCompleted: nil, onDisposed: nil)
+    }
+    
+    deinit {
+        print("PRESENTER DEINIT")
     }
 }

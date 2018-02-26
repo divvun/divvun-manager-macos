@@ -13,10 +13,12 @@ import RxCocoa
 protocol MainViewable: class {
     var onPackagesToggled: Observable<[Package]> { get }
     var onPrimaryButtonPressed: Driver<Void> { get }
+    var onSettingsTapped: Driver<Void> { get }
     func update(title: String)
     func showDownloadView(with packages: [String: PackageAction])
     func updatePrimaryButton(isEnabled: Bool, label: String)
     func handle(error: Error)
     func setRepository(repo: RepositoryIndex, statuses: [String: PackageInstallStatus])
     func updateSelectedPackages(packages: [String: PackageAction])
+    func showSettings()
 }

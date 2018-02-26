@@ -10,7 +10,7 @@ import Cocoa
 import RxSwift
 import RxCocoa
 
-class DownloadViewController: DisposableViewController<DownloadView>, DownloadViewable {
+class DownloadViewController: DisposableViewController<DownloadView>, DownloadViewable, NSToolbarDelegate {
     private let byteCountFormatter = ByteCountFormatter()
     private var delegate: DownloadProgressTableDelegate! = nil
     
@@ -53,7 +53,7 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
     }
     
     func cancel() {
-        print("cancel")
+        AppContext.windows.set(MainViewController(), for: MainWindowController.self)
     }
     
     func startInstallation(packages: [String: PackageAction]) {
@@ -76,12 +76,42 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
         fatalError("init(coder:) has not been implemented")
     }
     
+    func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
+        switch itemIdentifier.rawValue {
+        case "button":
+            contentView.primaryButton.title = Strings.cancel
+            contentView.primaryButton.sizeToFit()
+            return NSToolbarItem(view: contentView.primaryButton, identifier: itemIdentifier)
+        case "title":
+            contentView.primaryLabel.stringValue = Strings.downloading
+            contentView.primaryLabel.sizeToFit()
+            return NSToolbarItem(view: contentView.primaryLabel, identifier: itemIdentifier)
+        default:
+            return nil
+        }
+    }
+    
+    private func configureToolbar() {
+        let window = AppContext.windows.get(MainWindowController.self).contentWindow
+        
+        window.titleVisibility = .hidden
+        window.toolbar!.isVisible = true
+        window.toolbar!.delegate = self
+        
+        let toolbarItems = [NSToolbarItem.Identifier.flexibleSpace.rawValue,
+                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
+                            "title",
+                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
+                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
+                            "button"]
+        
+        window.toolbar!.setItems(toolbarItems)
+    }
+    
     override func viewDidLoad() {
         title = Strings.downloading
         
-        let window = AppContext.windows.get(MainWindowController.self)
-        window.contentWindow.titleVisibility = .visible
-        window.contentWindow.toolbar!.isVisible = false
+        configureToolbar()
         //window.contentWindow.toolbar = nil
     }
     

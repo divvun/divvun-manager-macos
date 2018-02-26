@@ -27,6 +27,7 @@
 		278A10B5203ADAB2007C3DC8 /* InstallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278A10B4203ADAB2007C3DC8 /* InstallView.xib */; };
 		278A10B7203ADACD007C3DC8 /* InstallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278A10B6203ADACD007C3DC8 /* InstallView.swift */; };
 		960DCF4737BF0B93EE5A96C6 /* Pods_Pahkat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D1F698D729533B781C38BEB /* Pods_Pahkat.framework */; };
+		C60B22F220432AF400A2027A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C60B22F020432AF400A2027A /* InfoPlist.strings */; };
 		C622703F20358F1B00DBCD65 /* RepositoryIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622703E20358F1B00DBCD65 /* RepositoryIndex.swift */; };
 		C6227041203599BA00DBCD65 /* PackageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6227040203599BA00DBCD65 /* PackageService.swift */; };
 		C62270482035C5D700DBCD65 /* UpdateWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62270472035C5D700DBCD65 /* UpdateWindow.swift */; };
@@ -106,6 +107,10 @@
 		4911F9B189408032AD636861 /* Pods-Pahkat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pahkat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pahkat/Pods-Pahkat.debug.xcconfig"; sourceTree = "<group>"; };
 		4D1F698D729533B781C38BEB /* Pods_Pahkat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pahkat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56F306996B41415DC22AAB5C /* Pods-Pahkat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pahkat.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pahkat/Pods-Pahkat.release.xcconfig"; sourceTree = "<group>"; };
+		C60B22ED2043217300A2027A /* nn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nn; path = ../nn.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C60B22EF204321C600A2027A /* nn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		C60B22F120432AF400A2027A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Pahkat/Base.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
+		C60B22F320432AF800A2027A /* nn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nn; path = ../nn.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C60B81A9203489B800D3E093 /* Pahkat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pahkat-Bridging-Header.h"; sourceTree = "<group>"; };
 		C622703E20358F1B00DBCD65 /* RepositoryIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryIndex.swift; sourceTree = "<group>"; };
 		C6227040203599BA00DBCD65 /* PackageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageService.swift; sourceTree = "<group>"; };
@@ -243,6 +248,7 @@
 			children = (
 				C656A694203EE4F80004E7F1 /* LocalisationResources */,
 				C6227068203A243700DBCD65 /* iso639-autonyms.tsv */,
+				C60B22F020432AF400A2027A /* InfoPlist.strings */,
 				C62270622039E08B00DBCD65 /* Localizable.strings */,
 				C69F948F2028B1EA00127A47 /* Assets.xcassets */,
 				C69F94952028B1EA00127A47 /* Pahkat.entitlements */,
@@ -332,13 +338,13 @@
 		C6F4BC642031DB6C002EE523 /* Download */ = {
 			isa = PBXGroup;
 			children = (
-				C6F4BC652031DB81002EE523 /* DownloadViewable.swift */,
-				C6F4BC692031DBA4002EE523 /* DownloadView.swift */,
 				C6F4BC6B2031DBC0002EE523 /* DownloadPresenter.swift */,
-				C6F4BC6D2031DBCB002EE523 /* DownloadViewController.swift */,
-				C6F4BC6F2031DBD3002EE523 /* DownloadView.xib */,
 				276391AB203D7F620096E10C /* DownloadProgressView.swift */,
 				276391AD203DA3020096E10C /* DownloadProgressView.xib */,
+				C6F4BC692031DBA4002EE523 /* DownloadView.swift */,
+				C6F4BC6F2031DBD3002EE523 /* DownloadView.xib */,
+				C6F4BC652031DB81002EE523 /* DownloadViewable.swift */,
+				C6F4BC6D2031DBCB002EE523 /* DownloadViewController.swift */,
 			);
 			path = Download;
 			sourceTree = "<group>";
@@ -477,6 +483,7 @@
 			knownRegions = (
 				en,
 				Base,
+				nn,
 			);
 			mainGroup = C69F94812028B1EA00127A47;
 			productRefGroup = C69F948B2028B1EA00127A47 /* Products */;
@@ -495,6 +502,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				271249B7204043F7009EE80B /* SettingsWindow.xib in Resources */,
+				C60B22F220432AF400A2027A /* InfoPlist.strings in Resources */,
 				C6227069203A243700DBCD65 /* iso639-autonyms.tsv in Resources */,
 				C656A696203EE5190004E7F1 /* base.yaml in Resources */,
 				C622704E2035C61000DBCD65 /* UpdateView.xib in Resources */,
@@ -576,6 +584,7 @@
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxFeedback/RxFeedback.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/STPrivilegedTask/STPrivilegedTask.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -586,6 +595,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxFeedback.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/STPrivilegedTask.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -661,11 +671,21 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		C60B22F020432AF400A2027A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C60B22F120432AF400A2027A /* Base */,
+				C60B22F320432AF800A2027A /* nn */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		C62270622039E08B00DBCD65 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				C62270632039E08B00DBCD65 /* Base */,
 				C62270652039E09600DBCD65 /* en */,
+				C60B22ED2043217300A2027A /* nn */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -674,6 +694,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				C69F94922028B1EA00127A47 /* Base */,
+				C60B22EF204321C600A2027A /* nn */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -718,6 +739,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -775,6 +797,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

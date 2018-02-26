@@ -1,4 +1,4 @@
-"appName" = "Package Manager"; //"Páhkat";
+"appName" = "PAKKE"; //"Páhkat";
 "autoCrashReporting" = "Automatically Send Crash Reports";
 "appUpdateBody" = "Páhkat v%1$@ is now available. It is highly recommended that you update as soon as possible. Update now?";
 "appUpdateTitle" = "Páhkat Update Available";

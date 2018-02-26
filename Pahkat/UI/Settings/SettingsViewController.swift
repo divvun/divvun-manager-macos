@@ -13,6 +13,12 @@ import RxCocoa
 class SettingsViewController: DisposableViewController<SettingsView>, SettingsViewable {
     
     private var tableDelegate: RepositoryTableDelegate! = nil
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        title = Strings.settings
+    }
 
     override func viewWillAppear() {
         super.viewWillAppear()
@@ -91,8 +97,8 @@ class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSou
 
 
 extension NSMenuItem {
-    convenience init(title: String, value: Any) {
-        self.init(title: title, target: nil, action: nil)
+    convenience init(title: String, value: Any, target: AnyObject? = nil, action: Selector? = nil) {
+        self.init(title: title, target: target, action: action)
         self.representedObject = value
     }
 }

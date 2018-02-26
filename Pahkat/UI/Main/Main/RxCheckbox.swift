@@ -10,6 +10,11 @@ import Cocoa
 import RxSwift
 import RxCocoa
 
+class OutlineCheckbox: NSButton {
+    var package: Package?
+    var group: String?
+}
+
 class RxCheckbox: NSButton {
     private(set) var bag: DisposeBag? = nil
     private(set) var toggleCallback: ((NSControl.StateValue) -> ())? = nil

@@ -15,6 +15,7 @@ class RxStore<State, Event> {
     
     private let dispatcher: PublishSubject<Event>
     let state: Observable<State>
+    let bag = DisposeBag()
     
     func dispatch(event: Event) {
         dispatcher.onNext(event)
@@ -23,15 +24,18 @@ class RxStore<State, Event> {
     init(initialState: State, reducers: [Reducer]) {
         let dispatcher = PublishSubject<Event>()
         
-        state = Observable.system(
+        let state = Observable.system(
             initialState: initialState,
             reduce: { (i: State, e: Event) -> State in
                 reducers.reduce(i, { (state: State, next: Reducer) in next(state, e) })
             },
             scheduler: MainScheduler.instance,
             scheduledFeedback: { _ in dispatcher })
-            .replay(1).refCount()
+            .replay(1)
         
+        state.connect().disposed(by: bag)
+        
+        self.state = state
         self.dispatcher = dispatcher
     }
     

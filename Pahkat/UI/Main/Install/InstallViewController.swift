@@ -16,7 +16,13 @@ extension Package {
     }
 }
 
-class InstallViewController: DisposableViewController<InstallView>, InstallViewable {
+extension Repository {
+    var nativeName: String {
+        return self.name[Strings.languageCode ?? "en"] ?? ""
+    }
+}
+
+class InstallViewController: DisposableViewController<InstallView>, InstallViewable, NSToolbarDelegate {
     private func setRemaining() {
         // Shhhhh
         let max = Int(self.contentView.horizontalIndicator.maxValue)
@@ -85,6 +91,44 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
     
     func processCancelled() {
         
+    }
+    
+    func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
+        switch itemIdentifier.rawValue {
+        case "button":
+            contentView.primaryButton.title = Strings.cancel
+            contentView.primaryButton.sizeToFit()
+            return NSToolbarItem(view: contentView.primaryButton, identifier: itemIdentifier)
+        case "title":
+            contentView.primaryLabel.stringValue = "Installing/Uninstalling…"
+            contentView.primaryLabel.sizeToFit()
+            return NSToolbarItem(view: contentView.primaryLabel, identifier: itemIdentifier)
+        default:
+            return nil
+        }
+    }
+    
+    private func configureToolbar() {
+        let window = AppContext.windows.get(MainWindowController.self).contentWindow
+        
+        window.titleVisibility = .hidden
+        window.toolbar!.isVisible = true
+        window.toolbar!.delegate = self
+        
+        let toolbarItems = [NSToolbarItem.Identifier.flexibleSpace.rawValue,
+                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
+                            "title",
+                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
+                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
+                            "button"]
+        
+        window.toolbar!.setItems(toolbarItems)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        configureToolbar()
     }
     
     override func viewWillAppear() {

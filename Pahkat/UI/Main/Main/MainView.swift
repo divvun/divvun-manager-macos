@@ -13,6 +13,7 @@ import RxCocoa
 class MainView: View {
     @IBOutlet weak var primaryLabel: NSTextField!
     @IBOutlet weak var primaryButton: NSButton!
+    @IBOutlet weak var settingsButton: NSButton!
     @IBOutlet weak var outlineView: NSOutlineView!
     
     override func awakeFromNib() {

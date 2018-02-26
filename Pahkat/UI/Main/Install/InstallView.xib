@@ -54,9 +54,30 @@
             <connections>
                 <outlet property="horizontalIndicator" destination="0ui-NS-5Sb" id="eEm-E6-d6T"/>
                 <outlet property="nameLabel" destination="0wv-yC-LZH" id="ilP-OA-age"/>
+                <outlet property="primaryButton" destination="D07-LY-w35" id="BVQ-Uu-x8q"/>
+                <outlet property="primaryLabel" destination="xuc-Rm-Vqz" id="Zdt-O4-Jm6"/>
                 <outlet property="remainingLabel" destination="kE1-15-EK2" id="ngJ-Th-SpY"/>
                 <outlet property="spinningIndicator" destination="3V2-0b-TjC" id="Bu2-1N-Nt1"/>
             </connections>
         </customView>
+        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="xuc-Rm-Vqz">
+            <rect key="frame" x="0.0" y="0.0" width="38" height="17"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="--" id="980-oz-34E">
+                <font key="font" metaFont="system"/>
+                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+            </textFieldCell>
+            <point key="canvasLocation" x="-350" y="198"/>
+        </textField>
+        <button verticalHuggingPriority="750" id="D07-LY-w35">
+            <rect key="frame" x="0.0" y="0.0" width="127" height="25"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <buttonCell key="cell" type="roundTextured" title="Cancel" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zbP-Ak-IVH">
+                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                <font key="font" metaFont="system"/>
+            </buttonCell>
+            <point key="canvasLocation" x="-418" y="327"/>
+        </button>
     </objects>
 </document>

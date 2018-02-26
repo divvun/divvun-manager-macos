@@ -17,6 +17,8 @@ class UpdatePresenter {
     }
     
     func start() -> Disposable {
-        return CompositeDisposable.init(disposables: [])
+        return CompositeDisposable(disposables: [
+            
+            ])
     }
 }

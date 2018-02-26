@@ -15,6 +15,8 @@ class InstallView: View {
     @IBOutlet weak var horizontalIndicator: NSProgressIndicator!
     @IBOutlet weak var nameLabel: NSTextField!
     @IBOutlet weak var remainingLabel: NSTextField!
+    @IBOutlet weak var primaryLabel: NSTextField!
+    @IBOutlet weak var primaryButton: NSButton!
     
     override func awakeFromNib() {
         horizontalIndicator.controlTint = .blueControlTint

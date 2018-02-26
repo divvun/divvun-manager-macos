@@ -61,8 +61,29 @@
             </constraints>
             <connections>
                 <outlet property="clipView" destination="Hu9-x9-Jzw" id="CGZ-42-lBU"/>
+                <outlet property="primaryButton" destination="4Ds-0z-EzO" id="Ibr-es-34L"/>
+                <outlet property="primaryLabel" destination="dZo-vj-w9y" id="gdp-re-jCO"/>
                 <outlet property="tableView" destination="v4I-Bo-sEC" id="klA-Ot-FJw"/>
             </connections>
         </customView>
+        <button verticalHuggingPriority="750" id="4Ds-0z-EzO">
+            <rect key="frame" x="0.0" y="0.0" width="127" height="25"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <buttonCell key="cell" type="roundTextured" title="--" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6dc-eN-hAe">
+                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                <font key="font" metaFont="system"/>
+            </buttonCell>
+            <point key="canvasLocation" x="-459" y="131"/>
+        </button>
+        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="dZo-vj-w9y">
+            <rect key="frame" x="0.0" y="0.0" width="38" height="17"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="LFZ-02-aoD">
+                <font key="font" metaFont="system"/>
+                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+            </textFieldCell>
+            <point key="canvasLocation" x="-446" y="232"/>
+        </textField>
     </objects>
 </document>

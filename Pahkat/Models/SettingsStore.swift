@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import RxSwift
 
-enum PeriodInterval: String {
+// TODO: deduplicate
+enum PeriodInterval: String, Codable {
     case never = "Never"
     case daily = "Daily"
     case weekly = "Weekly"
@@ -16,49 +18,55 @@ enum PeriodInterval: String {
     case monthly = "Monthly"
 }
 
-struct SettingsState {
+struct SettingsState: Codable {
+    // TODO: stub URL and handle rationally
     fileprivate(set) var repositoryURL: URL = URL(string: "https://x.brendan.so/macos-repo/")!
-        //UserDefaults.standard.url(forKey: "repositoryURL") ?? URL(string: "http://localhost:8000")!
-    fileprivate(set) var updateCheckInterval: PeriodInterval =
-        PeriodInterval(rawValue: UserDefaults.standard.string(forKey: "updateCheckInterval") ?? "") ?? .daily
-    fileprivate(set) var nextUpdateCheck: Date =
-        UserDefaults.standard.object(forKey: "nextUpdateCheck") as? Date ?? .distantPast
-    fileprivate(set) var interfaceLanguage: String =
-        UserDefaults.standard.string(forKey: "interfaceLanguage") ?? "en"
+    fileprivate(set) var updateCheckInterval: PeriodInterval = .daily
+    fileprivate(set) var nextUpdateCheck: Date = .distantPast
+    fileprivate(set) var interfaceLanguage: String = "en"
 }
 
-enum SettingsEvent {
-    case setRepositoryURL(URL)
-    case setUpdateCheckInterval(PeriodInterval)
-    case setNextUpdateCheck(Date)
-    case setInterfaceLanguage(String)
-}
+//enum SettingsEvent {
+//    case setRepositoryURL(URL)
+//    case setUpdateCheckInterval(PeriodInterval)
+//    case setNextUpdateCheck(Date)
+//    case setInterfaceLanguage(String)
+//}
 
-class SettingsStore: RxStore<SettingsState, SettingsEvent> {
-    let prefs = UserDefaults.standard
+class SettingsStore { //: RxStore<SettingsState, SettingsEvent> {
+//    let prefs = UserDefaults.standard
+//
+//    func reducer(state: SettingsState, event: SettingsEvent) -> SettingsState {
+//        var newState = state
+//
+//        switch (event) {
+//        case let .setInterfaceLanguage(language):
+//            newState.interfaceLanguage = language
+//            prefs.set(language, forKey: "language")
+//        case let .setNextUpdateCheck(date):
+//            newState.nextUpdateCheck = date
+//            prefs.set(date, forKey: "nextUpdateCheck")
+//        case let .setRepositoryURL(url):
+//            newState.repositoryURL = url
+//            prefs.set(url, forKey: "repositoryURL")
+//        case let .setUpdateCheckInterval(period):
+//            newState.updateCheckInterval = period
+//            prefs.set(period, forKey: "updateCheckInterval")
+//        }
+//
+//        return newState
+//    }
+//
+//    init() {
+//        super.init(initialState: SettingsState(), reducers: [self.reducer])
+//    }
     
-    func reducer(state: SettingsState, event: SettingsEvent) -> SettingsState {
-        var newState = state
-        
-        switch (event) {
-        case let .setInterfaceLanguage(language):
-            newState.interfaceLanguage = language
-            prefs.set(language, forKey: "language")
-        case let .setNextUpdateCheck(date):
-            newState.nextUpdateCheck = date
-            prefs.set(date, forKey: "nextUpdateCheck")
-        case let .setRepositoryURL(url):
-            newState.repositoryURL = url
-            prefs.set(url, forKey: "repositoryURL")
-        case let .setUpdateCheckInterval(period):
-            newState.updateCheckInterval = period
-            prefs.set(period, forKey: "updateCheckInterval")
-        }
-        
-        return newState
+    private let subject = BehaviorSubject<SettingsState>(value: SettingsState())
+    var state: Observable<SettingsState> {
+        return subject.asObservable()
     }
     
-    init() {
-        super.init(initialState: SettingsState(), reducers: [self.reducer])
+    func set(state: SettingsState) {
+        subject.onNext(state)
     }
 }

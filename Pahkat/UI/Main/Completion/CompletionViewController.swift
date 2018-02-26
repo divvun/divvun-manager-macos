@@ -71,7 +71,16 @@ class CompletionViewController: DisposableViewController<CompletionView>, Comple
         let source = "tell application \"Finder\"\nshut down\nend tell"
         let script = NSAppleScript(source: source)
         script?.executeAndReturnError(nil)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
+        let window = AppContext.windows.get(MainWindowController.self).contentWindow
+        window.titleVisibility = .visible
+        window.toolbar!.isVisible = false
+        
+        title = Strings.processCompletedTitle
     }
     
     override func viewWillAppear() {

@@ -43,8 +43,11 @@ class DownloadPresenter {
             .map { $0.package }
     }
     
+    private func bindCancel() -> Disposable {
+        return view.onCancelTapped.drive(onNext: { [weak self] in self?.view.cancel() })
+    }
     
-    private func download() -> Disposable {
+    private func bindDownload() -> Disposable {
         
 //        return try! AppContext.rpc.download(packages[0], target: .user).do(onNext: { [weak self] status in
 //            self?.view.setStatus(package: self!.packages[0], status: status)
@@ -92,7 +95,8 @@ class DownloadPresenter {
         self.view.initializeDownloads(packages: downloadablePackages())
         
         return CompositeDisposable.init(disposables: [
-            self.download()
+            self.bindDownload(),
+            self.bindCancel()
         ])
     }
 }

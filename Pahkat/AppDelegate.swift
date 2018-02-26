@@ -9,6 +9,7 @@
 import Cocoa
 import RxSwift
 import JSONRPCKit
+import STPrivilegedTask
 
 class AppContext {
     static let rpc = PahkatRPCService()
@@ -17,6 +18,27 @@ class AppContext {
     static let windows = WindowManager()
     
     private init() { fatalError() }
+}
+
+enum PrivilegedTaskLaunchResult {
+    case launched
+    case cancelled
+    case failure(NSError)
+}
+
+extension STPrivilegedTask {
+    func launchSafe() -> PrivilegedTaskLaunchResult {
+        let status = self.launch()
+        switch status {
+        case 0:
+            return .launched
+        case -60006:
+            return .cancelled
+        default:
+            let error = NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: nil)
+            return .failure(error)
+        }
+    }
 }
 
 @NSApplicationMain
@@ -31,6 +53,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // TODO: Check if run at startup and don't show window.
         AppContext.windows.show(MainWindowController.self)
+        
+        try! AppContext.rpc.settings()
+            .observeOn(MainScheduler.instance)
+            .subscribe(onSuccess: {
+                AppContext.settings.set(state: $0)
+            }, onError: {
+                NSAlert(error: $0).runModal()
+            })
+            .disposed(by: bag)
 
         // If the repository URL settings are changed, download new repo and push into AppStore.
         AppContext.settings.state.map { $0.repositoryURL }
@@ -38,6 +69,45 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .flatMapLatest { try AppContext.rpc.repository(with: $0).asObservable() }
             .subscribe(onNext: { AppContext.store.dispatch(event: AppEvent.setRepository($0)) })
             .disposed(by: bag)
+        
+//        let socket = try Socket(.unix, type: .stream, protocol: Socket.Protocol)
+        
+        _ = AppContext.rpc
+        
+//        AppContext.windows.show(UpdateWindowController.self)
+        
+        UserDefaults.standard.set(["en"], forKey: "AppleLanguages")
+        UserDefaults.standard.synchronize()
+        
+        NSApp.mainMenu = NSMenu()
+        NSApp.mainMenu = NSMenu.loadFromNib(path: "MainMenu")
+        
+        UserDefaults.standard.set(["nn"], forKey: "AppleLanguages")
+        UserDefaults.standard.synchronize()
+        
+//        let task = STPrivilegedTask(launchPath: "/usr/bin/nc", arguments: ["localhost", "3030"])!
+//
+//        switch task.launchSafe() {
+//        case .launched:
+//            task.outputFileHandle.readabilityHandler = { handle in
+//                guard let string = String(data: handle.availableData, encoding: .utf8) else {
+//                    print("bad dartar")
+//                    return
+//                }
+//                print("OUT: \(string)")
+//            }
+//        case .cancelled:
+//            print("User cancelled.")
+//        case let .failure(error):
+//            print(error)
+//        }
+        
+        // HOLY SHIT IT WORKS
+//        task.outputFileHandle.write("{}\n".data(using: .utf8)!)
+        
+//        AppContext.store.state.subscribe(onNext: {
+//            print($0)
+//        }).disposed(by: bag)
         
 //        print(ISO639.get(tag: "kpv"))
         
@@ -85,10 +155,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 }
 
 class App: NSApplication {
-    private let appDelegate = AppDelegate()
+    private lazy var appDelegate = AppDelegate()
     
     override init() {
         super.init()
+        
+        UserDefaults.standard.set(["nn"], forKey: "AppleLanguages")
+        UserDefaults.standard.synchronize()
         
         self.delegate = appDelegate
     }
