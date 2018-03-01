@@ -21,7 +21,6 @@
 		276391A2203ADDD60096E10C /* InstallPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276391A1203ADDD60096E10C /* InstallPresenter.swift */; };
 		276391A4203AE2660096E10C /* CompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276391A3203AE2660096E10C /* CompletionViewController.swift */; };
 		276391A6203AECE30096E10C /* CompletionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276391A5203AECE30096E10C /* CompletionView.swift */; };
-		276391A8203C69670096E10C /* RxCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276391A7203C69670096E10C /* RxCheckbox.swift */; };
 		276391AC203D7F620096E10C /* DownloadProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276391AB203D7F620096E10C /* DownloadProgressView.swift */; };
 		276391AE203DA3020096E10C /* DownloadProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 276391AD203DA3020096E10C /* DownloadProgressView.xib */; };
 		278A10B5203ADAB2007C3DC8 /* InstallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278A10B4203ADAB2007C3DC8 /* InstallView.xib */; };
@@ -48,6 +47,7 @@
 		C69F948E2028B1EA00127A47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69F948D2028B1EA00127A47 /* AppDelegate.swift */; };
 		C69F94902028B1EA00127A47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C69F948F2028B1EA00127A47 /* Assets.xcassets */; };
 		C69F94932028B1EA00127A47 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C69F94912028B1EA00127A47 /* MainMenu.xib */; };
+		C6B742C32048697400C7877D /* PackageAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742C22048697400C7877D /* PackageAction.swift */; };
 		C6CC91272028E69300CB0B10 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6CC91262028E69300CB0B10 /* MainWindow.xib */; };
 		C6CC912A20291A2D00CB0B10 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CC912920291A2D00CB0B10 /* APIService.swift */; };
 		C6F2676D203B96E8006EC59C /* APIService+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F2676C203B96E8006EC59C /* APIService+Extensions.swift */; };
@@ -99,7 +99,6 @@
 		276391A1203ADDD60096E10C /* InstallPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallPresenter.swift; sourceTree = "<group>"; };
 		276391A3203AE2660096E10C /* CompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionViewController.swift; sourceTree = "<group>"; };
 		276391A5203AECE30096E10C /* CompletionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionView.swift; sourceTree = "<group>"; };
-		276391A7203C69670096E10C /* RxCheckbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxCheckbox.swift; sourceTree = "<group>"; };
 		276391AB203D7F620096E10C /* DownloadProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadProgressView.swift; sourceTree = "<group>"; };
 		276391AD203DA3020096E10C /* DownloadProgressView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadProgressView.xib; sourceTree = "<group>"; };
 		278A10B4203ADAB2007C3DC8 /* InstallView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstallView.xib; sourceTree = "<group>"; };
@@ -137,6 +136,7 @@
 		C69F94922028B1EA00127A47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		C69F94942028B1EA00127A47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C69F94952028B1EA00127A47 /* Pahkat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pahkat.entitlements; sourceTree = "<group>"; };
+		C6B742C22048697400C7877D /* PackageAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageAction.swift; sourceTree = "<group>"; };
 		C6CC91262028E69300CB0B10 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		C6CC912920291A2D00CB0B10 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		C6F2676C203B96E8006EC59C /* APIService+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Extensions.swift"; sourceTree = "<group>"; };
@@ -206,7 +206,6 @@
 				C6F4BC562029BC05002EE523 /* MainViewable.swift */,
 				C6F4BC582029BC2C002EE523 /* MainPresenter.swift */,
 				C6F4BC5A2029BC57002EE523 /* MainViewController.swift */,
-				276391A7203C69670096E10C /* RxCheckbox.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -381,6 +380,7 @@
 				C62270662039E9CD00DBCD65 /* AppStore.swift */,
 				271249C4204055EC009EE80B /* UpdateFrequency.swift */,
 				271249C620405649009EE80B /* UpdateChannels.swift */,
+				C6B742C22048697400C7877D /* PackageAction.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -578,6 +578,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Pahkat/Pods-Pahkat-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/BTree/BTree.framework",
 				"${BUILT_PRODUCTS_DIR}/JSONRPCKit/JSONRPCKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
@@ -589,6 +590,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BTree.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSONRPCKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
@@ -633,7 +635,6 @@
 				276391A4203AE2660096E10C /* CompletionViewController.swift in Sources */,
 				C6F4BC662031DB81002EE523 /* DownloadViewable.swift in Sources */,
 				C6F8A81E2028B996009A016E /* MainView.swift in Sources */,
-				276391A8203C69670096E10C /* RxCheckbox.swift in Sources */,
 				C6F4BC592029BC2C002EE523 /* MainPresenter.swift in Sources */,
 				C6F4BC6A2031DBA4002EE523 /* DownloadView.swift in Sources */,
 				C6F4BC762031E0A3002EE523 /* InstallViewable.swift in Sources */,
@@ -655,6 +656,7 @@
 				276391A0203ADDC30096E10C /* InstallViewController.swift in Sources */,
 				C6F8A8262028BD91009A016E /* MainWindow.swift in Sources */,
 				C6F4BC722031DCF7002EE523 /* Cocoa+Rx.swift in Sources */,
+				C6B742C32048697400C7877D /* PackageAction.swift in Sources */,
 				271249C720405649009EE80B /* UpdateChannels.swift in Sources */,
 				C62270562036EA9E00DBCD65 /* Models.swift in Sources */,
 			);

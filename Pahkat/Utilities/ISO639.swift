@@ -15,6 +15,10 @@ struct ISO639Data {
     let autonym: String?
     let source: String
     
+    var autonymOrName: String {
+        return autonym ?? name
+    }
+    
     fileprivate init(row: [String]) {
         tag1 = row[0]
         tag3 = row[1]

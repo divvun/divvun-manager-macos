@@ -142,14 +142,14 @@ protocol JSONRPCRequest {
     associatedtype Response: Decodable
     
     var method: String { get }
-    var params: Any? { get }
+    var params: Encodable? { get }
 }
 
 protocol JSONRPCSubscriptionRequest {
     associatedtype Response: Decodable
     
     var method: String { get }
-    var params: Any? { get }
+    var params: Encodable? { get }
     var callback: String { get }
     var unsubscribeMethod: String? { get }
     var completionFilter: (Response) -> Bool { get }
@@ -160,12 +160,12 @@ extension JSONRPCSubscriptionRequest {
         return { _ in false }
     }
     
-    var params: Any? { return nil }
+    var params: Encodable? { return nil }
     var unsubscribeMethod: String? { return nil }
 }
 
 extension JSONRPCRequest {
-    var params: Any? {
+    var params: Encodable? {
         return nil
     }
 }
@@ -214,29 +214,61 @@ extension JSONRPCRawUnsubscribeRequest: JSONRPCRequest {
     var params: Any? { return [subscription] }
 }
 
+fileprivate struct JSONRPCPayload<T: Encodable>: Encodable {
+    let id: UInt?
+    let method: String
+    let params: T?
+    
+    private enum CodingKeys: String, CodingKey {
+        case jsonrpc
+        case id
+        case method
+        case params
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode("2.0", forKey: .jsonrpc)
+        try container.encode(method, forKey: .method)
+        
+        if let id = id {
+            try container.encode(id, forKey: .id)
+        }
+        
+        if let params = params {
+            try container.encode(params, forKey: .params)
+        }
+    }
+}
+
 class JSONRPCClient {
     private let outputSubject = PublishSubject<Data>()
     private var currentId: UInt = 0
     private let jsonDecoder = JSONDecoder()
+    private let jsonEncoder = JSONEncoder()
     
     let input = PublishSubject<Data>()
     var output: Observable<Data> {
         return outputSubject.asObserver()
     }
     
-    private func generatePayload(id: UInt?, method: String, params: Any? = nil) throws -> Data {
-        var structure: [String: Any] = [
+    private func generatePayload<T: Encodable>(id: UInt?, method: String, params: T? = nil) throws -> Data {
+        var structure: [String: Encodable] = [
             "jsonrpc": "2.0",
             "method": method
         ]
-        
+
         if let id = id {
             structure["id"] = id
         }
-        
+
         if let params = params {
             structure["params"] = params
         }
+        
+//        let payload = JSONRPCPayload<T>(id: id, method: method, params: params)
+        
+//        return try jsonEncoder.encode(payload)
         
         return try JSONSerialization.data(withJSONObject: structure, options: [])
     }

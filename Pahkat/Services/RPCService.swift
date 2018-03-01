@@ -9,15 +9,31 @@
 import Foundation
 import RxSwift
 
-struct RepositoryRequest {
-    let url: URL
+struct RepositoryRequest: Codable {
+    let config: RepoConfig
 }
 
 extension RepositoryRequest: JSONRPCRequest {
     typealias Response = RepositoryIndex
     
     var method: String { return "repository" }
-    var params: Any? { return [url.absoluteString] }
+    var params: Encodable? { return [config.url.absoluteString, config.channel] }
+}
+
+struct RepositoryStatusesRequest {
+    let url: URL
+}
+
+struct PackageStatusResponse: Codable {
+    let status: PackageInstallStatus
+    let target: MacOsInstaller.Targets
+}
+
+extension RepositoryStatusesRequest: JSONRPCRequest {
+    typealias Response = [String: PackageStatusResponse]
+    
+    var method: String { return "repository_statuses" }
+    var params: Encodable? { return [url.absoluteString] }
 }
 
 struct PackageInstallStatusRequest {
@@ -30,7 +46,7 @@ extension PackageInstallStatusRequest: JSONRPCRequest {
     typealias Response = PackageInstallStatus
     
     var method: String { return "status" }
-    var params: Any? { return [package.id, target == MacOsInstaller.Targets.system ? 0 : 1] }
+    var params: Encodable? { return [package.id, target == MacOsInstaller.Targets.system ? 0 : 1] }
 }
 
 struct InstallRequest {
@@ -42,7 +58,7 @@ extension InstallRequest: JSONRPCRequest {
     typealias Response = PackageInstallStatus
     
     var method: String { return "install" }
-    var params: Any? { return [package.id, target == MacOsInstaller.Targets.system ? 0 : 1] }
+    var params: Encodable? { return [package.id, target == MacOsInstaller.Targets.system ? 0 : 1] }
 }
 
 struct UninstallRequest {
@@ -54,7 +70,7 @@ extension UninstallRequest: JSONRPCRequest {
     typealias Response = PackageInstallStatus
     
     var method: String { return "uninstall" }
-    var params: Any? { return [package.id, target == MacOsInstaller.Targets.system ? 0 : 1] }
+    var params: Encodable? { return [package.id, target == MacOsInstaller.Targets.system ? 0 : 1] }
 }
 
 struct DownloadSubscriptionRequest {
@@ -67,7 +83,7 @@ extension DownloadSubscriptionRequest: JSONRPCSubscriptionRequest {
     
     var method: String { return "download_subscribe" }
     var unsubscribeMethod: String? { return "download_unsubscribe" }
-    var params: Any? { return [package.id, target == MacOsInstaller.Targets.system ? 0 : 1] }
+    var params: Encodable? { return [package.id, target == MacOsInstaller.Targets.system ? 0 : 1] }
     var callback: String { return "download" }
 }
 
@@ -75,7 +91,7 @@ struct SettingsRequest: JSONRPCRequest {
     typealias Response = SettingsState
     
     var method: String { return "settings" }
-    var params: Any? { return [] }
+    var params: Encodable? { return [] }
 }
 
 struct SetSettingsRequest: JSONRPCRequest {
@@ -84,7 +100,7 @@ struct SetSettingsRequest: JSONRPCRequest {
     typealias Response = Bool
     
     var method: String { return "set_settings" }
-    var params: Any? { return [settings] }
+    var params: Encodable? { return [settings] }
 }
 
 protocol PahkatRPCServiceable: class {
@@ -158,12 +174,16 @@ class PahkatRPCService: PahkatRPCServiceable {
         pahkatcIPC.terminate()
     }
     
-    func repository(with url: URL) throws -> Single<RepositoryRequest.Response> {
-        return try rpc.send(request: RepositoryRequest(url: url))
+    func repository(with config: RepoConfig) throws -> Single<RepositoryRequest.Response> {
+        return try rpc.send(request: RepositoryRequest(config: config))
     }
     
-    func status(of package: Package, target: MacOsInstaller.Targets) throws -> Single<PackageInstallStatusRequest.Response> {
-        return try rpc.send(request: PackageInstallStatusRequest(package: package, target: target))
+//    func status(of package: Package, target: MacOsInstaller.Targets) throws -> Single<PackageInstallStatusRequest.Response> {
+//        return try rpc.send(request: PackageInstallStatusRequest(package: package, target: target))
+//    }
+    
+    func statuses(for url: URL) throws -> Single<RepositoryStatusesRequest.Response> {
+        return try rpc.send(request: RepositoryStatusesRequest(url: url))
     }
     
     func download(_ package: Package, target: MacOsInstaller.Targets) throws -> Observable<PackageDownloadStatus> {
@@ -212,7 +232,7 @@ class PahkatRPCService: PahkatRPCServiceable {
 //    typealias Response = String
 //
 //    var method: String { return "hello_subscribe" }
-//    var params: Any? { return [10] }
+//    var params: Encodable? { return [10] }
 //    var callback: String { return "hello" }
 //    var unsubscribeMethod: String? { return "hello_unsubscribe" }
 //}

@@ -10,11 +10,11 @@ import Foundation
 import RxSwift
 
 enum AppEvent {
-    case setRepository(RepositoryIndex)
+    case setRepositories([RepositoryIndex])
 }
 
 struct AppState {
-    var repository: RepositoryIndex? = nil
+    var repositories = [RepositoryIndex]()
 }
 
 class AppStore: RxStore<AppState, AppEvent> {
@@ -22,8 +22,8 @@ class AppStore: RxStore<AppState, AppEvent> {
         var newState = state
         
         switch (event) {
-        case let .setRepository(repo):
-            newState.repository = repo
+        case let .setRepositories(repos):
+            newState.repositories = repos
         }
         
         return newState

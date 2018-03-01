@@ -9,10 +9,38 @@
 import Foundation
 import RxSwift
 
-struct RepositoryIndex: Decodable, Equatable {
+class RepositoryIndex: Decodable, Hashable, Equatable, Comparable {
     let meta: Repository
     private let packagesMeta: Packages
     private let virtualsMeta: Virtuals
+    
+    var statuses: [String: PackageStatusResponse] = [:]
+    
+    init(repository: Repository, packages: Packages, virtuals: Virtuals) {
+        self.meta = repository
+        self.packagesMeta = packages
+        self.virtualsMeta = virtuals
+    }
+    
+    var packages: [String: Package] {
+        return packagesMeta.packages
+    }
+    
+    var virtuals: [String: String] {
+        return virtualsMeta.virtuals
+    }
+    
+    func url(for package: Package) -> URL {
+        return packagesMeta.base.appendingPathComponent(package.id)
+    }
+    
+    func status(for package: Package) -> PackageStatusResponse? {
+        return statuses[package.id]
+    }
+    
+    func set(statuses: [String: PackageStatusResponse]) {
+        self.statuses = statuses
+    }
     
     private enum CodingKeys: String, CodingKey {
         case meta = "meta"
@@ -36,17 +64,12 @@ struct RepositoryIndex: Decodable, Equatable {
             lhs.virtualsMeta == rhs.virtualsMeta
     }
     
-    init(repository: Repository, packages: Packages, virtuals: Virtuals) {
-        self.meta = repository
-        self.packagesMeta = packages
-        self.virtualsMeta = virtuals
+    static func <(lhs: RepositoryIndex, rhs: RepositoryIndex) -> Bool {
+        return lhs.meta.nativeName < rhs.meta.nativeName
     }
     
-    var packages: [String: Package] {
-        return packagesMeta.packages
+    var hashValue: Int {
+        return meta.hashValue ^ packagesMeta.hashValue ^ virtualsMeta.hashValue
     }
     
-    var virtuals: [String: String] {
-        return virtualsMeta.virtuals
-    }
 }

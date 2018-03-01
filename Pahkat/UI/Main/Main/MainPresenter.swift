@@ -9,58 +9,51 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import BTree
 
-enum PackageAction: Hashable {
-    case install(Package)
-    case uninstall(Package)
+
+typealias PackageOutlineMap = Map<OutlineGroup, [OutlinePackage]>
+typealias MainOutlineMap = Map<OutlineRepository, PackageOutlineMap>
+
+fileprivate func categoryFilter(repo: RepositoryIndex) -> PackageOutlineMap {
+    var data = PackageOutlineMap()
     
-    static func ==(lhs: PackageAction, rhs: PackageAction) -> Bool {
-        switch (lhs, rhs) {
-        case let (.install(a), .install(b)):
-            return a == b
-        case let (.uninstall(a), .uninstall(b)):
-            return a == b
-        default:
-            return false
+    repo.packages.values.forEach { package in
+        let value = repo.meta.nativeCategory(for: package.category)
+        let key = OutlineGroup(id: package.category, value: value, filter: .category)
+        
+        if !data.keys.contains(key) {
+            data[key] = []
+        }
+        
+        data[key]!.append(OutlinePackage(package: package, action: nil))
+    }
+    
+    return data
+}
+
+fileprivate func languageFilter(repo: RepositoryIndex) -> PackageOutlineMap {
+    var data = PackageOutlineMap()
+    
+    repo.packages.values.forEach { package in
+        package.languages.forEach { language in
+            let key = OutlineGroup(id: language, value: ISO639.get(tag: language)?.autonymOrName ?? language, filter: .language)
+            if !data.keys.contains(key) {
+                data[key] = []
+            }
+            
+            data[key]!.append(OutlinePackage(package: package, action: nil))
         }
     }
     
-    var isInstalling: Bool {
-        if case .install = self { return true } else { return false }
-    }
-    
-    var isUninstalling: Bool {
-        if case .uninstall = self { return true } else { return false }
-    }
-    
-    var hashValue: Int {
-        return self.package.hashValue
-    }
-    
-    var package: Package {
-        switch self {
-        case let .install(package):
-            return package
-        case let .uninstall(package):
-            return package
-        }
-    }
-    
-    var description: String {
-        switch self {
-        case .install(_):
-            return Strings.install
-        case .uninstall(_):
-            return Strings.uninstall
-        }
-    }
+    return data
 }
 
 class MainPresenter {
-    private unowned var view: MainViewable
-    private var repo: RepositoryIndex? = nil
-    private var statuses = [String: PackageInstallStatus]()
-    private var selectedPackages = [String: PackageAction]()
+    private unowned let view: MainViewable
+    private var data: MainOutlineMap = Map()
+    private var selectedPackages = [URL: PackageAction]()
+    
     
     init(view: MainViewable) {
         self.view = view
@@ -70,79 +63,56 @@ class MainPresenter {
 //
 //    }
     
+    private func updateData(with repositories: [RepositoryIndex]) {
+        data = MainOutlineMap()
+        
+        repositories.forEach { repo in
+            let key = OutlineRepository(filter: repo.meta.primaryFilter, repo: repo)
+            
+            switch repo.meta.primaryFilter {
+            case .category:
+                data[key] = categoryFilter(repo: repo)
+            case .language:
+                data[key] = languageFilter(repo: repo)
+            }
+        }
+    }
+    
     private func bindUpdatePackageList() -> Disposable {
         return AppContext.store.state
-            .filter { $0.repository != nil }
-            .map { $0.repository! }
-            .distinctUntilChanged()
-            .flatMapLatest { (repo: RepositoryIndex) -> Observable<(RepositoryIndex, [String: PackageInstallStatus])> in
-                let statuses = repo.packages.values.flatMap { package in
-                    try? AppContext.rpc.status(of: package, target: .user)
-                        .map { (package.id, $0) }
-                        .asObservable()
-                }
-                
-                return Observable.merge(statuses)
-                    .toArray()
-                    .map({ (pairs: [(String, PackageInstallStatus)]) -> (RepositoryIndex, [String: PackageInstallStatus]) in
-                        var out = [String: PackageInstallStatus]()
-                        pairs.forEach { out[$0.0] = $0.1 }
-                        return (repo, out)
-                    })
-            }
+            .map { $0.repositories }
+            .distinctUntilChanged({ (a, b) in a == b })
             .observeOn(MainScheduler.instance)
             .subscribeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] (repo, statuses) in
+            .subscribe(onNext: { [weak self] repos in
                 guard let `self` = self else { return }
-                // TODO: do what is needed to cause the outline view to update.
-                self.statuses = statuses
-                self.repo = repo
-                self.view.setRepository(repo: repo, statuses: statuses)
+                self.updateData(with: repos)
+                self.view.setRepositories(data: self.data)
 //                print(repo.meta)
             }, onError: { [weak self] in self?.view.handle(error: $0) })
     }
     
-    private func bindPackageToggled() -> Disposable {
-        return view.onPackagesToggled.subscribe(onNext: { [weak self] packages in
-            guard let `self` = self else { return }
-            
-            for package in packages {
-                if let _ = self.selectedPackages[package.id] {
-                    self.selectedPackages.removeValue(forKey: package.id)
-                } else {
-                    guard let status = self.statuses[package.id] else { fatalError("No status found for package \(package.id)") }
-                    
-                    switch status {
-                    case .upToDate:
-                        self.selectedPackages[package.id] = .uninstall(package)
-                    default:
-                        self.selectedPackages[package.id] = .install(package)
-                    }
-                }
-            }
-            
-            self.view.updateSelectedPackages(packages: self.selectedPackages)
-            let packageCount = String(self.selectedPackages.values.count)
-            
-            let hasInstalls = self.selectedPackages.values.first(where: { $0.isInstalling }) != nil
-            let hasUninstalls = self.selectedPackages.values.first(where: { $0.isUninstalling }) != nil
-            
-            var isEnabled: Bool = true
-            let label: String
-            
-            if hasInstalls && hasUninstalls {
-                label = Strings.installUninstallNPackages(count: packageCount)
-            } else if hasInstalls {
-                label = Strings.installNPackages(count: packageCount)
-            } else if hasUninstalls {
-                label = Strings.uninstallNPackages(count: packageCount)
-            } else {
-                isEnabled = false
-                label = Strings.noPackagesSelected
-            }
-            
-            self.view.updatePrimaryButton(isEnabled: isEnabled, label: label)
-        })
+    private func updatePrimaryButton() {
+        let packageCount = String(self.selectedPackages.values.count)
+        
+        let hasInstalls = self.selectedPackages.values.first(where: { $0.isInstalling }) != nil
+        let hasUninstalls = self.selectedPackages.values.first(where: { $0.isUninstalling }) != nil
+        
+        var isEnabled: Bool = true
+        let label: String
+        
+        if hasInstalls && hasUninstalls {
+            label = Strings.installUninstallNPackages(count: packageCount)
+        } else if hasInstalls {
+            label = Strings.installNPackages(count: packageCount)
+        } else if hasUninstalls {
+            label = Strings.uninstallNPackages(count: packageCount)
+        } else {
+            isEnabled = false
+            label = Strings.noPackagesSelected
+        }
+        
+        self.view.updatePrimaryButton(isEnabled: isEnabled, label: label)
     }
 //
 //    private func bindGroupToggled() -> Disposable {
@@ -159,8 +129,64 @@ class MainPresenter {
         return view.onPrimaryButtonPressed.drive(onNext: { [weak self] in
             guard let `self` = self else { return }
             let window = AppContext.windows.get(MainWindowController.self)
-            window.contentWindow.set(viewController: DownloadViewController(packages: self.selectedPackages))
+//            window.contentWindow.set(viewController: DownloadViewController(packages: self.selectedPackages))
         })
+    }
+    
+    
+    private func bindPackageToggleEvent() -> Disposable {
+        return view.onPackageEvent
+            .flatMapLatest { [weak self] (event: OutlineEvent) -> Observable<(RepositoryIndex, [Package])> in
+                guard let `self` = self else { return Observable.empty() }
+                
+                switch event {
+                case let .togglePackage(repo, package):
+                    return Observable.just((repo, [package]))
+                case let .toggleGroup(repo, group):
+                    let packages = self.data[repo]![group]!
+                    let toggleIds = Set(self.selectedPackages.keys).intersection(packages.map { repo.repo.url(for: $0.package) })
+                    let x = toggleIds.count > 0 ? toggleIds.map { url in packages.first(where: { url == repo.repo.url(for: $0.package) })!.package } : packages.map { $0.package }
+                    return Observable.just((repo.repo, x))
+                default:
+                    return Observable.empty()
+                }
+            }
+            .subscribe(onNext: { [weak self] tuple in
+                guard let `self` = self else { return }
+                
+                let repo = tuple.0
+                let packages = tuple.1
+                
+                guard let (_, packageMap) = self.data.first(where: { $0.0.repo == repo }) else { return }
+                
+                for package in packages {
+                    for item in packageMap {
+                        guard case let .macOsInstaller(installer) = package.installer else {
+                            continue
+                        }
+                        
+                        if let toggledPackage = item.1.first(where: { $0.package == package }), let status = repo.status(for: package) {
+                            if toggledPackage.action == nil {
+                                switch status.status {
+                                case .upToDate:
+                                    toggledPackage.action = PackageAction.uninstall(repo, package, installer.targets[0])
+                                default:
+                                    toggledPackage.action = PackageAction.install(repo, package, installer.targets[0])
+                                }
+                            } else {
+                                toggledPackage.action = nil
+                            }
+                            self.selectedPackages[repo.url(for: package)] = toggledPackage.action
+                        }
+                    }
+                }
+                
+                self.updatePrimaryButton()
+                
+//                self.view.setRepositories(data: self.data)
+                self.view.refreshRepositories()
+            })
+        
     }
     
     func start() -> Disposable {        
@@ -169,7 +195,7 @@ class MainPresenter {
         return CompositeDisposable(disposables: [
             bindSettingsButton(),
             bindUpdatePackageList(),
-            bindPackageToggled(),
+            bindPackageToggleEvent(),
             bindPrimaryButton()
         ])
     }

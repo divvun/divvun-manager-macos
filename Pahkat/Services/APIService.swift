@@ -128,6 +128,7 @@ public struct Repository: Hashable, Codable {
     let description: [String: String]
     let primaryFilter: PrimaryFilter
     let channels: [Channels]
+    let categories: [String: [String: String]]
 
     public var hashValue: Int {
         var v = 0
@@ -165,6 +166,7 @@ public struct Repository: Hashable, Codable {
         case description = "description"
         case primaryFilter = "primaryFilter"
         case channels = "channels"
+        case categories = "categories"
     }
 
     public enum _Type: String, Codable {
@@ -217,6 +219,7 @@ public struct RepositoryAgent: Hashable, Codable {
 
 public struct Packages: Hashable, Codable {
     let _type: _Type?
+    let base: URL
     let packages: [String: Package]
 
     public var hashValue: Int {
@@ -238,6 +241,7 @@ public struct Packages: Hashable, Codable {
     private enum CodingKeys: String, CodingKey {
         case _type = "@type"
         case packages = "packages"
+        case base = "base"
     }
 
     public enum _Type: String, Codable {

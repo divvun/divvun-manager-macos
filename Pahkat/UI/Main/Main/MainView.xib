@@ -39,7 +39,7 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="MCQ-hq-CnE" customClass="CheckboxTableCellView" customModule="Pahkat" customModuleProvider="target">
+                                            <tableCellView id="MCQ-hq-CnE">
                                                 <rect key="frame" x="1" y="2" width="240" height="18"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -62,7 +62,6 @@
                                                     </textField>
                                                 </subviews>
                                                 <connections>
-                                                    <outlet property="checkboxView" destination="10i-S8-dpG" id="kgU-3Z-gTw"/>
                                                     <outlet property="nextKeyView" destination="10i-S8-dpG" id="d8V-v0-Vep"/>
                                                     <outlet property="textField" destination="FR6-Ay-HuD" id="Db7-0e-Kmt"/>
                                                 </connections>

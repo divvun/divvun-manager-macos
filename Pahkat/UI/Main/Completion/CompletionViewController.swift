@@ -11,44 +11,33 @@ import RxSwift
 import RxCocoa
 
 class CompletionViewController: DisposableViewController<CompletionView>, CompletionViewable {
-//        
-//    required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-    
-    
     var onRestartButtonTapped: Observable<Void> = Observable.empty()
     var onFinishButtonTapped: Observable<Void> = Observable.empty()
     
-    private let packages: [String:PackageAction]!
-    private var requiresReboot: Bool = false
+    private let packages: [String: PackageAction]
+    private let requiresReboot: Bool
     
-    init(with packages:[String: PackageAction]) {
+    init(with packages: [String: PackageAction]) {
         self.packages = packages
-        super.init()
+        var requiresReboot = false
         
-        self.packages.values.forEach({ action in
-            switch action {
-            case let .install(package):
-                switch(package.installer) {
-                case .macOsInstaller(let installer):
-                    if (installer.requiresReboot) {
-                        self.requiresReboot = true
-                    }
-                default:
-                    break
-                }
-            case let .uninstall(package):
-                switch(package.installer) {
-                case .macOsInstaller(let installer):
-                    if (installer.requiresUninstallReboot) {
-                        self.requiresReboot = true
-                    }
-                default:
-                    break
-                }
+        for action in packages.values {
+            guard case let .macOsInstaller(installer) = action.package.installer else {
+                continue
             }
-        })
+            
+            if case .install(_) = action, installer.requiresReboot {
+                requiresReboot = true
+                break
+            } else if case .uninstall(_) = action, installer.requiresUninstallReboot {
+                requiresReboot = true
+                break
+            }
+        }
+        
+        self.requiresReboot = requiresReboot
+        
+        super.init()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -56,11 +45,7 @@ class CompletionViewController: DisposableViewController<CompletionView>, Comple
     }
     
     func show(errors: [ProcessResult]) {
-    
-    }
-    
-    func requiresReboot(is requiresReboot: Bool) {
-        
+        fatalError("unimplemented")
     }
     
     func showMain() {
@@ -110,10 +95,7 @@ class CompletionViewController: DisposableViewController<CompletionView>, Comple
                 self?.showMain()
             }).disposed(by: bag)
         }
-        
     }
-    
-    
 }
 
 extension Package.Installer {

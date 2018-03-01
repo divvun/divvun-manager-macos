@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.6.0)
+  - BTree (4.1.0)
   - JSONRPCKit (3.0.0):
     - Result (~> 3.2.0)
   - Moya (10.0.2):
@@ -20,6 +21,7 @@ PODS:
   - STPrivilegedTask (1.0.6)
 
 DEPENDENCIES:
+  - BTree (~> 4.1)
   - JSONRPCKit
   - Moya (~> 10)
   - Moya/RxSwift
@@ -39,6 +41,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
+  BTree: 99b99930790b88dc5e8bafbf666a5dfb8d7808b4
   JSONRPCKit: 50e0dc5e7f873e87f81562feb8836b7d1974da6d
   Moya: 2b0531a9fef318e0bc484030c3db1e6f279ccb66
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
@@ -47,6 +50,6 @@ SPEC CHECKSUMS:
   RxSwift: e49536837d9901277638493ea537394d4b55f570
   STPrivilegedTask: 890e43ce2ed0bdfc6ff6f10e2b8d49831cc3bb97
 
-PODFILE CHECKSUM: 61fe05c5c0ec82422ea2dbaa5fe7fedaa8f3512d
+PODFILE CHECKSUM: f43bc2a903bd6cdfbf23c99e7fd7f000b827ae11
 
 COCOAPODS: 1.4.0

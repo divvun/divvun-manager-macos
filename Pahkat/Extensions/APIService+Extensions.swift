@@ -20,3 +20,23 @@ extension Package.Installer {
         }
     }
 }
+
+extension Package {
+    var nativeName: String {
+        return self.name[Strings.languageCode ?? "en"] ?? ""
+    }
+}
+
+extension Repository {
+    var nativeName: String {
+        return self.name[Strings.languageCode ?? "en"] ?? ""
+    }
+    
+    func nativeCategory(for key: String) -> String {
+        guard let map = self.categories[Strings.languageCode ?? "en"] else {
+            return key
+        }
+        
+        return map[key] ?? key
+    }
+}

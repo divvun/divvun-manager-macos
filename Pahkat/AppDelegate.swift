@@ -54,23 +54,37 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // TODO: Check if run at startup and don't show window.
         AppContext.windows.show(MainWindowController.self)
         
-        try! AppContext.rpc.settings()
-            .observeOn(MainScheduler.instance)
-            .subscribe(onSuccess: {
-                AppContext.settings.set(state: $0)
-            }, onError: {
-                NSAlert(error: $0).runModal()
-            })
-            .disposed(by: bag)
+//        try! AppContext.rpc.settings()
+//            .observeOn(MainScheduler.instance)
+//            .subscribe(onSuccess: {
+//                AppContext.settings.set(state: $0)
+//            }, onError: {
+//                NSAlert(error: $0).runModal()
+//            })
+//            .disposed(by: bag)
 
         // If the repository URL settings are changed, download new repo and push into AppStore.
-        AppContext.settings.state.map { $0.repositoryURL }
-            .distinctUntilChanged()
-            .flatMapLatest { try AppContext.rpc.repository(with: $0).asObservable() }
-            .subscribe(onNext: { AppContext.store.dispatch(event: AppEvent.setRepository($0)) })
+        AppContext.settings.state.map { $0.repositories }
+            .distinctUntilChanged({ (a, b) in a == b })
+            .flatMapLatest { (configs: [RepoConfig]) -> Observable<[RepositoryIndex]> in
+                return Observable.from(try configs.map { config in try AppContext.rpc.repository(with: config).asObservable() })
+                    .merge()
+                    .toArray()
+            }
+            .flatMapLatest { (repos: [RepositoryIndex]) -> Observable<[RepositoryIndex]> in
+                return Observable.from(try repos.map { repo in try AppContext.rpc.statuses(for: repo.meta.base).asObservable().map { (repo, $0) } })
+                    .merge()
+                    .map {
+                        $0.0.set(statuses: $0.1)
+                        return $0.0
+                    }
+                    .toArray()
+            }
+            .subscribe(onNext: {
+                print($0)
+                AppContext.store.dispatch(event: AppEvent.setRepositories($0))
+            })
             .disposed(by: bag)
-        
-//        let socket = try Socket(.unix, type: .stream, protocol: Socket.Protocol)
         
         _ = AppContext.rpc
         
@@ -105,9 +119,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // HOLY SHIT IT WORKS
 //        task.outputFileHandle.write("{}\n".data(using: .utf8)!)
         
-//        AppContext.store.state.subscribe(onNext: {
-//            print($0)
-//        }).disposed(by: bag)
+        AppContext.store.state.subscribe(onNext: {
+            print($0)
+        }).disposed(by: bag)
         
 //        print(ISO639.get(tag: "kpv"))
         

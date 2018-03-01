@@ -10,18 +10,6 @@ import Cocoa
 import RxSwift
 import RxCocoa
 
-extension Package {
-    var nativeName: String {
-        return self.name[Strings.languageCode ?? "en"] ?? ""
-    }
-}
-
-extension Repository {
-    var nativeName: String {
-        return self.name[Strings.languageCode ?? "en"] ?? ""
-    }
-}
-
 class InstallViewController: DisposableViewController<InstallView>, InstallViewable, NSToolbarDelegate {
     private func setRemaining() {
         // Shhhhh
@@ -36,9 +24,9 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
             let label: String
             
             switch action {
-            case let .install(package):
+            case let .install(_, package, _):
                 label = Strings.installingPackage(name: package.nativeName, version: package.version)
-            case let .uninstall(package):
+            case let .uninstall(_, package, _):
                 label = Strings.uninstallingPackage(name: package.nativeName, version: package.version)
             }
             
@@ -88,7 +76,7 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
     func handle(error: Error) {
         
     }
-    
+    // TODO
     func processCancelled() {
         
     }

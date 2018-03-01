@@ -18,7 +18,6 @@ protocol CompletionViewable: class {
     var onFinishButtonTapped: Observable<Void> { get }
     
     func show(errors: [ProcessResult])
-    func requiresReboot(is requiresReboot: Bool)
     func showMain()
     func rebootSystem()
 }

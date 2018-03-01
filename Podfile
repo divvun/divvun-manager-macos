@@ -13,4 +13,5 @@ target 'Pahkat' do
   pod 'Moya/RxSwift'
   pod 'JSONRPCKit'
   pod 'STPrivilegedTask', git: "https://github.com/sveinbjornt/STPrivilegedTask.git"
+  pod 'BTree', '~> 4.1'
 end
