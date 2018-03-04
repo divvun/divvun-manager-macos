@@ -15,7 +15,7 @@ protocol MainViewable: class {
     var onPrimaryButtonPressed: Driver<Void> { get }
     var onSettingsTapped: Driver<Void> { get }
     func update(title: String)
-    func showDownloadView(with packages: [String: PackageAction])
+    func showDownloadView(with packages: [URL: PackageAction])
     func updatePrimaryButton(isEnabled: Bool, label: String)
     func handle(error: Error)
     func setRepositories(data: MainOutlineMap)

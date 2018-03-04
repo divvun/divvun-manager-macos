@@ -8,18 +8,15 @@
 
 import Foundation
 import RxSwift
-
-struct OnStartPackageInfo {
-    
-}
+import RxCocoa
 
 protocol InstallViewable: class {
-    var onCancelTapped: Observable<Void> { get }
-    func set(currentPackage info: OnStartPackageInfo)
+    var onCancelTapped: Driver<Void> { get }
     func set(totalPackages total: Int)
     func setStarting(action: PackageAction)
     func setEnding(action: PackageAction)
-    func showCompletion(isCancelled: Bool, results: [ProcessResult])
+    func showCompletion()
     func handle(error: Error)
+    func beginCancellation()
     func processCancelled()
 }

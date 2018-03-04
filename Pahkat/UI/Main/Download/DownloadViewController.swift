@@ -14,7 +14,19 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
     private let byteCountFormatter = ByteCountFormatter()
     private var delegate: DownloadProgressTableDelegate! = nil
     
-    var onCancelTapped: Driver<Void>{
+    private let packages: [URL: PackageAction]
+    internal lazy var presenter = { DownloadPresenter(view: self, packages: packages) }()
+    
+    init(packages: [URL: PackageAction]) {
+        self.packages = packages
+        super.init()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    var onCancelTapped: Driver<Void> {
         return self.contentView.primaryButton.rx.tap.asDriver()
     }
     
@@ -44,7 +56,7 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
                 case .completed:
                     view.progressLabel.stringValue = "Completed"
                 case .error:
-                    view.progressLabel.stringValue = "Error"
+                    view.progressLabel.stringValue = Strings.downloadError
                 }
             } else {
                 print("couldn't get downloadProgressView")
@@ -56,24 +68,23 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
         AppContext.windows.set(MainViewController(), for: MainWindowController.self)
     }
     
-    func startInstallation(packages: [String: PackageAction]) {
-        AppContext.windows.set(InstallViewController(packages: packages), for: MainWindowController.self)
+    func startInstallation(packages: [URL: PackageAction]) {
+        DispatchQueue.main.async {
+            AppContext.windows.set(InstallViewController(packages: packages), for: MainWindowController.self)
+        }
     }
     
     func handle(error: Error) {
-        print(error)
-    }
-    
-    private let packages: [String: PackageAction]
-    internal lazy var presenter = { DownloadPresenter(view: self, packages: packages) }()
-    
-    init(packages: [String: PackageAction]) {
-        self.packages = packages
-        super.init()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        DispatchQueue.main.async {
+            let alert = NSAlert()
+            alert.messageText = error.localizedDescription
+            alert.alertStyle = .critical
+            alert.runModal()
+            
+            print(error)
+            
+            self.cancel()
+        }
     }
     
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {

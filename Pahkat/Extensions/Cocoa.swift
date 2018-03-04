@@ -19,6 +19,11 @@ extension NSMenuItem {
         self.init(title: title, action: action, keyEquivalent: "")
         self.target = target
     }
+    
+    convenience init(title: String, value: Any, target: AnyObject? = nil, action: Selector? = nil) {
+        self.init(title: title, target: target, action: action)
+        self.representedObject = value
+    }
 }
 
 extension NSToolbarItem {

@@ -9,11 +9,28 @@
 import Foundation
 import RxSwift
 
+struct RPCError: Error {
+    let message: String
+}
+
+class CancelToken {
+    private(set) var isCancelled: Bool = false
+    var childDisposable: Disposable?
+    
+    func cancel() {
+        isCancelled = true
+    }
+    
+    deinit {
+        self.childDisposable?.dispose()
+    }
+}
+
 class InstallPresenter {
     private unowned var view: InstallViewable
-    private let packages: [String: PackageAction]
+    private let packages: [URL: PackageAction]
     
-    init(view: InstallViewable, packages: [String: PackageAction]) {
+    init(view: InstallViewable, packages: [URL: PackageAction]) {
         self.view = view
         self.packages = packages
     }
@@ -24,11 +41,23 @@ class InstallPresenter {
             .delay(2.0, scheduler: MainScheduler.instance)
     }
     
-    func start() -> Disposable {
-        self.view.set(totalPackages: packages.count)
-        
-        // TODO: check the starting response to make sure we're in a sane state
-        return try! Observable.concat(packages.values
+    private func loadAppropriateRPC() -> Single<PahkatRPCService> {
+        if packages.values.first(where: { $0.target == .system }) != nil {
+            if let rpc = PahkatRPCService(requiresAdmin: true) {
+                return AppContext.settings.state.take(1)
+                    .map { $0.repositories }
+                    .flatMapLatest { try rpc.repository(with: $0[0]) }
+                    .map { _ in rpc }
+                    .asSingle()
+            }
+            return Single.error(RPCError(message: "Could not get RPC"))
+        } else {
+            return Single.just(AppContext.rpc)
+        }
+    }
+    
+    private func sortPackages() -> [PackageAction] {
+        return packages.values
             .sorted(by: { (a, b) in
                 if (a.isInstalling && b.isInstalling) || (a.isUninstalling && b.isUninstalling) {
                     // TODO: fix when dependency management is added
@@ -37,28 +66,80 @@ class InstallPresenter {
                 
                 return a.isUninstalling
             })
-            .map({ [weak self] action -> Observable<PackageInstallStatus> in
-//            try AppContext.rpc.install(package, target: .user)
-                // TODO Implement cancel with flatMapLatest
-            installTest()
-                .do(
-                    onSuccess: ({ _ in
-                        print("I did a success")
-                        self?.view.setEnding(action: action)
-                    }),
-                    onSubscribe: {
-                        print ("I did a subscribe")
-                        self?.view.setStarting(action: action)
-                    }
-                ).asObservable()
-//                .observeOn(MainScheduler.instance).subscribeOn(MainScheduler.instance)
-        }))
+    }
+    
+    private func parseAction(rpc: PahkatRPCService, action: PackageAction, cancelToken: CancelToken) throws -> Observable<PackageInstallStatus> {
+        if cancelToken.isCancelled {
+            return Observable.empty()
+        }
+        
+        switch action {
+        case let .install(repo, package, target):
+            return try rpc.install(package, repo: repo, target: target).do(
+                onSuccess: ({ _ in
+                    self.view.setEnding(action: action)
+                }),
+                onSubscribe: {
+                    self.view.setStarting(action: action)
+                })
+                .asObservable()
+        case let .uninstall(repo, package, target):
+            return try rpc.uninstall(package, repo: repo, target: target).do(
+                onSuccess: ({ _ in
+                    self.view.setEnding(action: action)
+                }),
+                onSubscribe: {
+                    self.view.setStarting(action: action)
+                })
+                .asObservable()
+        }
+    }
+    
+    private func bindInstallProcess() -> CancelToken {
+        let cancelToken = CancelToken()
+        
+        cancelToken.childDisposable = loadAppropriateRPC().asObservable()
+            .flatMapLatest { [weak self] (rpc: PahkatRPCService) -> Observable<PackageInstallStatus> in
+                guard let `self` = self else { return Observable.empty() }
+                let packages = self.sortPackages()
+                
+                return Observable.from(try packages.map { action in
+                    return try self.parseAction(rpc: rpc, action: action, cancelToken: cancelToken)
+                }).merge(maxConcurrent: 1)
+            }
+            .toArray()
             .observeOn(MainScheduler.instance)
             .subscribeOn(MainScheduler.instance)
-        .toArray()
-        .subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            AppContext.windows.set(CompletionViewController(with: self.packages), for: MainWindowController.self)
+            .subscribe(onNext: { [weak self] _ in
+                if cancelToken.isCancelled {
+                    self?.view.processCancelled()
+                } else {
+                    self?.view.showCompletion()
+                }
+            }, onError: { [weak self] error in
+                self?.view.handle(error: error)
+            })
+        
+        return cancelToken
+    }
+    
+    private func bindCancelButton() -> Disposable {
+        return view.onCancelTapped.drive(onNext: { [weak self] in
+            self?.view.beginCancellation()
         })
+    }
+    
+    func start() -> Disposable {
+        self.view.set(totalPackages: packages.count)
+        
+        // TODO: check if we need admin (anything with .system) and fire up an installer RPC agent
+        
+        // TODO: check the starting response to make sure we're in a sane state
+//        return bindInstallProcess()
+        return Disposables.create { }
+    }
+    
+    func install() -> CancelToken {
+        return bindInstallProcess()
     }
 }

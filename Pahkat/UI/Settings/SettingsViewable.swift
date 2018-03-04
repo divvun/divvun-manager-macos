@@ -11,5 +11,9 @@ import RxSwift
 import RxCocoa
 
 protocol SettingsViewable: class {
-    func setRepositories(repositories: [Repository])
+    func setRepositories(repositories: [RepositoryTableRowData])
+    var onAddRepoButtonTapped: Driver<Void> { get }
+    var onRemoveRepoButtonTapped: Driver<Void> { get }
+    func addBlankRepositoryRow()
+    func promptRemoveRepositoryRow()
 }

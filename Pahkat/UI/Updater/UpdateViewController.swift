@@ -91,40 +91,41 @@ class UpdateTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSource 
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        guard let tableColumn = tableColumn else { return nil }
-        guard let column = UpdateViewTableColumns(identifier: tableColumn.identifier) else { return nil }
-        let cell = tableView.makeView(withIdentifier: tableColumn.identifier, owner: self) as! NSTableCellView
-        let package = packages[row]
-        switch column {
-        case .name:
-            let packageName = package.name[Strings.languageCode ?? "en"] ?? ""
-            cell.textField?.stringValue =  packageName
-            
-            if let button = cell.nextKeyView as? RxCheckbox {
-                button.set(onToggle: {[weak self] _ in
-                    //TODO: update selected packages
-                    return
-                })
-                if selectedPackages.contains(package) {
-                    button.state = .on
-                } else {
-                    button.state = .off
-                }
-            }
-        case .version:
-            let version = package.version
-            var size: String = self.byteCountFormatter.string(fromByteCount: 0)
-            switch package.installer {
-            case .macOsInstaller(let installer):
-                size = self.byteCountFormatter.string(fromByteCount: Int64(installer.size))
-            default:
-                break
-            }
-            cell.textField?.stringValue = Strings.updateAvailable + ": " + version + " (" + size + ")"
-        }
-        
-        
-        return cell
+//        guard let tableColumn = tableColumn else { return nil }
+//        guard let column = UpdateViewTableColumns(identifier: tableColumn.identifier) else { return nil }
+//        let cell = tableView.makeView(withIdentifier: tableColumn.identifier, owner: self) as! NSTableCellView
+//        let package = packages[row]
+//        switch column {
+//        case .name:
+//            let packageName = package.name[Strings.languageCode ?? "en"] ?? ""
+//            cell.textField?.stringValue =  packageName
+//
+//            if let button = cell.nextKeyView as? RxCheckbox {
+//                button.set(onToggle: {[weak self] _ in
+//                    //TODO: update selected packages
+//                    return
+//                })
+//                if selectedPackages.contains(package) {
+//                    button.state = .on
+//                } else {
+//                    button.state = .off
+//                }
+//            }
+//        case .version:
+//            let version = package.version
+//            var size: String = self.byteCountFormatter.string(fromByteCount: 0)
+//            switch package.installer {
+//            case .macOsInstaller(let installer):
+//                size = self.byteCountFormatter.string(fromByteCount: Int64(installer.size))
+//            default:
+//                break
+//            }
+//            cell.textField?.stringValue = Strings.updateAvailable + ": " + version + " (" + size + ")"
+//        }
+//
+//
+//        return cell
+        return nil
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {

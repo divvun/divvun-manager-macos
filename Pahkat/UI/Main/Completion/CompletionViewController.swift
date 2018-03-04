@@ -14,10 +14,10 @@ class CompletionViewController: DisposableViewController<CompletionView>, Comple
     var onRestartButtonTapped: Observable<Void> = Observable.empty()
     var onFinishButtonTapped: Observable<Void> = Observable.empty()
     
-    private let packages: [String: PackageAction]
+    private let packages: [URL: PackageAction]
     private let requiresReboot: Bool
     
-    init(with packages: [String: PackageAction]) {
+    init(with packages: [URL: PackageAction]) {
         self.packages = packages
         var requiresReboot = false
         
@@ -44,7 +44,7 @@ class CompletionViewController: DisposableViewController<CompletionView>, Comple
         fatalError("init(coder:) has not been implemented")
     }
     
-    func show(errors: [ProcessResult]) {
+    func show(errors: [Error]) {
         fatalError("unimplemented")
     }
     

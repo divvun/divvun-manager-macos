@@ -7,8 +7,152 @@
 //
 
 import RxSwift
+import STPrivilegedTask
 
-class BufferedStringSubprocess {
+
+enum TaskLaunchResult {
+    case launched
+    case cancelled
+    case failure(NSError)
+}
+
+extension STPrivilegedTask {
+    func launchSafe() -> TaskLaunchResult {
+        let status = self.launch()
+        switch status {
+        case 0:
+            return .launched
+        case -60006:
+            return .cancelled
+        default:
+            let error = NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: nil)
+            return .failure(error)
+        }
+    }
+}
+
+protocol BufferedProcess: class {
+    var onComplete: (() -> ())? { set get }
+    var standardOutput: ((String) -> ())? { set get }
+    var standardError: ((String) -> ())? { set get }
+    func write(string: String, withNewline: Bool)
+    func launch() -> TaskLaunchResult
+    var isRunning: Bool { get }
+    func terminate()
+    func waitUntilExit()
+}
+
+class AdminSubprocess: BufferedProcess {
+    private let task: STPrivilegedTask
+    
+    var onComplete: (() -> ())?
+    
+    init(_ launchPath: String, arguments: [String]) {
+        task = STPrivilegedTask(launchPath: launchPath, arguments: arguments)
+        
+        task.terminationHandler = { [weak self] _ in
+            guard let `self` = self else { return }
+            
+            print("Exit code (\(self.task.launchPath!)): \(self.exitCode)")
+            
+            if self.exitCode == 0 {
+                self.onComplete?()
+            }
+            
+            // Avoids memory leaks.
+            self.standardOutput = nil
+            self.onComplete = nil
+        }
+    }
+    
+    var standardOutput: ((String) -> ())?
+    
+    // Stub for protocol.
+    var standardError: ((String) -> ())?
+    
+    func write(string: String, withNewline: Bool = true) {
+        guard let handle = task.outputFileHandle else { return }
+        
+        handle.write(string.data(using: .utf8)!)
+        
+        if withNewline {
+            handle.write("\n".data(using: .utf8)!)
+        }
+    }
+    
+    deinit {
+        task.terminate()
+        
+        task.outputFileHandle?.readabilityHandler = nil
+        
+        self.standardOutput = nil
+        self.onComplete = nil
+    }
+    
+    var currentDirectoryPath: String {
+        get { return task.currentDirectoryPath }
+        set { task.currentDirectoryPath = newValue }
+    }
+    
+    var exitCode: Int32 {
+        return task.terminationStatus
+    }
+    
+    var isRunning: Bool {
+        return task.isRunning
+    }
+    
+    func launch() -> TaskLaunchResult {
+        let result = task.launchSafe()
+        
+        switch result {
+        case .launched:
+            handler(standardOutput, for: task.outputFileHandle)
+        default:
+            break
+        }
+        
+        return result
+    }
+    
+    func terminate() {
+        task.terminate()
+    }
+    
+    func waitUntilExit() {
+        task.waitUntilExit()
+    }
+    
+    private func handler(_ output: ((String) -> ())?, for fileHandle: FileHandle) {
+        guard let output = output else {
+            fileHandle.readabilityHandler = nil
+            return
+        }
+        
+        var outputBuf = ""
+        
+        fileHandle.readabilityHandler = { handle in
+            guard let string = String(data: handle.availableData, encoding: .utf8) else {
+                return
+            }
+            
+            outputBuf += string
+            
+            if !outputBuf.contains("\n") {
+                return
+            }
+            
+            var lines = outputBuf.components(separatedBy: "\n")
+            
+            if lines.count > 1 {
+                outputBuf = lines.popLast()!
+                lines.forEach(output)
+            }
+        }
+    }
+}
+
+class BufferedStringSubprocess: BufferedProcess {
     private let task = Process()
     
     private let stdin = Pipe()
@@ -25,10 +169,9 @@ class BufferedStringSubprocess {
         
         pipe.fileHandleForReading.readabilityHandler = { handle in
             guard let string = String(data: handle.availableData, encoding: .utf8) else {
-                print("bad dartar")
                 return
             }
-//            print(string)
+            
             outputBuf += string
             
             if !outputBuf.contains("\n") {
@@ -124,8 +267,9 @@ class BufferedStringSubprocess {
         return task.isRunning
     }
     
-    func launch() {
+    func launch() -> TaskLaunchResult {
         task.launch()
+        return .launched
     }
     
     func terminate() {
@@ -196,7 +340,7 @@ struct JSONRPCError: Error, Codable {
 
 fileprivate struct JSONRPCRawSubscribeRequest {
     let method: String
-    let params: Any?
+    let params: Encodable?
 }
 
 extension JSONRPCRawSubscribeRequest: JSONRPCRequest {

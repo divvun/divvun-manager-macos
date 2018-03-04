@@ -11,6 +11,19 @@ import RxSwift
 import RxCocoa
 
 class InstallViewController: DisposableViewController<InstallView>, InstallViewable, NSToolbarDelegate {
+    private let packages: [URL: PackageAction]
+    private lazy var presenter = { InstallPresenter(view: self, packages: packages) }()
+    private var cancelToken: CancelToken? = nil
+    
+    var onCancelTapped: Driver<Void> {
+        return self.contentView.primaryButton.rx.tap.asDriver()
+    }
+    
+    init(packages: [URL: PackageAction]) {
+        self.packages = packages
+        super.init()
+    }
+    
     private func setRemaining() {
         // Shhhhh
         let max = Int(self.contentView.horizontalIndicator.maxValue)
@@ -42,43 +55,49 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
         }
     }
     
-    private let packages: [String: PackageAction]
-    private lazy var presenter = { InstallPresenter(view: self, packages: packages) }()
-    
-    init(packages: [String: PackageAction]) {
-        self.packages = packages
-        super.init()
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    var onCancelTapped: Observable<Void> = Observable.empty()
-    
-    func set(currentPackage info: OnStartPackageInfo) {
-        
-    }
-    
     func set(totalPackages total: Int) {
         print("Settings total packages")
+        contentView.horizontalIndicator.maxValue = Double(total)
+        
         if (total == 1) {
             contentView.horizontalIndicator.isIndeterminate = true
             contentView.horizontalIndicator.startAnimation(self)
-        } else {
-            contentView.horizontalIndicator.maxValue = Double(total)
         }
     }
     
-    func showCompletion(isCancelled: Bool, results: [ProcessResult]) {
+    func showCompletion() {
+        AppContext.windows.set(CompletionViewController(with: self.packages), for: MainWindowController.self)
     }
     
     func handle(error: Error) {
+        let alert = NSAlert()
+        alert.alertStyle = .critical
+        alert.addButton(withTitle: Strings.ok)
+        alert.messageText = "An error occurred during installation/uninstallation."
         
+        if let error = error as? JSONRPCError {
+            alert.informativeText = error.message
+        } else {
+            alert.informativeText = error.localizedDescription
+        }
+        
+        alert.runModal()
+        
+        AppContext.windows.set(MainViewController(), for: MainWindowController.self)
     }
-    // TODO
+    
+    func beginCancellation() {
+        contentView.primaryButton.isEnabled = false
+        contentView.primaryButton.title = "Cancelling…" //Strings.cancelling
+        cancelToken?.cancel()
+    }
+    
     func processCancelled() {
-        
+        AppContext.windows.set(MainViewController(), for: MainWindowController.self)
     }
     
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
@@ -122,5 +141,10 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
     override func viewWillAppear() {
         super.viewWillAppear()
         self.presenter.start().disposed(by: bag)
+    }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        cancelToken = self.presenter.install()
     }
 }

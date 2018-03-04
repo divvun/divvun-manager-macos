@@ -20,7 +20,7 @@ fileprivate func categoryFilter(repo: RepositoryIndex) -> PackageOutlineMap {
     
     repo.packages.values.forEach { package in
         let value = repo.meta.nativeCategory(for: package.category)
-        let key = OutlineGroup(id: package.category, value: value, filter: .category)
+        let key = OutlineGroup(id: package.category, value: value)
         
         if !data.keys.contains(key) {
             data[key] = []
@@ -37,7 +37,7 @@ fileprivate func languageFilter(repo: RepositoryIndex) -> PackageOutlineMap {
     
     repo.packages.values.forEach { package in
         package.languages.forEach { language in
-            let key = OutlineGroup(id: language, value: ISO639.get(tag: language)?.autonymOrName ?? language, filter: .language)
+            let key = OutlineGroup(id: language, value: ISO639.get(tag: language)?.autonymOrName ?? language)
             if !data.keys.contains(key) {
                 data[key] = []
             }
@@ -54,27 +54,27 @@ class MainPresenter {
     private var data: MainOutlineMap = Map()
     private var selectedPackages = [URL: PackageAction]()
     
-    
     init(view: MainViewable) {
         self.view = view
     }
     
-//    private func bindPrimaryButtonLabel() -> Disposable {
-//
-//    }
+    private func updateFilters(key: OutlineRepository) {
+        let repo = key.repo
+        
+        switch key.filter {
+        case .category:
+            data[key] = categoryFilter(repo: repo)
+        case .language:
+            data[key] = languageFilter(repo: repo)
+        }
+    }
     
     private func updateData(with repositories: [RepositoryIndex]) {
         data = MainOutlineMap()
         
         repositories.forEach { repo in
             let key = OutlineRepository(filter: repo.meta.primaryFilter, repo: repo)
-            
-            switch repo.meta.primaryFilter {
-            case .category:
-                data[key] = categoryFilter(repo: repo)
-            case .language:
-                data[key] = languageFilter(repo: repo)
-            }
+            self.updateFilters(key: key)
         }
     }
     
@@ -128,15 +128,74 @@ class MainPresenter {
     private func bindPrimaryButton() -> Disposable {
         return view.onPrimaryButtonPressed.drive(onNext: { [weak self] in
             guard let `self` = self else { return }
-            let window = AppContext.windows.get(MainWindowController.self)
-//            window.contentWindow.set(viewController: DownloadViewController(packages: self.selectedPackages))
+            self.view.showDownloadView(with: self.selectedPackages)
         })
     }
     
+    enum PackageStateOption {
+        case toggle
+        case set(PackageAction?)
+    }
+    
+    private func setPackageState(to option: PackageStateOption, package: Package, repo: OutlineRepository) {
+        guard let packageMap = self.data[repo] else { return }
+        
+        for item in packageMap {
+            guard case let .macOsInstaller(installer) = package.installer else {
+                continue
+            }
+            
+            if let outlinePackage = item.1.first(where: { $0.package == package }), let status = repo.repo.status(for: package)?.status {
+                switch option {
+                case .toggle:
+                    if outlinePackage.action == nil {
+                        switch status {
+                        case .upToDate:
+                            outlinePackage.action = PackageAction.uninstall(repo.repo, package, installer.targets[0])
+                        default:
+                            outlinePackage.action = PackageAction.install(repo.repo, package, installer.targets[0])
+                        }
+                    } else {
+                        outlinePackage.action = nil
+                    }
+                    
+                    self.selectedPackages[repo.repo.url(for: package)] = outlinePackage.action
+                case let .set(action):
+                    outlinePackage.action = action
+                    self.selectedPackages[repo.repo.url(for: package)] = action
+                }
+            }
+        }
+    }
+    
+    private func bindContextMenuEvents() -> Disposable {
+        return view.onPackageEvent.subscribe(onNext: { [weak self] event in
+            guard let `self` = self else { return }
+            
+            switch event {
+            case let .setPackageAction(action):
+                guard let outlineRepo = self.data.keys.first(where: { $0.repo == action.repository })  else {
+                    return
+                }
+                self.setPackageState(to: .set(action), package: action.package, repo: outlineRepo)
+                self.updatePrimaryButton()
+                self.view.refreshRepositories()
+            case let .changeFilter(repo, filter):
+                repo.filter = filter
+                self.updateFilters(key: repo)
+                for action in self.selectedPackages.values {
+                    self.setPackageState(to: .set(action), package: action.package, repo: repo)
+                }
+                self.view.setRepositories(data: self.data)
+            default:
+                return
+            }
+        })
+    }
     
     private func bindPackageToggleEvent() -> Disposable {
         return view.onPackageEvent
-            .flatMapLatest { [weak self] (event: OutlineEvent) -> Observable<(RepositoryIndex, [Package])> in
+            .flatMapLatest { [weak self] (event: OutlineEvent) -> Observable<(OutlineRepository, [Package])> in
                 guard let `self` = self else { return Observable.empty() }
                 
                 switch event {
@@ -146,7 +205,7 @@ class MainPresenter {
                     let packages = self.data[repo]![group]!
                     let toggleIds = Set(self.selectedPackages.keys).intersection(packages.map { repo.repo.url(for: $0.package) })
                     let x = toggleIds.count > 0 ? toggleIds.map { url in packages.first(where: { url == repo.repo.url(for: $0.package) })!.package } : packages.map { $0.package }
-                    return Observable.just((repo.repo, x))
+                    return Observable.just((repo, x))
                 default:
                     return Observable.empty()
                 }
@@ -157,28 +216,24 @@ class MainPresenter {
                 let repo = tuple.0
                 let packages = tuple.1
                 
-                guard let (_, packageMap) = self.data.first(where: { $0.0.repo == repo }) else { return }
+//                guard let packageMap = self.data[repo] else { return }
                 
                 for package in packages {
-                    for item in packageMap {
-                        guard case let .macOsInstaller(installer) = package.installer else {
-                            continue
-                        }
-                        
-                        if let toggledPackage = item.1.first(where: { $0.package == package }), let status = repo.status(for: package) {
-                            if toggledPackage.action == nil {
-                                switch status.status {
-                                case .upToDate:
-                                    toggledPackage.action = PackageAction.uninstall(repo, package, installer.targets[0])
-                                default:
-                                    toggledPackage.action = PackageAction.install(repo, package, installer.targets[0])
-                                }
-                            } else {
-                                toggledPackage.action = nil
-                            }
-                            self.selectedPackages[repo.url(for: package)] = toggledPackage.action
-                        }
-                    }
+                    self.setPackageState(to: .toggle, package: package, repo: repo)
+//
+//                        if let toggledPackage = item.1.first(where: { $0.package == package }), let status = repo.repo.status(for: package) {
+//                            if toggledPackage.action == nil {
+//                                switch status.status {
+//                                case .upToDate:
+//                                    toggledPackage.action = PackageAction.uninstall(repo.repo, package, installer.targets[0])
+//                                default:
+//                                    toggledPackage.action = PackageAction.install(repo.repo, package, installer.targets[0])
+//                                }
+//                            } else {
+//                                toggledPackage.action = nil
+//                            }
+//                            self.selectedPackages[repo.repo.url(for: package)] = toggledPackage.action
+//                        }
                 }
                 
                 self.updatePrimaryButton()
@@ -196,7 +251,8 @@ class MainPresenter {
             bindSettingsButton(),
             bindUpdatePackageList(),
             bindPackageToggleEvent(),
-            bindPrimaryButton()
+            bindPrimaryButton(),
+            bindContextMenuEvents()
         ])
     }
     

@@ -53,12 +53,31 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         self.title = title
     }
     
-    func showDownloadView(with packages: [String: PackageAction]) {
+    func showDownloadView(with packages: [URL: PackageAction]) {
         AppContext.windows.set(DownloadViewController(packages: packages), for: MainWindowController.self)
     }
     
     func showSettings() {
         AppContext.windows.show(SettingsWindowController.self)
+    }
+    
+    override func keyUp(with event: NSEvent) {
+        if let character = event.characters?.first, character == " " && contentView.outlineView.selectedRow > -1 {
+            guard let item = contentView.outlineView.item(atRow: contentView.outlineView.selectedRow) as? OutlineItem else {
+                fatalError("Item must always be of type OutlineItem")
+            }
+            
+            switch item {
+            case .repository:
+                break
+            case let .group(group, repo):
+                onPackageEventSubject.onNext(OutlineEvent.toggleGroup(repo, group))
+            case let .item(package, _, repo):
+                onPackageEventSubject.onNext(OutlineEvent.togglePackage(repo, package.package))
+            }
+        }
+        
+        super.keyUp(with: event)
     }
     
     func updatePrimaryButton(isEnabled: Bool, label: String) {
@@ -143,8 +162,24 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         super.viewDidLoad()
         
         configureToolbar()
+        contentView.settingsButton.isEnabled = false
+        // TODO move to presenter?
+        // Always update the repos on load.
+        AppContext.settings.state.take(1).map { $0.repositories }
+            .flatMapLatest { (configs: [RepoConfig]) -> Observable<[RepositoryIndex]> in
+                return try AppDelegate.instance.requestRepos(configs)
+            }
+            .observeOn(MainScheduler.instance)
+            .subscribeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] repos in
+                print("Refreshed repos in main view.")
+                self?.contentView.settingsButton.isEnabled = true
+                AppContext.store.dispatch(event: AppEvent.setRepositories(repos))
+            })
+            .disposed(by: bag)
         
         dataSource.events.subscribe(onPackageEventSubject).disposed(by: bag)
+        
         contentView.outlineView.delegate = self.dataSource
         contentView.outlineView.dataSource = self.dataSource
     }
@@ -159,116 +194,9 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     }
 }
 
-enum MainViewOutlineColumns: String {
-    case name = "name"
-    case version = "version"
-    case state = "state"
-    
-    init?(identifier: NSUserInterfaceItemIdentifier) {
-        if let value = MainViewOutlineColumns(rawValue: identifier.rawValue) {
-            self = value
-        } else {
-            return nil
-        }
-    }
-}
-
-protocol NSOutlineViewMenu: NSOutlineViewDelegate {
-    func outlineView(_ outlineView: NSOutlineView, menuFor item: Any) -> NSMenu?
-}
-
-class PackageOutlineView: NSOutlineView {
-    override func menu(for event: NSEvent) -> NSMenu? {
-        let point = self.convert(event.locationInWindow, from: nil)
-        let row = self.row(at: point)
-        guard let item = self.item(atRow: row) else {
-            return nil
-        }
-        
-        return (self.delegate as? NSOutlineViewMenu)?.outlineView(self, menuFor: item)
-    }
-}
-
-class OutlineGroup: Equatable, Comparable {
-    let id: String
-    let value: String
-    let filter: Repository.PrimaryFilter
-    
-    init(id: String, value: String, filter: Repository.PrimaryFilter) {
-        self.id = id
-        self.value = value
-        self.filter = filter
-    }
-    
-    static func ==(lhs: OutlineGroup, rhs: OutlineGroup) -> Bool {
-        return lhs.id == rhs.id && lhs.value == rhs.value && lhs.filter == rhs.filter
-    }
-    
-    static func <(lhs: OutlineGroup, rhs: OutlineGroup) -> Bool {
-        return lhs.value < rhs.value
-    }
-}
-
-class OutlinePackage: Equatable {
-    let package: Package
-    var action: PackageAction?
-    
-    init(package: Package, action: PackageAction?) {
-        self.package = package
-        self.action = action
-    }
-    
-    static func ==(lhs: OutlinePackage, rhs: OutlinePackage) -> Bool {
-        return lhs.package == rhs.package && lhs.action == rhs.action
-    }
-}
-
-enum OutlineItem: Equatable {
-    case repository(OutlineRepository)
-    case group(OutlineGroup, OutlineRepository)
-    case item(OutlinePackage, RepositoryIndex)
-    
-    static func ==(lhs: OutlineItem, rhs: OutlineItem) -> Bool {
-        switch (lhs, rhs) {
-        case let (.repository(a), .repository(b)):
-            return a == b
-        case let (.group(a, ar), .group(b, br)):
-            return a == b && ar == br
-        case let (.item(a, ar), .item(b, br)):
-            return a == b && ar == br
-        default:
-            return false
-        }
-    }
-}
-
-enum OutlineEvent {
-    case setPackageAction(PackageAction)
-    case togglePackage(RepositoryIndex, Package)
-    case toggleGroup(OutlineRepository, OutlineGroup)
-    case changeFilter(RepositoryIndex, OutlineGroup, Repository.PrimaryFilter)
-}
-class OutlineCheckbox: NSButton {
-    var event: OutlineEvent?
-}
-
-
-class OutlineRepository: Equatable, Comparable {
-    let filter: Repository.PrimaryFilter
-    let repo: RepositoryIndex
-    
-    init(filter: Repository.PrimaryFilter, repo: RepositoryIndex) {
-        self.filter = filter
-        self.repo = repo
-    }
-    
-    static func ==(lhs: OutlineRepository, rhs: OutlineRepository) -> Bool {
-        return lhs.repo == rhs.repo
-    }
-    
-    static func <(lhs: OutlineRepository, rhs: OutlineRepository) -> Bool {
-        return lhs.repo < rhs.repo
-    }
+enum OutlineContextMenuItem {
+    case packageAction(PackageAction)
+    case filter(OutlineRepository, Repository.PrimaryFilter)
 }
 
 class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutlineViewDelegate, NSOutlineViewMenu {
@@ -297,21 +225,12 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
     @objc func onMenuItemSelected(_ item: Any) {
         guard let item = item as? NSMenuItem else { return }
         
-//        if let value = item.representedObject as? Repository.PrimaryFilter {
-//            filter = value
-//            return
-//        }
-        
-        if let value = item.representedObject as? String {
+        if let value = item.representedObject as? OutlineContextMenuItem {
             switch value {
-            case "install.system":
-                print("Install to system")
-            case "install.user":
-                print("Install to user")
-            case "uninstall":
-                print("Uninstall")
-            default:
-                return
+            case let .packageAction(action):
+                events.onNext(OutlineEvent.setPackageAction(action))
+            case let .filter(repo, filter):
+                events.onNext(OutlineEvent.changeFilter(repo, filter))
             }
         }
     }
@@ -324,20 +243,22 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
         guard let item = item as? OutlineItem else { return nil }
         let menu = NSMenu()
         
+        let selectedRepo: OutlineRepository
+        
         switch item {
         case .repository:
             return nil
-        case let .item(item, repo):
-            guard let status = repo.status(for: item.package)?.status else { return nil }
+        case let .item(item, _, repo):
+            guard let status = repo.repo.status(for: item.package)?.status else { return nil }
             guard case let .macOsInstaller(installer) = item.package.installer else { fatalError() }
             
             switch status {
             case .notInstalled, .requiresUpdate, .versionSkipped:
                 if installer.targets.contains(.system) {
-                    menu.addItem(makeMenuItem("Install (System)", value: "install.system"))
+                    menu.addItem(makeMenuItem("Install (System)", value: OutlineContextMenuItem.packageAction(.install(repo.repo, item.package, .system))))
                 }
                 if installer.targets.contains(.user) {
-                    menu.addItem(makeMenuItem("Install (User)", value: "install.user"))
+                    menu.addItem(makeMenuItem("Install (User)", value: OutlineContextMenuItem.packageAction(.install(repo.repo, item.package, .user))))
                 }
             default:
                 break
@@ -345,36 +266,35 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
             
             switch status {
             case .upToDate, .requiresUpdate, .versionSkipped:
-                menu.addItem(makeMenuItem("Uninstall", value: "uninstall"))
+                if let action = item.action {
+                    menu.addItem(makeMenuItem("Uninstall", value: OutlineContextMenuItem.packageAction(.uninstall(repo.repo, item.package, action.target))))
+                }
             default:
                 break
             }
             
             menu.addItem(NSMenuItem.separator())
-        default:
-            break
+            
+            selectedRepo = repo
+        case let .group(_, repo):
+            selectedRepo = repo
         }
         
         let sortMenu = NSMenu()
         let sortItem = NSMenuItem(title: "Sort by…")
         sortItem.submenu = sortMenu
-        sortMenu.addItem(makeMenuItem("Category", value: Repository.PrimaryFilter.category))
-        sortMenu.addItem(makeMenuItem("Language", value: Repository.PrimaryFilter.language))
+        
+        let categoryItem = makeMenuItem("Category", value: OutlineContextMenuItem.filter(selectedRepo, .category))
+        categoryItem.state = selectedRepo.filter == .category ? .on : .off
+        sortMenu.addItem(categoryItem)
+        
+        let languageItem = makeMenuItem("Language", value: OutlineContextMenuItem.filter(selectedRepo, .language))
+        languageItem.state = selectedRepo.filter == .language ? .on : .off
+        sortMenu.addItem(languageItem)
         menu.addItem(sortItem)
         
         return menu
     }
-    
-//    private func set(filter: Repository.PrimaryFilter, for repo: RepositoryIndex) {
-//        switch filter {
-//        case .category:
-//            self.data = categoryFilter(repo: repo)
-//            self.orderedDataKeys = self.data.keys.sorted().map { ($0, $0) }
-//        case .language:
-//            self.data = languageFilter(repo: repo)
-//            self.orderedDataKeys = self.data.keys.sorted().map { (ISO639.get(tag: $0)?.autonym ?? ISO639.get(tag: $0)?.name ?? $0, $0) }
-//        }
-//    }
     
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
         guard let item = item as? OutlineItem else { return false }
@@ -402,6 +322,10 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
         }
     }
     
+    func outlineView(_ outlineView: NSOutlineView, shouldExpandItem item: Any) -> Bool {
+        return true
+    }
+    
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
         if !(item is OutlineItem) && repos.count > 1 {
             // Return repo pile if > 1 repo, else start with repo's groups
@@ -420,7 +344,7 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
         case let .group(group, repo):
             let x = repos[repo]![group]!
             
-            return OutlineItem.item(x[index], repo.repo)
+            return OutlineItem.item(x[index], group, repo)
         default: // number of repositories
             fatalError()
         }
@@ -432,15 +356,6 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
         if let event = button.event {
             self.events.onNext(event)
         }
-        
-//        if let package = button.package {
-//            self.events.onNext(OutlineEvent.togglePackage(button., <#T##Package#>))
-//            self.outlet.onNext([package])
-//        } else if let group = button.group, let packages = data[group] {
-//            let toggleIds = Set(selectedPackages.keys).intersection(packages.map { $0.id })
-//            let x = toggleIds.count > 0 ? toggleIds.map { id in packages.first(where: { id == $0.id })! } : packages
-//            self.outlet.onNext(x)
-//        }
     }
     
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
@@ -461,10 +376,8 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
             cell.textField?.stringValue = outlineRepo.repo.meta.nativeName
             cell.textField?.toolTip = nil
         case let .group(group, outlineRepo):
-            let repo = outlineRepo.repo
             let name = group.value
             let id = group.id
-            let filter = group.filter
             
             guard case .name = column else {
                 cell.textField?.stringValue = ""
@@ -479,7 +392,7 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                 button.target = self
                 button.action = #selector(MainViewControllerDataSource.onCheckboxChanged(_:))
                 button.event = OutlineEvent.toggleGroup(outlineRepo, group)
-                if filter == .category {
+                if outlineRepo.filter == .category {
                     button.toolTip = name
                     cell.textField?.toolTip = name
                 } else {
@@ -510,16 +423,8 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
             }
             
             let bold = [kCTFontAttributeName as NSAttributedStringKey: NSFont.boldSystemFont(ofSize: 13)]
-            switch filter {
-            case .category:
-                // TODO:
-                cell.textField?.attributedStringValue = NSAttributedString(string: name, attributes: bold)
-            //                cell.textField?.stringValue = header
-            case .language:
-                let text = ISO639.get(tag: name)?.autonym ?? name
-                cell.textField?.attributedStringValue = NSAttributedString(string: text, attributes: bold)
-            }
-        case let .item(item, repo):
+            cell.textField?.attributedStringValue = NSAttributedString(string: group.value, attributes: bold)
+        case let .item(item, _, repo):
             switch column {
             case .name:
                 let package = item.package
@@ -551,9 +456,29 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                         NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: 13),
                         NSAttributedStringKey.paragraphStyle: paraStyle
                     ]
-                    cell.textField?.attributedStringValue = NSAttributedString(string: selectedPackage.description, attributes: attrs)
+                    
+                    let msg: String
+                    switch selectedPackage.target {
+                    case .system:
+                        msg = selectedPackage.description
+                    case .user:
+                        msg = "\(selectedPackage.description) (User)"
+                    }
+                    
+                    cell.textField?.attributedStringValue = NSAttributedString(string: msg, attributes: attrs)
                 } else {
-                    cell.textField?.stringValue = repo.status(for: item.package)?.status.description ?? Strings.downloadError
+                    if let response = repo.repo.status(for: item.package) {
+                        switch response.target {
+                        case .system:
+                            cell.textField?.stringValue = response.status.description
+                        case .user:
+                            cell.textField?.stringValue = "\(response.status.description) (User)"
+//                            cell.textField?.stringValue = "\(response.status.description) (\(Strings.user))"
+                        }
+                        
+                    } else {
+                        cell.textField?.stringValue = Strings.downloadError
+                    }
                 }
             }
         }

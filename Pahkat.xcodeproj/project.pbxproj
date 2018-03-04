@@ -16,7 +16,6 @@
 		271249C12040449E009EE80B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271249C02040449E009EE80B /* SettingsViewController.swift */; };
 		271249C3204044B0009EE80B /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271249C2204044B0009EE80B /* SettingsPresenter.swift */; };
 		271249C5204055EC009EE80B /* UpdateFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271249C4204055EC009EE80B /* UpdateFrequency.swift */; };
-		271249C720405649009EE80B /* UpdateChannels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271249C620405649009EE80B /* UpdateChannels.swift */; };
 		276391A0203ADDC30096E10C /* InstallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2763919F203ADDC30096E10C /* InstallViewController.swift */; };
 		276391A2203ADDD60096E10C /* InstallPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276391A1203ADDD60096E10C /* InstallPresenter.swift */; };
 		276391A4203AE2660096E10C /* CompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276391A3203AE2660096E10C /* CompletionViewController.swift */; };
@@ -48,6 +47,7 @@
 		C69F94902028B1EA00127A47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C69F948F2028B1EA00127A47 /* Assets.xcassets */; };
 		C69F94932028B1EA00127A47 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C69F94912028B1EA00127A47 /* MainMenu.xib */; };
 		C6B742C32048697400C7877D /* PackageAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742C22048697400C7877D /* PackageAction.swift */; };
+		C6B742C52049911B00C7877D /* MainOutlineModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742C42049911B00C7877D /* MainOutlineModels.swift */; };
 		C6CC91272028E69300CB0B10 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6CC91262028E69300CB0B10 /* MainWindow.xib */; };
 		C6CC912A20291A2D00CB0B10 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CC912920291A2D00CB0B10 /* APIService.swift */; };
 		C6F2676D203B96E8006EC59C /* APIService+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F2676C203B96E8006EC59C /* APIService+Extensions.swift */; };
@@ -94,7 +94,6 @@
 		271249C02040449E009EE80B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		271249C2204044B0009EE80B /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		271249C4204055EC009EE80B /* UpdateFrequency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateFrequency.swift; sourceTree = "<group>"; };
-		271249C620405649009EE80B /* UpdateChannels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateChannels.swift; sourceTree = "<group>"; };
 		2763919F203ADDC30096E10C /* InstallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallViewController.swift; sourceTree = "<group>"; };
 		276391A1203ADDD60096E10C /* InstallPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallPresenter.swift; sourceTree = "<group>"; };
 		276391A3203AE2660096E10C /* CompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionViewController.swift; sourceTree = "<group>"; };
@@ -137,6 +136,7 @@
 		C69F94942028B1EA00127A47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C69F94952028B1EA00127A47 /* Pahkat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pahkat.entitlements; sourceTree = "<group>"; };
 		C6B742C22048697400C7877D /* PackageAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageAction.swift; sourceTree = "<group>"; };
+		C6B742C42049911B00C7877D /* MainOutlineModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainOutlineModels.swift; sourceTree = "<group>"; };
 		C6CC91262028E69300CB0B10 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		C6CC912920291A2D00CB0B10 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		C6F2676C203B96E8006EC59C /* APIService+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Extensions.swift"; sourceTree = "<group>"; };
@@ -206,6 +206,7 @@
 				C6F4BC562029BC05002EE523 /* MainViewable.swift */,
 				C6F4BC582029BC2C002EE523 /* MainPresenter.swift */,
 				C6F4BC5A2029BC57002EE523 /* MainViewController.swift */,
+				C6B742C42049911B00C7877D /* MainOutlineModels.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -379,7 +380,6 @@
 				C622703E20358F1B00DBCD65 /* RepositoryIndex.swift */,
 				C62270662039E9CD00DBCD65 /* AppStore.swift */,
 				271249C4204055EC009EE80B /* UpdateFrequency.swift */,
-				271249C620405649009EE80B /* UpdateChannels.swift */,
 				C6B742C22048697400C7877D /* PackageAction.swift */,
 			);
 			path = Models;
@@ -640,6 +640,7 @@
 				C6F4BC762031E0A3002EE523 /* InstallViewable.swift in Sources */,
 				C622703F20358F1B00DBCD65 /* RepositoryIndex.swift in Sources */,
 				C6F8A81B2028B404009A016E /* Cocoa.swift in Sources */,
+				C6B742C52049911B00C7877D /* MainOutlineModels.swift in Sources */,
 				C622706B203A247300DBCD65 /* ISO639.swift in Sources */,
 				C6227041203599BA00DBCD65 /* PackageService.swift in Sources */,
 				276391A2203ADDD60096E10C /* InstallPresenter.swift in Sources */,
@@ -657,7 +658,6 @@
 				C6F8A8262028BD91009A016E /* MainWindow.swift in Sources */,
 				C6F4BC722031DCF7002EE523 /* Cocoa+Rx.swift in Sources */,
 				C6B742C32048697400C7877D /* PackageAction.swift in Sources */,
-				271249C720405649009EE80B /* UpdateChannels.swift in Sources */,
 				C62270562036EA9E00DBCD65 /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

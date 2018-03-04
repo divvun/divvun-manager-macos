@@ -9,34 +9,63 @@
 import Foundation
 import RxSwift
 
-// TODO: deduplicate
-enum PeriodInterval: String, Codable {
-    case never = "Never"
-    case daily = "Daily"
-    case weekly = "Weekly"
-    case fortnightly = "Fortnightly"
-    case monthly = "Monthly"
-}
-
 struct RepoConfig: Codable, Equatable {
     let url: URL
-    let channel: String
+    let channel: Repository.Channels
     
     static func ==(lhs: RepoConfig, rhs: RepoConfig) -> Bool {
         return lhs.url == rhs.url && lhs.channel == rhs.channel
     }
 }
 
+extension UserDefaults {
+    func get<T>(_ key: String) -> T? {
+        return self.object(forKey: key) as? T
+    }
+    
+    func getArray<T>(_ key: String) -> [T]? {
+        return self.array(forKey: key) as? [T]
+    }
+    
+    subscript<T>(_ key: String) -> T? {
+        get {
+            return self.get(key)
+        }
+        set(value) {
+            self.set(value, forKey: key)
+        }
+    }
+    
+    subscript<T: Codable>(json key: String) -> T? {
+        get {
+            if let data = self.data(forKey: key) {
+                return try? JSONDecoder().decode(T.self, from: data)
+            }
+            return nil
+        }
+        set(value) {
+            if let value = value {
+                self.set(try? JSONEncoder().encode(value), forKey: key)
+            } else {
+                self.set(nil, forKey: key)
+            }
+        }
+    }
+}
+
 struct SettingsState: Codable {
-    fileprivate(set) var repositories: [RepoConfig] = [RepoConfig.init(url: URL(string: "https://x.brendan.so/macos-repo/")!, channel: "test")]
-    fileprivate(set) var updateCheckInterval: PeriodInterval = .daily
-    fileprivate(set) var nextUpdateCheck: Date = .distantPast
-    fileprivate(set) var interfaceLanguage: String = Locale.current.languageCode ?? "en"
+    //
+    fileprivate(set) var repositories: [RepoConfig] = [RepoConfig.init(url: URL(string: "https://x.brendan.so/macos-repo/")!, channel: .stable)]
+        //UserDefaults.standard["repositories"] ?? []
+    fileprivate(set) var updateCheckInterval: UpdateFrequency = UserDefaults.standard["updateCheckInterval"] ?? .daily
+    fileprivate(set) var nextUpdateCheck: Date = UserDefaults.standard["nextUpdateCheck"] ?? .distantPast
+    fileprivate(set) var interfaceLanguage: String = UserDefaults.standard.getArray("AppleLanguages")?[0] ?? Locale.current.languageCode ?? "en"
 }
 
 enum SettingsEvent {
     case setRepositoryConfigs([RepoConfig])
-    case setUpdateCheckInterval(PeriodInterval)
+    case updateRepoConfig(URL, Repository.Channels)
+    case setUpdateCheckInterval(UpdateFrequency)
     case setNextUpdateCheck(Date)
     case setInterfaceLanguage(String)
 }
@@ -48,17 +77,25 @@ class SettingsStore: RxStore<SettingsState, SettingsEvent> {
         var newState = state
 
         switch (event) {
+        case let .updateRepoConfig(url, channel):
+            let newConfig = RepoConfig(url: url, channel: channel)
+            if let index = newState.repositories.index(where: { $0.url == url }) {
+                newState.repositories[index] = newConfig
+            } else {
+                newState.repositories.append(newConfig)
+            }
+            prefs[json: "repositories"] = newState.repositories
         case let .setInterfaceLanguage(language):
+            prefs["AppleLanguages"] = [language]
             newState.interfaceLanguage = language
-            prefs.set(language, forKey: "language")
         case let .setNextUpdateCheck(date):
+            prefs["nextUpdateCheck"] = date
             newState.nextUpdateCheck = date
-            prefs.set(date, forKey: "nextUpdateCheck")
         case let .setUpdateCheckInterval(period):
+            prefs["updateCheckInterval"] = period
             newState.updateCheckInterval = period
-            prefs.set(period, forKey: "updateCheckInterval")
         case let .setRepositoryConfigs(configs):
-            // This one is saved by the IPC
+            prefs[json: "repositories"] = configs
             newState.repositories = configs
         }
 
