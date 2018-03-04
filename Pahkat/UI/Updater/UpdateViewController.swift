@@ -42,6 +42,24 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
         return self.contentView.remindButton.rx.tap.asDriver()
     }()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        title = Strings.updateAvailable
+        
+        AppContext.settings.state.take(1).map { $0.repositories }
+            .flatMapLatest { (configs: [RepoConfig]) -> Observable<[RepositoryIndex]> in
+                return try AppDelegate.instance.requestRepos(configs)
+            }
+            .observeOn(MainScheduler.instance)
+            .subscribeOn(MainScheduler.instance)
+            .subscribe(onNext: { repos in
+                print("Refreshed repos in main view.")
+                AppContext.store.dispatch(event: AppEvent.setRepositories(repos))
+            })
+            .disposed(by: bag)
+    }
+    
     override func viewWillAppear() {
         super.viewWillAppear()
         presenter.start().disposed(by: bag)
@@ -57,7 +75,7 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
     }
     
     func setPackages(packages: [Package]) {
-        self.tableDelegate = UpdateTableDelegate.init(with: packages)
+        self.tableDelegate = UpdateTableDelegate(with: packages)
         self.contentView.tableView.dataSource = self.tableDelegate
         self.contentView.tableView.delegate = self.tableDelegate
         self.contentView.tableView.reloadData()
@@ -84,48 +102,47 @@ class UpdateTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSource 
     
     fileprivate var selectedPackages = [Package]()
     
-    init(with packages:[Package]) {
+    init(with packages: [Package]) {
         self.packages = packages
         
         super.init()
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-//        guard let tableColumn = tableColumn else { return nil }
-//        guard let column = UpdateViewTableColumns(identifier: tableColumn.identifier) else { return nil }
-//        let cell = tableView.makeView(withIdentifier: tableColumn.identifier, owner: self) as! NSTableCellView
-//        let package = packages[row]
-//        switch column {
-//        case .name:
-//            let packageName = package.name[Strings.languageCode ?? "en"] ?? ""
-//            cell.textField?.stringValue =  packageName
-//
-//            if let button = cell.nextKeyView as? RxCheckbox {
+        guard let tableColumn = tableColumn else { return nil }
+        guard let column = UpdateViewTableColumns(identifier: tableColumn.identifier) else { return nil }
+        let cell = tableView.makeView(withIdentifier: tableColumn.identifier, owner: self) as! NSTableCellView
+        let package = packages[row]
+        switch column {
+        case .name:
+            let packageName = package.name[Strings.languageCode ?? "en"] ?? ""
+            cell.textField?.stringValue =  packageName
+
+            if let button = cell.nextKeyView as? OutlineCheckbox {
 //                button.set(onToggle: {[weak self] _ in
 //                    //TODO: update selected packages
 //                    return
 //                })
-//                if selectedPackages.contains(package) {
-//                    button.state = .on
-//                } else {
-//                    button.state = .off
-//                }
-//            }
-//        case .version:
-//            let version = package.version
-//            var size: String = self.byteCountFormatter.string(fromByteCount: 0)
-//            switch package.installer {
-//            case .macOsInstaller(let installer):
-//                size = self.byteCountFormatter.string(fromByteCount: Int64(installer.size))
-//            default:
-//                break
-//            }
-//            cell.textField?.stringValue = Strings.updateAvailable + ": " + version + " (" + size + ")"
-//        }
-//
-//
-//        return cell
-        return nil
+                if selectedPackages.contains(package) {
+                    button.state = .on
+                } else {
+                    button.state = .off
+                }
+            }
+        case .version:
+            let version = package.version
+            var size: String = self.byteCountFormatter.string(fromByteCount: 0)
+            switch package.installer {
+            case .macOsInstaller(let installer):
+                size = self.byteCountFormatter.string(fromByteCount: Int64(installer.size))
+            default:
+                break
+            }
+            cell.textField?.stringValue = Strings.updateAvailable + ": " + version + " (" + size + ")"
+        }
+
+
+        return cell
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {

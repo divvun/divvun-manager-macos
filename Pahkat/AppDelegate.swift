@@ -98,14 +98,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             AppContext.windows.show(MainWindowController.self, viewController: MainViewController())
         }
         
-        AppContext.settings.state.subscribe(onNext: {
-            print($0)
-        }).disposed(by: bag)
-        
-        AppContext.store.state.subscribe(onNext: {
-            print($0)
-        }).disposed(by: bag)
-        
+        // Manage the launch agents
         AppContext.settings.state.map { $0.updateCheckInterval }
             .distinctUntilChanged()
             .subscribe(onNext: { interval in
@@ -116,6 +109,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     _ = try? LaunchdService.saveNewLaunchAgent(startInterval: interval.asSeconds)
                 }
             }).disposed(by: bag)
+        
+#if DEBUG
+        AppContext.settings.state.subscribe(onNext: {
+            print($0)
+        }).disposed(by: bag)
+        
+        AppContext.store.state.subscribe(onNext: {
+            print($0)
+        }).disposed(by: bag)
+#endif
     }
 }
 

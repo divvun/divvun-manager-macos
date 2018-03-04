@@ -21,6 +21,17 @@ extension Package.Installer {
     }
 }
 
+extension Package: Comparable {
+    public static func <(lhs: Package, rhs: Package) -> Bool {
+        switch lhs.nativeName.localizedCaseInsensitiveCompare(rhs.nativeName) {
+        case .orderedAscending:
+            return true
+        default:
+            return false
+        }
+    }
+}
+
 extension Package {
     var nativeName: String {
         return self.name[Strings.languageCode ?? "en"] ?? ""

@@ -422,8 +422,15 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                 cell.textField?.stringValue = name
             }
             
-            let bold = [kCTFontAttributeName as NSAttributedStringKey: NSFont.boldSystemFont(ofSize: 13)]
+            let bold: [NSAttributedStringKey: Any]
+            if #available(OSX 10.11, *) {
+                bold = [kCTFontAttributeName as NSAttributedStringKey: NSFont.systemFont(ofSize: 13, weight: .semibold)]
+            } else {
+                bold = [kCTFontAttributeName as NSAttributedStringKey: NSFont.boldSystemFont(ofSize: 13)]
+            }
+            
             cell.textField?.attributedStringValue = NSAttributedString(string: group.value, attributes: bold)
+//            cell.textField?.stringValue = group.value
         case let .item(item, _, repo):
             switch column {
             case .name:
@@ -452,10 +459,14 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                     let paraStyle = NSMutableParagraphStyle()
                     paraStyle.alignment = .left
                     
-                    let attrs: [NSAttributedStringKey: Any] = [
-                        NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: 13),
-                        NSAttributedStringKey.paragraphStyle: paraStyle
-                    ]
+                    var attrs = [NSAttributedStringKey: Any]()
+                    if #available(OSX 10.11, *) {
+                        attrs[kCTFontAttributeName as NSAttributedStringKey] = NSFont.systemFont(ofSize: 13, weight: .semibold)
+                    } else {
+                        attrs[kCTFontAttributeName as NSAttributedStringKey] = NSFont.boldSystemFont(ofSize: 13)
+                    }
+                    
+                    attrs[NSAttributedStringKey.paragraphStyle] = paraStyle
                     
                     let msg: String
                     switch selectedPackage.target {

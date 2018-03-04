@@ -357,7 +357,7 @@
 		C69F94812028B1EA00127A47 = {
 			isa = PBXGroup;
 			children = (
-				C6B742D1204C122600C7877D /* agenthelper */,
+				C6B742D1204C122600C7877D /* AgentHelper */,
 				FA0E3526D5964C9EC14FAF12 /* Frameworks */,
 				C69F948C2028B1EA00127A47 /* Pahkat */,
 				04A89B0A12655C2C13F8D8DA /* Pods */,
@@ -393,12 +393,12 @@
 			path = Pahkat;
 			sourceTree = "<group>";
 		};
-		C6B742D1204C122600C7877D /* agenthelper */ = {
+		C6B742D1204C122600C7877D /* AgentHelper */ = {
 			isa = PBXGroup;
 			children = (
 				C6B742D2204C122600C7877D /* main.swift */,
 			);
-			path = agenthelper;
+			path = AgentHelper;
 			sourceTree = "<group>";
 		};
 		C6CC912820291A1B00CB0B10 /* Services */ = {
