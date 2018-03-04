@@ -17,7 +17,7 @@ class MainView: View {
     @IBOutlet weak var outlineView: NSOutlineView!
     
     override func awakeFromNib() {
-        primaryButton.title = "0" //Strings.noPackagesSelected
+        primaryButton.title = Strings.noPackagesSelected
         primaryLabel.stringValue = Strings.appName
     }
 }

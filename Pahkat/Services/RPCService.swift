@@ -43,7 +43,6 @@ struct PackageInstallStatusRequest {
 }
 
 extension PackageInstallStatusRequest: JSONRPCRequest {
-//    typealias Response = [String: PackageInstallStatus]
     typealias Response = PackageInstallStatus
     
     var method: String { return "status" }
@@ -107,60 +106,51 @@ struct SetSettingsRequest: JSONRPCRequest {
     var params: Encodable? { return [settings] }
 }
 
-protocol PahkatRPCServiceable: class {
-//    func get(repository url: URL) throws -> Single<RepositoryRequest.Response>
-//    func status(of packages: [Package], forRepository url: URL) throws -> Single<PackageInstallStatusesRequest.Response>
-//    func download(package: Package, forRepository url: URL) throws -> Observable<DownloadSubscriptionRequest.Response>
-//    func install(package: Package, forRepository url: URL) throws -> Observable<InstallSubscriptionRequest.Response>
-//    func uninstall(package: Package, forRepository url: URL) throws -> Observable<InstallSubscriptionRequest.Response>
-}
-
-class PahkatRPCService: PahkatRPCServiceable {
+class PahkatRPCService {
     private let bag = DisposeBag()
     
-//    private let process: BufferedStringSubprocess
-    internal let pahkatcIPC: BufferedProcess // BufferedStringSubprocess
+    internal let pahkatcIPC: BufferedProcess
     private let rpc = JSONRPCClient()
     
     static let pahkatcPath = Bundle.main.bundleURL.appendingPathComponent("Contents/MacOS/pahkatc")
     
-    public init?(requiresAdmin: Bool = false) {
-        if requiresAdmin {
-            pahkatcIPC = AdminSubprocess(PahkatRPCService.pahkatcPath.path, arguments: ["ipc", "3031"])
-        } else {
-            pahkatcIPC = BufferedStringSubprocess(
-                PahkatRPCService.pahkatcPath.path,
-                arguments: ["ipc", "3030"],
-                qos: QualityOfService.userInteractive)
-        }
+    public convenience init?() {
+//        if requiresAdmin {
+//            pahkatcIPC = AdminSubprocess(PahkatRPCService.pahkatcPath.path, arguments: ["ipc"])
+//        } else {
+        self.init(service: BufferedStringSubprocess(
+            PahkatRPCService.pahkatcPath.path,
+            arguments: ["ipc"],
+            qos: QualityOfService.userInteractive))
+//        }
         
-//        pahkatcIPC.standardOutput = {
-//            print($0)
-//        }
-//
-//        pahkatcIPC.standardError = {
-//            print($0)
-//        }
-//
-//        pahkatcIPC.onComplete = {
-//            print("IPC is dead.")
-//        }
-//
+    }
+    
+    internal init?(service: BufferedProcess) {
+        pahkatcIPC = service
+        
+        if !setUp() {
+            return nil
+        }
+    }
+    
+    private func setUp() -> Bool {
         // Handle input from process
         pahkatcIPC.standardOutput = { [unowned self] in
-                        print($0)
-            guard let data = $0.data(using: .utf8) else { return }
+            guard let data = $0.data(using: .utf8) else {
+                print($0)
+                return
+            }
             self.rpc.input.onNext(data)
         }
         
-        pahkatcIPC.standardError = { [unowned self] in
+        pahkatcIPC.standardError = {
             print($0)
         }
         
         // Handle output to process
         rpc.output.subscribe(onNext: { [weak self] in
             let string = String(data: $0, encoding: .utf8)!
-            //            print(string)
             self?.pahkatcIPC.write(string: string, withNewline: true)
         }).disposed(by: bag)
         
@@ -168,23 +158,15 @@ class PahkatRPCService: PahkatRPCServiceable {
         case .launched:
             break
         default:
-            return nil
+            return false
         }
         
         if !pahkatcIPC.isRunning {
             usleep(100000)
         }
-        sleep(1)
-        
-        // TODO: monitor on Rust-side for when connections hits zero after incrementing to above zero to dezombie
-        
-//        process = BufferedStringSubprocess("/usr/bin/nc", arguments: ["localhost", requiresAdmin ? "3031" : "3030"], qos: QualityOfService.userInteractive)
-
-
-//        process.launch()
         
         print("IPC server running: \(pahkatcIPC.isRunning)")
-//        print("RPC client running: \(process.isRunning)")
+        return true
     }
     
     deinit {
@@ -196,10 +178,6 @@ class PahkatRPCService: PahkatRPCServiceable {
     func repository(with config: RepoConfig) throws -> Single<RepositoryRequest.Response> {
         return try rpc.send(request: RepositoryRequest(config: config))
     }
-    
-//    func status(of package: Package, target: MacOsInstaller.Targets) throws -> Single<PackageInstallStatusRequest.Response> {
-//        return try rpc.send(request: PackageInstallStatusRequest(package: package, target: target))
-//    }
     
     func statuses(for url: URL) throws -> Single<RepositoryStatusesRequest.Response> {
         return try rpc.send(request: RepositoryStatusesRequest(url: url))
@@ -224,14 +202,6 @@ class PahkatRPCService: PahkatRPCServiceable {
 
     func uninstall(_ package: Package, repo: RepositoryIndex, target: MacOsInstaller.Targets) throws -> Single<UninstallRequest.Response> {
         return try rpc.send(request: UninstallRequest(repo: repo, package: package, target: target))
-    }
-    
-    func settings() throws -> Single<SettingsRequest.Response> {
-        return try rpc.send(request: SettingsRequest())
-    }
-    
-    func set(settings: SettingsState) throws -> Single<SetSettingsRequest.Response> {
-        return try rpc.send(request: SetSettingsRequest(settings: settings))
     }
 }
 

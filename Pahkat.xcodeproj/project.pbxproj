@@ -27,7 +27,6 @@
 		960DCF4737BF0B93EE5A96C6 /* Pods_Pahkat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D1F698D729533B781C38BEB /* Pods_Pahkat.framework */; };
 		C60B22F220432AF400A2027A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C60B22F020432AF400A2027A /* InfoPlist.strings */; };
 		C622703F20358F1B00DBCD65 /* RepositoryIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622703E20358F1B00DBCD65 /* RepositoryIndex.swift */; };
-		C6227041203599BA00DBCD65 /* PackageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6227040203599BA00DBCD65 /* PackageService.swift */; };
 		C62270482035C5D700DBCD65 /* UpdateWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62270472035C5D700DBCD65 /* UpdateWindow.swift */; };
 		C622704A2035C5FC00DBCD65 /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62270492035C5FC00DBCD65 /* UpdateView.swift */; };
 		C622704C2035C60500DBCD65 /* UpdateViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622704B2035C60500DBCD65 /* UpdateViewable.swift */; };
@@ -48,6 +47,35 @@
 		C69F94932028B1EA00127A47 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C69F94912028B1EA00127A47 /* MainMenu.xib */; };
 		C6B742C32048697400C7877D /* PackageAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742C22048697400C7877D /* PackageAction.swift */; };
 		C6B742C52049911B00C7877D /* MainOutlineModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742C42049911B00C7877D /* MainOutlineModels.swift */; };
+		C6B742C7204BF19E00C7877D /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742C6204BF19E00C7877D /* MainMenu.swift */; };
+		C6B742C9204BF22600C7877D /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742C8204BF22600C7877D /* App.swift */; };
+		C6B742CB204C005800C7877D /* LaunchdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742CA204C005800C7877D /* LaunchdService.swift */; };
+		C6B742D3204C122600C7877D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742D2204C122600C7877D /* main.swift */; };
+		C6B742DA204C128D00C7877D /* agenthelper in Copy agenthelper Into App Bundle */ = {isa = PBXBuildFile; fileRef = C6B742D0204C122600C7877D /* agenthelper */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C6B742DC204C14BC00C7877D /* SettingsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742DB204C14BC00C7877D /* SettingsKey.swift */; };
+		C6B742DE204C17D100C7877D /* SettingsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742DB204C14BC00C7877D /* SettingsKey.swift */; };
+		C6B742DF204C194200C7877D /* Cocoa.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F8A81A2028B404009A016E /* Cocoa.swift */; };
+		C6B742E1204C456100C7877D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742E0204C456100C7877D /* Constants.swift */; };
+		C6B742E2204C456300C7877D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742E0204C456100C7877D /* Constants.swift */; };
+		C6C820C9204C52F2001682E8 /* RPCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62270572037132200DBCD65 /* RPCService.swift */; };
+		C6C820CB204C530D001682E8 /* RepoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820CA204C530C001682E8 /* RepoConfig.swift */; };
+		C6C820CC204C5340001682E8 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CC912920291A2D00CB0B10 /* APIService.swift */; };
+		C6C820CD204C5357001682E8 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62270552036EA9E00DBCD65 /* Models.swift */; };
+		C6C820CF204C5374001682E8 /* BufferedProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820CE204C5374001682E8 /* BufferedProcess.swift */; };
+		C6C820D0204C53A8001682E8 /* RepositoryIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622703E20358F1B00DBCD65 /* RepositoryIndex.swift */; };
+		C6C820D1204C53B8001682E8 /* RepoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820CA204C530C001682E8 /* RepoConfig.swift */; };
+		C6C820D3204C53EF001682E8 /* PackageDownloadProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820D2204C53EF001682E8 /* PackageDownloadProgress.swift */; };
+		C6C820D4204C53F4001682E8 /* PackageDownloadProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820D2204C53EF001682E8 /* PackageDownloadProgress.swift */; };
+		C6C820D6204C540A001682E8 /* PackageInstallStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820D5204C540A001682E8 /* PackageInstallStatus.swift */; };
+		C6C820D7204C5420001682E8 /* PackageInstallStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820D5204C540A001682E8 /* PackageInstallStatus.swift */; };
+		C6C820D8204C5432001682E8 /* APIService+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F2676C203B96E8006EC59C /* APIService+Extensions.swift */; };
+		C6C820DA204C5450001682E8 /* SettingsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820D9204C5450001682E8 /* SettingsState.swift */; };
+		C6C820DB204C547B001682E8 /* SettingsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820D9204C5450001682E8 /* SettingsState.swift */; };
+		C6C820DC204C5496001682E8 /* UpdateFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271249C4204055EC009EE80B /* UpdateFrequency.swift */; };
+		C6C820DD204C54A6001682E8 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622705E2039DEC800DBCD65 /* Strings.swift */; };
+		C6C820DF204C54D6001682E8 /* AdminSubprocess.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820DE204C54D6001682E8 /* AdminSubprocess.swift */; };
+		C6C820E0204C5513001682E8 /* BufferedProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820CE204C5374001682E8 /* BufferedProcess.swift */; };
+		C6C820E2204C5612001682E8 /* RPCService+Admin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820E1204C5612001682E8 /* RPCService+Admin.swift */; };
 		C6CC91272028E69300CB0B10 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6CC91262028E69300CB0B10 /* MainWindow.xib */; };
 		C6CC912A20291A2D00CB0B10 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CC912920291A2D00CB0B10 /* APIService.swift */; };
 		C6F2676D203B96E8006EC59C /* APIService+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F2676C203B96E8006EC59C /* APIService+Extensions.swift */; };
@@ -72,6 +100,7 @@
 		C6F8A8202028BBC2009A016E /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6F8A81F2028BBC2009A016E /* MainView.xib */; };
 		C6F8A8232028BC07009A016E /* WindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F8A8222028BC07009A016E /* WindowManager.swift */; };
 		C6F8A8262028BD91009A016E /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F8A8252028BD91009A016E /* MainWindow.swift */; };
+		DC2012568D5D3A1C7B8DBD74 /* Pods_agenthelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED56875AB9F471C422E7E93C /* Pods_agenthelper.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,7 +111,37 @@
 			remoteGlobalIDString = C60B81A5203478E400D3E093;
 			remoteInfo = "pahkat-client";
 		};
+		C6B742D7204C125C00C7877D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C69F94822028B1EA00127A47 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C6B742CF204C122600C7877D;
+			remoteInfo = agenthelper;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C6B742CE204C122600C7877D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		C6B742D9204C127100C7877D /* Copy agenthelper Into App Bundle */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				C6B742DA204C128D00C7877D /* agenthelper in Copy agenthelper Into App Bundle */,
+			);
+			name = "Copy agenthelper Into App Bundle";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		271249B22040118A009EE80B /* UpdatePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePresenter.swift; sourceTree = "<group>"; };
@@ -103,6 +162,7 @@
 		278A10B4203ADAB2007C3DC8 /* InstallView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstallView.xib; sourceTree = "<group>"; };
 		278A10B6203ADACD007C3DC8 /* InstallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallView.swift; sourceTree = "<group>"; };
 		4911F9B189408032AD636861 /* Pods-Pahkat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pahkat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pahkat/Pods-Pahkat.debug.xcconfig"; sourceTree = "<group>"; };
+		4CAEB8971AB1D8011654185D /* Pods-agenthelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-agenthelper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-agenthelper/Pods-agenthelper.debug.xcconfig"; sourceTree = "<group>"; };
 		4D1F698D729533B781C38BEB /* Pods_Pahkat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pahkat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56F306996B41415DC22AAB5C /* Pods-Pahkat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pahkat.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pahkat/Pods-Pahkat.release.xcconfig"; sourceTree = "<group>"; };
 		C60B22ED2043217300A2027A /* nn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nn; path = ../nn.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -111,7 +171,6 @@
 		C60B22F320432AF800A2027A /* nn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nn; path = ../nn.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C60B81A9203489B800D3E093 /* Pahkat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pahkat-Bridging-Header.h"; sourceTree = "<group>"; };
 		C622703E20358F1B00DBCD65 /* RepositoryIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryIndex.swift; sourceTree = "<group>"; };
-		C6227040203599BA00DBCD65 /* PackageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageService.swift; sourceTree = "<group>"; };
 		C62270472035C5D700DBCD65 /* UpdateWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateWindow.swift; sourceTree = "<group>"; };
 		C62270492035C5FC00DBCD65 /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
 		C622704B2035C60500DBCD65 /* UpdateViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewable.swift; sourceTree = "<group>"; };
@@ -137,6 +196,21 @@
 		C69F94952028B1EA00127A47 /* Pahkat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pahkat.entitlements; sourceTree = "<group>"; };
 		C6B742C22048697400C7877D /* PackageAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageAction.swift; sourceTree = "<group>"; };
 		C6B742C42049911B00C7877D /* MainOutlineModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainOutlineModels.swift; sourceTree = "<group>"; };
+		C6B742C6204BF19E00C7877D /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
+		C6B742C8204BF22600C7877D /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		C6B742CA204C005800C7877D /* LaunchdService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchdService.swift; sourceTree = "<group>"; };
+		C6B742D0204C122600C7877D /* agenthelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = agenthelper; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6B742D2204C122600C7877D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		C6B742DB204C14BC00C7877D /* SettingsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsKey.swift; sourceTree = "<group>"; };
+		C6B742E0204C456100C7877D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		C6C820C7204C5212001682E8 /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6C820CA204C530C001682E8 /* RepoConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoConfig.swift; sourceTree = "<group>"; };
+		C6C820CE204C5374001682E8 /* BufferedProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferedProcess.swift; sourceTree = "<group>"; };
+		C6C820D2204C53EF001682E8 /* PackageDownloadProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageDownloadProgress.swift; sourceTree = "<group>"; };
+		C6C820D5204C540A001682E8 /* PackageInstallStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageInstallStatus.swift; sourceTree = "<group>"; };
+		C6C820D9204C5450001682E8 /* SettingsState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsState.swift; sourceTree = "<group>"; };
+		C6C820DE204C54D6001682E8 /* AdminSubprocess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminSubprocess.swift; sourceTree = "<group>"; };
+		C6C820E1204C5612001682E8 /* RPCService+Admin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RPCService+Admin.swift"; sourceTree = "<group>"; };
 		C6CC91262028E69300CB0B10 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		C6CC912920291A2D00CB0B10 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		C6F2676C203B96E8006EC59C /* APIService+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Extensions.swift"; sourceTree = "<group>"; };
@@ -161,6 +235,8 @@
 		C6F8A81F2028BBC2009A016E /* MainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainView.xib; sourceTree = "<group>"; };
 		C6F8A8222028BC07009A016E /* WindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManager.swift; sourceTree = "<group>"; };
 		C6F8A8252028BD91009A016E /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
+		D432E834226F042DACFD2F8E /* Pods-agenthelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-agenthelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-agenthelper/Pods-agenthelper.release.xcconfig"; sourceTree = "<group>"; };
+		ED56875AB9F471C422E7E93C /* Pods_agenthelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_agenthelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +248,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C6B742CD204C122600C7877D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC2012568D5D3A1C7B8DBD74 /* Pods_agenthelper.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -180,6 +264,8 @@
 			children = (
 				4911F9B189408032AD636861 /* Pods-Pahkat.debug.xcconfig */,
 				56F306996B41415DC22AAB5C /* Pods-Pahkat.release.xcconfig */,
+				4CAEB8971AB1D8011654185D /* Pods-agenthelper.debug.xcconfig */,
+				D432E834226F042DACFD2F8E /* Pods-agenthelper.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -231,6 +317,8 @@
 				C6F4BC5E202A43BC002EE523 /* RxStore.swift */,
 				C62270542036EA9300DBCD65 /* JSON-RPC */,
 				C622706A203A247300DBCD65 /* ISO639.swift */,
+				C6C820CE204C5374001682E8 /* BufferedProcess.swift */,
+				C6C820DE204C54D6001682E8 /* AdminSubprocess.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -269,6 +357,7 @@
 		C69F94812028B1EA00127A47 = {
 			isa = PBXGroup;
 			children = (
+				C6B742D1204C122600C7877D /* agenthelper */,
 				FA0E3526D5964C9EC14FAF12 /* Frameworks */,
 				C69F948C2028B1EA00127A47 /* Pahkat */,
 				04A89B0A12655C2C13F8D8DA /* Pods */,
@@ -281,6 +370,7 @@
 			isa = PBXGroup;
 			children = (
 				C69F948A2028B1EA00127A47 /* Pahkat.app */,
+				C6B742D0204C122600C7877D /* agenthelper */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -288,6 +378,7 @@
 		C69F948C2028B1EA00127A47 /* Pahkat */ = {
 			isa = PBXGroup;
 			children = (
+				C6B742C8204BF22600C7877D /* App.swift */,
 				C69F948D2028B1EA00127A47 /* AppDelegate.swift */,
 				C622705E2039DEC800DBCD65 /* Strings.swift */,
 				C6F8A8192028B3F3009A016E /* Extensions */,
@@ -297,16 +388,26 @@
 				C62270592037344E00DBCD65 /* Support */,
 				C6CC912B2029A56F00CB0B10 /* UI */,
 				C62270532036EA8D00DBCD65 /* Utilities */,
+				C6B742E0204C456100C7877D /* Constants.swift */,
 			);
 			path = Pahkat;
+			sourceTree = "<group>";
+		};
+		C6B742D1204C122600C7877D /* agenthelper */ = {
+			isa = PBXGroup;
+			children = (
+				C6B742D2204C122600C7877D /* main.swift */,
+			);
+			path = agenthelper;
 			sourceTree = "<group>";
 		};
 		C6CC912820291A1B00CB0B10 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				C6CC912920291A2D00CB0B10 /* APIService.swift */,
-				C6227040203599BA00DBCD65 /* PackageService.swift */,
 				C62270572037132200DBCD65 /* RPCService.swift */,
+				C6C820E1204C5612001682E8 /* RPCService+Admin.swift */,
+				C6B742CA204C005800C7877D /* LaunchdService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -324,6 +425,7 @@
 		C6CC912C2029A57700CB0B10 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				C6B742C6204BF19E00C7877D /* MainMenu.swift */,
 				C69F94912028B1EA00127A47 /* MainMenu.xib */,
 				C6F8A8252028BD91009A016E /* MainWindow.swift */,
 				C6CC91262028E69300CB0B10 /* MainWindow.xib */,
@@ -375,12 +477,17 @@
 		C6F4BC792031E17E002EE523 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C6F4BC5C202A410A002EE523 /* SettingsStore.swift */,
-				C6F4BC7A2031E18A002EE523 /* ProcessResult.swift */,
-				C622703E20358F1B00DBCD65 /* RepositoryIndex.swift */,
 				C62270662039E9CD00DBCD65 /* AppStore.swift */,
-				271249C4204055EC009EE80B /* UpdateFrequency.swift */,
 				C6B742C22048697400C7877D /* PackageAction.swift */,
+				C6C820D2204C53EF001682E8 /* PackageDownloadProgress.swift */,
+				C6C820D5204C540A001682E8 /* PackageInstallStatus.swift */,
+				C6F4BC7A2031E18A002EE523 /* ProcessResult.swift */,
+				C6C820CA204C530C001682E8 /* RepoConfig.swift */,
+				C622703E20358F1B00DBCD65 /* RepositoryIndex.swift */,
+				C6B742DB204C14BC00C7877D /* SettingsKey.swift */,
+				C6C820D9204C5450001682E8 /* SettingsState.swift */,
+				C6F4BC5C202A410A002EE523 /* SettingsStore.swift */,
+				271249C4204055EC009EE80B /* UpdateFrequency.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -408,7 +515,9 @@
 		FA0E3526D5964C9EC14FAF12 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C6C820C7204C5212001682E8 /* RxSwift.framework */,
 				4D1F698D729533B781C38BEB /* Pods_Pahkat.framework */,
+				ED56875AB9F471C422E7E93C /* Pods_agenthelper.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -441,6 +550,7 @@
 				C69F94862028B1EA00127A47 /* Sources */,
 				C69F94872028B1EA00127A47 /* Frameworks */,
 				C69F94882028B1EA00127A47 /* Resources */,
+				C6B742D9204C127100C7877D /* Copy agenthelper Into App Bundle */,
 				C622705D203735FD00DBCD65 /* Copy pahkatc Into App Bundle */,
 				E627452B56407B0E8E4FE3E0 /* [CP] Embed Pods Frameworks */,
 				C384180AD53213270088D961 /* [CP] Copy Pods Resources */,
@@ -448,12 +558,32 @@
 			buildRules = (
 			);
 			dependencies = (
+				C6B742D8204C125C00C7877D /* PBXTargetDependency */,
 				C60B81AD20348A1200D3E093 /* PBXTargetDependency */,
 			);
 			name = Pahkat;
 			productName = Pahkat;
 			productReference = C69F948A2028B1EA00127A47 /* Pahkat.app */;
 			productType = "com.apple.product-type.application";
+		};
+		C6B742CF204C122600C7877D /* agenthelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C6B742D4204C122600C7877D /* Build configuration list for PBXNativeTarget "agenthelper" */;
+			buildPhases = (
+				21E6D09BF5256B1A951C11A2 /* [CP] Check Pods Manifest.lock */,
+				C6B742CC204C122600C7877D /* Sources */,
+				C6B742CD204C122600C7877D /* Frameworks */,
+				C6B742CE204C122600C7877D /* CopyFiles */,
+				3D63DD8F18F6B498E91037F1 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = agenthelper;
+			productName = agenthelper;
+			productReference = C6B742D0204C122600C7877D /* agenthelper */;
+			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
@@ -474,6 +604,10 @@
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
+					C6B742CF204C122600C7877D = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = C69F94852028B1EA00127A47 /* Build configuration list for PBXProject "Pahkat" */;
@@ -492,6 +626,7 @@
 			targets = (
 				C69F94892028B1EA00127A47 /* Pahkat */,
 				C60B81A5203478E400D3E093 /* pahkat-client */,
+				C6B742CF204C122600C7877D /* agenthelper */,
 			);
 		};
 /* End PBXProject section */
@@ -523,6 +658,39 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		21E6D09BF5256B1A951C11A2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-agenthelper-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3D63DD8F18F6B498E91037F1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-agenthelper/Pods-agenthelper-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		7D9B6F962EACA34466E2878B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -577,27 +745,27 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Pahkat/Pods-Pahkat-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/BTree/BTree.framework",
-				"${BUILT_PRODUCTS_DIR}/JSONRPCKit/JSONRPCKit.framework",
-				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
-				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/KSCrash/KSCrash.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxFeedback/RxFeedback.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/STPrivilegedTask/STPrivilegedTask.framework",
+				"${BUILT_PRODUCTS_DIR}/Sentry/Sentry.framework",
+				"${PODS_ROOT}/Sparkle/Sparkle.framework",
+				"${PODS_ROOT}/Sparkle/Sparkle.framework.dSYM",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BTree.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSONRPCKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KSCrash.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxFeedback.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/STPrivilegedTask.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sentry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/Sparkle.framework.dSYM",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -612,27 +780,34 @@
 			buildActionMask = 2147483647;
 			files = (
 				C62270482035C5D700DBCD65 /* UpdateWindow.swift in Sources */,
+				C6C820E2204C5612001682E8 /* RPCService+Admin.swift in Sources */,
 				278A10B7203ADACD007C3DC8 /* InstallView.swift in Sources */,
+				C6B742C7204BF19E00C7877D /* MainMenu.swift in Sources */,
 				C622704C2035C60500DBCD65 /* UpdateViewable.swift in Sources */,
 				276391A6203AECE30096E10C /* CompletionView.swift in Sources */,
 				C69F948E2028B1EA00127A47 /* AppDelegate.swift in Sources */,
 				C6F4BC5B2029BC57002EE523 /* MainViewController.swift in Sources */,
+				C6C820CF204C5374001682E8 /* BufferedProcess.swift in Sources */,
 				C6F4BC6E2031DBCB002EE523 /* DownloadViewController.swift in Sources */,
 				C6F4BC6C2031DBC0002EE523 /* DownloadPresenter.swift in Sources */,
 				271249C12040449E009EE80B /* SettingsViewController.swift in Sources */,
 				C62270582037132200DBCD65 /* RPCService.swift in Sources */,
 				C6F8A8182028B3C1009A016E /* Cocoa+Nibbable.swift in Sources */,
+				C6C820D6204C540A001682E8 /* PackageInstallStatus.swift in Sources */,
 				C6F8A8162028B2C0009A016E /* Operators+Rx.swift in Sources */,
 				C6F4BC5D202A410A002EE523 /* SettingsStore.swift in Sources */,
 				271249BD2040448B009EE80B /* SettingsView.swift in Sources */,
 				271249B920404409009EE80B /* SettingsWindow.swift in Sources */,
 				271249B32040118A009EE80B /* UpdatePresenter.swift in Sources */,
 				C6F4BC7B2031E18A002EE523 /* ProcessResult.swift in Sources */,
+				C6B742DC204C14BC00C7877D /* SettingsKey.swift in Sources */,
+				C6B742CB204C005800C7877D /* LaunchdService.swift in Sources */,
 				276391AC203D7F620096E10C /* DownloadProgressView.swift in Sources */,
 				C6F4BC572029BC05002EE523 /* MainViewable.swift in Sources */,
 				271249C3204044B0009EE80B /* SettingsPresenter.swift in Sources */,
 				C62270672039E9CD00DBCD65 /* AppStore.swift in Sources */,
 				276391A4203AE2660096E10C /* CompletionViewController.swift in Sources */,
+				C6C820CB204C530D001682E8 /* RepoConfig.swift in Sources */,
 				C6F4BC662031DB81002EE523 /* DownloadViewable.swift in Sources */,
 				C6F8A81E2028B996009A016E /* MainView.swift in Sources */,
 				C6F4BC592029BC2C002EE523 /* MainPresenter.swift in Sources */,
@@ -642,10 +817,13 @@
 				C6F8A81B2028B404009A016E /* Cocoa.swift in Sources */,
 				C6B742C52049911B00C7877D /* MainOutlineModels.swift in Sources */,
 				C622706B203A247300DBCD65 /* ISO639.swift in Sources */,
-				C6227041203599BA00DBCD65 /* PackageService.swift in Sources */,
+				C6B742C9204BF22600C7877D /* App.swift in Sources */,
 				276391A2203ADDD60096E10C /* InstallPresenter.swift in Sources */,
 				C6F8A8232028BC07009A016E /* WindowManager.swift in Sources */,
+				C6C820DF204C54D6001682E8 /* AdminSubprocess.swift in Sources */,
 				C6F2676D203B96E8006EC59C /* APIService+Extensions.swift in Sources */,
+				C6C820D3204C53EF001682E8 /* PackageDownloadProgress.swift in Sources */,
+				C6C820DA204C5450001682E8 /* SettingsState.swift in Sources */,
 				271249C5204055EC009EE80B /* UpdateFrequency.swift in Sources */,
 				C62270502035C61900DBCD65 /* UpdateViewController.swift in Sources */,
 				C622705F2039DEC800DBCD65 /* Strings.swift in Sources */,
@@ -657,8 +835,32 @@
 				276391A0203ADDC30096E10C /* InstallViewController.swift in Sources */,
 				C6F8A8262028BD91009A016E /* MainWindow.swift in Sources */,
 				C6F4BC722031DCF7002EE523 /* Cocoa+Rx.swift in Sources */,
+				C6B742E1204C456100C7877D /* Constants.swift in Sources */,
 				C6B742C32048697400C7877D /* PackageAction.swift in Sources */,
 				C62270562036EA9E00DBCD65 /* Models.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C6B742CC204C122600C7877D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C6C820D8204C5432001682E8 /* APIService+Extensions.swift in Sources */,
+				C6C820D0204C53A8001682E8 /* RepositoryIndex.swift in Sources */,
+				C6C820E0204C5513001682E8 /* BufferedProcess.swift in Sources */,
+				C6C820D4204C53F4001682E8 /* PackageDownloadProgress.swift in Sources */,
+				C6B742DF204C194200C7877D /* Cocoa.swift in Sources */,
+				C6C820DB204C547B001682E8 /* SettingsState.swift in Sources */,
+				C6B742DE204C17D100C7877D /* SettingsKey.swift in Sources */,
+				C6C820C9204C52F2001682E8 /* RPCService.swift in Sources */,
+				C6C820DD204C54A6001682E8 /* Strings.swift in Sources */,
+				C6B742D3204C122600C7877D /* main.swift in Sources */,
+				C6C820CC204C5340001682E8 /* APIService.swift in Sources */,
+				C6B742E2204C456300C7877D /* Constants.swift in Sources */,
+				C6C820D7204C5420001682E8 /* PackageInstallStatus.swift in Sources */,
+				C6C820D1204C53B8001682E8 /* RepoConfig.swift in Sources */,
+				C6C820CD204C5357001682E8 /* Models.swift in Sources */,
+				C6C820DC204C5496001682E8 /* UpdateFrequency.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -669,6 +871,11 @@
 			isa = PBXTargetDependency;
 			target = C60B81A5203478E400D3E093 /* pahkat-client */;
 			targetProxy = C60B81AC20348A1200D3E093 /* PBXContainerItemProxy */;
+		};
+		C6B742D8204C125C00C7877D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C6B742CF204C122600C7877D /* agenthelper */;
+			targetProxy = C6B742D7204C125C00C7877D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -849,32 +1056,19 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4911F9B189408032AD636861 /* Pods-Pahkat.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Pahkat/Support/Pahkat.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 2K5J2584NX;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../pahkat-client/src/";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Pahkat/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../pahkat-client/target/debug";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-framework",
-					"\"Alamofire\"",
-					"-framework",
-					"\"Moya\"",
-					"-framework",
-					"\"Result\"",
-					"-framework",
-					"\"RxCocoa\"",
-					"-framework",
-					"\"RxFeedback\"",
-					"-framework",
-					"\"RxSwift\"",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = no.divvun.Pahkat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pahkat/Support/Pahkat-Bridging-Header.h";
@@ -887,35 +1081,50 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 56F306996B41415DC22AAB5C /* Pods-Pahkat.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Pahkat/Support/Pahkat.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 2K5J2584NX;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../pahkat-client/src/";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Pahkat/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../pahkat-client/target/release";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-framework",
-					"\"Alamofire\"",
-					"-framework",
-					"\"Moya\"",
-					"-framework",
-					"\"Result\"",
-					"-framework",
-					"\"RxCocoa\"",
-					"-framework",
-					"\"RxFeedback\"",
-					"-framework",
-					"\"RxSwift\"",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = no.divvun.Pahkat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pahkat/Support/Pahkat-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		C6B742D5204C122600C7877D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4CAEB8971AB1D8011654185D /* Pods-agenthelper.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2K5J2584NX;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		C6B742D6204C122600C7877D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D432E834226F042DACFD2F8E /* Pods-agenthelper.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2K5J2584NX;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
@@ -946,6 +1155,15 @@
 			buildConfigurations = (
 				C69F94992028B1EA00127A47 /* Debug */,
 				C69F949A2028B1EA00127A47 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C6B742D4204C122600C7877D /* Build configuration list for PBXNativeTarget "agenthelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C6B742D5204C122600C7877D /* Debug */,
+				C6B742D6204C122600C7877D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

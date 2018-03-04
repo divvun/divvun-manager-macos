@@ -8,8 +8,8 @@
 
 import Cocoa
 import RxSwift
-import JSONRPCKit
-import STPrivilegedTask
+import Sentry
+import Sparkle
 
 class AppContext {
     static let rpc = PahkatRPCService()!
@@ -20,25 +20,12 @@ class AppContext {
     private init() { fatalError() }
 }
 
-class MainMenu: NSMenu {
-    @IBOutlet weak var prefsMenuItem: NSMenuItem!
-    
-    @objc func onClickMainMenuPreferences(_ sender: NSObject) {
-        AppContext.windows.show(SettingsWindowController.self)
-    }
-    
-    override func awakeFromNib() {
-        prefsMenuItem.target = self
-        prefsMenuItem.action = #selector(MainMenu.onClickMainMenuPreferences(_:))
-    }
-}
-
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    
     static weak var instance: AppDelegate!
     
-    let bag = DisposeBag()
+    private let bag = DisposeBag()
+    private(set) var requiresAppDeath = false
     
     func requestRepos(_ configs: [RepoConfig]) throws -> Observable<[RepositoryIndex]> {
         return Observable.from(try configs.map { config in try AppContext.rpc.repository(with: config).asObservable() })
@@ -56,12 +43,60 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
     }
     
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        AppDelegate.instance = self
-        NSApp.mainMenu = MainMenu.loadFromNib()
+    private func onUpdateRequested() {
+        AppContext.windows.show(UpdateWindowController.self, viewController: UpdateViewController())
+    }
+    
+    @objc func handleUpdateEvent(_ event: NSAppleEventDescriptor, withReplyEvent replyEvent: NSAppleEventManager) {
+        onUpdateRequested()
+    }
+    
+    @objc func handleReopenEvent(_ event: NSAppleEventDescriptor, withReplyEvent replyEvent: NSAppleEventManager) {
+        if let window = NSApp.windows.filter({ $0.isVisible }).first {
+            window.windowController?.showWindow(self)
+        } else {
+            AppContext.windows.show(MainWindowController.self, viewController: MainViewController())
+        }
+    }
+    
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        return requiresAppDeath
+    }
+    
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        // Configure Sentry.io
+        do {
+            Client.shared = try Client(dsn: "https://85710416203c49ec87d9317948dad3c5:cab1830577f046d9a02ad04e9a5f8488@sentry.io/292199")
+            try Client.shared?.startCrashHandler()
+        } catch let error {
+            print("\(error)")
+            // Wrong DSN or KSCrash not installed
+        }
         
-        // TODO: Check if run at startup and don't show window.
-        AppContext.windows.show(MainWindowController.self)
+        NSApp.mainMenu = MainMenu.loadFromNib()
+        AppDelegate.instance = self
+        
+        // Handle external requests from agent helper
+        NSAppleEventManager.shared().setEventHandler(
+            self,
+            andSelector: #selector(handleUpdateEvent(_:withReplyEvent:)),
+            forEventClass: PahkatAppleEvent.classID,
+            andEventID: PahkatAppleEvent.update.rawValue)
+        
+        // Handle event for reopen window because AppDelegate one is never called…
+        NSAppleEventManager.shared().setEventHandler(
+            self,
+            andSelector: #selector(handleReopenEvent(_:withReplyEvent:)),
+            forEventClass: kCoreEventClass,
+            andEventID: kAEReopenApplication)
+        
+        // If triggered by agent, only show update window.
+        if ProcessInfo.processInfo.arguments.contains("update") {
+            requiresAppDeath = true
+            onUpdateRequested()
+        } else {
+            AppContext.windows.show(MainWindowController.self, viewController: MainViewController())
+        }
         
         AppContext.settings.state.subscribe(onNext: {
             print($0)
@@ -70,25 +105,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         AppContext.store.state.subscribe(onNext: {
             print($0)
         }).disposed(by: bag)
+        
+        AppContext.settings.state.map { $0.updateCheckInterval }
+            .distinctUntilChanged()
+            .subscribe(onNext: { interval in
+                switch interval {
+                case .never:
+                    try? LaunchdService.removeLaunchAgent()
+                default:
+                    _ = try? LaunchdService.saveNewLaunchAgent(startInterval: interval.asSeconds)
+                }
+            }).disposed(by: bag)
     }
 }
 
-class App: NSApplication {
-    private lazy var appDelegate = AppDelegate()
-    
-    override init() {
-        super.init()
-        
-        self.delegate = appDelegate
-    }
-    
-    override func terminate(_ sender: Any?) {
-        AppContext.rpc.pahkatcIPC.terminate()
-        AppContext.rpc.pahkatcIPC.waitUntilExit()
-        super.terminate(sender)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}

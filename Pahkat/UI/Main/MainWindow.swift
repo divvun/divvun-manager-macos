@@ -14,10 +14,4 @@ class MainWindow: Window {
 }
 
 class MainWindowController: WindowController<MainWindow> {
-    
-    override func windowDidLoad() {
-        DispatchQueue.main.async {
-            self.contentWindow.set(viewController: MainViewController())
-        }
-    }
 }

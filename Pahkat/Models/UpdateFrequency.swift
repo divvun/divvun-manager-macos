@@ -29,4 +29,20 @@ enum UpdateFrequency: String, Codable {
             return Strings.never
         }
     }
+    
+    var asSeconds: Int {
+        let day = 60 * 60 * 24
+        switch self {
+        case .daily:
+            return day
+        case .weekly:
+            return day * 7
+        case .fortnightly:
+            return day * 14
+        case .monthly:
+            return day * 28
+        case .never:
+            return 0
+        }
+    }
 }

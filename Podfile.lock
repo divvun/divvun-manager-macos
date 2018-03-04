@@ -1,55 +1,64 @@
 PODS:
-  - Alamofire (4.6.0)
   - BTree (4.1.0)
-  - JSONRPCKit (3.0.0):
-    - Result (~> 3.2.0)
-  - Moya (10.0.2):
-    - Moya/Core (= 10.0.2)
-  - Moya/Core (10.0.2):
-    - Alamofire (~> 4.1)
-    - Result (~> 3.0)
-  - Moya/RxSwift (10.0.2):
-    - Moya/Core
-    - RxSwift (~> 4.0)
-  - Result (3.2.4)
+  - KSCrash/Core (1.15.16):
+    - KSCrash/Reporting/Filters/Basic
+  - KSCrash/Recording (1.15.16):
+    - KSCrash/Recording/Tools (= 1.15.16)
+  - KSCrash/Recording/Tools (1.15.16)
+  - KSCrash/Reporting/Filters/Base (1.15.16):
+    - KSCrash/Recording
+  - KSCrash/Reporting/Filters/Basic (1.15.16):
+    - KSCrash/Recording
+    - KSCrash/Reporting/Filters/Base
   - RxCocoa (4.1.2):
     - RxSwift (~> 4.0)
   - RxFeedback (1.0.2):
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
   - RxSwift (4.1.2)
+  - Sentry (3.11.1):
+    - Sentry/Core (= 3.11.1)
+    - Sentry/KSCrash (= 3.11.1)
+  - Sentry/Core (3.11.1)
+  - Sentry/KSCrash (3.11.1):
+    - KSCrash/Core (~> 1.15.12)
+  - Sparkle (1.18.1)
   - STPrivilegedTask (1.0.6)
 
 DEPENDENCIES:
   - BTree (~> 4.1)
-  - JSONRPCKit
-  - Moya (~> 10)
-  - Moya/RxSwift
   - RxCocoa
   - RxFeedback
   - RxSwift
+  - Sentry (from `https://github.com/getsentry/sentry-cocoa.git`, tag `3.11.1`)
+  - Sparkle
   - STPrivilegedTask (from `https://github.com/sveinbjornt/STPrivilegedTask.git`)
 
 EXTERNAL SOURCES:
+  Sentry:
+    :git: https://github.com/getsentry/sentry-cocoa.git
+    :tag: 3.11.1
   STPrivilegedTask:
     :git: https://github.com/sveinbjornt/STPrivilegedTask.git
 
 CHECKOUT OPTIONS:
+  Sentry:
+    :git: https://github.com/getsentry/sentry-cocoa.git
+    :tag: 3.11.1
   STPrivilegedTask:
     :commit: b0b58d86c1d7aa88671fd803ce1fb271d82016a4
     :git: https://github.com/sveinbjornt/STPrivilegedTask.git
 
 SPEC CHECKSUMS:
-  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   BTree: 99b99930790b88dc5e8bafbf666a5dfb8d7808b4
-  JSONRPCKit: 50e0dc5e7f873e87f81562feb8836b7d1974da6d
-  Moya: 2b0531a9fef318e0bc484030c3db1e6f279ccb66
-  Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
+  KSCrash: e4cda5c8612c5f9478defcf43418f24870d313f4
   RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
   RxFeedback: 10a567c755e59a1897daf760578c6bae8c546bd4
   RxSwift: e49536837d9901277638493ea537394d4b55f570
+  Sentry: 1d8e03901b062b0317174efefa7f97a4ab16fa9a
+  Sparkle: 06ea33170007c5937ee54da481b4481af98fac79
   STPrivilegedTask: 890e43ce2ed0bdfc6ff6f10e2b8d49831cc3bb97
 
-PODFILE CHECKSUM: f43bc2a903bd6cdfbf23c99e7fd7f000b827ae11
+PODFILE CHECKSUM: 45f24f47202c0631956dc67b804b836c3e31cb7b
 
 COCOAPODS: 1.4.0
