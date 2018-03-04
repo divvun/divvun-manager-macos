@@ -11,7 +11,6 @@ import RxSwift
 import RxCocoa
 import BTree
 
-
 typealias PackageOutlineMap = Map<OutlineGroup, [OutlinePackage]>
 typealias MainOutlineMap = Map<OutlineRepository, PackageOutlineMap>
 
@@ -88,7 +87,6 @@ class MainPresenter {
                 guard let `self` = self else { return }
                 self.updateData(with: repos)
                 self.view.setRepositories(data: self.data)
-//                print(repo.meta)
             }, onError: { [weak self] in self?.view.handle(error: $0) })
     }
     
@@ -114,11 +112,7 @@ class MainPresenter {
         
         self.view.updatePrimaryButton(isEnabled: isEnabled, label: label)
     }
-//
-//    private func bindGroupToggled() -> Disposable {
-//
-//    }
-//
+    
     private func bindSettingsButton() -> Disposable {
         return view.onSettingsTapped.drive(onNext: { [weak self] in
             self?.view.showSettings()
@@ -216,37 +210,17 @@ class MainPresenter {
                 let repo = tuple.0
                 let packages = tuple.1
                 
-//                guard let packageMap = self.data[repo] else { return }
-                
                 for package in packages {
                     self.setPackageState(to: .toggle, package: package, repo: repo)
-//
-//                        if let toggledPackage = item.1.first(where: { $0.package == package }), let status = repo.repo.status(for: package) {
-//                            if toggledPackage.action == nil {
-//                                switch status.status {
-//                                case .upToDate:
-//                                    toggledPackage.action = PackageAction.uninstall(repo.repo, package, installer.targets[0])
-//                                default:
-//                                    toggledPackage.action = PackageAction.install(repo.repo, package, installer.targets[0])
-//                                }
-//                            } else {
-//                                toggledPackage.action = nil
-//                            }
-//                            self.selectedPackages[repo.repo.url(for: package)] = toggledPackage.action
-//                        }
                 }
                 
                 self.updatePrimaryButton()
-                
-//                self.view.setRepositories(data: self.data)
                 self.view.refreshRepositories()
             })
         
     }
     
-    func start() -> Disposable {        
-        print("WE ARE STARTING")
-        
+    func start() -> Disposable {
         return CompositeDisposable(disposables: [
             bindSettingsButton(),
             bindUpdatePackageList(),
@@ -254,9 +228,5 @@ class MainPresenter {
             bindPrimaryButton(),
             bindContextMenuEvents()
         ])
-    }
-    
-    deinit {
-        print("PRESENTER DEINIT")
     }
 }
