@@ -249,26 +249,29 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
         case .repository:
             return nil
         case let .item(item, _, repo):
-            guard let status = repo.repo.status(for: item.package)?.status else { return nil }
+            guard let outlineStatus = repo.repo.status(for: item.package) else { return nil }
             guard case let .macOsInstaller(installer) = item.package.installer else { fatalError() }
             
+            let status = outlineStatus.status
+            let target = outlineStatus.target
+            
             switch status {
-            case .notInstalled, .requiresUpdate, .versionSkipped:
+            case .notInstalled:
                 if installer.targets.contains(.system) {
                     menu.addItem(makeMenuItem("Install (System)", value: OutlineContextMenuItem.packageAction(.install(repo.repo, item.package, .system))))
                 }
                 if installer.targets.contains(.user) {
                     menu.addItem(makeMenuItem("Install (User)", value: OutlineContextMenuItem.packageAction(.install(repo.repo, item.package, .user))))
                 }
+            case .requiresUpdate, .versionSkipped:
+                menu.addItem(makeMenuItem("Update", value: OutlineContextMenuItem.packageAction(.install(repo.repo, item.package, target))))
             default:
                 break
             }
             
             switch status {
             case .upToDate, .requiresUpdate, .versionSkipped:
-                if let action = item.action {
-                    menu.addItem(makeMenuItem("Uninstall", value: OutlineContextMenuItem.packageAction(.uninstall(repo.repo, item.package, action.target))))
-                }
+                menu.addItem(makeMenuItem("Uninstall", value: OutlineContextMenuItem.packageAction(.uninstall(repo.repo, item.package, target))))
             default:
                 break
             }
@@ -479,14 +482,16 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                     cell.textField?.attributedStringValue = NSAttributedString(string: msg, attributes: attrs)
                 } else {
                     if let response = repo.repo.status(for: item.package) {
-                        switch response.target {
-                        case .system:
+                        if response.status == .notInstalled {
                             cell.textField?.stringValue = response.status.description
-                        case .user:
-                            cell.textField?.stringValue = "\(response.status.description) (User)"
-//                            cell.textField?.stringValue = "\(response.status.description) (\(Strings.user))"
+                        } else {
+                            switch response.target {
+                            case .system:
+                                cell.textField?.stringValue = response.status.description
+                            case .user:
+                                cell.textField?.stringValue = "\(response.status.description) (User)"
+                            }
                         }
-                        
                     } else {
                         cell.textField?.stringValue = Strings.downloadError
                     }
