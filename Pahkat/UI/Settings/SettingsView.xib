@@ -45,7 +45,7 @@
                                         </popUpButtonCell>
                                     </popUpButton>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VN1-JO-Hvd">
-                                        <rect key="frame" x="40" y="143" width="204" height="17"/>
+                                        <rect key="frame" x="40" y="144" width="204" height="17"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Repositories" id="kpP-zD-RNU">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -53,7 +53,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xWU-Yp-0E0">
-                                        <rect key="frame" x="435" y="146" width="21" height="23"/>
+                                        <rect key="frame" x="435" y="143" width="21" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="MiH-UL-M2H"/>
                                             <constraint firstAttribute="width" constant="21" id="g1G-bD-9qY"/>
@@ -64,13 +64,13 @@
                                         </buttonCell>
                                     </button>
                                     <scrollView focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="23" horizontalPageScroll="10" verticalLineScroll="23" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0yP-eV-5O1">
-                                        <rect key="frame" x="42" y="32" width="414" height="103"/>
+                                        <rect key="frame" x="42" y="32" width="414" height="104"/>
                                         <clipView key="contentView" focusRingType="none" id="vVK-u4-ddT">
-                                            <rect key="frame" x="1" y="0.0" width="412" height="102"/>
+                                            <rect key="frame" x="1" y="0.0" width="412" height="103"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="19" headerView="iDX-Qe-rla" id="Ya4-kd-DGy">
-                                                    <rect key="frame" x="0.0" y="0.0" width="412" height="79"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="412" height="80"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="4"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -160,7 +160,7 @@
                                         </popUpButtonCell>
                                     </popUpButton>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FOK-x8-He7">
-                                        <rect key="frame" x="406" y="146" width="21" height="23"/>
+                                        <rect key="frame" x="406" y="143" width="21" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="21" id="ftS-P2-OpS"/>
                                             <constraint firstAttribute="height" constant="21" id="mJ8-vX-M2D"/>
@@ -172,12 +172,12 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="0yP-eV-5O1" firstAttribute="top" secondItem="FOK-x8-He7" secondAttribute="bottom" constant="12" id="0ol-p6-rMC"/>
+                                    <constraint firstItem="0yP-eV-5O1" firstAttribute="top" secondItem="FOK-x8-He7" secondAttribute="bottom" constant="8" id="0ol-p6-rMC"/>
                                     <constraint firstItem="0yP-eV-5O1" firstAttribute="leading" secondItem="dp6-Re-jZo" secondAttribute="leading" constant="42" id="2aE-Xi-Bba"/>
                                     <constraint firstItem="QxT-ru-XR2" firstAttribute="top" secondItem="dp6-Re-jZo" secondAttribute="top" constant="32" id="59n-tq-a5D"/>
-                                    <constraint firstItem="xWU-Yp-0E0" firstAttribute="top" secondItem="cnV-xX-1TS" secondAttribute="bottom" constant="9" id="5hS-4n-29S"/>
+                                    <constraint firstItem="xWU-Yp-0E0" firstAttribute="top" secondItem="cnV-xX-1TS" secondAttribute="bottom" constant="12" id="5hS-4n-29S"/>
                                     <constraint firstItem="2pl-4T-VLV" firstAttribute="baseline" secondItem="aQP-oQ-Gi6" secondAttribute="baseline" id="6BF-kg-4dy"/>
-                                    <constraint firstItem="FOK-x8-He7" firstAttribute="top" secondItem="cnV-xX-1TS" secondAttribute="bottom" constant="9" id="6rs-Wb-idN"/>
+                                    <constraint firstItem="FOK-x8-He7" firstAttribute="top" secondItem="cnV-xX-1TS" secondAttribute="bottom" constant="12" id="6rs-Wb-idN"/>
                                     <constraint firstItem="0yP-eV-5O1" firstAttribute="top" secondItem="VN1-JO-Hvd" secondAttribute="bottom" constant="8" id="B8W-Sn-SHR"/>
                                     <constraint firstItem="aQP-oQ-Gi6" firstAttribute="leading" secondItem="dp6-Re-jZo" secondAttribute="leading" constant="16" id="Drb-Nb-F1K"/>
                                     <constraint firstItem="cnV-xX-1TS" firstAttribute="top" secondItem="2pl-4T-VLV" secondAttribute="bottom" constant="24" id="EN5-aQ-Jer"/>
@@ -185,7 +185,7 @@
                                     <constraint firstItem="2pl-4T-VLV" firstAttribute="leading" secondItem="aQP-oQ-Gi6" secondAttribute="trailing" constant="16" id="JdD-ff-WIW"/>
                                     <constraint firstItem="VN1-JO-Hvd" firstAttribute="width" secondItem="aQP-oQ-Gi6" secondAttribute="width" id="K4o-V2-yMM"/>
                                     <constraint firstAttribute="trailing" secondItem="cnV-xX-1TS" secondAttribute="trailing" constant="32" id="K7X-eC-wrx"/>
-                                    <constraint firstItem="0yP-eV-5O1" firstAttribute="top" secondItem="xWU-Yp-0E0" secondAttribute="bottom" constant="12" id="Nbt-pP-PYh"/>
+                                    <constraint firstItem="0yP-eV-5O1" firstAttribute="top" secondItem="xWU-Yp-0E0" secondAttribute="bottom" constant="8" id="Nbt-pP-PYh"/>
                                     <constraint firstAttribute="bottom" secondItem="0yP-eV-5O1" secondAttribute="bottom" constant="32" id="OI8-hP-Rqw"/>
                                     <constraint firstItem="VN1-JO-Hvd" firstAttribute="leading" secondItem="dp6-Re-jZo" secondAttribute="leading" constant="42" id="TwG-Mk-4AK"/>
                                     <constraint firstItem="cnV-xX-1TS" firstAttribute="leading" secondItem="dp6-Re-jZo" secondAttribute="leading" constant="32" id="X62-RH-ReM"/>
