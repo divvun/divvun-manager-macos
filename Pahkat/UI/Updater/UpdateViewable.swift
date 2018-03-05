@@ -15,5 +15,6 @@ protocol UpdateViewable: class {
     var onInstallButtonPressed: Driver<Void> { get }
     var onSkipButtonPressed: Driver<Void> { get }
     var onRemindButtonPressed: Driver<Void> { get }
+    var onPackageToggled: Observable<Package> { get }
     func updateSelectedPackages(packages: [Package])
 }

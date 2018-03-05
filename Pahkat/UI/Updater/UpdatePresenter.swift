@@ -34,9 +34,17 @@ class UpdatePresenter {
         })
     }
     
+    private func bindPackageToggled() -> Disposable {
+        return self.view.onPackageToggled.subscribe(onNext: { [weak self] package in
+            self?.view.updateSelectedPackages(packages: [])
+        })
+    }
+    
     private func bindUpdateablePackages() -> Disposable {
         return AppContext.store.state.map { $0.repositories }
             .distinctUntilChanged({ (a, b) in a == b })
+            .subscribeOn(MainScheduler.instance)
+            .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] repos in
                 guard let `self` = self else { return }
                 
@@ -48,7 +56,9 @@ class UpdatePresenter {
                     packages[repo] = packageIds.map { repo.packages[$0]! }
                 }
                 
-                self.view.setPackages(packages: packages.values.joined().sorted())
+                let updatingPackages = packages.values.joined().sorted()
+                self.view.setPackages(packages: updatingPackages)
+                self.view.updateSelectedPackages(packages: updatingPackages)
             })
     }
     
@@ -57,7 +67,8 @@ class UpdatePresenter {
             bindSkipButton(),
             bindInstallButton(),
             bindLaterButton(),
-            bindUpdateablePackages()
+            bindUpdateablePackages(),
+            bindPackageToggled()
         ])
     }
 }

@@ -11,7 +11,6 @@ import RxSwift
 import RxCocoa
 
 class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable {
-    
     func updateSelectedPackages(packages: [Package]) {
         self.tableDelegate.selectedPackages = packages
         self.contentView.tableView.reloadData()
@@ -20,15 +19,16 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
             contentView.installButton.title = Strings.installNPackages(count: String(packages.count))
             contentView.installButton.isEnabled = true
         } else {
-            contentView.installButton.title = Strings.install
+            contentView.installButton.title = Strings.noPackagesSelected
             contentView.installButton.isEnabled = false
         }
+        
+        contentView.installButton.sizeToFit()
     }
     
     
     internal lazy var presenter = { UpdatePresenter(view: self) }()
     private var tableDelegate: UpdateTableDelegate! = nil
-    
     
     lazy var onSkipButtonPressed: Driver<Void> = {
         return self.contentView.skipButton.rx.tap.asDriver()
@@ -42,10 +42,18 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
         return self.contentView.remindButton.rx.tap.asDriver()
     }()
     
+    lazy var onPackageToggled: Observable<Package> = {
+        self.tableDelegate.events.asObservable()
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = Strings.updateAvailable
+        
+        self.tableDelegate = UpdateTableDelegate(with: [])
+        self.contentView.tableView.dataSource = self.tableDelegate
+        self.contentView.tableView.delegate = self.tableDelegate
         
         AppContext.settings.state.take(1).map { $0.repositories }
             .flatMapLatest { (configs: [RepoConfig]) -> Observable<[RepositoryIndex]> in
@@ -64,7 +72,7 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
         super.viewWillAppear()
         presenter.start().disposed(by: bag)
         
-        contentView.installButton.title = Strings.install
+        contentView.installButton.title = Strings.noPackagesSelected
         contentView.installButton.isEnabled = false
         contentView.skipButton.title = Strings.skipTheseUpdates
         contentView.remindButton.title = Strings.remindMeLater
@@ -75,9 +83,7 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
     }
     
     func setPackages(packages: [Package]) {
-        self.tableDelegate = UpdateTableDelegate(with: packages)
-        self.contentView.tableView.dataSource = self.tableDelegate
-        self.contentView.tableView.delegate = self.tableDelegate
+        self.tableDelegate.packages = packages
         self.contentView.tableView.reloadData()
     }
     
@@ -96,9 +102,14 @@ enum UpdateViewTableColumns: String {
     }
 }
 
+class UpdateTableCheckbox: NSButton {
+    var package: Package?
+}
+
 class UpdateTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSource {
-    private let packages: [Package]
+    fileprivate var packages: [Package]
     private let byteCountFormatter = ByteCountFormatter()
+    let events = PublishSubject<Package>()
     
     fileprivate var selectedPackages = [Package]()
     
@@ -108,6 +119,14 @@ class UpdateTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSource 
         super.init()
     }
     
+    @objc func onCheckboxChanged(_ sender: Any) {
+        guard let button = sender as? UpdateTableCheckbox else { return }
+        
+        if let package = button.package {
+            self.events.onNext(package)
+        }
+    }
+    
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         guard let tableColumn = tableColumn else { return nil }
         guard let column = UpdateViewTableColumns(identifier: tableColumn.identifier) else { return nil }
@@ -115,14 +134,14 @@ class UpdateTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSource 
         let package = packages[row]
         switch column {
         case .name:
-            let packageName = package.name[Strings.languageCode ?? "en"] ?? ""
+            let packageName = package.nativeName
             cell.textField?.stringValue =  packageName
 
-            if let button = cell.nextKeyView as? OutlineCheckbox {
-//                button.set(onToggle: {[weak self] _ in
-//                    //TODO: update selected packages
-//                    return
-//                })
+            if let button = cell.nextKeyView as? UpdateTableCheckbox {
+                button.target = self
+                button.action = #selector(UpdateTableDelegate.onCheckboxChanged(_:))
+                button.package = package
+                
                 if selectedPackages.contains(package) {
                     button.state = .on
                 } else {
@@ -149,4 +168,7 @@ class UpdateTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSource 
         return packages.count
     }
     
+    deinit {
+        events.onCompleted()
+    }
 }

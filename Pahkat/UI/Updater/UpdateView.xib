@@ -4,6 +4,7 @@
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner"/>
@@ -14,17 +15,17 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="pMj-bQ-gvH">
-                    <rect key="frame" x="20" y="54" width="510" height="226"/>
+                    <rect key="frame" x="20" y="52" width="510" height="180"/>
                     <subviews>
                         <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="23" horizontalPageScroll="10" verticalLineScroll="23" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gcl-84-3V4">
-                            <rect key="frame" x="0.0" y="0.0" width="510" height="226"/>
+                            <rect key="frame" x="0.0" y="0.0" width="510" height="180"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                             <clipView key="contentView" ambiguous="YES" id="BM8-UQ-5Qm">
-                                <rect key="frame" x="1" y="1" width="508" height="224"/>
+                                <rect key="frame" x="1" y="1" width="508" height="178"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="19" viewBased="YES" id="pff-3h-fdI">
-                                        <rect key="frame" x="0.0" y="0.0" width="508" height="224"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="508" height="178"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <size key="intercellSpacing" width="3" height="4"/>
                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -55,7 +56,7 @@
                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
                                                             </textField>
-                                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QCa-cO-302" customClass="OutlineCheckbox" customModule="Pahkat" customModuleProvider="target">
+                                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QCa-cO-302" customClass="UpdateTableCheckbox" customModule="Pahkat" customModuleProvider="target">
                                                                 <rect key="frame" x="22" y="-1" width="22" height="18"/>
                                                                 <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="P4T-Zt-A76">
                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -130,24 +131,24 @@
                     </subviews>
                 </customView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="ruM-dT-4Bw">
-                    <rect key="frame" x="0.0" y="0.0" width="550" height="54"/>
+                    <rect key="frame" x="0.0" y="4" width="550" height="48"/>
                     <subviews>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qsx-Fj-cIv">
-                            <rect key="frame" x="14" y="9" width="157" height="32"/>
+                            <rect key="frame" x="14" y="6" width="157" height="32"/>
                             <buttonCell key="cell" type="push" title="Skip these updates" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YUC-UR-5S8">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                         </button>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ddX-WZ-gYe">
-                            <rect key="frame" x="407" y="9" width="129" height="32"/>
+                            <rect key="frame" x="407" y="6" width="129" height="32"/>
                             <buttonCell key="cell" type="push" title="Install updates" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lqh-fg-ctO">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                         </button>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cFb-TB-haf">
-                            <rect key="frame" x="268" y="9" width="139" height="32"/>
+                            <rect key="frame" x="268" y="6" width="139" height="32"/>
                             <buttonCell key="cell" type="push" title="Remind me later" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oMz-LM-Ghs">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -156,7 +157,7 @@
                     </subviews>
                     <constraints>
                         <constraint firstItem="qsx-Fj-cIv" firstAttribute="centerY" secondItem="ruM-dT-4Bw" secondAttribute="centerY" id="2QM-Sb-JOf"/>
-                        <constraint firstAttribute="height" constant="54" id="6dY-qX-uO3"/>
+                        <constraint firstAttribute="height" constant="48" id="6dY-qX-uO3"/>
                         <constraint firstItem="ddX-WZ-gYe" firstAttribute="centerY" secondItem="ruM-dT-4Bw" secondAttribute="centerY" id="TFw-ei-dnU"/>
                         <constraint firstItem="qsx-Fj-cIv" firstAttribute="leading" secondItem="ruM-dT-4Bw" secondAttribute="leading" constant="20" id="b3I-IS-yES"/>
                         <constraint firstItem="cFb-TB-haf" firstAttribute="centerY" secondItem="ruM-dT-4Bw" secondAttribute="centerY" id="jZM-7M-o1s"/>
@@ -164,16 +165,38 @@
                         <constraint firstItem="ddX-WZ-gYe" firstAttribute="leading" secondItem="cFb-TB-haf" secondAttribute="trailing" constant="12" id="sD7-8X-rrD"/>
                     </constraints>
                 </customView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6Jy-ch-DCg">
+                    <rect key="frame" x="22" y="265" width="510" height="19"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="There is 1 update available!" id="QV8-2U-ArP">
+                        <font key="font" metaFont="systemSemibold" size="16"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="htX-t5-bvv">
+                    <rect key="frame" x="22" y="244" width="510" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Would you like to download it now?" id="a2s-uw-t1j">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <constraints>
                 <constraint firstItem="pMj-bQ-gvH" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" id="32e-5z-eWn"/>
+                <constraint firstAttribute="trailing" secondItem="6Jy-ch-DCg" secondAttribute="trailing" constant="20" id="3jm-rq-kM2"/>
                 <constraint firstItem="ruM-dT-4Bw" firstAttribute="width" secondItem="c22-O7-iKe" secondAttribute="width" id="BXE-f7-I57"/>
-                <constraint firstItem="pMj-bQ-gvH" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="20" id="Gfc-ZQ-j18"/>
-                <constraint firstAttribute="bottom" secondItem="ruM-dT-4Bw" secondAttribute="bottom" id="RHh-b3-XCG"/>
+                <constraint firstItem="6Jy-ch-DCg" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="24" id="FKr-JT-PEm"/>
+                <constraint firstAttribute="trailing" secondItem="htX-t5-bvv" secondAttribute="trailing" constant="20" id="M5q-vC-DNY"/>
+                <constraint firstAttribute="bottom" secondItem="ruM-dT-4Bw" secondAttribute="bottom" constant="4" id="RHh-b3-XCG"/>
+                <constraint firstItem="pMj-bQ-gvH" firstAttribute="top" secondItem="htX-t5-bvv" secondAttribute="bottom" constant="12" id="Rqz-0h-jkk"/>
                 <constraint firstItem="ruM-dT-4Bw" firstAttribute="top" secondItem="pMj-bQ-gvH" secondAttribute="bottom" id="ZVD-hO-pte"/>
+                <constraint firstItem="htX-t5-bvv" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="24" id="cVI-FS-q37"/>
                 <constraint firstItem="ruM-dT-4Bw" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="iWe-0f-Qk3"/>
                 <constraint firstAttribute="trailing" secondItem="ruM-dT-4Bw" secondAttribute="trailing" id="jIU-jk-3kM"/>
+                <constraint firstItem="htX-t5-bvv" firstAttribute="top" secondItem="6Jy-ch-DCg" secondAttribute="bottom" constant="4" id="lsa-7L-7tT"/>
                 <constraint firstAttribute="trailing" secondItem="pMj-bQ-gvH" secondAttribute="trailing" constant="20" id="ob5-LM-uoY"/>
+                <constraint firstItem="6Jy-ch-DCg" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="16" id="vYx-qA-DE2"/>
             </constraints>
             <connections>
                 <outlet property="installButton" destination="ddX-WZ-gYe" id="7de-RH-7nf"/>
