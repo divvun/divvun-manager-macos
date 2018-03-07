@@ -83,7 +83,7 @@ errorInvalidVersion: Feil: ugyldig versjon
 errorNoInstaller: Feil: ingen installerar
 
 # Original: Error: Unknown Item
-errorUnknownPackage: Feil: ukjent objekt
+errorUnknownPackage: Feil: ukjent  pakke
 
 # Original: Every 4 Weeks
 everyFourWeeks: Fjerdekvar veke
