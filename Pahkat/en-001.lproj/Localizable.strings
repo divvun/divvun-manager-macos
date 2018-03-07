@@ -9,7 +9,7 @@
 "cancel" = "Cancel";
 "cancelDownloadsBody" = "Are you sure you want to cancel all downloads?";
 "cancelDownloadsTitle" = "Cancel Downloads";
-"cancelling" = "Canceling...";
+"cancelling" = "Cancelling...";
 "category" = "Category";
 "checkForUpdates" = "Check For Updates...";
 "completed" = "Completed";
@@ -47,7 +47,7 @@
 "invalidUrlTitle" = "The provided URL is invalid.";
 "language" = "Language";
 "loading" = "Loading...";
-"minimize" = "Minimize";
+"minimize" = "Minimise";
 "nItemsRemaining" = "%1$@ items remaining.";
 "nUpdatesAvailable" = "%1$@ Updates Available";
 "never" = "Never";

@@ -17,7 +17,28 @@ class MainMenu: NSMenu {
     }
     
     override func awakeFromNib() {
+        for item in self.allItems() {
+            let id = item.accessibilityIdentifier()
+            if id != "" {
+                item.title = Strings.string(for: id)
+            }
+        }
+        
         prefsMenuItem.target = self
         prefsMenuItem.action = #selector(MainMenu.onClickMainMenuPreferences(_:))
+    }
+}
+
+extension NSMenu {
+    func allItems() -> [NSMenuItem] {
+        var out = self.items
+        
+        for item in self.items {
+            if let menu = item.submenu {
+                out.append(contentsOf: menu.allItems())
+            }
+        }
+        
+        return out
     }
 }

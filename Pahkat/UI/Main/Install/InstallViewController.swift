@@ -60,7 +60,6 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
     }
     
     func set(totalPackages total: Int) {
-        print("Settings total packages")
         contentView.horizontalIndicator.maxValue = Double(total)
         
         if (total == 1) {
@@ -77,7 +76,7 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
         let alert = NSAlert()
         alert.alertStyle = .critical
         alert.addButton(withTitle: Strings.ok)
-        alert.messageText = "An error occurred during installation/uninstallation."
+        alert.messageText = Strings.errorDuringInstallation // "An error occurred during installation/uninstallation."
         
         if let error = error as? JSONRPCError {
             alert.informativeText = error.message
@@ -92,7 +91,7 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
     
     func beginCancellation() {
         contentView.primaryButton.isEnabled = false
-        contentView.primaryButton.title = "Cancelling…" //Strings.cancelling
+        contentView.primaryButton.title = Strings.cancelling
         cancelToken?.cancel()
     }
     
@@ -107,7 +106,7 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
             contentView.primaryButton.sizeToFit()
             return NSToolbarItem(view: contentView.primaryButton, identifier: itemIdentifier)
         case "title":
-            contentView.primaryLabel.stringValue = "Installing/Uninstalling…"
+            contentView.primaryLabel.stringValue = Strings.installingUninstalling
             contentView.primaryLabel.sizeToFit()
             return NSToolbarItem(view: contentView.primaryLabel, identifier: itemIdentifier)
         default:

@@ -26,6 +26,10 @@
 		278A10B7203ADACD007C3DC8 /* InstallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278A10B6203ADACD007C3DC8 /* InstallView.swift */; };
 		960DCF4737BF0B93EE5A96C6 /* Pods_Pahkat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D1F698D729533B781C38BEB /* Pods_Pahkat.framework */; };
 		C60B22F220432AF400A2027A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C60B22F020432AF400A2027A /* InfoPlist.strings */; };
+		C61F46D3204FF5410080577D /* RepositoryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61F46D2204FF5410080577D /* RepositoryModels.swift */; };
+		C61F46D5204FF5750080577D /* PackageInstallModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61F46D4204FF5750080577D /* PackageInstallModels.swift */; };
+		C61F46D6204FF5F90080577D /* RepositoryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61F46D2204FF5410080577D /* RepositoryModels.swift */; };
+		C61F46D7204FF5FB0080577D /* PackageInstallModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61F46D4204FF5750080577D /* PackageInstallModels.swift */; };
 		C622703F20358F1B00DBCD65 /* RepositoryIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622703E20358F1B00DBCD65 /* RepositoryIndex.swift */; };
 		C62270482035C5D700DBCD65 /* UpdateWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62270472035C5D700DBCD65 /* UpdateWindow.swift */; };
 		C622704A2035C5FC00DBCD65 /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62270492035C5FC00DBCD65 /* UpdateView.swift */; };
@@ -93,7 +97,6 @@
 		C6F4BC762031E0A3002EE523 /* InstallViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC752031E0A3002EE523 /* InstallViewable.swift */; };
 		C6F4BC782031E0AD002EE523 /* CompletionViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC772031E0AD002EE523 /* CompletionViewable.swift */; };
 		C6F4BC7B2031E18A002EE523 /* ProcessResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC7A2031E18A002EE523 /* ProcessResult.swift */; };
-		C6F8A8162028B2C0009A016E /* Operators+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F8A8152028B2C0009A016E /* Operators+Rx.swift */; };
 		C6F8A8182028B3C1009A016E /* Cocoa+Nibbable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F8A8172028B3C1009A016E /* Cocoa+Nibbable.swift */; };
 		C6F8A81B2028B404009A016E /* Cocoa.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F8A81A2028B404009A016E /* Cocoa.swift */; };
 		C6F8A81E2028B996009A016E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F8A81D2028B996009A016E /* MainView.swift */; };
@@ -166,10 +169,11 @@
 		4D1F698D729533B781C38BEB /* Pods_Pahkat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pahkat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56F306996B41415DC22AAB5C /* Pods-Pahkat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pahkat.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pahkat/Pods-Pahkat.release.xcconfig"; sourceTree = "<group>"; };
 		C60B22ED2043217300A2027A /* nn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nn; path = ../nn.lproj/Localizable.strings; sourceTree = "<group>"; };
-		C60B22EF204321C600A2027A /* nn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		C60B22F120432AF400A2027A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Pahkat/Base.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		C60B22F320432AF800A2027A /* nn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nn; path = ../nn.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C60B81A9203489B800D3E093 /* Pahkat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pahkat-Bridging-Header.h"; sourceTree = "<group>"; };
+		C61F46D2204FF5410080577D /* RepositoryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryModels.swift; sourceTree = "<group>"; };
+		C61F46D4204FF5750080577D /* PackageInstallModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageInstallModels.swift; sourceTree = "<group>"; };
 		C622703E20358F1B00DBCD65 /* RepositoryIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryIndex.swift; sourceTree = "<group>"; };
 		C62270472035C5D700DBCD65 /* UpdateWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateWindow.swift; sourceTree = "<group>"; };
 		C62270492035C5FC00DBCD65 /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
@@ -228,7 +232,6 @@
 		C6F4BC752031E0A3002EE523 /* InstallViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallViewable.swift; sourceTree = "<group>"; };
 		C6F4BC772031E0AD002EE523 /* CompletionViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionViewable.swift; sourceTree = "<group>"; };
 		C6F4BC7A2031E18A002EE523 /* ProcessResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessResult.swift; sourceTree = "<group>"; };
-		C6F8A8152028B2C0009A016E /* Operators+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Operators+Rx.swift"; sourceTree = "<group>"; };
 		C6F8A8172028B3C1009A016E /* Cocoa+Nibbable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocoa+Nibbable.swift"; sourceTree = "<group>"; };
 		C6F8A81A2028B404009A016E /* Cocoa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cocoa.swift; sourceTree = "<group>"; };
 		C6F8A81D2028B996009A016E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -282,6 +285,15 @@
 				271249C2204044B0009EE80B /* SettingsPresenter.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		C61F46D1204FF5340080577D /* RPC */ = {
+			isa = PBXGroup;
+			children = (
+				C61F46D2204FF5410080577D /* RepositoryModels.swift */,
+				C61F46D4204FF5750080577D /* PackageInstallModels.swift */,
+			);
+			path = RPC;
 			sourceTree = "<group>";
 		};
 		C62270432035C1BE00DBCD65 /* Main */ = {
@@ -404,6 +416,7 @@
 		C6CC912820291A1B00CB0B10 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				C61F46D1204FF5340080577D /* RPC */,
 				C6CC912920291A2D00CB0B10 /* APIService.swift */,
 				C62270572037132200DBCD65 /* RPCService.swift */,
 				C6C820E1204C5612001682E8 /* RPCService+Admin.swift */,
@@ -498,7 +511,6 @@
 				C6F2676C203B96E8006EC59C /* APIService+Extensions.swift */,
 				C6F8A81A2028B404009A016E /* Cocoa.swift */,
 				C6F8A8172028B3C1009A016E /* Cocoa+Nibbable.swift */,
-				C6F8A8152028B2C0009A016E /* Operators+Rx.swift */,
 				C6F4BC712031DCF7002EE523 /* Cocoa+Rx.swift */,
 			);
 			path = Extensions;
@@ -532,7 +544,7 @@
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
-			buildWorkingDirectory = "$(PROJECT_DIR)/../pahkat-client";
+			buildWorkingDirectory = "$(PROJECT_DIR)/../$(PAHKAT_CLIENT_CORE_DIR)";
 			dependencies = (
 			);
 			name = "pahkat-client";
@@ -736,7 +748,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "RESOURCE_PATH=$SRCROOT/../pahkat-client/target/${CONFIGURATION}/pahkatc\n\nBUILD_APP_DIR=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\n\ncp $RESOURCE_PATH $BUILD_APP_DIR/Contents/MacOS/";
+			shellScript = "RESOURCE_PATH=$SRCROOT/../${PAHKAT_CLIENT_CORE_DIR}/target/${CONFIGURATION}/pahkatc\n\nBUILD_APP_DIR=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\n\ncp $RESOURCE_PATH $BUILD_APP_DIR/Contents/MacOS/";
 		};
 		E627452B56407B0E8E4FE3E0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -794,7 +806,6 @@
 				C62270582037132200DBCD65 /* RPCService.swift in Sources */,
 				C6F8A8182028B3C1009A016E /* Cocoa+Nibbable.swift in Sources */,
 				C6C820D6204C540A001682E8 /* PackageInstallStatus.swift in Sources */,
-				C6F8A8162028B2C0009A016E /* Operators+Rx.swift in Sources */,
 				C6F4BC5D202A410A002EE523 /* SettingsStore.swift in Sources */,
 				271249BD2040448B009EE80B /* SettingsView.swift in Sources */,
 				271249B920404409009EE80B /* SettingsWindow.swift in Sources */,
@@ -804,6 +815,7 @@
 				C6B742CB204C005800C7877D /* LaunchdService.swift in Sources */,
 				276391AC203D7F620096E10C /* DownloadProgressView.swift in Sources */,
 				C6F4BC572029BC05002EE523 /* MainViewable.swift in Sources */,
+				C61F46D5204FF5750080577D /* PackageInstallModels.swift in Sources */,
 				271249C3204044B0009EE80B /* SettingsPresenter.swift in Sources */,
 				C62270672039E9CD00DBCD65 /* AppStore.swift in Sources */,
 				276391A4203AE2660096E10C /* CompletionViewController.swift in Sources */,
@@ -811,6 +823,7 @@
 				C6F4BC662031DB81002EE523 /* DownloadViewable.swift in Sources */,
 				C6F8A81E2028B996009A016E /* MainView.swift in Sources */,
 				C6F4BC592029BC2C002EE523 /* MainPresenter.swift in Sources */,
+				C61F46D3204FF5410080577D /* RepositoryModels.swift in Sources */,
 				C6F4BC6A2031DBA4002EE523 /* DownloadView.swift in Sources */,
 				C6F4BC762031E0A3002EE523 /* InstallViewable.swift in Sources */,
 				C622703F20358F1B00DBCD65 /* RepositoryIndex.swift in Sources */,
@@ -845,6 +858,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C61F46D6204FF5F90080577D /* RepositoryModels.swift in Sources */,
 				C6C820D8204C5432001682E8 /* APIService+Extensions.swift in Sources */,
 				C6C820D0204C53A8001682E8 /* RepositoryIndex.swift in Sources */,
 				C6C820E0204C5513001682E8 /* BufferedProcess.swift in Sources */,
@@ -856,6 +870,7 @@
 				C6C820DD204C54A6001682E8 /* Strings.swift in Sources */,
 				C6B742D3204C122600C7877D /* main.swift in Sources */,
 				C6C820CC204C5340001682E8 /* APIService.swift in Sources */,
+				C61F46D7204FF5FB0080577D /* PackageInstallModels.swift in Sources */,
 				C6B742E2204C456300C7877D /* Constants.swift in Sources */,
 				C6C820D7204C5420001682E8 /* PackageInstallStatus.swift in Sources */,
 				C6C820D1204C53B8001682E8 /* RepoConfig.swift in Sources */,
@@ -903,7 +918,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C69F94922028B1EA00127A47 /* Base */,
-				C60B22EF204321C600A2027A /* nn */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -996,6 +1010,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PAHKAT_CLIENT_CORE_DIR = "pahkat-client-core";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1047,6 +1062,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PAHKAT_CLIENT_CORE_DIR = "pahkat-client-core";
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
@@ -1066,7 +1082,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Pahkat/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../pahkat-client-core/target/debug";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../$(PAHKAT_CLIENT_CORE_DIR)/target/debug";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = no.divvun.Pahkat;
@@ -1091,7 +1107,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Pahkat/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../pahkat-client-core/target/release";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../$(PAHKAT_CLIENT_CORE_DIR)/target/release";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = no.divvun.Pahkat;

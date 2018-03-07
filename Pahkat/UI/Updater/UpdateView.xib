@@ -120,7 +120,7 @@
                                 <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                             </clipView>
                             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="4ue-gL-gY0">
-                                <rect key="frame" x="1" y="202" width="438" height="16"/>
+                                <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </scroller>
                             <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="Cgh-C2-ep0">
@@ -200,6 +200,8 @@
             </constraints>
             <connections>
                 <outlet property="installButton" destination="ddX-WZ-gYe" id="7de-RH-7nf"/>
+                <outlet property="packageCountTitle" destination="6Jy-ch-DCg" id="gge-Kx-GvO"/>
+                <outlet property="packageHelpTitle" destination="htX-t5-bvv" id="04R-ep-zA3"/>
                 <outlet property="remindButton" destination="cFb-TB-haf" id="B2p-ZH-XFw"/>
                 <outlet property="skipButton" destination="qsx-Fj-cIv" id="eIB-Ie-IgK"/>
                 <outlet property="tableView" destination="pff-3h-fdI" id="nd8-8c-w6Z"/>

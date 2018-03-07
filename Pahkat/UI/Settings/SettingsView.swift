@@ -25,9 +25,8 @@ class SettingsView: View {
     
     override func awakeFromNib() {
         frequencyLabel.stringValue = "\(Strings.updateFrequency):"
-//        channelLabel.stringValue = "\(Strings.updateChannel):"
-        //TODO: add repositories localise
-        repoLabel.stringValue = "\(Strings.repository):"
+        languageLabel.stringValue = "\(Strings.interfaceLanguage):"
+        repoLabel.stringValue = "\(Strings.repositories):"
         
         repoChannelColumn.menu = NSMenu()
     }

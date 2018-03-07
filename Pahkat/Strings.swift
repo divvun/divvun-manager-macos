@@ -15,35 +15,55 @@ class Strings {
 
     static var bundle: Bundle = Bundle.main
 
-    fileprivate static func string(for key: String) -> String {
+    internal static func string(for key: String) -> String {
         return bundle.localizedString(forKey: key, value: nil, table: nil)
     }
 
-    fileprivate static func stringArray(for key: String, length: Int) -> [String] {
+    internal static func stringArray(for key: String, length: Int) -> [String] {
         return (0..<length).map {
             bundle.localizedString(forKey: "\(key)_\($0)", value: nil, table: nil)
         }
     }
 
-    /** Páhkat */
+    /** About Package Manager */
+    static var aboutApp: String {
+        return string(for: "aboutApp")
+    }
+
+    /** Alpha */
+    static var alpha: String {
+        return string(for: "alpha")
+    }
+
+    /** Help */
+    static var appHelp: String {
+        return string(for: "appHelp")
+    }
+
+    /** Package Manager */
     static var appName: String {
         return string(for: "appName")
     }
 
-    /** Automatically Send Crash Reports */
-    static var autoCrashReporting: String {
-        return string(for: "autoCrashReporting")
-    }
-
-    /** Páhkat v{version} is now available. It is highly recommended that you update as soon as possible. Update now? */
+    /** Package Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now? */
     static func appUpdateBody(version: String) -> String {
         let format = string(for: "appUpdateBody")
         return String(format: format, version)
     }
 
-    /** Páhkat Update Available */
+    /** Package Manager Update Available */
     static var appUpdateTitle: String {
         return string(for: "appUpdateTitle")
+    }
+
+    /** Beta */
+    static var beta: String {
+        return string(for: "beta")
+    }
+
+    /** Bring All to Front */
+    static var bringAllToFront: String {
+        return string(for: "bringAllToFront")
     }
 
     /** Cancel */
@@ -61,9 +81,29 @@ class Strings {
         return string(for: "cancelDownloadsTitle")
     }
 
+    /** Canceling... */
+    static var cancelling: String {
+        return string(for: "cancelling")
+    }
+
+    /** Category */
+    static var category: String {
+        return string(for: "category")
+    }
+
     /** Check For Updates... */
     static var checkForUpdates: String {
         return string(for: "checkForUpdates")
+    }
+
+    /** Completed */
+    static var completed: String {
+        return string(for: "completed")
+    }
+
+    /** Copy */
+    static var copy: String {
+        return string(for: "copy")
     }
 
     /** Do you wish to send a crash report to the developers? No personal or private information is sent. (Recommended) */
@@ -71,14 +111,19 @@ class Strings {
         return string(for: "crashReportBody")
     }
 
-    /** Send Crash Report */
-    static var crashReportTitle: String {
-        return string(for: "crashReportTitle")
+    /** Cut */
+    static var cut: String {
+        return string(for: "cut")
     }
 
     /** Daily */
     static var daily: String {
         return string(for: "daily")
+    }
+
+    /** Delete */
+    static var delete: String {
+        return string(for: "delete")
     }
 
     /** Error 😞 */
@@ -96,9 +141,19 @@ class Strings {
         return string(for: "downloading")
     }
 
+    /** Edit */
+    static var edit: String {
+        return string(for: "edit")
+    }
+
     /** Error */
     static var error: String {
         return string(for: "error")
+    }
+
+    /** An error occurring during installation. */
+    static var errorDuringInstallation: String {
+        return string(for: "errorDuringInstallation")
     }
 
     /** Error: Invalid Version */
@@ -136,9 +191,46 @@ class Strings {
         return string(for: "finish")
     }
 
+    /** Package Manager Help */
+    static var help: String {
+        return string(for: "help")
+    }
+
+    /** Hide Package Manager */
+    static var hideApp: String {
+        return string(for: "hideApp")
+    }
+
+    /** Hide Others */
+    static var hideOthers: String {
+        return string(for: "hideOthers")
+    }
+
     /** Install */
     static var install: String {
         return string(for: "install")
+    }
+
+    /** Install {count} Items */
+    static func installNPackages(count: String) -> String {
+        let format = string(for: "installNPackages")
+        return String(format: format, count)
+    }
+
+    /** Install (System) */
+    static var installSystem: String {
+        return string(for: "installSystem")
+    }
+
+    /** Install/Uninstall {count} Items */
+    static func installUninstallNPackages(count: String) -> String {
+        let format = string(for: "installUninstallNPackages")
+        return String(format: format, count)
+    }
+
+    /** Install (User) */
+    static var installUser: String {
+        return string(for: "installUser")
     }
 
     /** Installed */
@@ -152,14 +244,39 @@ class Strings {
         return String(format: format, name, version)
     }
 
+    /** Installing/Uninstalling */
+    static var installingUninstalling: String {
+        return string(for: "installingUninstalling")
+    }
+
     /** Interface Language */
     static var interfaceLanguage: String {
         return string(for: "interfaceLanguage")
     }
 
+    /** Please ensure that the URL begins with "https" and try again. */
+    static var invalidUrlBody: String {
+        return string(for: "invalidUrlBody")
+    }
+
+    /** The provided URL is invalid. */
+    static var invalidUrlTitle: String {
+        return string(for: "invalidUrlTitle")
+    }
+
+    /** Language */
+    static var language: String {
+        return string(for: "language")
+    }
+
     /** Loading... */
     static var loading: String {
         return string(for: "loading")
+    }
+
+    /** Minimize */
+    static var minimize: String {
+        return string(for: "minimize")
     }
 
     /** {count} items remaining. */
@@ -183,6 +300,11 @@ class Strings {
     static func nextUpdateDue(date: String) -> String {
         let format = string(for: "nextUpdateDue")
         return String(format: format, date)
+    }
+
+    /** Nightly */
+    static var nightly: String {
+        return string(for: "nightly")
     }
 
     /** No Items Selected */
@@ -220,6 +342,21 @@ class Strings {
         return string(for: "openPackageManager")
     }
 
+    /** Paste */
+    static var paste: String {
+        return string(for: "paste")
+    }
+
+    /** Paste and Match Style */
+    static var pasteAndMatchStyle: String {
+        return string(for: "pasteAndMatchStyle")
+    }
+
+    /** Preferences… */
+    static var preferences: String {
+        return string(for: "preferences")
+    }
+
     /** You may now close this window, or return to the main screen. */
     static var processCompletedBody: String {
         return string(for: "processCompletedBody")
@@ -230,27 +367,34 @@ class Strings {
         return string(for: "processCompletedTitle")
     }
 
-    /** Install {count} Items */
-    static func installNPackages(count: String) -> String {
-        let format = string(for: "installNPackages")
-        return String(format: format, count)
+    /** Queued */
+    static var queued: String {
+        return string(for: "queued")
     }
 
-    /** Uninstall {count} Items */
-    static func uninstallNPackages(count: String) -> String {
-        let format = string(for: "uninstallNPackages")
-        return String(format: format, count)
+    /** Quit Package Manager */
+    static var quitApp: String {
+        return string(for: "quitApp")
     }
 
-    /** Install/Uninstall {count} Items */
-    static func installUninstallNPackages(count: String) -> String {
-        let format = string(for: "installUninstallNPackages")
-        return String(format: format, count)
+    /** Redo */
+    static var redo: String {
+        return string(for: "redo")
     }
 
     /** Remind Me Later */
     static var remindMeLater: String {
         return string(for: "remindMeLater")
+    }
+
+    /** Are you sure you wish to remove this repository? */
+    static var removeRepoBody: String {
+        return string(for: "removeRepoBody")
+    }
+
+    /** This will remove the selected repository. */
+    static var removeRepoTitle: String {
+        return string(for: "removeRepoTitle")
     }
 
     /** Repository */
@@ -296,9 +440,24 @@ class Strings {
         return string(for: "save")
     }
 
+    /** Select All */
+    static var selectAll: String {
+        return string(for: "selectAll")
+    }
+
+    /** Services */
+    static var services: String {
+        return string(for: "services")
+    }
+
     /** Settings */
     static var settings: String {
         return string(for: "settings")
+    }
+
+    /** Show All */
+    static var showAll: String {
+        return string(for: "showAll")
     }
 
     /** Skip These Updates */
@@ -306,9 +465,35 @@ class Strings {
         return string(for: "skipTheseUpdates")
     }
 
+    /** Sort by… */
+    static var sortBy: String {
+        return string(for: "sortBy")
+    }
+
+    /** Stable */
+    static var stable: String {
+        return string(for: "stable")
+    }
+
     /** Starting... */
     static var starting: String {
         return string(for: "starting")
+    }
+
+    /** Default Language */
+    static var systemLocale: String {
+        return string(for: "systemLocale")
+    }
+
+    /** There are {count} updates available! */
+    static func thereAreNUpdatesAvailable(count: String) -> String {
+        let format = string(for: "thereAreNUpdatesAvailable")
+        return String(format: format, count)
+    }
+
+    /** Undo */
+    static var undo: String {
+        return string(for: "undo")
     }
 
     /** Uninstall */
@@ -316,10 +501,21 @@ class Strings {
         return string(for: "uninstall")
     }
 
+    /** Uninstall {count} Items */
+    static func uninstallNPackages(count: String) -> String {
+        let format = string(for: "uninstallNPackages")
+        return String(format: format, count)
+    }
+
     /** Uninstalling {name} {version}... */
     static func uninstallingPackage(name: String, version: String) -> String {
         let format = string(for: "uninstallingPackage")
         return String(format: format, name, version)
+    }
+
+    /** Update */
+    static var update: String {
+        return string(for: "update")
     }
 
     /** Update Available */
@@ -337,6 +533,22 @@ class Strings {
         return string(for: "updateFrequency")
     }
 
+    /** Update (System) */
+    static var updateSystem: String {
+        return string(for: "updateSystem")
+    }
+
+    /** Update (User) */
+    static var updateUser: String {
+        return string(for: "updateUser")
+    }
+
+    /** {description} (User) */
+    static func userDescription(description: String) -> String {
+        let format = string(for: "userDescription")
+        return String(format: format, description)
+    }
+
     /** Version Skipped */
     static var versionSkipped: String {
         return string(for: "versionSkipped")
@@ -350,6 +562,26 @@ class Strings {
     /** Weekly */
     static var weekly: String {
         return string(for: "weekly")
+    }
+
+    /** Window */
+    static var window: String {
+        return string(for: "window")
+    }
+
+    /** Would you like to download them now? */
+    static var wouldYouLikeToDownloadThemNow: String {
+        return string(for: "wouldYouLikeToDownloadThemNow")
+    }
+
+    /** Zoom */
+    static var zoom: String {
+        return string(for: "zoom")
+    }
+
+    /** Repositories */
+    static var repositories: String {
+        return string(for: "repositories")
     }
 
     private init() {}

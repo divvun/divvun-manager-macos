@@ -56,6 +56,8 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
         super.viewWillAppear()
         presenter.start().disposed(by: bag)
         
+        contentView.packageHelpTitle.stringValue = Strings.wouldYouLikeToDownloadThemNow
+        
         contentView.installButton.title = Strings.noPackagesSelected
         contentView.installButton.isEnabled = false
         contentView.skipButton.title = Strings.skipTheseUpdates
@@ -77,6 +79,8 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
     }
     
     func setPackages(packages: [UpdateTablePackage]) {
+        self.contentView.packageCountTitle.stringValue = Strings.thereAreNUpdatesAvailable(count: String(packages.count))
+        
         self.tableDelegate.packages = packages
         self.contentView.tableView.reloadData()
         

@@ -258,20 +258,20 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
             switch status {
             case .notInstalled:
                 if installer.targets.contains(.system) {
-                    menu.addItem(makeMenuItem("Install (System)", value: OutlineContextMenuItem.packageAction(.install(repo.repo, item.package, .system))))
+                    menu.addItem(makeMenuItem(Strings.installSystem, value: OutlineContextMenuItem.packageAction(.install(repo.repo, item.package, .system))))
                 }
                 if installer.targets.contains(.user) {
-                    menu.addItem(makeMenuItem("Install (User)", value: OutlineContextMenuItem.packageAction(.install(repo.repo, item.package, .user))))
+                    menu.addItem(makeMenuItem(Strings.installUser, value: OutlineContextMenuItem.packageAction(.install(repo.repo, item.package, .user))))
                 }
             case .requiresUpdate, .versionSkipped:
-                menu.addItem(makeMenuItem("Update", value: OutlineContextMenuItem.packageAction(.install(repo.repo, item.package, target))))
+                menu.addItem(makeMenuItem(Strings.update, value: OutlineContextMenuItem.packageAction(.install(repo.repo, item.package, target))))
             default:
                 break
             }
             
             switch status {
             case .upToDate, .requiresUpdate, .versionSkipped:
-                menu.addItem(makeMenuItem("Uninstall", value: OutlineContextMenuItem.packageAction(.uninstall(repo.repo, item.package, target))))
+                menu.addItem(makeMenuItem(Strings.uninstall, value: OutlineContextMenuItem.packageAction(.uninstall(repo.repo, item.package, target))))
             default:
                 break
             }
@@ -284,14 +284,14 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
         }
         
         let sortMenu = NSMenu()
-        let sortItem = NSMenuItem(title: "Sort by…")
+        let sortItem = NSMenuItem(title: Strings.sortBy)
         sortItem.submenu = sortMenu
         
-        let categoryItem = makeMenuItem("Category", value: OutlineContextMenuItem.filter(selectedRepo, .category))
+        let categoryItem = makeMenuItem(Strings.category, value: OutlineContextMenuItem.filter(selectedRepo, .category))
         categoryItem.state = selectedRepo.filter == .category ? .on : .off
         sortMenu.addItem(categoryItem)
         
-        let languageItem = makeMenuItem("Language", value: OutlineContextMenuItem.filter(selectedRepo, .language))
+        let languageItem = makeMenuItem(Strings.language, value: OutlineContextMenuItem.filter(selectedRepo, .language))
         languageItem.state = selectedRepo.filter == .language ? .on : .off
         sortMenu.addItem(languageItem)
         menu.addItem(sortItem)
@@ -476,7 +476,8 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                     case .system:
                         msg = selectedPackage.description
                     case .user:
-                        msg = "\(selectedPackage.description) (User)"
+                        msg = Strings.userDescription(description: selectedPackage.description)
+//                        msg = "\(selectedPackage.description) \(Strings.user)"
                     }
                     
                     cell.textField?.attributedStringValue = NSAttributedString(string: msg, attributes: attrs)
@@ -489,7 +490,8 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                             case .system:
                                 cell.textField?.stringValue = response.status.description
                             case .user:
-                                cell.textField?.stringValue = "\(response.status.description) (User)"
+                                cell.textField?.stringValue = Strings.userDescription(description: response.status.description.description)
+//                                cell.textField?.stringValue = "\(response.status.description) (User)"
                             }
                         }
                     } else {

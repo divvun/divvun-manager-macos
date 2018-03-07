@@ -1,16 +1,28 @@
-# Original: Páhkat
-appName: Páhkat
+# Original: About Package Manager
+aboutApp: About Package Manager
 
-# Original: Automatically Send Crash Reports
-autoCrashReporting: Automatically Send Crash Reports
+# Original: Alpha
+alpha: Alpha
 
-# Original: Páhkat v{0} is now available. It is highly recommended that you update as soon as possible. Update now?
+# Original: Help
+appHelp: Help
+
+# Original: Package Manager
+appName: Package Manager
+
+# Original: Package Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
 appUpdateBody: >-
-  Páhkat v{version} is now available. It is highly recommended that you update as soon
-  as possible. Update now?
+  Package Manager v{version} is now available. It is highly recommended that you
+  update as soon as possible. Update now?
 
-# Original: Páhkat Update Available
-appUpdateTitle: Páhkat Update Available
+# Original: Package Manager Update Available
+appUpdateTitle: Package Manager Update Available
+
+# Original: Beta
+beta: Beta
+
+# Original: Bring All to Front
+bringAllToFront: Bring All to Front
 
 # Original: Cancel
 cancel: Cancel
@@ -21,19 +33,34 @@ cancelDownloadsBody: Are you sure you want to cancel all downloads?
 # Original: Cancel Downloads
 cancelDownloadsTitle: Cancel Downloads
 
+# Original: Canceling...
+cancelling: Canceling...
+
+# Original: Category
+category: Category
+
 # Original: Check For Updates...
 checkForUpdates: Check For Updates...
+
+# Original: Completed
+completed: Completed
+
+# Original: Copy
+copy: Copy
 
 # Original: Do you wish to send a crash report to the developers? No personal or private information is sent. (Recommended)
 crashReportBody: >-
   Do you wish to send a crash report to the developers? No personal or private
   information is sent. (Recommended)
 
-# Original: Send Crash Report
-crashReportTitle: Send Crash Report
+# Original: Cut
+cut: Cut
 
 # Original: Daily
 daily: Daily
+
+# Original: Delete
+delete: Delete
 
 # Original: Error 😞
 downloadError: "Error \U0001F61E"
@@ -44,8 +71,14 @@ downloaded: Downloaded
 # Original: Downloading...
 downloading: Downloading...
 
+# Original: Edit
+edit: Edit
+
 # Original: Error
 error: Error
+
+# Original: An error occurring during installation.
+errorDuringInstallation: An error occurring during installation.
 
 # Original: Error: Invalid Version
 errorInvalidVersion: 'Error: Invalid Version'
@@ -68,32 +101,71 @@ exit: Exit
 # Original: Finish
 finish: Finish
 
+# Original: Package Manager Help
+help: Package Manager Help
+
+# Original: Hide Package Manager
+hideApp: Hide Package Manager
+
+# Original: Hide Others
+hideOthers: Hide Others
+
 # Original: Install
 install: Install
+
+# Original: Install {count} Items
+installNPackages: 'Install {count} Items'
+
+# Original: Install (System)
+installSystem: Install (System)
+
+# Original: Install/Uninstall {count} Items
+installUninstallNPackages: 'Install/Uninstall {count} Items'
+
+# Original: Install (User)
+installUser: Install (User)
 
 # Original: Installed
 installed: Installed
 
-# Original: Installing {0} {1}...
+# Original: Installing {name} {version}...
 installingPackage: 'Installing {name} {version}...'
+
+# Original: Installing/Uninstalling
+installingUninstalling: Installing/Uninstalling
 
 # Original: Interface Language
 interfaceLanguage: Interface Language
 
+# Original: Please ensure that the URL begins with "https" and try again.
+invalidUrlBody: Please ensure that the URL begins with "https" and try again.
+
+# Original: The provided URL is invalid.
+invalidUrlTitle: The provided URL is invalid.
+
+# Original: Language
+language: Language
+
 # Original: Loading...
 loading: Loading...
 
-# Original: {0} items remaining.
+# Original: Minimize
+minimize: Minimize
+
+# Original: {count} items remaining.
 nItemsRemaining: '{count} items remaining.'
 
-# Original: {0} Updates Available
+# Original: {count} Updates Available
 nUpdatesAvailable: '{count} Updates Available'
 
 # Original: Never
 never: Never
 
-# Original: Next update check at: {0}
+# Original: Next update check at: {date}
 nextUpdateDue: 'Next update check at: {date}'
+
+# Original: Nightly
+nightly: Nightly
 
 # Original: No Items Selected
 noPackagesSelected: No Items Selected
@@ -116,19 +188,41 @@ ok: OK
 # Original: Open Package Manager
 openPackageManager: Open Package Manager
 
+# Original: Paste
+paste: Paste
+
+# Original: Paste and Match Style
+pasteAndMatchStyle: Paste and Match Style
+
+# Original: Preferences…
+preferences: Preferences…
+
 # Original: You may now close this window, or return to the main screen.
 processCompletedBody: 'You may now close this window, or return to the main screen.'
 
 # Original: Done!
 processCompletedTitle: Done!
 
-# Original: Process {0} Items
-installNPackages: 'Install {count} Items'
-uninstallNPackages: 'Uninstall {count} Items'
-installUninstallNPackages: 'Install/Uninstall {count} Items'
+# Original: Queued
+queued: Queued
+
+# Original: Quit Package Manager
+quitApp: Quit Package Manager
+
+# Original: Redo
+redo: Redo
 
 # Original: Remind Me Later
 remindMeLater: Remind Me Later
+
+# Original: Are you sure you wish to remove this repository?
+removeRepoBody: Are you sure you wish to remove this repository?
+
+# Original: This will remove the selected repository.
+removeRepoTitle: This will remove the selected repository.
+
+# Original: Repositories
+repositories: Repositories
 
 # Original: Repository
 repository: Repository
@@ -138,7 +232,7 @@ repositoryError: Repository Error
 
 # Original: There was an error while opening the repository:
 # 
-# {0}
+# {message}
 repositoryErrorBody: |-
   There was an error while opening the repository:
 
@@ -161,20 +255,50 @@ restartRequiredTitle: Time to reboot!
 # Original: Save
 save: Save
 
+# Original: Select All
+selectAll: Select All
+
+# Original: Services
+services: Services
+
 # Original: Settings
 settings: Settings
+
+# Original: Show All
+showAll: Show All
 
 # Original: Skip These Updates
 skipTheseUpdates: Skip These Updates
 
+# Original: Sort by…
+sortBy: Sort by…
+
+# Original: Stable
+stable: Stable
+
 # Original: Starting...
 starting: Starting...
+
+# Original: Default Language
+systemLocale: Default Language
+
+# Original: There are {count} updates available!
+thereAreNUpdatesAvailable: 'There are {count} updates available!'
+
+# Original: Undo
+undo: Undo
 
 # Original: Uninstall
 uninstall: Uninstall
 
-# Original: Uninstalling {0} {1}...
+# Original: Uninstall {count} Items
+uninstallNPackages: 'Uninstall {count} Items'
+
+# Original: Uninstalling {name} {version}...
 uninstallingPackage: 'Uninstalling {name} {version}...'
+
+# Original: Update
+update: Update
 
 # Original: Update Available
 updateAvailable: Update Available
@@ -185,6 +309,15 @@ updateChannel: Update Channel
 # Original: Update Frequency
 updateFrequency: Update Frequency
 
+# Original: Update (System)
+updateSystem: Update (System)
+
+# Original: Update (User)
+updateUser: Update (User)
+
+# Original: {description} (User)
+userDescription: '{description} (User)'
+
 # Original: Version Skipped
 versionSkipped: Version Skipped
 
@@ -193,3 +326,12 @@ waitingForCompletion: Waiting for process to finish...
 
 # Original: Weekly
 weekly: Weekly
+
+# Original: Window
+window: Window
+
+# Original: Would you like to download them now?
+wouldYouLikeToDownloadThemNow: Would you like to download them now?
+
+# Original: Zoom
+zoom: Zoom

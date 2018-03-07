@@ -1,0 +1,328 @@
+# Original: About Package Manager
+#aboutApp: UNTRANSLATED
+
+# Original: Alpha
+#alpha: UNTRANSLATED
+
+# Original: Help
+#appHelp: UNTRANSLATED
+
+# Original: Package Manager
+#appName: UNTRANSLATED
+
+# Original: Package Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
+#appUpdateBody: UNTRANSLATED
+
+# Original: Package Manager Update Available
+#appUpdateTitle: UNTRANSLATED
+
+# Original: Beta
+#beta: UNTRANSLATED
+
+# Original: Bring All to Front
+#bringAllToFront: UNTRANSLATED
+
+# Original: Cancel
+#cancel: UNTRANSLATED
+
+# Original: Are you sure you want to cancel all downloads?
+#cancelDownloadsBody: UNTRANSLATED
+
+# Original: Cancel Downloads
+#cancelDownloadsTitle: UNTRANSLATED
+
+# Original: Canceling...
+cancelling: Cancelling...
+
+# Original: Category
+#category: UNTRANSLATED
+
+# Original: Check For Updates...
+#checkForUpdates: UNTRANSLATED
+
+# Original: Completed
+#completed: UNTRANSLATED
+
+# Original: Copy
+#copy: UNTRANSLATED
+
+# Original: Do you wish to send a crash report to the developers? No personal or private information is sent. (Recommended)
+#crashReportBody: UNTRANSLATED
+
+# Original: Cut
+#cut: UNTRANSLATED
+
+# Original: Daily
+#daily: UNTRANSLATED
+
+# Original: Delete
+#delete: UNTRANSLATED
+
+# Original: Error 😞
+#downloadError: UNTRANSLATED
+
+# Original: Downloaded
+#downloaded: UNTRANSLATED
+
+# Original: Downloading...
+#downloading: UNTRANSLATED
+
+# Original: Edit
+#edit: UNTRANSLATED
+
+# Original: Error
+#error: UNTRANSLATED
+
+# Original: An error occurring during installation.
+#errorDuringInstallation: UNTRANSLATED
+
+# Original: Error: Invalid Version
+#errorInvalidVersion: UNTRANSLATED
+
+# Original: Error: No Installer
+#errorNoInstaller: UNTRANSLATED
+
+# Original: Error: Unknown Item
+#errorUnknownPackage: UNTRANSLATED
+
+# Original: Every 4 Weeks
+#everyFourWeeks: UNTRANSLATED
+
+# Original: Every 2 Weeks
+#everyTwoWeeks: UNTRANSLATED
+
+# Original: Exit
+#exit: UNTRANSLATED
+
+# Original: Finish
+#finish: UNTRANSLATED
+
+# Original: Package Manager Help
+#help: UNTRANSLATED
+
+# Original: Hide Package Manager
+#hideApp: UNTRANSLATED
+
+# Original: Hide Others
+#hideOthers: UNTRANSLATED
+
+# Original: Install
+#install: UNTRANSLATED
+
+# Original: Install {count} Items
+#installNPackages: UNTRANSLATED
+
+# Original: Install (System)
+#installSystem: UNTRANSLATED
+
+# Original: Install/Uninstall {count} Items
+#installUninstallNPackages: UNTRANSLATED
+
+# Original: Install (User)
+#installUser: UNTRANSLATED
+
+# Original: Installed
+#installed: UNTRANSLATED
+
+# Original: Installing {name} {version}...
+#installingPackage: UNTRANSLATED
+
+# Original: Installing/Uninstalling
+#installingUninstalling: UNTRANSLATED
+
+# Original: Interface Language
+#interfaceLanguage: UNTRANSLATED
+
+# Original: Please ensure that the URL begins with "https" and try again.
+#invalidUrlBody: UNTRANSLATED
+
+# Original: The provided URL is invalid.
+#invalidUrlTitle: UNTRANSLATED
+
+# Original: Language
+#language: UNTRANSLATED
+
+# Original: Loading...
+#loading: UNTRANSLATED
+
+# Original: Minimize
+minimize: Minimise
+
+# Original: {count} items remaining.
+#nItemsRemaining: UNTRANSLATED
+
+# Original: {count} Updates Available
+#nUpdatesAvailable: UNTRANSLATED
+
+# Original: Never
+#never: UNTRANSLATED
+
+# Original: Next update check at: {date}
+#nextUpdateDue: UNTRANSLATED
+
+# Original: Nightly
+#nightly: UNTRANSLATED
+
+# Original: No Items Selected
+#noPackagesSelected: UNTRANSLATED
+
+# Original: No new updates were found.
+#noUpdatesBody: UNTRANSLATED
+
+# Original: No Updates
+#noUpdatesTitle: UNTRANSLATED
+
+# Original: --
+#notApplicable: UNTRANSLATED
+
+# Original: Not Installed
+#notInstalled: UNTRANSLATED
+
+# Original: OK
+#ok: UNTRANSLATED
+
+# Original: Open Package Manager
+#openPackageManager: UNTRANSLATED
+
+# Original: Paste
+#paste: UNTRANSLATED
+
+# Original: Paste and Match Style
+#pasteAndMatchStyle: UNTRANSLATED
+
+# Original: Preferences…
+#preferences: UNTRANSLATED
+
+# Original: You may now close this window, or return to the main screen.
+#processCompletedBody: UNTRANSLATED
+
+# Original: Done!
+#processCompletedTitle: UNTRANSLATED
+
+# Original: Queued
+#queued: UNTRANSLATED
+
+# Original: Quit Package Manager
+#quitApp: UNTRANSLATED
+
+# Original: Redo
+#redo: UNTRANSLATED
+
+# Original: Remind Me Later
+#remindMeLater: UNTRANSLATED
+
+# Original: Are you sure you wish to remove this repository?
+#removeRepoBody: UNTRANSLATED
+
+# Original: This will remove the selected repository.
+#removeRepoTitle: UNTRANSLATED
+
+# Original: Repositories
+#repositories: UNTRANSLATED
+
+# Original: Repository
+#repository: UNTRANSLATED
+
+# Original: Repository Error
+#repositoryError: UNTRANSLATED
+
+# Original: There was an error while opening the repository:
+# 
+# {message}
+#repositoryErrorBody: UNTRANSLATED
+
+# Original: Restart Later
+#restartLater: UNTRANSLATED
+
+# Original: Restart Now
+#restartNow: UNTRANSLATED
+
+# Original: It is highly recommended that you restart your computer in order for some changes to take effect.
+#restartRequiredBody: UNTRANSLATED
+
+# Original: Time to reboot!
+#restartRequiredTitle: UNTRANSLATED
+
+# Original: Save
+#save: UNTRANSLATED
+
+# Original: Select All
+#selectAll: UNTRANSLATED
+
+# Original: Services
+#services: UNTRANSLATED
+
+# Original: Settings
+#settings: UNTRANSLATED
+
+# Original: Show All
+#showAll: UNTRANSLATED
+
+# Original: Skip These Updates
+#skipTheseUpdates: UNTRANSLATED
+
+# Original: Sort by…
+#sortBy: UNTRANSLATED
+
+# Original: Stable
+#stable: UNTRANSLATED
+
+# Original: Starting...
+#starting: UNTRANSLATED
+
+# Original: Default Language
+#systemLocale: UNTRANSLATED
+
+# Original: There are {count} updates available!
+#thereAreNUpdatesAvailable: UNTRANSLATED
+
+# Original: Undo
+#undo: UNTRANSLATED
+
+# Original: Uninstall
+#uninstall: UNTRANSLATED
+
+# Original: Uninstall {count} Items
+#uninstallNPackages: UNTRANSLATED
+
+# Original: Uninstalling {name} {version}...
+#uninstallingPackage: UNTRANSLATED
+
+# Original: Update
+#update: UNTRANSLATED
+
+# Original: Update Available
+#updateAvailable: UNTRANSLATED
+
+# Original: Update Channel
+#updateChannel: UNTRANSLATED
+
+# Original: Update Frequency
+#updateFrequency: UNTRANSLATED
+
+# Original: Update (System)
+#updateSystem: UNTRANSLATED
+
+# Original: Update (User)
+#updateUser: UNTRANSLATED
+
+# Original: {description} (User)
+#userDescription: UNTRANSLATED
+
+# Original: Version Skipped
+#versionSkipped: UNTRANSLATED
+
+# Original: Waiting for process to finish...
+#waitingForCompletion: UNTRANSLATED
+
+# Original: Weekly
+#weekly: UNTRANSLATED
+
+# Original: Window
+#window: UNTRANSLATED
+
+# Original: Would you like to download them now?
+#wouldYouLikeToDownloadThemNow: UNTRANSLATED
+
+# Original: Zoom
+#zoom: UNTRANSLATED

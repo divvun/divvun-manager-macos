@@ -9,103 +9,6 @@
 import Foundation
 import RxSwift
 
-struct RepositoryRequest: Codable {
-    let config: RepoConfig
-}
-
-extension RepositoryRequest: JSONRPCRequest {
-    typealias Response = RepositoryIndex
-    
-    var method: String { return "repository" }
-    var params: Encodable? { return [config.url.absoluteString, config.channel.rawValue] }
-}
-
-struct RepositoryStatusesRequest {
-    let url: URL
-}
-
-struct PackageStatusResponse: Codable {
-    let status: PackageInstallStatus
-    let target: MacOsInstaller.Targets
-}
-
-extension RepositoryStatusesRequest: JSONRPCRequest {
-    typealias Response = [String: PackageStatusResponse]
-    
-    var method: String { return "repository_statuses" }
-    var params: Encodable? { return [url.absoluteString] }
-}
-
-struct PackageInstallStatusRequest {
-    let repo: RepositoryIndex
-    let package: Package
-    let target: MacOsInstaller.Targets
-}
-
-extension PackageInstallStatusRequest: JSONRPCRequest {
-    typealias Response = PackageInstallStatus
-    
-    var method: String { return "status" }
-    var params: Encodable? { return [repo.meta.base.absoluteString, package.id, target == MacOsInstaller.Targets.system ? 0 : 1] }
-}
-
-struct InstallRequest {
-    let repo: RepositoryIndex
-    let package: Package
-    let target: MacOsInstaller.Targets
-}
-
-extension InstallRequest: JSONRPCRequest {
-    typealias Response = PackageInstallStatus
-    
-    var method: String { return "install" }
-    var params: Encodable? { return [repo.meta.base.absoluteString, package.id, target == MacOsInstaller.Targets.system ? 0 : 1] }
-}
-
-struct UninstallRequest {
-    let repo: RepositoryIndex
-    let package: Package
-    let target: MacOsInstaller.Targets
-}
-
-extension UninstallRequest: JSONRPCRequest {
-    typealias Response = PackageInstallStatus
-    
-    var method: String { return "uninstall" }
-    var params: Encodable? { return [repo.meta.base.absoluteString, package.id, target == MacOsInstaller.Targets.system ? 0 : 1] }
-}
-
-struct DownloadSubscriptionRequest {
-    let repo: RepositoryIndex
-    let package: Package
-    let target: MacOsInstaller.Targets
-}
-
-extension DownloadSubscriptionRequest: JSONRPCSubscriptionRequest {
-    typealias Response = [UInt64]
-    
-    var method: String { return "download_subscribe" }
-    var unsubscribeMethod: String? { return "download_unsubscribe" }
-    var params: Encodable? { return [repo.meta.base.absoluteString, package.id, target == MacOsInstaller.Targets.system ? 0 : 1] }
-    var callback: String { return "download" }
-}
-
-struct SettingsRequest: JSONRPCRequest {
-    typealias Response = SettingsState
-    
-    var method: String { return "settings" }
-    var params: Encodable? { return [] }
-}
-
-struct SetSettingsRequest: JSONRPCRequest {
-    let settings: SettingsState
-    
-    typealias Response = Bool
-    
-    var method: String { return "set_settings" }
-    var params: Encodable? { return [settings] }
-}
-
 class PahkatRPCService {
     private let bag = DisposeBag()
     
@@ -115,15 +18,10 @@ class PahkatRPCService {
     static let pahkatcPath = Bundle.main.bundleURL.appendingPathComponent("Contents/MacOS/pahkatc")
     
     public convenience init?() {
-//        if requiresAdmin {
-//            pahkatcIPC = AdminSubprocess(PahkatRPCService.pahkatcPath.path, arguments: ["ipc"])
-//        } else {
         self.init(service: BufferedStringSubprocess(
             PahkatRPCService.pahkatcPath.path,
             arguments: ["ipc"],
             qos: QualityOfService.userInteractive))
-//        }
-        
     }
     
     internal init?(service: BufferedProcess) {
@@ -171,7 +69,6 @@ class PahkatRPCService {
     
     deinit {
         print("PahkatRPCService DEINIT")
-//        process.terminate()
         pahkatcIPC.terminate()
     }
     
@@ -204,25 +101,4 @@ class PahkatRPCService {
         return try rpc.send(request: UninstallRequest(repo: repo, package: package, target: target))
     }
 }
-
-//
-//class MockRPCService: RPCService {
-//    func hello() throws -> Observable<String> {
-//        return try rpc.send(subscription: Hello())
-//    }
-//}
-//
-//struct SayHello: JSONRPCRequest {
-//    typealias Response = String
-//    var method: String { return "say_hello" }
-//}
-//
-//struct Hello: JSONRPCSubscriptionRequest {
-//    typealias Response = String
-//
-//    var method: String { return "hello_subscribe" }
-//    var params: Encodable? { return [10] }
-//    var callback: String { return "hello" }
-//    var unsubscribeMethod: String? { return "hello_unsubscribe" }
-//}
 

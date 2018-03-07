@@ -132,10 +132,6 @@ class InstallPresenter {
     func start() -> Disposable {
         self.view.set(totalPackages: packages.count)
         
-        // TODO: check if we need admin (anything with .system) and fire up an installer RPC agent
-        
-        // TODO: check the starting response to make sure we're in a sane state
-//        return bindInstallProcess()
         return Disposables.create { }
     }
     

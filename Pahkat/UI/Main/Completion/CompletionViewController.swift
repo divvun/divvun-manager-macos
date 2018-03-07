@@ -72,6 +72,9 @@ class CompletionViewController: DisposableViewController<CompletionView>, Comple
         super.viewWillAppear()
         
         if (self.requiresReboot) {
+            contentView.headerLabel.stringValue = Strings.restartRequiredTitle
+            contentView.contentLabel.stringValue = Strings.restartRequiredBody
+            
             contentView.leftButton.title = Strings.restartLater
             contentView.rightButton.title = Strings.restartNow
             contentView.leftButton.sizeToFit()
@@ -87,6 +90,9 @@ class CompletionViewController: DisposableViewController<CompletionView>, Comple
             }).disposed(by: bag)
             
         } else {
+            contentView.headerLabel.stringValue = Strings.processCompletedTitle
+            contentView.contentLabel.stringValue = Strings.processCompletedBody
+            
             contentView.rightButton.title = Strings.finish
             contentView.rightButton.sizeToFit()
             contentView.leftButton.isHidden = true

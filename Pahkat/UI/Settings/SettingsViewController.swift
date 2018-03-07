@@ -14,13 +14,13 @@ extension Repository.Channels {
     var description: String {
         switch self {
         case .alpha:
-            return "Alpha" //Strings.alpha
+            return Strings.alpha
         case .beta:
-            return "Beta" //Strings.beta
+            return Strings.beta
         case .nightly:
-            return "Nightly" //Strings.nightly
+            return Strings.nightly
         case .stable:
-            return "Stable" // Strings.stable
+            return Strings.stable
         }
     }
 }
@@ -58,10 +58,10 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
             return
         }
         let alert = NSAlert()
-        alert.messageText = "Gonna delete?"
-        alert.informativeText = "It will be delete."
-        alert.addButton(withTitle: "OK")
-        alert.addButton(withTitle: "Pls no")
+        alert.messageText = Strings.removeRepoTitle
+        alert.informativeText = Strings.removeRepoBody
+        alert.addButton(withTitle: Strings.ok)
+        alert.addButton(withTitle: Strings.cancel)
         alert.beginSheetModal(for: self.contentView.window!, completionHandler: {
             if $0 == NSApplication.ModalResponse.alertFirstButtonReturn {
                 self.tableDelegate.configs.remove(at: row)
@@ -85,7 +85,6 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
         super.viewDidLoad()
         
         AppContext.windows.get(SettingsWindowController.self).window!.delegate = self
-//        self.view.window!.delegate = self
         
         title = Strings.settings
         
@@ -97,6 +96,7 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
     override func viewWillAppear() {
         super.viewWillAppear()
         
+        // TODO: move to presenter
         contentView.repoAddButton.rx.tap.subscribe(onNext: { [weak self] in
             guard let `self` = self else { return }
             self.addBlankRepositoryRow()
@@ -220,8 +220,8 @@ class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSou
                 events.onNext(.setURL(row, url))
             } else {
                 let alert = NSAlert()
-                alert.messageText = "Broken happen"
-                alert.informativeText = "Write a real URL noob"
+                alert.messageText = Strings.invalidUrlTitle
+                alert.informativeText = Strings.invalidUrlBody
                 alert.runModal()
             }
         case .name:
@@ -244,11 +244,15 @@ class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSou
 }
 
 enum InterfaceLanguage: String, Comparable {
+    case systemLocale = ""
     case en = "en"
     case nn = "nn"
     case se = "se"
     
     var description: String {
+        if self == .systemLocale {
+            return Strings.systemLocale
+        }
         return ISO639.get(tag: self.rawValue)?.autonymOrName ?? self.rawValue
     }
     
@@ -262,6 +266,7 @@ enum InterfaceLanguage: String, Comparable {
     
     static func asMenuItems() -> [NSMenuItem] {
         return [
+            InterfaceLanguage.systemLocale,
             InterfaceLanguage.en,
             InterfaceLanguage.nn,
             InterfaceLanguage.se

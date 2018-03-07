@@ -38,9 +38,9 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
             if let view = self.delegate.tableView(self.contentView.tableView, viewFor: package) as? DownloadProgressView {
                 switch(status) {
                 case .notStarted:
-                    view.progressLabel.stringValue = "Queued"
+                    view.progressLabel.stringValue = Strings.queued
                 case .starting:
-                    view.progressLabel.stringValue = "Starting…"
+                    view.progressLabel.stringValue = Strings.starting
                     if let cellOrigin: NSPoint = view.superview?.frame.origin {
                         self.contentView.clipView.animate(to: cellOrigin, with: 0.5)
                     }
@@ -54,12 +54,12 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
                     
                     view.progressLabel.stringValue = "\(downloadStr) / \(totalStr)"
                 case .completed:
-                    view.progressLabel.stringValue = "Completed"
+                    view.progressLabel.stringValue = Strings.completed
                 case .error:
                     view.progressLabel.stringValue = Strings.downloadError
                 }
             } else {
-                print("couldn't get downloadProgressView")
+                fatalError("couldn't get downloadProgressView")
             }
         }
     }
@@ -123,7 +123,6 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
         title = Strings.downloading
         
         configureToolbar()
-        //window.contentWindow.toolbar = nil
     }
     
     func initializeDownloads(packages: [Package]) {
