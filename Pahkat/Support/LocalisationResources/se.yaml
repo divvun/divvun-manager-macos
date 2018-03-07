@@ -1,328 +1,330 @@
 # Original: About Package Manager
-#aboutApp: UNTRANSLATED
+aboutApp: Package Manager birra
 
 # Original: Alpha
-#alpha: UNTRANSLATED
+alpha: Alpha
 
 # Original: Help
-#appHelp: UNTRANSLATED
+appHelp: Veahkki
 
 # Original: Package Manager
-#appName: UNTRANSLATED
+appName: Package Manager
 
 # Original: Package Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
-#appUpdateBody: UNTRANSLATED
+appUpdateBody: Dál manná viežžat Package Manager v{version}. Ođastuhte val vargga. Juogo siđat ođastuhttit?
 
 # Original: Package Manager Update Available
-#appUpdateTitle: UNTRANSLATED
+appUpdateTitle: Package Manager ođđa vieččahahtti veršuvdna
 
 # Original: Beta
-#beta: UNTRANSLATED
+beta: Beta
 
 # Original: Bring All to Front
-#bringAllToFront: UNTRANSLATED
+bringAllToFront: Viežžal visot oidnosii
 
 # Original: Cancel
-#cancel: UNTRANSLATED
+cancel: Heaittit
 
 # Original: Are you sure you want to cancel all downloads?
-#cancelDownloadsBody: UNTRANSLATED
+cancelDownloadsBody: Siđat go duođaid heaittihit viežžamis?
 
 # Original: Cancel Downloads
-#cancelDownloadsTitle: UNTRANSLATED
+cancelDownloadsTitle: Heaittit viežžamis
 
 # Original: Canceling...
-#cancelling: UNTRANSLATED
+cancelling: Heaittiheame...
 
 # Original: Category
-#category: UNTRANSLATED
+category: Kategoriija
 
 # Original: Check For Updates...
-#checkForUpdates: UNTRANSLATED
+checkForUpdates: Oza ođđa veršuvnna...
 
 # Original: Completed
-#completed: UNTRANSLATED
+completed: Válmmas
 
 # Original: Copy
-#copy: UNTRANSLATED
+copy: Máŋge
 
 # Original: Do you wish to send a crash report to the developers? No personal or private information is sent. (Recommended)
-#crashReportBody: UNTRANSLATED
+crashReportBody: Siđat go sáddet kráššadieđáhusa prográmmaráhkadeaddjái? Persovnnalaš dehe priváhta dieđut eai sáddejuvvo. (Rekommenderejuvvon)
 
 # Original: Cut
-#cut: UNTRANSLATED
+cut: Čuohpa
 
 # Original: Daily
-#daily: UNTRANSLATED
+daily: Beaivválaččat
 
 # Original: Delete
-#delete: UNTRANSLATED
+delete: Váldde eret
 
 # Original: Error 😞
-#downloadError: UNTRANSLATED
+downloadError: Vihki 😞
 
 # Original: Downloaded
-#downloaded: UNTRANSLATED
+downloaded: Vižžojuvvon
 
 # Original: Downloading...
-#downloading: UNTRANSLATED
+downloading: Viežžame...
 
 # Original: Edit
-#edit: UNTRANSLATED
+edit: Redigere
 
 # Original: Error
-#error: UNTRANSLATED
+error: Vihki
 
 # Original: An error occurring during installation.
-#errorDuringInstallation: UNTRANSLATED
+errorDuringInstallation: Juoga vihki sajáiduhtidiin.
 
 # Original: Error: Invalid Version
-#errorInvalidVersion: UNTRANSLATED
+errorInvalidVersion: Doaimmahis veršuvdna
 
 # Original: Error: No Installer
-#errorNoInstaller: UNTRANSLATED
+errorNoInstaller: Vihki: Ii leat sajáiduhtti
 
 # Original: Error: Unknown Item
-#errorUnknownPackage: UNTRANSLATED
+errorUnknownPackage: Amas objeakta
 
 # Original: Every 4 Weeks
-#everyFourWeeks: UNTRANSLATED
+everyFourWeeks: Juohke njealját vahku
 
 # Original: Every 2 Weeks
-#everyTwoWeeks: UNTRANSLATED
+everyTwoWeeks: Juohke nuppi vahku
 
 # Original: Exit
-#exit: UNTRANSLATED
+exit: Mana eret
 
 # Original: Finish
-#finish: UNTRANSLATED
+finish: Válbme
 
 # Original: Package Manager Help
-#help: UNTRANSLATED
+help: Package Manager veahkki
 
 # Original: Hide Package Manager
-#hideApp: UNTRANSLATED
+hideApp: Čiega Package Manager
 
 # Original: Hide Others
-#hideOthers: UNTRANSLATED
+hideOthers: Čiega iežáid
 
 # Original: Install
-#install: UNTRANSLATED
+install: Sajáiduhte
 
 # Original: Install {count} Items
-#installNPackages: UNTRANSLATED
+installNPackages: Sajáiduhte {count} objeavtta
 
 # Original: Install (System)
-#installSystem: UNTRANSLATED
+installSystem: Sajáiduhte (Systema)
 
 # Original: Install/Uninstall {count} Items
-#installUninstallNPackages: UNTRANSLATED
+installUninstallNPackages: Sajáiduhte/Váldde eret {count} objeavtta
 
 # Original: Install (User)
-#installUser: UNTRANSLATED
+installUser: Sajáiduhte (geavaheaddji)
 
 # Original: Installed
-#installed: UNTRANSLATED
+installed: Sajáiduhtton
 
 # Original: Installing {name} {version}...
-#installingPackage: UNTRANSLATED
+installingPackage: Sajáiduhttime {name} {version}...
 
 # Original: Installing/Uninstalling
-#installingUninstalling: UNTRANSLATED
+installingUninstalling: Sajáiduhttime/Váldime eret
 
 # Original: Interface Language
-#interfaceLanguage: UNTRANSLATED
+interfaceLanguage: Interface-giella
 
 # Original: Please ensure that the URL begins with "https" and try again.
-#invalidUrlBody: UNTRANSLATED
+invalidUrlBody: Geahča bearrái ahte URL álgá "https":in ja geahččal vas.
 
 # Original: The provided URL is invalid.
-#invalidUrlTitle: UNTRANSLATED
+invalidUrlTitle: Addojuvvon URL lea boastut.
 
 # Original: Language
-#language: UNTRANSLATED
+language: Giella
 
 # Original: Loading...
-#loading: UNTRANSLATED
+loading: Láddeme...
 
 # Original: Minimize
-#minimize: UNTRANSLATED
+minimize: Minimere
 
 # Original: {count} items remaining.
-#nItemsRemaining: UNTRANSLATED
+nItemsRemaining: {count} objeavtta vel.
 
 # Original: {count} Updates Available
-#nUpdatesAvailable: UNTRANSLATED
+nUpdatesAvailable: {count} Vieččahahtti ođastuhttima
 
 # Original: Never
-#never: UNTRANSLATED
+never: Ii goasge
 
 # Original: Next update check at: {date}
-#nextUpdateDue: UNTRANSLATED
+nextUpdateDue: Boahtte ođastuhttin: {date}
 
 # Original: Nightly
-#nightly: UNTRANSLATED
+nightly: Juohke ija
 
 # Original: No Items Selected
-#noPackagesSelected: UNTRANSLATED
+noPackagesSelected: Ii oktage objeakta válljejuvvon
 
 # Original: No new updates were found.
-#noUpdatesBody: UNTRANSLATED
+noUpdatesBody: Ii gávdnan makkárge ođastuhttimiid.
 
 # Original: No Updates
-#noUpdatesTitle: UNTRANSLATED
+noUpdatesTitle: Eai leat ođastuhttimat
 
 # Original: --
-#notApplicable: UNTRANSLATED
+notApplicable: --
 
 # Original: Not Installed
-#notInstalled: UNTRANSLATED
+notInstalled: Ii leat sajáiduhtton
 
 # Original: OK
-#ok: UNTRANSLATED
+ok: OK
 
 # Original: Open Package Manager
-#openPackageManager: UNTRANSLATED
+openPackageManager: Raba Package Manager
 
 # Original: Paste
-#paste: UNTRANSLATED
+paste: Liibme
 
 # Original: Paste and Match Style
-#pasteAndMatchStyle: UNTRANSLATED
+pasteAndMatchStyle: Liibme ja heivet stiilla
 
 # Original: Preferences…
-#preferences: UNTRANSLATED
+preferences: Heieveheamit
 
 # Original: You may now close this window, or return to the main screen.
-#processCompletedBody: UNTRANSLATED
+processCompletedBody: Oaččut dál jáddadit dán láse dehe mannat ruovttoluotta váldolásii.
 
 # Original: Done!
-#processCompletedTitle: UNTRANSLATED
+processCompletedTitle: Válmmas!
 
 # Original: Queued
-#queued: UNTRANSLATED
+queued: Vuordime vuorus
 
 # Original: Quit Package Manager
-#quitApp: UNTRANSLATED
+quitApp: Heaittit Package Manager
 
 # Original: Redo
-#redo: UNTRANSLATED
+redo: Daga ođđasis
 
 # Original: Remind Me Later
-#remindMeLater: UNTRANSLATED
+remindMeLater: Muittut munnje maŋŋil
 
 # Original: Are you sure you wish to remove this repository?
-#removeRepoBody: UNTRANSLATED
+removeRepoBody: Siđat go duođaid váldit eret dán prográmmavuorkká?
 
 # Original: This will remove the selected repository.
-#removeRepoTitle: UNTRANSLATED
+removeRepoTitle: Dát váldá eret válljejuvvon prográmmavuorkká.
 
 # Original: Repositories
-#repositories: UNTRANSLATED
+repositories: Prográmmavuorkkát
 
 # Original: Repository
-#repository: UNTRANSLATED
+repository: Prográmmavuorká
 
 # Original: Repository Error
-#repositoryError: UNTRANSLATED
+repositoryError: Vihki prográmmavuorkkás
 
 # Original: There was an error while opening the repository:
 # 
 # {message}
-#repositoryErrorBody: UNTRANSLATED
+repositoryErrorBody: Juoga manai boastut rabadiin prográmmavuorkká:
+
+{message}
 
 # Original: Restart Later
-#restartLater: UNTRANSLATED
+restartLater: Álggat ođđasis maŋŋil
 
 # Original: Restart Now
-#restartNow: UNTRANSLATED
+restartNow: Álggat ođđasis dál
 
 # Original: It is highly recommended that you restart your computer in order for some changes to take effect.
-#restartRequiredBody: UNTRANSLATED
+restartRequiredBody: Galggalit ođđasis álggahit dihtora vai rievdadusat álget doaibmat.
 
 # Original: Time to reboot!
-#restartRequiredTitle: UNTRANSLATED
+restartRequiredTitle: Dál lea ođđasis álggahit!
 
 # Original: Save
-#save: UNTRANSLATED
+save: Vurke
 
 # Original: Select All
-#selectAll: UNTRANSLATED
+selectAll: Vállje visot
 
 # Original: Services
-#services: UNTRANSLATED
+services: Bálvalusat
 
 # Original: Settings
-#settings: UNTRANSLATED
+settings: Heiveheamit
 
 # Original: Show All
-#showAll: UNTRANSLATED
+showAll: Čájet visot
 
 # Original: Skip These Updates
-#skipTheseUpdates: UNTRANSLATED
+skipTheseUpdates: Hilggo dáid ođastuhttimiid
 
 # Original: Sort by…
-#sortBy: UNTRANSLATED
+sortBy: Čuoldde {} mielde.
 
 # Original: Stable
-#stable: UNTRANSLATED
+stable: Stabiila
 
 # Original: Starting...
-#starting: UNTRANSLATED
+starting: Álgime...
 
 # Original: Default Language
-#systemLocale: UNTRANSLATED
+systemLocale: Standárdagiella
 
 # Original: There are {count} updates available!
-#thereAreNUpdatesAvailable: UNTRANSLATED
+thereAreNUpdatesAvailable: Leat {count} vieččahahtti ođđa veršuvnna!
 
 # Original: Undo
-#undo: UNTRANSLATED
+undo: Gáđa
 
 # Original: Uninstall
-#uninstall: UNTRANSLATED
+uninstall: Váldde eret
 
 # Original: Uninstall {count} Items
-#uninstallNPackages: UNTRANSLATED
+uninstallNPackages: Váldde eret {count} objeavtta
 
 # Original: Uninstalling {name} {version}...
-#uninstallingPackage: UNTRANSLATED
+uninstallingPackage: Váldime eret {name} {version}...
 
 # Original: Update
-#update: UNTRANSLATED
+update: Ođastuhte
 
 # Original: Update Available
-#updateAvailable: UNTRANSLATED
+updateAvailable: Ođđa vieččahahtti veršuvdna
 
 # Original: Update Channel
-#updateChannel: UNTRANSLATED
+updateChannel: Ođastuhte kanála
 
 # Original: Update Frequency
-#updateFrequency: UNTRANSLATED
+updateFrequency: Ođastuhttinfrekveansa
 
 # Original: Update (System)
-#updateSystem: UNTRANSLATED
+updateSystem: Ođastuhte (Systema)
 
 # Original: Update (User)
-#updateUser: UNTRANSLATED
+updateUser: Ođastuhte (Geavaheaddji)
 
 # Original: {description} (User)
-#userDescription: UNTRANSLATED
+userDescription: {govvideapmi} (Geavaheaddji)
 
 # Original: Version Skipped
-#versionSkipped: UNTRANSLATED
+versionSkipped: Veršuvdna hilgojuvvon
 
 # Original: Waiting for process to finish...
-#waitingForCompletion: UNTRANSLATED
+waitingForCompletion: Vuordime ahte geargá...
 
 # Original: Weekly
-#weekly: UNTRANSLATED
+weekly: Vahkkošaččat
 
 # Original: Window
-#window: UNTRANSLATED
+window: Láse
 
 # Original: Would you like to download them now?
-#wouldYouLikeToDownloadThemNow: UNTRANSLATED
+wouldYouLikeToDownloadThemNow: Juogo siđat viežžat?
 
 # Original: Zoom
-#zoom: UNTRANSLATED
+zoom: Zoom
