@@ -1,328 +1,330 @@
 # Original: About Package Manager
-#aboutApp: UNTRANSLATED
+aboutApp: Om Pakkehåndtereren
 
 # Original: Alpha
-#alpha: UNTRANSLATED
+alpha: Alfa
 
 # Original: Help
-#appHelp: UNTRANSLATED
+appHelp: Hjelp
 
 # Original: Package Manager
-#appName: UNTRANSLATED
+appName: Pakkehåndterer
 
 # Original: Package Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
-#appUpdateBody: UNTRANSLATED
+appUpdateBody: Pakkehåndterer v{version} er nå tilgjengelig. Det er sterkt anbefalt at du oppdaterer så snart som mulig. Vil du oppdatere nå?
 
 # Original: Package Manager Update Available
-#appUpdateTitle: UNTRANSLATED
+appUpdateTitle: Pakkehåndterer-oppdatering tilgjengelig
 
 # Original: Beta
-#beta: UNTRANSLATED
+beta: Beta
 
 # Original: Bring All to Front
-#bringAllToFront: UNTRANSLATED
+bringAllToFront: Flytt alle fremst
 
 # Original: Cancel
-#cancel: UNTRANSLATED
+cancel: Avbryt
 
 # Original: Are you sure you want to cancel all downloads?
-#cancelDownloadsBody: UNTRANSLATED
+cancelDownloadsBody: Er du sikker på at du vil avbryte nedlastingene?
 
 # Original: Cancel Downloads
-#cancelDownloadsTitle: UNTRANSLATED
+cancelDownloadsTitle: Avbryt nedlastingene
 
 # Original: Canceling...
-#cancelling: UNTRANSLATED
+cancelling: Avbryter...
 
 # Original: Category
-#category: UNTRANSLATED
+category: Kategori
 
 # Original: Check For Updates...
-#checkForUpdates: UNTRANSLATED
+checkForUpdates: Se etter oppateringer...
 
 # Original: Completed
-#completed: UNTRANSLATED
+completed: Fullført
 
 # Original: Copy
-#copy: UNTRANSLATED
+copy: Kopier
 
 # Original: Do you wish to send a crash report to the developers? No personal or private information is sent. (Recommended)
-#crashReportBody: UNTRANSLATED
+crashReportBody: Ønsker du å sende en kræsjrapport til utviklerne? Ingen personlig info blir sendt inn. (Anbefalt)
 
 # Original: Cut
-#cut: UNTRANSLATED
+cut: Klipp ut
 
 # Original: Daily
-#daily: UNTRANSLATED
+daily: Daglig
 
 # Original: Delete
-#delete: UNTRANSLATED
+delete: Slett
 
 # Original: Error 😞
-#downloadError: UNTRANSLATED
+downloadError: "Feil \U0001F61E"
 
 # Original: Downloaded
-#downloaded: UNTRANSLATED
+downloaded: Nedlastet
 
 # Original: Downloading...
-#downloading: UNTRANSLATED
+downloading: Laster ned...
 
 # Original: Edit
-#edit: UNTRANSLATED
+edit: Rediger
 
 # Original: Error
-#error: UNTRANSLATED
+error: Feil
 
 # Original: An error occurring during installation.
-#errorDuringInstallation: UNTRANSLATED
+errorDuringInstallation: Det gikk galt med installeringen.
 
 # Original: Error: Invalid Version
-#errorInvalidVersion: UNTRANSLATED
+errorInvalidVersion: Feil: ugyldig versjon
 
 # Original: Error: No Installer
-#errorNoInstaller: UNTRANSLATED
+errorNoInstaller: Feil: ingen installerer
 
 # Original: Error: Unknown Item
-#errorUnknownPackage: UNTRANSLATED
+errorUnknownPackage: Feil: ukjent pakke
 
 # Original: Every 4 Weeks
-#everyFourWeeks: UNTRANSLATED
+everyFourWeeks: Hver fjerde uke
 
 # Original: Every 2 Weeks
-#everyTwoWeeks: UNTRANSLATED
+everyTwoWeeks: Hver annen uke
 
 # Original: Exit
-#exit: UNTRANSLATED
+exit: Avslutt
 
 # Original: Finish
-#finish: UNTRANSLATED
+finish: Ferdig
 
 # Original: Package Manager Help
-#help: UNTRANSLATED
+help: Pakkehåndterer-hjelp
 
 # Original: Hide Package Manager
-#hideApp: UNTRANSLATED
+hideApp: Skjul Pakkehåndtereren
 
 # Original: Hide Others
-#hideOthers: UNTRANSLATED
+hideOthers: Skjul andre
 
 # Original: Install
-#install: UNTRANSLATED
+install: Installer
 
 # Original: Install {count} Items
-#installNPackages: UNTRANSLATED
+installNPackages: Installer {count} pakker
 
 # Original: Install (System)
-#installSystem: UNTRANSLATED
+installSystem: Installer (for hele systemet)
 
 # Original: Install/Uninstall {count} Items
-#installUninstallNPackages: UNTRANSLATED
+installUninstallNPackages: Avinstaller {count} pakker
 
 # Original: Install (User)
-#installUser: UNTRANSLATED
+installUser: Installer (for bruker)
 
 # Original: Installed
-#installed: UNTRANSLATED
+installed: Installert
 
 # Original: Installing {name} {version}...
-#installingPackage: UNTRANSLATED
+installingPackage: Installerer {name} {version}...
 
 # Original: Installing/Uninstalling
-#installingUninstalling: UNTRANSLATED
+installingUninstalling: Installerer/avinstallerer
 
 # Original: Interface Language
-#interfaceLanguage: UNTRANSLATED
+interfaceLanguage: Vis Pakkehåndtereren med språket
 
 # Original: Please ensure that the URL begins with "https" and try again.
-#invalidUrlBody: UNTRANSLATED
+invalidUrlBody: Venligst sjekk at URL-en begynner med "https" og prøv på nytt.
 
 # Original: The provided URL is invalid.
-#invalidUrlTitle: UNTRANSLATED
+invalidUrlTitle: URL-en er ugyldig.
 
 # Original: Language
-#language: UNTRANSLATED
+language: Språk
 
 # Original: Loading...
-#loading: UNTRANSLATED
+loading: Laster inn...
 
 # Original: Minimize
-#minimize: UNTRANSLATED
+minimize: Minimer
 
 # Original: {count} items remaining.
-#nItemsRemaining: UNTRANSLATED
+nItemsRemaining: {count} pakker står igjen.
 
 # Original: {count} Updates Available
-#nUpdatesAvailable: UNTRANSLATED
+nUpdatesAvailable: Det finnes {count} oppdateringer
 
 # Original: Never
-#never: UNTRANSLATED
+never: Aldri
 
 # Original: Next update check at: {date}
-#nextUpdateDue: UNTRANSLATED
+nextUpdateDue: Neste oppdateringssjekk {date}
 
 # Original: Nightly
-#nightly: UNTRANSLATED
+nightly: Nattlig
 
 # Original: No Items Selected
-#noPackagesSelected: UNTRANSLATED
+noPackagesSelected: Ingen valgte pakker
 
 # Original: No new updates were found.
-#noUpdatesBody: UNTRANSLATED
+noUpdatesBody: Fant ingen nye oppdateringer
 
 # Original: No Updates
-#noUpdatesTitle: UNTRANSLATED
+noUpdatesTitle: Ingen oppdateringer
 
 # Original: --
-#notApplicable: UNTRANSLATED
+notApplicable: —
 
 # Original: Not Installed
-#notInstalled: UNTRANSLATED
+notInstalled: Ikke installert
 
 # Original: OK
-#ok: UNTRANSLATED
+ok: OK
 
 # Original: Open Package Manager
-#openPackageManager: UNTRANSLATED
+openPackageManager: Åpne Pakkehåndtereren
 
 # Original: Paste
-#paste: UNTRANSLATED
+paste: Lim inn
 
 # Original: Paste and Match Style
-#pasteAndMatchStyle: UNTRANSLATED
+pasteAndMatchStyle: Lim inn tilpasset
 
 # Original: Preferences…
-#preferences: UNTRANSLATED
+preferences: Innstillinger…
 
 # Original: You may now close this window, or return to the main screen.
-#processCompletedBody: UNTRANSLATED
+processCompletedBody: Nå kan du lukke vinduet, eller gå tilbake til hovedvinduet.
 
 # Original: Done!
-#processCompletedTitle: UNTRANSLATED
+processCompletedTitle: Ferdig!
 
 # Original: Queued
-#queued: UNTRANSLATED
+queued: I kø
 
 # Original: Quit Package Manager
-#quitApp: UNTRANSLATED
+quitApp: Avslutt Pakkehåndtereren
 
 # Original: Redo
-#redo: UNTRANSLATED
+redo: Gjør på nytt
 
 # Original: Remind Me Later
-#remindMeLater: UNTRANSLATED
+remindMeLater: Minn meg på det senere
 
 # Original: Are you sure you wish to remove this repository?
-#removeRepoBody: UNTRANSLATED
+removeRepoBody: Er du sikker på at du vil fjerne repositoriet?
 
 # Original: This will remove the selected repository.
-#removeRepoTitle: UNTRANSLATED
+removeRepoTitle: Dette vil fjerne det valgte repositoriet.
 
 # Original: Repositories
-#repositories: UNTRANSLATED
+repositories: Repositorier
 
 # Original: Repository
-#repository: UNTRANSLATED
+repository: Repositorium
 
 # Original: Repository Error
-#repositoryError: UNTRANSLATED
+repositoryError: Repositoriefeil
 
 # Original: There was an error while opening the repository:
 # 
 # {message}
-#repositoryErrorBody: UNTRANSLATED
+repositoryErrorBody: Det dukket opp en feil mens jeg åpnet repositoriet:
+
+{message}
 
 # Original: Restart Later
-#restartLater: UNTRANSLATED
+restartLater: Omstart senere
 
 # Original: Restart Now
-#restartNow: UNTRANSLATED
+restartNow: Omstart nå
 
 # Original: It is highly recommended that you restart your computer in order for some changes to take effect.
-#restartRequiredBody: UNTRANSLATED
+restartRequiredBody: Det er sterkt anbefalt å starte datamaskinen på nytt for at visse endringer skal tre i kraft
 
 # Original: Time to reboot!
-#restartRequiredTitle: UNTRANSLATED
+restartRequiredTitle: Tid for å starte maskinen på nytt!
 
 # Original: Save
-#save: UNTRANSLATED
+save: Lagre
 
 # Original: Select All
-#selectAll: UNTRANSLATED
+selectAll: Velg alt
 
 # Original: Services
-#services: UNTRANSLATED
+services: Tjenester
 
 # Original: Settings
-#settings: UNTRANSLATED
+settings: Innstillinger
 
 # Original: Show All
-#showAll: UNTRANSLATED
+showAll: Vis alle
 
 # Original: Skip These Updates
-#skipTheseUpdates: UNTRANSLATED
+skipTheseUpdates: Hopp over disse oppdateringene
 
 # Original: Sort by…
-#sortBy: UNTRANSLATED
+sortBy: Sorter etter…
 
 # Original: Stable
-#stable: UNTRANSLATED
+stable: Stabil
 
 # Original: Starting...
-#starting: UNTRANSLATED
+starting: Starter...
 
 # Original: Default Language
-#systemLocale: UNTRANSLATED
+systemLocale: Standardspråk
 
 # Original: There are {count} updates available!
-#thereAreNUpdatesAvailable: UNTRANSLATED
+thereAreNUpdatesAvailable: Det finnes {count} oppdateringer!
 
 # Original: Undo
-#undo: UNTRANSLATED
+undo: Angre
 
 # Original: Uninstall
-#uninstall: UNTRANSLATED
+uninstall: Avinstaller
 
 # Original: Uninstall {count} Items
-#uninstallNPackages: UNTRANSLATED
+uninstallNPackages: Avinstaller {count} pakker
 
 # Original: Uninstalling {name} {version}...
-#uninstallingPackage: UNTRANSLATED
+uninstallingPackage: Avinstallerer {name} {version}...
 
 # Original: Update
-#update: UNTRANSLATED
+update: Oppdater
 
 # Original: Update Available
-#updateAvailable: UNTRANSLATED
+updateAvailable: Det finnes en oppdatering
 
 # Original: Update Channel
-#updateChannel: UNTRANSLATED
+updateChannel: Oppdateringskanal
 
 # Original: Update Frequency
-#updateFrequency: UNTRANSLATED
+updateFrequency: Oppdateringsfrekvens
 
 # Original: Update (System)
-#updateSystem: UNTRANSLATED
+updateSystem: Oppdater (for hele systemet)
 
 # Original: Update (User)
-#updateUser: UNTRANSLATED
+updateUser: Oppdater (for brukeren)
 
 # Original: {description} (User)
-#userDescription: UNTRANSLATED
+userDescription: {description} (for brukeren)
 
 # Original: Version Skipped
-#versionSkipped: UNTRANSLATED
+versionSkipped: Ingorert versjon
 
 # Original: Waiting for process to finish...
-#waitingForCompletion: UNTRANSLATED
+waitingForCompletion: Venter på at noe skal bli ferdig...
 
 # Original: Weekly
-#weekly: UNTRANSLATED
+weekly: Hver uke
 
 # Original: Window
-#window: UNTRANSLATED
+window: Vindu
 
 # Original: Would you like to download them now?
-#wouldYouLikeToDownloadThemNow: UNTRANSLATED
+wouldYouLikeToDownloadThemNow: Vil du lasta de ned nå?
 
 # Original: Zoom
-#zoom: UNTRANSLATED
+zoom: Zoom
