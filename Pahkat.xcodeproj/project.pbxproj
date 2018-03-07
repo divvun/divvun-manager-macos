@@ -1066,7 +1066,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Pahkat/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../pahkat-client/target/debug";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../pahkat-client-core/target/debug";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = no.divvun.Pahkat;
@@ -1091,7 +1091,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Pahkat/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../pahkat-client/target/release";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../pahkat-client-core/target/release";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = no.divvun.Pahkat;
