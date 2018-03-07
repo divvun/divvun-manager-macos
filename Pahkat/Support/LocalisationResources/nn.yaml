@@ -1,107 +1,107 @@
 # Original: About Package Manager
-#aboutApp: UNTRANSLATED
+aboutApp: Om Pakkehandteraren
 
 # Original: Alpha
-#alpha: UNTRANSLATED
+alpha: Alfa
 
 # Original: Help
-#appHelp: UNTRANSLATED
+appHelp: Hjelp
 
 # Original: Package Manager
-#appName: UNTRANSLATED
+appName: Pakkehandterar
 
 # Original: Package Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
-#appUpdateBody: UNTRANSLATED
+appUpdateBody: Pakkehandterar v{version} er no tilgjengeleg. Det er sterkt tilrådd at du oppdaterer så snart som råd. Vil du oppdatera no?
 
 # Original: Package Manager Update Available
-#appUpdateTitle: UNTRANSLATED
+appUpdateTitle: Pakkehandterar-oppdatering tilgjengeleg
 
 # Original: Beta
-#beta: UNTRANSLATED
+beta: Beta
 
 # Original: Bring All to Front
-#bringAllToFront: UNTRANSLATED
+bringAllToFront: Flytt alle fremst
 
 # Original: Cancel
-#cancel: UNTRANSLATED
+cancel: Avbryt
 
 # Original: Are you sure you want to cancel all downloads?
-#cancelDownloadsBody: UNTRANSLATED
+cancelDownloadsBody: Er du viss på at du vil avbryta nedlastingane?
 
 # Original: Cancel Downloads
-#cancelDownloadsTitle: UNTRANSLATED
+cancelDownloadsTitle: Avbryt nedlastingane
 
 # Original: Canceling...
-#cancelling: UNTRANSLATED
+cancelling: Eg avbryt...
 
 # Original: Category
-#category: UNTRANSLATED
+category: Kategori
 
 # Original: Check For Updates...
-#checkForUpdates: UNTRANSLATED
+checkForUpdates: Sjå etter oppateringar...
 
 # Original: Completed
-#completed: UNTRANSLATED
+completed: Fullført
 
 # Original: Copy
-#copy: UNTRANSLATED
+copy: Kopier
 
 # Original: Do you wish to send a crash report to the developers? No personal or private information is sent. (Recommended)
-#crashReportBody: UNTRANSLATED
+crashReportBody: Ynskjer du å senda ein kræsjrapport til utviklarane? Ingen personleg info blir sendt inn. (Tilrådd)
 
 # Original: Cut
-#cut: UNTRANSLATED
+cut: Klypp ut
 
 # Original: Daily
-#daily: UNTRANSLATED
+daily: Dagleg
 
 # Original: Delete
-#delete: UNTRANSLATED
+delete: Slett
 
 # Original: Error 😞
-#downloadError: UNTRANSLATED
+downloadError: "Feil \U0001F61E"
 
 # Original: Downloaded
-#downloaded: UNTRANSLATED
+downloaded: Nedlasta
 
 # Original: Downloading...
-#downloading: UNTRANSLATED
+downloading: Lastar ned...
 
 # Original: Edit
-#edit: UNTRANSLATED
+edit: Rediger
 
 # Original: Error
-#error: UNTRANSLATED
+error: Feil
 
 # Original: An error occurring during installation.
-#errorDuringInstallation: UNTRANSLATED
+errorDuringInstallation: Det gjekk skeis med installeringa.
 
 # Original: Error: Invalid Version
-#errorInvalidVersion: UNTRANSLATED
+errorInvalidVersion: Feil: ugyldig versjon
 
 # Original: Error: No Installer
-#errorNoInstaller: UNTRANSLATED
+errorNoInstaller: Feil: ingen installerar
 
 # Original: Error: Unknown Item
-#errorUnknownPackage: UNTRANSLATED
+errorUnknownPackage: Feil: ukjent objekt
 
 # Original: Every 4 Weeks
-#everyFourWeeks: UNTRANSLATED
+everyFourWeeks: Fjerdekvar veke
 
 # Original: Every 2 Weeks
-#everyTwoWeeks: UNTRANSLATED
+everyTwoWeeks: Annakvar veke
 
 # Original: Exit
-#exit: UNTRANSLATED
+exit: Avslutt
 
 # Original: Finish
-#finish: UNTRANSLATED
+finish: Ferdig
 
 # Original: Package Manager Help
-#help: UNTRANSLATED
+help: Pakkehandterar-hjelp
 
 # Original: Hide Package Manager
-#hideApp: UNTRANSLATED
+hideApp: Gøym Pakkehandteraren
 
 # Original: Hide Others
 #hideOthers: UNTRANSLATED
