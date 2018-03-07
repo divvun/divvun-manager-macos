@@ -152,7 +152,7 @@ minimize: Minimer
 nItemsRemaining: {count} pakker står att.
 
 # Original: {count} Updates Available
-nUpdatesAvailable: Det finst {count} oppdateringar 
+nUpdatesAvailable: Det finst {count} oppdateringar
 
 # Original: Never
 never: Aldri
@@ -312,7 +312,7 @@ updateUser: Oppdater (for brukaren)
 userDescription: {description} (for brukaren)
 
 # Original: Version Skipped
-versionSkipped: Overhoppa versjon
+versionSkipped: Ingorert versjon
 
 # Original: Waiting for process to finish...
 waitingForCompletion: Ventar på at noko skal bli ferdig...
