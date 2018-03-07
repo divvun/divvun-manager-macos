@@ -9,34 +9,56 @@
 import Foundation
 import RxSwift
 
+
 class UpdatePresenter {
     private unowned let view: UpdateViewable
+    var packages: [UpdateTablePackage] = []
     
     required init(view: UpdateViewable) {
         self.view = view
     }
     
     private func bindSkipButton() -> Disposable {
-        return view.onSkipButtonPressed.drive(onNext: {
-            
+        return view.onSkipButtonPressed.drive(onNext: { [weak self] in
+            // TODO: handle skip properly
+            self?.view.closeWindow()
         })
     }
     
     private func bindInstallButton() -> Disposable {
-        return view.onInstallButtonPressed.drive(onNext: {
+        return view.onInstallButtonPressed.drive(onNext: { [weak self] in
+            guard let `self` = self else { return }
             
+            var map = [URL: PackageAction]()
+            
+            for item in self.packages {
+                if !item.isEnabled {
+                    continue
+                }
+                
+                map[item.action.repository.url(for: item.package)] = item.action
+            }
+            
+            self.view.installPackages(packages: map)
         })
     }
     
     private func bindLaterButton() -> Disposable {
-        return view.onRemindButtonPressed.drive(onNext: {
-            
+        return view.onRemindButtonPressed.drive(onNext: { [weak self] in
+            self?.view.closeWindow()
         })
     }
     
     private func bindPackageToggled() -> Disposable {
         return self.view.onPackageToggled.subscribe(onNext: { [weak self] package in
-            self?.view.updateSelectedPackages(packages: [])
+            guard let `self` = self else { return }
+            guard let index = self.packages.index(where: { $0 == package }) else {
+                return
+            }
+            
+            self.packages[index].isEnabled = !self.packages[index].isEnabled
+            
+            self.view.setPackages(packages: self.packages)
         })
     }
     
@@ -48,17 +70,26 @@ class UpdatePresenter {
             .subscribe(onNext: { [weak self] repos in
                 guard let `self` = self else { return }
                 
-                var packages = [RepositoryIndex: [Package]]()
+                var packageOutlines = [UpdateTablePackage]()
                 
                 // Get all the updateables
                 for repo in repos {
-                    let packageIds = repo.statuses.flatMap { return $0.1.status == PackageInstallStatus.requiresUpdate ? $0.0 : nil }
-                    packages[repo] = packageIds.map { repo.packages[$0]! }
+                    let outlines: [UpdateTablePackage] = repo.statuses.flatMap {
+                        if $0.1.status != PackageInstallStatus.requiresUpdate {
+                            return nil
+                        }
+                        
+                        let package = repo.packages[$0.0]!
+                        
+                        return UpdateTablePackage(package: package, action: PackageAction.install(repo, package, $0.1.target), isEnabled: true)
+                    }
+                    
+                    packageOutlines.append(contentsOf: outlines)
                 }
                 
-                let updatingPackages = packages.values.joined().sorted()
+                let updatingPackages = packageOutlines.sorted()
+                self.packages = updatingPackages
                 self.view.setPackages(packages: updatingPackages)
-                self.view.updateSelectedPackages(packages: updatingPackages)
             })
     }
     

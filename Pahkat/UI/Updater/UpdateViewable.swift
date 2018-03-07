@@ -11,10 +11,11 @@ import RxSwift
 import RxCocoa
 
 protocol UpdateViewable: class {
-    func setPackages(packages: [Package])
+    func setPackages(packages: [UpdateTablePackage])
     var onInstallButtonPressed: Driver<Void> { get }
     var onSkipButtonPressed: Driver<Void> { get }
     var onRemindButtonPressed: Driver<Void> { get }
-    var onPackageToggled: Observable<Package> { get }
-    func updateSelectedPackages(packages: [Package])
+    var onPackageToggled: Observable<UpdateTablePackage> { get }
+    func closeWindow()
+    func installPackages(packages: [URL: PackageAction])
 }

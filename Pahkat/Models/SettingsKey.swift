@@ -23,9 +23,9 @@ enum SettingsKey: String, UserSettingsJSON {
     
     var requiresJSON: Bool {
         switch self {
-        case .interfaceLanguage, .nextUpdateCheck, .updateCheckInterval:
+        case .interfaceLanguage, .nextUpdateCheck:
             return false
-        case .repositories:
+        case .repositories, .updateCheckInterval:
             return true
         }
     }

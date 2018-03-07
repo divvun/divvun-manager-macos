@@ -33,14 +33,18 @@ class SettingsStore: RxStore<SettingsState, SettingsEvent> {
             }
             prefs[json: SettingsKey.repositories.rawValue] = newState.repositories
         case let .setInterfaceLanguage(language):
-            prefs[SettingsKey.interfaceLanguage] = [language]
+            prefs.setValue([language], forKeyPath: SettingsKey.interfaceLanguage.rawValue)
+//            prefs[SettingsKey.interfaceLanguage] = [language]
             newState.interfaceLanguage = language
         case let .setNextUpdateCheck(date):
             prefs[SettingsKey.nextUpdateCheck] = date
             newState.nextUpdateCheck = date
         case let .setUpdateCheckInterval(period):
-            prefs[SettingsKey.updateCheckInterval] = period
+//            prefs.set(json: SettingsKey.updateCheckInterval, value: period)
+//            prefs[SettingsKey.updateCheckInterval] = period.rawValue
+            prefs.set(period.rawValue, forKey: SettingsKey.updateCheckInterval.rawValue)
             newState.updateCheckInterval = period
+            print(prefs.object(forKey: SettingsKey.updateCheckInterval.rawValue))
         case let .setRepositoryConfigs(configs):
             prefs[SettingsKey.repositories] = configs
             newState.repositories = configs
@@ -50,6 +54,8 @@ class SettingsStore: RxStore<SettingsState, SettingsEvent> {
     }
 
     init() {
-        super.init(initialState: SettingsState(), reducers: [self.reducer])
+        let s = SettingsState()
+        super.init(initialState: s, reducers: [self.reducer])
+        print(s)
     }
 }

@@ -63,7 +63,7 @@ class OutlineGroup: Equatable, Comparable {
     }
 }
 
-class OutlinePackage: Equatable {
+class OutlinePackage: Equatable, Comparable {
     let package: Package
     var action: PackageAction?
     
@@ -74,6 +74,14 @@ class OutlinePackage: Equatable {
     
     static func ==(lhs: OutlinePackage, rhs: OutlinePackage) -> Bool {
         return lhs.package == rhs.package && lhs.action == rhs.action
+    }
+    
+    static func <(lhs: OutlinePackage, rhs: OutlinePackage) -> Bool {
+        if lhs.package.nativeName == rhs.package.nativeName {
+            return lhs.package.hashValue < rhs.package.hashValue
+        }
+        
+        return lhs.package.nativeName < rhs.package.nativeName
     }
 }
 

@@ -165,7 +165,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         contentView.settingsButton.isEnabled = false
         // TODO move to presenter?
         // Always update the repos on load.
-        AppContext.settings.state.take(1).map { $0.repositories }
+        AppContext.settings.state.map { $0.repositories }
             .flatMapLatest { (configs: [RepoConfig]) -> Observable<[RepositoryIndex]> in
                 return try AppDelegate.instance.requestRepos(configs)
             }

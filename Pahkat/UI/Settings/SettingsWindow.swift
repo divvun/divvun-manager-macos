@@ -12,6 +12,8 @@ class SettingsWindow: Window {}
 
 class SettingsWindowController: WindowController<SettingsWindow> {
     override func windowDidLoad() {
-        self.contentWindow.set(viewController: SettingsViewController())
+        DispatchQueue.main.async {
+            self.contentWindow.set(viewController: SettingsViewController())
+        }
     }
 }

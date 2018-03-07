@@ -26,12 +26,12 @@ extension Repository.Channels {
 }
 
 struct RepositoryTableRowData {
-    let name: String
-    let url: URL
-    let channel: Repository.Channels
+    let name: String?
+    let url: URL?
+    let channel: Repository.Channels?
 }
 
-class SettingsViewController: DisposableViewController<SettingsView>, SettingsViewable {
+class SettingsViewController: DisposableViewController<SettingsView>, SettingsViewable, NSWindowDelegate {
     private(set) var tableDelegate: RepositoryTableDelegate! = nil
     private lazy var presenter = { SettingsPresenter(view: self) }()
     
@@ -46,6 +46,7 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
     func addBlankRepositoryRow() {
         let rows = self.contentView.repoTableView.numberOfRows
         self.contentView.repoTableView.beginUpdates()
+        self.tableDelegate.configs.append(RepositoryTableRowData(name: nil, url: nil, channel: nil))
         self.contentView.repoTableView.insertRows(at: IndexSet(integer: rows), withAnimation: .effectFade)
         self.contentView.repoTableView.endUpdates()
         self.contentView.repoTableView.selectRowIndexes(IndexSet(integer: rows), byExtendingSelection: false)
@@ -63,6 +64,7 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
         alert.addButton(withTitle: "Pls no")
         alert.beginSheetModal(for: self.contentView.window!, completionHandler: {
             if $0 == NSApplication.ModalResponse.alertFirstButtonReturn {
+                self.tableDelegate.configs.remove(at: row)
                 self.contentView.repoTableView.beginUpdates()
                 self.contentView.repoTableView.removeRows(at: IndexSet(integer: row), withAnimation: .effectFade)
                 self.contentView.repoTableView.endUpdates()
@@ -70,13 +72,30 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
         })
     }
     
+    func windowWillClose(_ notification: Notification) {
+        AppContext.settings.dispatch(event: .setRepositoryConfigs(tableDelegate.configs.flatMap {
+            if let url = $0.url, let channel = $0.channel {
+                return RepoConfig(url: url, channel: channel)
+            }
+            return nil
+        }))
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        AppContext.windows.get(SettingsWindowController.self).window!.delegate = self
+//        self.view.window!.delegate = self
+        
         title = Strings.settings
         
+        InterfaceLanguage.bind(to: contentView.languageDropdown.menu!)
         UpdateFrequency.bind(to: contentView.frequencyPopUp.menu!)
         Repository.Channels.bind(to: contentView.repoChannelColumn.menu!)
+    }
+
+    override func viewWillAppear() {
+        super.viewWillAppear()
         
         contentView.repoAddButton.rx.tap.subscribe(onNext: { [weak self] in
             guard let `self` = self else { return }
@@ -87,10 +106,43 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
             guard let `self` = self else { return }
             self.promptRemoveRepositoryRow()
         }).disposed(by: bag)
-    }
-
-    override func viewWillAppear() {
-        super.viewWillAppear()
+        
+        AppContext.settings.state.map { $0.interfaceLanguage }
+            .subscribe(onNext: { [weak self] language in
+                guard let `self` = self else { return }
+                
+                guard let item = self.contentView.languageDropdown.menu!.items
+                    .first(where: { ($0.representedObject as! InterfaceLanguage).rawValue == language }) else {
+                    return
+                }
+                
+                self.contentView.languageDropdown.select(item)
+            }).disposed(by: bag)
+        
+        AppContext.settings.state.map { $0.updateCheckInterval }
+            .subscribe(onNext: { [weak self] frequency in
+                guard let `self` = self else { return }
+                
+                guard let item = self.contentView.frequencyPopUp.menu!.items
+                    .first(where: { ($0.representedObject as! UpdateFrequency) == frequency }) else {
+                        return
+                }
+                
+                self.contentView.frequencyPopUp.select(item)
+            }).disposed(by: bag)
+        
+        contentView.languageDropdown.rx.tap
+            .map { self.contentView.languageDropdown.selectedItem!.representedObject as! InterfaceLanguage }
+            .subscribe(onNext: {
+                AppContext.settings.dispatch(event: .setInterfaceLanguage($0.rawValue))
+            }).disposed(by: bag)
+        
+        contentView.frequencyPopUp.rx.tap
+            .map { self.contentView.frequencyPopUp.selectedItem!.representedObject as! UpdateFrequency }
+            .subscribe(onNext: {
+                AppContext.settings.dispatch(event: .setUpdateCheckInterval($0))
+            }).disposed(by: bag)
+        
         presenter.start().disposed(by: bag)
     }
     
@@ -115,8 +167,15 @@ enum RepositoryTableColumns: String {
     }
 }
 
+enum RepositoryTableEvent {
+    case setChannel(Int, Repository.Channels)
+    case setURL(Int, URL)
+    case remove(Int)
+}
+
 class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSource {
-    private var configs: [RepositoryTableRowData]
+    fileprivate var configs: [RepositoryTableRowData]
+    fileprivate let events = PublishSubject<RepositoryTableEvent>()
     
     init(with configs: [RepositoryTableRowData]) {
         self.configs = configs
@@ -135,12 +194,12 @@ class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSou
         
         switch column {
         case .url:
-            return config.url.absoluteString
+            return config.url?.absoluteString
         case .name:
             return config.name
         case .channel:
             guard let cell = tableColumn.dataCell as? NSPopUpButtonCell else { return nil }
-            guard let index = cell.menu?.items.index(where: { $0.representedObject as! Repository.Channels == config.channel }) else { return nil }
+            guard let index = cell.menu?.items.index(where: { $0.representedObject as? Repository.Channels == config.channel }) else { return nil }
             return index
         }
     }
@@ -155,7 +214,16 @@ class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSou
         
         switch column {
         case .url:
-            break
+            guard let string = object as? String else { return }
+            if let url = URL(string: string), url.scheme?.starts(with: "http") ?? false {
+                self.configs[row] = RepositoryTableRowData(name: Strings.loading, url: url, channel: configs[row].channel)
+                events.onNext(.setURL(row, url))
+            } else {
+                let alert = NSAlert()
+                alert.messageText = "Broken happen"
+                alert.informativeText = "Write a real URL noob"
+                alert.runModal()
+            }
         case .name:
             break
         case .channel:
@@ -166,40 +234,44 @@ class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSou
             
             // Required or UI does a weird blinking thing.
             self.configs[row] = RepositoryTableRowData(name: configs[row].name, url: configs[row].url, channel: channel)
-            
-            AppContext.settings.dispatch(event: SettingsEvent.updateRepoConfig(configs[row].url, channel))
-            break
+            events.onNext(.setChannel(row, channel))
         }
     }
-    
-//    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-//        guard let tableColumn = tableColumn else { return nil }
-//        guard let column = RepositoryTableColumns(identifier: tableColumn.identifier) else { return nil }
-//
-//        let cell = tableView.makeView(withIdentifier: tableColumn.identifier, owner: self) as! NSTableCellView
-//        let config = configs[row]
-//
-//        switch column {
-//        case .url:
-//            cell.textField?.isEditable = true
-//            cell.textField?.stringValue = config.0.url.absoluteString
-//        case .name:
-//            cell.textField?.isEditable = false
-//            cell.textField?.stringValue = config.1 ?? Strings.loading
-//        case .channel:
-//            cell.textField?.isEditable = true
-//            cell.textField?.stringValue = config.0.channel
-//        }
-//
-//        return cell
-//    }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         return self.configs.count
     }
-    
 }
 
+enum InterfaceLanguage: String, Comparable {
+    case en = "en"
+    case nn = "nn"
+    case se = "se"
+    
+    var description: String {
+        return ISO639.get(tag: self.rawValue)?.autonymOrName ?? self.rawValue
+    }
+    
+    static func <(lhs: InterfaceLanguage, rhs: InterfaceLanguage) -> Bool {
+        return lhs.description < rhs.description
+    }
+    
+    private static func createMenuItem(_ thingo: InterfaceLanguage) -> NSMenuItem {
+        return NSMenuItem(title: thingo.description, value: thingo)
+    }
+    
+    static func asMenuItems() -> [NSMenuItem] {
+        return [
+            InterfaceLanguage.en,
+            InterfaceLanguage.nn,
+            InterfaceLanguage.se
+        ].sorted().map { createMenuItem($0) }
+    }
+    
+    static func bind(to menu: NSMenu) {
+        self.asMenuItems().forEach(menu.addItem(_:))
+    }
+}
 
 fileprivate extension UpdateFrequency {
     private static func createMenuItem(_ thingo: UpdateFrequency) -> NSMenuItem {

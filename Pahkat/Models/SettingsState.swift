@@ -9,11 +9,18 @@
 import Foundation
 
 struct SettingsState: Codable {
-    //
-    internal(set) var repositories: [RepoConfig] = [RepoConfig.init(url: URL(string: "https://x.brendan.so/macos-repo/")!, channel: .stable)]
-    //UserDefaults.standard["repositories"] ?? []
-    internal(set) var updateCheckInterval: UpdateFrequency = UserDefaults.standard[SettingsKey.updateCheckInterval] ?? .daily
+    internal(set) var repositories: [RepoConfig] = UserDefaults.standard[SettingsKey.repositories] ?? []
+    internal(set) var updateCheckInterval: UpdateFrequency = {
+        if let v = UserDefaults.standard.string(forKey: SettingsKey.updateCheckInterval.rawValue) {
+            return UpdateFrequency(rawValue: v) ?? .daily
+        }
+        return .daily
+    }()
     internal(set) var nextUpdateCheck: Date = UserDefaults.standard[SettingsKey.nextUpdateCheck] ?? .distantPast
-    internal(set) var interfaceLanguage: String = UserDefaults.standard.getArray(SettingsKey.interfaceLanguage.rawValue)?[0]
-        ?? Locale.current.languageCode ?? "en"
+    internal(set) var interfaceLanguage: String = {
+        guard let v = UserDefaults.standard.object(forKey: SettingsKey.interfaceLanguage.rawValue) as? [String] else {
+            return Locale.current.languageCode ?? "en"
+        }
+        return v[0]
+    }()
 }

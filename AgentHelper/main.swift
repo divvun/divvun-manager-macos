@@ -60,6 +60,9 @@ func checkForUpdates() {
             }
             print("No updates found.")
             exit(0)
+        }, onError: {
+            print($0)
+            exit(1)
         })
 }
 

@@ -12,6 +12,9 @@ class SettingsView: View {
     @IBOutlet weak var frequencyPopUp: NSPopUpButton!
     @IBOutlet weak var frequencyLabel: NSTextField!
     
+    @IBOutlet weak var languageDropdown: NSPopUpButton!
+    @IBOutlet weak var languageLabel: NSTextField!
+    
     @IBOutlet weak var repoTableView: NSTableView!
     @IBOutlet weak var repoLabel: NSTextField!
     

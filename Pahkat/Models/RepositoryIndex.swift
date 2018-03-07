@@ -65,6 +65,10 @@ class RepositoryIndex: Decodable, Hashable, Equatable, Comparable {
     }
     
     static func <(lhs: RepositoryIndex, rhs: RepositoryIndex) -> Bool {
+        // BTree keys break if you don't break contention yourself...
+        if lhs.meta.nativeName == rhs.meta.nativeName {
+            return lhs.hashValue < rhs.hashValue
+        }
         return lhs.meta.nativeName < rhs.meta.nativeName
     }
     

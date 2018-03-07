@@ -25,7 +25,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     static weak var instance: AppDelegate!
     
     private let bag = DisposeBag()
-    private(set) var requiresAppDeath = false
+    internal var requiresAppDeath = false
     
     func requestRepos(_ configs: [RepoConfig]) throws -> Observable<[RepositoryIndex]> {
         return Observable.from(try configs.map { config in try AppContext.rpc.repository(with: config).asObservable() })
