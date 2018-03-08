@@ -1,330 +1,330 @@
 # Original: About Package Manager
-aboutApp: Om Pakkehandteraren
+aboutApp: ᚮᛘ ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱᛂᚿ
 
 # Original: Alpha
-alpha: Alfa
+alpha: ᛆᛚᚠᛆ
 
 # Original: Help
-appHelp: Hjelp
+appHelp: ᚼᛁᛂᛚᛔ
 
 # Original: Package Manager
-appName: Pakkehandterar
+appName: ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱ
 
 # Original: Package Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
-appUpdateBody: Pakkehandterar v{version} er no tilgjengeleg. Det er sterkt tilrådd at du oppdaterer så snart som råd. Vil du oppdatera no?
+appUpdateBody: ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱ v{version} ᛂᚱ ᚿᚮ ᛐᛁᛚᚵᛁᛂᚿᚵᛂᛚᛂᚵ. ᛞᛂᛐ ᛂᚱ ᛌᛐᛂᚱᚴᛐ ᛐᛁᛚᚱᚭᛑᛑ ᛆᛐ ᛑᚢ ᚮᛔᛔᛑᛆᛐᛂᚱᛂᚱ ᛌᚭ ᛌᚿᛆᚱᛐ ᛌᚮᛘ ᚱᚭᛑ. ᚹᛁᛚ ᛑᚢ ᚮᛔᛔᛑᛆᛐᛂᚱᛆ ᚿᚮ?
 
 # Original: Package Manager Update Available
-appUpdateTitle: Pakkehandterar-oppdatering tilgjengeleg
+appUpdateTitle: ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱ-ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵ ᛐᛁᛚᚵᛁᛂᚿᚵᛂᛚᛂᚵ
 
 # Original: Beta
-beta: Beta
+beta: ᛒᛂᛐᛆ
 
 # Original: Bring All to Front
-bringAllToFront: Flytt alle fremst
+bringAllToFront: ᚠᛚᛦᛐᛐ ᛆᛚᛚᛂ ᚠᚱᛂᛘᛌᛐ
 
 # Original: Cancel
-cancel: Avbryt
+cancel: ᛆᚡᛒᚱᛦᛐ
 
 # Original: Are you sure you want to cancel all downloads?
-cancelDownloadsBody: Er du viss på at du vil avbryta nedlastingane?
+cancelDownloadsBody: ᛂᚱ ᛑᚢ ᚡᛁᛌᛌ ᛔᚭ ᛆᛐ ᛑᚢ ᚡᛁᛚ ᛆᚡᛒᚱᛦᛐᛆ ᛆᛚᛚᛂ ᚿᛂᛑᛚᛆᛌᛐᛁᚿᚵᛆᚿᛂ?
 
 # Original: Cancel Downloads
-cancelDownloadsTitle: Avbryt nedlastingane
+cancelDownloadsTitle: ᛆᚡᛒᚱᛦᛐ ᚿᛂᛑᛚᛆᛌᛐᛁᚿᚵᛆᚿᛂ
 
 # Original: Canceling...
-cancelling: Eg avbryt...
+cancelling: ᛂᚵ ᛆᚡᛒᚱᛦᛐ...
 
 # Original: Category
-category: Kategori
+category: ᚴᛆᛐᛂᚵᚮᚱᛁ
 
 # Original: Check For Updates...
-checkForUpdates: Sjå etter oppateringar...
+checkForUpdates: ᛌᛁᚭ ᛂᛐᛐᛂᚱ ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛆᚱ...
 
 # Original: Completed
-completed: Fullført
+completed: ᚠᚢᛚᛚᚠᚯᚱᛐ
 
 # Original: Copy
-copy: Kopier
+copy: ᚴᚮᛔᛁᛂᚱ
 
 # Original: Do you wish to send a crash report to the developers? No personal or private information is sent. (Recommended)
-crashReportBody: Ynskjer du å senda ein kræsjrapport til utviklarane? Ingen personleg info blir sendt inn. (Tilrådd)
+crashReportBody: ᛦᚿᛌᚴᛁᛂᚱ ᛑᚢ ᚭ ᛌᛂᚿᛑᛆ ᛂᛁᚿ ᚴᚱᛅᛌᛁᚱᛆᛔᛔᚮᚱᛐ ᛐᛁᛚ ᚢᛐᚡᛁᚴᛚᛆᚱᛆᚿᛑᛂ? ᛁᚿᚵᛂᚿ ᛔᛂᚱᛌᚮᚿᛚᛂᚵ ᛁᚿᚠᚮ ᛒᛚᛁᚱ ᛌᛂᚿᛑᛐ ᛁᚿᚿ. (ᛐᛁᛚᚱᚭᛑᛑ)
 
 # Original: Cut
-cut: Klypp ut
+cut: ᚴᛚᛦᛔᛔ ᚢᛐ
 
 # Original: Daily
-daily: Dagleg
+daily: ᛑᛆᚵᛚᛂᚵ
 
 # Original: Delete
-delete: Slett
+delete: ᛌᛚᛂᛐᛐ
 
 # Original: Error 😞
-downloadError: "Feil \U0001F61E"
+downloadError: "ᚠᛂᛁᛚ \U0001F61E"
 
 # Original: Downloaded
-downloaded: Nedlasta
+downloaded: ᚿᛂᛑᛚᛆᛌᛐᛆ
 
 # Original: Downloading...
-downloading: Lastar ned...
+downloading: ᛚᛆᛌᛐᛆᚱ ᚿᛂᛑ...
 
 # Original: Edit
-edit: Rediger
+edit: ᚱᛂᛑᛁᚵᛂᚱ
 
 # Original: Error
-error: Feil
+error: ᚠᛂᛁᛚ
 
 # Original: An error occurring during installation.
-errorDuringInstallation: Det gjekk skeis med installeringa.
+errorDuringInstallation: ᛑᛂᛐ ᚵᛁᛂᚴᚴ ᛐᛁᛚ ᚼᛂᛚ ᛘᛂᛑ ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛁᚿᚵᛆ.
 
 # Original: Error: Invalid Version
-errorInvalidVersion: Feil: ugyldig versjon
+errorInvalidVersion: ᚠᛂᛁᛚ: ᚢᚵᛦᛚᛑᛁᚵ ᚡᛂᚱᛌᛁᚮᚿ
 
 # Original: Error: No Installer
-errorNoInstaller: Feil: ingen installerar
+errorNoInstaller: ᚠᛂᛁᛚ: ᛁᚿᚵᛂᚿ ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛆᚱ
 
 # Original: Error: Unknown Item
-errorUnknownPackage: Feil: ukjent  pakke
+errorUnknownPackage: ᚠᛂᛁᛚ: ᚢᚴᛁᛂᚿᛐ ᛔᛆᚴᚴᛂ
 
 # Original: Every 4 Weeks
-everyFourWeeks: Fjerdekvar veke
+everyFourWeeks: ᚠᛁᛂᚱᛑᛂᚴᚡᛆᚱ ᚡᛂᚴᛂ
 
 # Original: Every 2 Weeks
-everyTwoWeeks: Annakvar veke
+everyTwoWeeks: ᛆᚿᚿᛆᚴᚡᛆᚱ ᚡᛂᚴᛂ
 
 # Original: Exit
-exit: Avslutt
+exit: ᛆᚡᛌᛚᚢᛐᛐ
 
 # Original: Finish
-finish: Ferdig
+finish: ᚠᛂᚱᛑᛁᚵ
 
 # Original: Package Manager Help
-help: Pakkehandterar-hjelp
+help: ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱ-ᚼᛁᛂᛚᛔ
 
 # Original: Hide Package Manager
-hideApp: Gøym Pakkehandteraren
+hideApp: ᚵᚯᛦᛘ ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱᛂᚿ
 
 # Original: Hide Others
-hideOthers: Gøym andre
+hideOthers: ᚵᚯᛦᛘ ᛆᚿᛑᚱᛂ
 
 # Original: Install
-install: Installer
+install: ᛁᚿᛌᛐᛆᛚᛚᛂᚱ
 
 # Original: Install {count} Items
-installNPackages: Installer {count} pakker
+installNPackages: ᛁᚿᛌᛐᛆᛚᛚᛂᚱ {count} ᛔᛆᚴᚴᛂᚱ
 
 # Original: Install (System)
-installSystem: Installer (for heile systemet)
+installSystem: ᛁᚿᛌᛐᛆᛚᛚᛂᚱ (ᚠᚮᚱ ᚼᛂᛁᛚᛂ ᛌᛦᛌᛐᛂᛘᛂᛐ)
 
 # Original: Install/Uninstall {count} Items
-installUninstallNPackages: Installer/avinstaller {count} pakker
+installUninstallNPackages: ᛁᚿᛌᛐᛆᛚᛚᛂᚱ/ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱ {count} ᛔᛆᚴᚴᛂᚱ
 
 # Original: Install (User)
-installUser: Installer (for brukar)
+installUser: ᛁᚿᛌᛐᛆᛚᛚᛂᚱ (ᚠᚮᚱ ᛒᚱᚢᚴᛆᚱ)
 
 # Original: Installed
-installed: Installert
+installed: ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛐ
 
 # Original: Installing {name} {version}...
-installingPackage: Installerer {name} {version}...
+installingPackage: ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ {name} {version}...
 
 # Original: Installing/Uninstalling
-installingUninstalling: Installerer/avinstallerer
+installingUninstalling: ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ/ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ
 
 # Original: Interface Language
-interfaceLanguage: Vis Pakkehandteraren med språket
+interfaceLanguage: ᚡᛁᛌ ᛔᚱᚮᚵᚱᛆᛘᛘᛂᛐ ᛘᛂᛑ ᛌᛔᚱᚭᚴᛂᛐ
 
 # Original: Please ensure that the URL begins with "https" and try again.
-invalidUrlBody: Ver greid og sjekk at URL-en byrjar med "https" og prøv på nytt.
+invalidUrlBody: ᚡᛂᚱ ᚵᚱᛂᛁᛑ ᚮᚵ ᛌᛁᛂᚴᚴᛐ ᛆᛐ URL-ᛂᚿ ᛒᛦᚱᛁᛆᚱ ᛘᛂᛑ "https" ᚮᚵ ᛔᚱᚯᚡ ᛔᚭ ᚿᛦᛐᛐ.
 
 # Original: The provided URL is invalid.
-invalidUrlTitle: URL-en er ugyldig.
+invalidUrlTitle: URL-ᛂᚿ ᛂᚱ ᚢᚵᛦᛚᛑᛁᚵ.
 
 # Original: Language
-language: Språk
+language: ᛌᛔᚱᚭᚴ
 
 # Original: Loading...
-loading: Lastar inn...
+loading: ᛚᛆᛌᛐᛆᚱ ᛁᚿᚿ...
 
 # Original: Minimize
-minimize: Minimer
+minimize: ᛘᛁᚿᛁᛘᛂᚱ
 
 # Original: {count} items remaining.
-nItemsRemaining: {count} pakker står att.
+nItemsRemaining: {count} ᛔᛆᚴᚴᛂᚱ ᛌᛐᚭᚱ ᛆᛐᛐ.
 
 # Original: {count} Updates Available
-nUpdatesAvailable: Det finst {count} oppdateringar
+nUpdatesAvailable: ᛑᛂᛐ ᚠᛁᚿᛌᛐ {count} ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛆᚱ
 
 # Original: Never
-never: Aldri
+never: ᛆᛚᛑᚱᛁ
 
 # Original: Next update check at: {date}
-nextUpdateDue: Neste oppdateringssjekk {date}
+nextUpdateDue: ᚿᛂᛌᛐᛂ ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛌᛌᛁᛂᚴᚴ {date}
 
 # Original: Nightly
-nightly: Nattleg
+nightly: ᚿᛆᛐᛐᛚᛂᚵ
 
 # Original: No Items Selected
-noPackagesSelected: Ingen valde pakker
+noPackagesSelected: ᛁᚿᚵᛂᚿ ᚡᛆᛚᛑᛂ ᛔᛆᚴᚴᛂᚱ
 
 # Original: No new updates were found.
-noUpdatesBody: Fann ingen nye oppdateringar
+noUpdatesBody: ᚠᛆᚿᚿ ᛁᚿᚵᛂᚿ ᚿᛦᛂ ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛆᚱ
 
 # Original: No Updates
-noUpdatesTitle: Ingen oppdateringar
+noUpdatesTitle: ᛁᚿᚵᛂᚿ ᚮᛔᛔᛑᛆᚵᛐᛂᚱᛁᚿᚵᛆᚱ
 
 # Original: --
 notApplicable: —
 
 # Original: Not Installed
-notInstalled: Ikkje installert
+notInstalled: ᛁᚴᚴᛁᛂ ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛐ
 
 # Original: OK
-ok: Greidt
+ok: ᚵᚱᛂᛁᛑᛐ
 
 # Original: Open Package Manager
-openPackageManager: Opne Pakkehandteraren
+openPackageManager: ᚮᛔᚿᛂ ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱᛂᚿ
 
 # Original: Paste
-paste: Lim inn
+paste: ᛚᛁᛘ ᛁᚿᚿ
 
 # Original: Paste and Match Style
-pasteAndMatchStyle: Lim inn tilpassa
+pasteAndMatchStyle: ᛚᛁᛘ ᛁᚿᚿ ᛐᛁᛚᛔᛆᛌᛌᛆ
 
 # Original: Preferences…
-preferences: Innstillingar…
+preferences: ᛁᚿᚿᛌᛐᛁᛚᛚᛁᚿᚵᛆᚱ…
 
 # Original: You may now close this window, or return to the main screen.
-processCompletedBody: No kan du lata att vindauget, eller gå attende til hovudvindauget.
+processCompletedBody: ᚿᚮ ᚴᛆᚿ ᛑᚢ ᛚᛆᛐᛆ ᛆᛐᛐ ᚡᛁᚿᛑᛆᚢᚵᛂᛐ, ᛂᛚᛚᛂᚱ ᚵᚭ ᛆᛐᛐᛂᚿᛑᛂ ᛐᛁᛚ ᚼᚮᚡᚢᛑᚡᛁᚿᛑᛆᚢᚵᛂᛐ.
 
 # Original: Done!
-processCompletedTitle: Ferdig!
+processCompletedTitle: ᚠᛂᚱᛑᛁᚵ!
 
 # Original: Queued
-queued: I kø
+queued: ᛁ ᚴᚯ
 
 # Original: Quit Package Manager
-quitApp: Avslutt Pakkehandteraren
+quitApp: ᛆᚡᛌᛚᚢᛐᛐ ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱᛂᚿ
 
 # Original: Redo
-redo: Gjer på nytt
+redo: ᚵᛁᛂᚱ ᛔᚭ ᚿᛦᛐᛐ
 
 # Original: Remind Me Later
-remindMeLater: Minn meg på det seinare
+remindMeLater: ᛘᛁᚿᚿ ᛘᛂᚵ ᛔᚭ ᛑᛂᛐ ᛌᛂᛁᚿᛆᚱᛂ
 
 # Original: Are you sure you wish to remove this repository?
-removeRepoBody: Er du sikker på at du vil fjerna repositoriet?
+removeRepoBody: ᛂᚱ ᛑᚢ ᛌᛁᚴᚴᛂᚱ ᛔᚭ ᛆᛐ ᛑᚢ ᚡᛁᛚ ᚠᛁᛂᚱᚿᛆ ᛚᛆᚵᛂᚱᛂᛐ?
 
 # Original: This will remove the selected repository.
-removeRepoTitle: Dette vil fjerna det valde repositoriet.
+removeRepoTitle: ᛑᛂᛐᛐᛂ ᚡᛁᛚ ᚠᛁᛂᚱᚿᛆ ᛑᛂᛐ ᚡᛆᛚᛑᛂ ᛚᛆᚵᛂᚱᛂᛐ.
 
 # Original: Repositories
-repositories: Repositorium
+repositories: ᛚᛆᚵᛂᚱ
 
 # Original: Repository
-repository: Repositorium
+repository: ᛚᛆᚵᛂᚱ
 
 # Original: Repository Error
-repositoryError: Repositoriefeil
+repositoryError: ᛚᛆᚵᛂᚱᚠᛂᛁᛚ
 
 # Original: There was an error while opening the repository:
 # 
 # {message}
-repositoryErrorBody: Det dukka opp ein feil medan eg opna repositoriet:
+repositoryErrorBody: ᛂᚵ ᚠᛂᚴᚴ ᛂᛁᚿ ᚠᛂᛁᛚ ᛘᛂᛑᛆᚿ ᛂᚵ ᚮᛔᚿᛆ ᛚᛆᚵᛂᚱᛂᛐ:
 
 {message}
 
 # Original: Restart Later
-restartLater: Omstart seinare
+restartLater: ᚮᛘᛌᛐᛆᚱᛐ ᛌᛂᛁᚿᛆᚱᛂ
 
 # Original: Restart Now
-restartNow: Omstart no
+restartNow: ᚮᛘᛌᛐᛆᚱᛐ ᚿᚮ
 
 # Original: It is highly recommended that you restart your computer in order for some changes to take effect.
-restartRequiredBody: Det er sterkt tilrådd å starta datamaskina på nytt for at somme endringar skal tre i kraft
+restartRequiredBody: ᛑᛂᛐ ᛂᚱ ᛌᛐᛂᚱᚴᛐ ᛐᛁᛚᚱᚭᛑᛑ ᚭ ᛌᛐᛆᚱᛐᛆ ᛑᛆᛐᛆᛘᛆᛌᚴᛁᚿᛆ ᛔᚭ ᚿᛦᛐᛐ ᚠᚮᚱ ᛆᛐ ᛌᚢᛘᛂ ᛂᚿᛑᚱᛁᚿᚵᛆᚱ ᛌᚴᛆᛚ ᛐᚱᛂ ᛁ ᚴᚱᛆᚠᛐ.
 
 # Original: Time to reboot!
-restartRequiredTitle: Tid for å starta maskina på nytt!
+restartRequiredTitle: ᛐᛁᛑ ᚠᚮᚱ ᚭ ᛌᛐᛆᚱᛐᛆ ᛘᛆᛌᚴᛁᚿᛆ ᛔᚭ ᚿᛦᛐᛐ!
 
 # Original: Save
-save: Lagre
+save: ᛚᛆᚵᚱᛂ
 
 # Original: Select All
-selectAll: Vel alt
+selectAll: ᚡᛂᛚ ᛆᛚᛐ
 
 # Original: Services
-services: Tenester
+services: ᛐᛂᚿᛂᛌᛐᛂᚱ
 
 # Original: Settings
-settings: Innstillingar
+settings: ᛁᚿᚿᛌᛐᛁᛚᛚᛁᚿᚵᛆᚱ
 
 # Original: Show All
-showAll: Vis alle
+showAll: ᚡᛁᛌ ᛆᛚᛚᛂ
 
 # Original: Skip These Updates
-skipTheseUpdates: Hopp over desse oppdateringane
+skipTheseUpdates: ᚼᚮᛔᛔ ᚮᚡᛂᚱ ᛑᛂᛌᛌᛂ ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛆᚿᛂ
 
 # Original: Sort by…
-sortBy: Sorter etter…
+sortBy: ᚮᚱᛑᚿᛆ ᛂᛐᛐᛂᚱ…
 
 # Original: Stable
-stable: Stabil
+stable: ᛌᛐᛆᛒᛁᛚ
 
 # Original: Starting...
-starting: Startar...
+starting: ᛌᛐᛆᚱᛐᛆᚱ...
 
 # Original: Default Language
-systemLocale: Standardspråk
+systemLocale: ᛌᛐᛆᚿᛑᛆᚱᛑᛌᛔᚱᚭᚴ
 
 # Original: There are {count} updates available!
-thereAreNUpdatesAvailable: Det finst {count} oppdateringar!
+thereAreNUpdatesAvailable: ᛑᛂᛐ ᚠᛁᚿᛌᛐ {count} ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛆᚱ!
 
 # Original: Undo
-undo: Angre
+undo: ᛆᚿᚵᚱᛂ
 
 # Original: Uninstall
-uninstall: Avinstaller
+uninstall: ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱ
 
 # Original: Uninstall {count} Items
-uninstallNPackages: Avinstaller {count} pakker
+uninstallNPackages: ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱ {count} ᛔᛆᚴᚴᛂᚱ
 
 # Original: Uninstalling {name} {version}...
-uninstallingPackage: Avinstallerer {name} {version}...
+uninstallingPackage: ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ {name} {version}...
 
 # Original: Update
-update: Oppdater
+update: ᚮᛔᛔᛑᛆᛐᛂᚱ
 
 # Original: Update Available
-updateAvailable: Det finst ei oppdatering
+updateAvailable: ᛑᛂᛐ ᚠᛁᚿᛌᛐ ᛂᛁ ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵ
 
 # Original: Update Channel
-updateChannel: Oppdateringskanal
+updateChannel: ᚮᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛌᚴᛆᚿᛆᛚ
 
 # Original: Update Frequency
-updateFrequency: Oppdateringsfrekvens
+updateFrequency: ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛌᚠᚱᛂᚴᚡᛂᚿᛌ
 
 # Original: Update (System)
-updateSystem: Oppdater (for heile systemet)
+updateSystem: ᚮᛔᛔᛑᛆᛐᛂᚱ (ᚠᚮᚱ ᚼᛂᛁᛚᛂ ᛌᛦᛌᛐᛂᛘᛂᛐ)
 
 # Original: Update (User)
-updateUser: Oppdater (for brukaren)
+updateUser: ᚮᚮᛔᛔᛑᛆᛐᛂᚱ (ᚠᚮᚱ ᛒᚱᚢᚴᛆᚱᛂᚿ)
 
 # Original: {description} (User)
-userDescription: {description} (for brukaren)
+userDescription: {description} (ᚠᚮᚱ ᛒᚱᚢᚴᛆᚱᛂᚿ)
 
 # Original: Version Skipped
-versionSkipped: Ingorert versjon
+versionSkipped: ᛁᚵᚿᚮᚱᛂᚱᛐ ᚡᛂᚱᛌᛁᚮᚿ
 
 # Original: Waiting for process to finish...
-waitingForCompletion: Ventar på at noko skal bli ferdig...
+waitingForCompletion: ᚡᛂᚿᛐᛆᚱ ᛔᚭ ᛆᛐ ᚿᚮᚴᚮ ᛌᚴᛆᛚ ᛒᛚᛁ ᚠᛂᚱᛑᛁᚵ...
 
 # Original: Weekly
-weekly: Kvar veke
+weekly: ᚴᚡᛆᚴᚱ ᚡᛂᚴᛂ
 
 # Original: Window
-window: Vindauge
+window: ᚡᛁᚿᛑᛆᚢᚵᛂ
 
 # Original: Would you like to download them now?
-wouldYouLikeToDownloadThemNow: Vil du lasta dei ned no?
+wouldYouLikeToDownloadThemNow: ᚡᛁᛚ ᛑᚢ ᛚᛆᛌᛐᛆ ᛑᛂᛁ ᚿᛂᛑ ᚿᚮ?
 
 # Original: Zoom
-zoom: Zoom
+zoom: ᛌᚮᚮᛘ
