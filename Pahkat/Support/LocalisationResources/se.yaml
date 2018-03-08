@@ -40,7 +40,7 @@ cancelling: Heaittiheame...
 category: Kategoriija
 
 # Original: Channel
-#channel: UNTRANSLATED
+channel: Kanála
 
 # Original: Check For Updates...
 checkForUpdates: Oza ođđa veršuvnna...
@@ -138,7 +138,7 @@ installingPackage: 'Sajáiduhttime {name} {version}...'
 installingUninstalling: Sajáiduhttime/Váldime eret
 
 # Original: Interface Language
-interfaceLanguage: Interface-giella
+interfaceLanguage: Prográmmagiella
 
 # Original: Please ensure that the URL begins with "https" and try again.
 invalidUrlBody: 'Geahča bearrái ahte URL álgá "https":in ja geahččal vas.'
@@ -253,7 +253,7 @@ restartRequiredBody: Galggalit ođđasis álggahit dihtora vai rievdadusat álge
 restartRequiredTitle: Dál lea ođđasis álggahit!
 
 # Original: Restart the app for language changes to take effect.
-#restartTheAppForLanguageChanges: UNTRANSLATED
+restartTheAppForLanguageChanges: Álggat áppa ođđasis vai giellarievdadusat álget doaibmat
 
 # Original: Save
 save: Vurke
@@ -319,7 +319,7 @@ updateSystem: Ođastuhte (Systema)
 updateUser: Ođastuhte (Geavaheaddji)
 
 # Original: URL
-#url: UNTRANSLATED
+url: URL
 
 # Original: {description} (User)
 userDescription: '{description} (Geavaheaddji)'
