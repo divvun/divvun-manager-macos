@@ -37,6 +37,9 @@
 # Original: Category
 #category: UNTRANSLATED
 
+# Original: Channel
+#channel: UNTRANSLATED
+
 # Original: Check For Updates...
 #checkForUpdates: UNTRANSLATED
 
@@ -97,7 +100,7 @@
 # Original: Finish
 #finish: UNTRANSLATED
 
-# Original: Package Manager Help
+# Original: Help
 #help: UNTRANSLATED
 
 # Original: Hide Package Manager
@@ -243,6 +246,9 @@
 # Original: Time to reboot!
 #restartRequiredTitle: UNTRANSLATED
 
+# Original: Restart the app for language changes to take effect.
+#restartTheAppForLanguageChanges: UNTRANSLATED
+
 # Original: Save
 #save: UNTRANSLATED
 
@@ -305,6 +311,9 @@
 
 # Original: Update (User)
 #updateUser: UNTRANSLATED
+
+# Original: URL
+#url: UNTRANSLATED
 
 # Original: {description} (User)
 #userDescription: UNTRANSLATED

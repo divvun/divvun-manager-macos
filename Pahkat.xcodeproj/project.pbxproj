@@ -192,6 +192,12 @@
 		C622706A203A247300DBCD65 /* ISO639.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISO639.swift; sourceTree = "<group>"; };
 		C656A692203ECAF80004E7F1 /* CompletionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompletionView.xib; sourceTree = "<group>"; };
 		C656A695203EE5190004E7F1 /* base.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = base.yaml; path = Pahkat/Support/LocalisationResources/base.yaml; sourceTree = SOURCE_ROOT; };
+		C6646CD620507E3300602C20 /* se */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = se; path = ../se.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C6646CD720507E4800602C20 /* se */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = se; path = ../se.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C6646CD820507E5900602C20 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = ../nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C6646CD920507E6F00602C20 /* en-001 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-001"; path = "../en-001.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		C6646CDA20507E7500602C20 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = ../nb.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C6646CDB20507E7700602C20 /* en-001 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-001"; path = "../en-001.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C69F948A2028B1EA00127A47 /* Pahkat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pahkat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C69F948D2028B1EA00127A47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C69F948F2028B1EA00127A47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -630,6 +636,9 @@
 				en,
 				Base,
 				nn,
+				se,
+				nb,
+				"en-001",
 			);
 			mainGroup = C69F94812028B1EA00127A47;
 			productRefGroup = C69F948B2028B1EA00127A47 /* Products */;
@@ -900,6 +909,9 @@
 			children = (
 				C60B22F120432AF400A2027A /* Base */,
 				C60B22F320432AF800A2027A /* nn */,
+				C6646CD620507E3300602C20 /* se */,
+				C6646CD820507E5900602C20 /* nb */,
+				C6646CD920507E6F00602C20 /* en-001 */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -910,6 +922,9 @@
 				C62270632039E08B00DBCD65 /* Base */,
 				C62270652039E09600DBCD65 /* en */,
 				C60B22ED2043217300A2027A /* nn */,
+				C6646CD720507E4800602C20 /* se */,
+				C6646CDA20507E7500602C20 /* nb */,
+				C6646CDB20507E7700602C20 /* en-001 */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

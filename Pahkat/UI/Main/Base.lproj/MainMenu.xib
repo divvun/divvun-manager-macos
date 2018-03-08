@@ -124,6 +124,7 @@
                                 </connections>
                             </menuItem>
                         </items>
+                        <accessibility identifier="edit"/>
                     </menu>
                     <accessibility identifier="edit"/>
                 </menuItem>
@@ -153,6 +154,7 @@
                                 </connections>
                             </menuItem>
                         </items>
+                        <accessibility identifier="window"/>
                     </menu>
                     <accessibility identifier="window"/>
                 </menuItem>
@@ -167,6 +169,7 @@
                                 </connections>
                             </menuItem>
                         </items>
+                        <accessibility identifier="help"/>
                     </menu>
                     <accessibility identifier="help"/>
                 </menuItem>

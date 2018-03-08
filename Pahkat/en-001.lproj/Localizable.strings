@@ -11,6 +11,7 @@
 "cancelDownloadsTitle" = "Cancel Downloads";
 "cancelling" = "Cancelling...";
 "category" = "Category";
+"channel" = "Channel";
 "checkForUpdates" = "Check For Updates...";
 "completed" = "Completed";
 "copy" = "Copy";
@@ -31,7 +32,7 @@
 "everyTwoWeeks" = "Every 2 Weeks";
 "exit" = "Exit";
 "finish" = "Finish";
-"help" = "Package Manager Help";
+"help" = "Help";
 "hideApp" = "Hide Package Manager";
 "hideOthers" = "Hide Others";
 "install" = "Install";
@@ -71,6 +72,7 @@
 "remindMeLater" = "Remind Me Later";
 "removeRepoBody" = "Are you sure you wish to remove this repository?";
 "removeRepoTitle" = "This will remove the selected repository.";
+"repositories" = "Repositories";
 "repository" = "Repository";
 "repositoryError" = "Repository Error";
 "repositoryErrorBody" = "There was an error while opening the repository:
@@ -80,6 +82,7 @@
 "restartNow" = "Restart Now";
 "restartRequiredBody" = "It is highly recommended that you restart your computer in order for some changes to take effect.";
 "restartRequiredTitle" = "Time to reboot!";
+"restartTheAppForLanguageChanges" = "Restart the app for language changes to take effect.";
 "save" = "Save";
 "selectAll" = "Select All";
 "services" = "Services";
@@ -101,6 +104,7 @@
 "updateFrequency" = "Update Frequency";
 "updateSystem" = "Update (System)";
 "updateUser" = "Update (User)";
+"url" = "URL";
 "userDescription" = "%1$@ (User)";
 "versionSkipped" = "Version Skipped";
 "waitingForCompletion" = "Waiting for process to finish...";
@@ -108,4 +112,3 @@
 "window" = "Window";
 "wouldYouLikeToDownloadThemNow" = "Would you like to download them now?";
 "zoom" = "Zoom";
-"repositories" = "Repositories";

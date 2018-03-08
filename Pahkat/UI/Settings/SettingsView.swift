@@ -28,6 +28,13 @@ class SettingsView: View {
         languageLabel.stringValue = "\(Strings.interfaceLanguage):"
         repoLabel.stringValue = "\(Strings.repositories):"
         
+        for column in repoTableView.tableColumns {
+            let id = column.headerCell.accessibilityIdentifier()
+            if id != "" {
+                column.title = Strings.string(for: id)
+            }
+        }
+        
         repoChannelColumn.menu = NSMenu()
     }
 }

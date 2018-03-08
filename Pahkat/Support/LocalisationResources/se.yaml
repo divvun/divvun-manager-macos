@@ -11,7 +11,9 @@ appHelp: Veahkki
 appName: Package Manager
 
 # Original: Package Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
-appUpdateBody: Dál manná viežžat Package Manager v{version}. Ođastuhte val vargga. Juogo siđat ođastuhttit?
+appUpdateBody: >-
+  Dál manná viežžat Package Manager v{version}. Ođastuhte val vargga. Juogo
+  siđat ođastuhttit?
 
 # Original: Package Manager Update Available
 appUpdateTitle: Package Manager ođđa vieččahahtti veršuvdna
@@ -37,6 +39,9 @@ cancelling: Heaittiheame...
 # Original: Category
 category: Kategoriija
 
+# Original: Channel
+#channel: UNTRANSLATED
+
 # Original: Check For Updates...
 checkForUpdates: Oza ođđa veršuvnna...
 
@@ -47,7 +52,9 @@ completed: Válmmas
 copy: Máŋge
 
 # Original: Do you wish to send a crash report to the developers? No personal or private information is sent. (Recommended)
-crashReportBody: Siđat go sáddet kráššadieđáhusa prográmmaráhkadeaddjái? Persovnnalaš dehe priváhta dieđut eai sáddejuvvo. (Rekommenderejuvvon)
+crashReportBody: >-
+  Siđat go sáddet kráššadieđáhusa prográmmaráhkadeaddjái? Persovnnalaš dehe
+  priváhta dieđut eai sáddejuvvo. (Rekommenderejuvvon)
 
 # Original: Cut
 cut: Čuohpa
@@ -59,7 +66,7 @@ daily: Beaivválaččat
 delete: Váldde eret
 
 # Original: Error 😞
-downloadError: Vihki 😞
+downloadError: "Vihki \U0001F61E"
 
 # Original: Downloaded
 downloaded: Vižžojuvvon
@@ -80,7 +87,7 @@ errorDuringInstallation: Juoga vihki sajáiduhtidiin.
 errorInvalidVersion: Doaimmahis veršuvdna
 
 # Original: Error: No Installer
-errorNoInstaller: Vihki: Ii leat sajáiduhtti
+errorNoInstaller: 'Vihki: Ii leat sajáiduhtti'
 
 # Original: Error: Unknown Item
 errorUnknownPackage: Amas objeakta
@@ -97,7 +104,7 @@ exit: Mana eret
 # Original: Finish
 finish: Válbme
 
-# Original: Package Manager Help
+# Original: Help
 help: Package Manager veahkki
 
 # Original: Hide Package Manager
@@ -110,13 +117,13 @@ hideOthers: Čiega iežáid
 install: Sajáiduhte
 
 # Original: Install {count} Items
-installNPackages: Sajáiduhte {count} objeavtta
+installNPackages: 'Sajáiduhte {count} objeavtta'
 
 # Original: Install (System)
 installSystem: Sajáiduhte (Systema)
 
 # Original: Install/Uninstall {count} Items
-installUninstallNPackages: Sajáiduhte/Váldde eret {count} objeavtta
+installUninstallNPackages: 'Sajáiduhte/Váldde eret {count} objeavtta'
 
 # Original: Install (User)
 installUser: Sajáiduhte (geavaheaddji)
@@ -125,7 +132,7 @@ installUser: Sajáiduhte (geavaheaddji)
 installed: Sajáiduhtton
 
 # Original: Installing {name} {version}...
-installingPackage: Sajáiduhttime {name} {version}...
+installingPackage: 'Sajáiduhttime {name} {version}...'
 
 # Original: Installing/Uninstalling
 installingUninstalling: Sajáiduhttime/Váldime eret
@@ -134,7 +141,7 @@ installingUninstalling: Sajáiduhttime/Váldime eret
 interfaceLanguage: Interface-giella
 
 # Original: Please ensure that the URL begins with "https" and try again.
-invalidUrlBody: Geahča bearrái ahte URL álgá "https":in ja geahččal vas.
+invalidUrlBody: 'Geahča bearrái ahte URL álgá "https":in ja geahččal vas.'
 
 # Original: The provided URL is invalid.
 invalidUrlTitle: Addojuvvon URL lea boastut.
@@ -149,16 +156,16 @@ loading: Láddeme...
 minimize: Minimere
 
 # Original: {count} items remaining.
-nItemsRemaining: {count} objeavtta vel.
+nItemsRemaining: '{count} objeavtta vel.'
 
 # Original: {count} Updates Available
-nUpdatesAvailable: {count} Vieččahahtti ođastuhttima
+nUpdatesAvailable: '{count} Vieččahahtti ođastuhttima'
 
 # Original: Never
 never: Ii goasge
 
 # Original: Next update check at: {date}
-nextUpdateDue: Boahtte ođastuhttin: {date}
+nextUpdateDue: 'Boahtte ođastuhttin: {date}'
 
 # Original: Nightly
 nightly: Juohke ija
@@ -173,7 +180,7 @@ noUpdatesBody: Ii gávdnan makkárge ođastuhttimiid.
 noUpdatesTitle: Eai leat ođastuhttimat
 
 # Original: --
-notApplicable: --
+notApplicable: '--'
 
 # Original: Not Installed
 notInstalled: Ii leat sajáiduhtton
@@ -229,9 +236,9 @@ repositoryError: Vihki prográmmavuorkkás
 # Original: There was an error while opening the repository:
 # 
 # {message}
-repositoryErrorBody: Juoga manai boastut rabadiin prográmmavuorkká:
-
-{message}
+repositoryErrorBody: |
+  Juoga manai boastut rabadiin prográmmavuorkká:
+  {message}
 
 # Original: Restart Later
 restartLater: Álggat ođđasis maŋŋil
@@ -244,6 +251,9 @@ restartRequiredBody: Galggalit ođđasis álggahit dihtora vai rievdadusat álge
 
 # Original: Time to reboot!
 restartRequiredTitle: Dál lea ođđasis álggahit!
+
+# Original: Restart the app for language changes to take effect.
+#restartTheAppForLanguageChanges: UNTRANSLATED
 
 # Original: Save
 save: Vurke
@@ -264,7 +274,7 @@ showAll: Čájet visot
 skipTheseUpdates: Hilggo dáid ođastuhttimiid
 
 # Original: Sort by…
-sortBy: Čuoldde {} mielde.
+sortBy: Čuoldde … mielde
 
 # Original: Stable
 stable: Stabiila
@@ -276,7 +286,7 @@ starting: Álgime...
 systemLocale: Standárdagiella
 
 # Original: There are {count} updates available!
-thereAreNUpdatesAvailable: Leat {count} vieččahahtti ođđa veršuvnna!
+thereAreNUpdatesAvailable: 'Leat {count} vieččahahtti ođđa veršuvnna!'
 
 # Original: Undo
 undo: Gáđa
@@ -285,10 +295,10 @@ undo: Gáđa
 uninstall: Váldde eret
 
 # Original: Uninstall {count} Items
-uninstallNPackages: Váldde eret {count} objeavtta
+uninstallNPackages: 'Váldde eret {count} objeavtta'
 
 # Original: Uninstalling {name} {version}...
-uninstallingPackage: Váldime eret {name} {version}...
+uninstallingPackage: 'Váldime eret {name} {version}...'
 
 # Original: Update
 update: Ođastuhte
@@ -308,8 +318,11 @@ updateSystem: Ođastuhte (Systema)
 # Original: Update (User)
 updateUser: Ođastuhte (Geavaheaddji)
 
+# Original: URL
+#url: UNTRANSLATED
+
 # Original: {description} (User)
-userDescription: {govvideapmi} (Geavaheaddji)
+userDescription: '{description} (Geavaheaddji)'
 
 # Original: Version Skipped
 versionSkipped: Veršuvdna hilgojuvvon

@@ -7,7 +7,7 @@ class Strings {
             if let dir = Bundle.main.path(forResource: languageCode, ofType: "lproj"), let bundle = Bundle(path: dir) {
                 self.bundle = bundle
             } else {
-                print("No bundle found for \(String(describing: languageCode ?? nil))")
+                print("No bundle found for \(languageCode ?? nil)")
                 self.bundle = Bundle.main
             }
         }
@@ -89,6 +89,11 @@ class Strings {
     /** Category */
     static var category: String {
         return string(for: "category")
+    }
+
+    /** Channel */
+    static var channel: String {
+        return string(for: "channel")
     }
 
     /** Check For Updates... */
@@ -191,7 +196,7 @@ class Strings {
         return string(for: "finish")
     }
 
-    /** Package Manager Help */
+    /** Help */
     static var help: String {
         return string(for: "help")
     }
@@ -397,6 +402,11 @@ class Strings {
         return string(for: "removeRepoTitle")
     }
 
+    /** Repositories */
+    static var repositories: String {
+        return string(for: "repositories")
+    }
+
     /** Repository */
     static var repository: String {
         return string(for: "repository")
@@ -433,6 +443,11 @@ class Strings {
     /** Time to reboot! */
     static var restartRequiredTitle: String {
         return string(for: "restartRequiredTitle")
+    }
+
+    /** Restart the app for language changes to take effect. */
+    static var restartTheAppForLanguageChanges: String {
+        return string(for: "restartTheAppForLanguageChanges")
     }
 
     /** Save */
@@ -543,6 +558,11 @@ class Strings {
         return string(for: "updateUser")
     }
 
+    /** URL */
+    static var url: String {
+        return string(for: "url")
+    }
+
     /** {description} (User) */
     static func userDescription(description: String) -> String {
         let format = string(for: "userDescription")
@@ -577,11 +597,6 @@ class Strings {
     /** Zoom */
     static var zoom: String {
         return string(for: "zoom")
-    }
-
-    /** Repositories */
-    static var repositories: String {
-        return string(for: "repositories")
     }
 
     private init() {}

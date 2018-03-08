@@ -39,6 +39,9 @@ cancelling: Canceling...
 # Original: Category
 category: Category
 
+# Original: Channel
+channel: Channel
+
 # Original: Check For Updates...
 checkForUpdates: Check For Updates...
 
@@ -101,8 +104,8 @@ exit: Exit
 # Original: Finish
 finish: Finish
 
-# Original: Package Manager Help
-help: Package Manager Help
+# Original: Help
+help: Help
 
 # Original: Hide Package Manager
 hideApp: Hide Package Manager
@@ -252,6 +255,9 @@ restartRequiredBody: >-
 # Original: Time to reboot!
 restartRequiredTitle: Time to reboot!
 
+# Original: Restart the app for language changes to take effect.
+restartTheAppForLanguageChanges: Restart the app for language changes to take effect.
+
 # Original: Save
 save: Save
 
@@ -314,6 +320,9 @@ updateSystem: Update (System)
 
 # Original: Update (User)
 updateUser: Update (User)
+
+# Original: URL
+url: URL
 
 # Original: {description} (User)
 userDescription: '{description} (User)'

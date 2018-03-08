@@ -11,7 +11,9 @@ appHelp: Hjelp
 appName: Pakkehåndterer
 
 # Original: Package Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
-appUpdateBody: Pakkehåndterer v{version} er nå tilgjengelig. Det er sterkt anbefalt at du oppdaterer så snart som mulig. Vil du oppdatere nå?
+appUpdateBody: >-
+  Pakkehåndterer v{version} er nå tilgjengelig. Det er sterkt anbefalt at du
+  oppdaterer så snart som mulig. Vil du oppdatere nå?
 
 # Original: Package Manager Update Available
 appUpdateTitle: Pakkehåndterer-oppdatering tilgjengelig
@@ -37,6 +39,9 @@ cancelling: Avbryter...
 # Original: Category
 category: Kategori
 
+# Original: Channel
+#channel: UNTRANSLATED
+
 # Original: Check For Updates...
 checkForUpdates: Se etter oppateringer...
 
@@ -47,7 +52,9 @@ completed: Fullført
 copy: Kopier
 
 # Original: Do you wish to send a crash report to the developers? No personal or private information is sent. (Recommended)
-crashReportBody: Ønsker du å sende en kræsjrapport til utviklerne? Ingen personlig info blir sendt inn. (Anbefalt)
+crashReportBody: >-
+  Ønsker du å sende en kræsjrapport til utviklerne? Ingen personlig info blir
+  sendt inn. (Anbefalt)
 
 # Original: Cut
 cut: Klipp ut
@@ -77,13 +84,13 @@ error: Feil
 errorDuringInstallation: Det gikk galt med installeringen.
 
 # Original: Error: Invalid Version
-errorInvalidVersion: Feil: ugyldig versjon
+errorInvalidVersion: 'Feil: ugyldig versjon'
 
 # Original: Error: No Installer
-errorNoInstaller: Feil: ingen installerer
+errorNoInstaller: 'Feil: ingen installerer'
 
 # Original: Error: Unknown Item
-errorUnknownPackage: Feil: ukjent pakke
+errorUnknownPackage: 'Feil: ukjent pakke'
 
 # Original: Every 4 Weeks
 everyFourWeeks: Hver fjerde uke
@@ -97,7 +104,7 @@ exit: Avslutt
 # Original: Finish
 finish: Ferdig
 
-# Original: Package Manager Help
+# Original: Help
 help: Pakkehåndterer-hjelp
 
 # Original: Hide Package Manager
@@ -110,13 +117,13 @@ hideOthers: Skjul andre
 install: Installer
 
 # Original: Install {count} Items
-installNPackages: Installer {count} pakker
+installNPackages: 'Installer {count} pakker'
 
 # Original: Install (System)
 installSystem: Installer (for hele systemet)
 
 # Original: Install/Uninstall {count} Items
-installUninstallNPackages: Avinstaller {count} pakker
+installUninstallNPackages: 'Avinstaller {count} pakker'
 
 # Original: Install (User)
 installUser: Installer (for bruker)
@@ -125,7 +132,7 @@ installUser: Installer (for bruker)
 installed: Installert
 
 # Original: Installing {name} {version}...
-installingPackage: Installerer {name} {version}...
+installingPackage: 'Installerer {name} {version}...'
 
 # Original: Installing/Uninstalling
 installingUninstalling: Installerer/avinstallerer
@@ -149,16 +156,16 @@ loading: Laster inn...
 minimize: Minimer
 
 # Original: {count} items remaining.
-nItemsRemaining: {count} pakker står igjen.
+nItemsRemaining: '{count} pakker står igjen.'
 
 # Original: {count} Updates Available
-nUpdatesAvailable: Det finnes {count} oppdateringer
+nUpdatesAvailable: 'Det finnes {count} oppdateringer'
 
 # Original: Never
 never: Aldri
 
 # Original: Next update check at: {date}
-nextUpdateDue: Neste oppdateringssjekk {date}
+nextUpdateDue: 'Neste oppdateringssjekk {date}'
 
 # Original: Nightly
 nightly: Nattlig
@@ -194,7 +201,7 @@ pasteAndMatchStyle: Lim inn tilpasset
 preferences: Innstillinger…
 
 # Original: You may now close this window, or return to the main screen.
-processCompletedBody: Nå kan du lukke vinduet, eller gå tilbake til hovedvinduet.
+processCompletedBody: 'Nå kan du lukke vinduet, eller gå tilbake til hovedvinduet.'
 
 # Original: Done!
 processCompletedTitle: Ferdig!
@@ -229,9 +236,9 @@ repositoryError: Repositoriefeil
 # Original: There was an error while opening the repository:
 # 
 # {message}
-repositoryErrorBody: Det dukket opp en feil mens jeg åpnet repositoriet:
-
-{message}
+repositoryErrorBody: |
+  Det dukket opp en feil mens jeg åpnet repositoriet:
+  {message}
 
 # Original: Restart Later
 restartLater: Omstart senere
@@ -240,10 +247,15 @@ restartLater: Omstart senere
 restartNow: Omstart nå
 
 # Original: It is highly recommended that you restart your computer in order for some changes to take effect.
-restartRequiredBody: Det er sterkt anbefalt å starte datamaskinen på nytt for at visse endringer skal tre i kraft
+restartRequiredBody: >-
+  Det er sterkt anbefalt å starte datamaskinen på nytt for at visse endringer
+  skal tre i kraft
 
 # Original: Time to reboot!
 restartRequiredTitle: Tid for å starte maskinen på nytt!
+
+# Original: Restart the app for language changes to take effect.
+#restartTheAppForLanguageChanges: UNTRANSLATED
 
 # Original: Save
 save: Lagre
@@ -276,7 +288,7 @@ starting: Starter...
 systemLocale: Standardspråk
 
 # Original: There are {count} updates available!
-thereAreNUpdatesAvailable: Det finnes {count} oppdateringer!
+thereAreNUpdatesAvailable: 'Det finnes {count} oppdateringer!'
 
 # Original: Undo
 undo: Angre
@@ -285,10 +297,10 @@ undo: Angre
 uninstall: Avinstaller
 
 # Original: Uninstall {count} Items
-uninstallNPackages: Avinstaller {count} pakker
+uninstallNPackages: 'Avinstaller {count} pakker'
 
 # Original: Uninstalling {name} {version}...
-uninstallingPackage: Avinstallerer {name} {version}...
+uninstallingPackage: 'Avinstallerer {name} {version}...'
 
 # Original: Update
 update: Oppdater
@@ -308,8 +320,11 @@ updateSystem: Oppdater (for hele systemet)
 # Original: Update (User)
 updateUser: Oppdater (for brukeren)
 
+# Original: URL
+#url: UNTRANSLATED
+
 # Original: {description} (User)
-userDescription: {description} (for brukeren)
+userDescription: '{description} (for brukeren)'
 
 # Original: Version Skipped
 versionSkipped: Ingorert versjon
