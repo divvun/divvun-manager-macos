@@ -1,0 +1,330 @@
+# Original: About Package Manager
+aboutApp: Om Pakkehandteraren
+
+# Original: Alpha
+alpha: Alfa
+
+# Original: Help
+appHelp: Hjelp
+
+# Original: Package Manager
+appName: Pakkehandterar
+
+# Original: Package Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
+appUpdateBody: Pakkehandterar v{version} er no tilgjengeleg. Det er sterkt tilrådd at du oppdaterer så snart som råd. Vil du oppdatera no?
+
+# Original: Package Manager Update Available
+appUpdateTitle: Pakkehandterar-oppdatering tilgjengeleg
+
+# Original: Beta
+beta: Beta
+
+# Original: Bring All to Front
+bringAllToFront: Flytt alle fremst
+
+# Original: Cancel
+cancel: Avbryt
+
+# Original: Are you sure you want to cancel all downloads?
+cancelDownloadsBody: Er du viss på at du vil avbryta nedlastingane?
+
+# Original: Cancel Downloads
+cancelDownloadsTitle: Avbryt nedlastingane
+
+# Original: Canceling...
+cancelling: Eg avbryt...
+
+# Original: Category
+category: Kategori
+
+# Original: Check For Updates...
+checkForUpdates: Sjå etter oppateringar...
+
+# Original: Completed
+completed: Fullført
+
+# Original: Copy
+copy: Kopier
+
+# Original: Do you wish to send a crash report to the developers? No personal or private information is sent. (Recommended)
+crashReportBody: Ynskjer du å senda ein kræsjrapport til utviklarane? Ingen personleg info blir sendt inn. (Tilrådd)
+
+# Original: Cut
+cut: Klypp ut
+
+# Original: Daily
+daily: Dagleg
+
+# Original: Delete
+delete: Slett
+
+# Original: Error 😞
+downloadError: "Feil \U0001F61E"
+
+# Original: Downloaded
+downloaded: Nedlasta
+
+# Original: Downloading...
+downloading: Lastar ned...
+
+# Original: Edit
+edit: Rediger
+
+# Original: Error
+error: Feil
+
+# Original: An error occurring during installation.
+errorDuringInstallation: Det gjekk skeis med installeringa.
+
+# Original: Error: Invalid Version
+errorInvalidVersion: Feil: ugyldig versjon
+
+# Original: Error: No Installer
+errorNoInstaller: Feil: ingen installerar
+
+# Original: Error: Unknown Item
+errorUnknownPackage: Feil: ukjent  pakke
+
+# Original: Every 4 Weeks
+everyFourWeeks: Fjerdekvar veke
+
+# Original: Every 2 Weeks
+everyTwoWeeks: Annakvar veke
+
+# Original: Exit
+exit: Avslutt
+
+# Original: Finish
+finish: Ferdig
+
+# Original: Package Manager Help
+help: Pakkehandterar-hjelp
+
+# Original: Hide Package Manager
+hideApp: Gøym Pakkehandteraren
+
+# Original: Hide Others
+hideOthers: Gøym andre
+
+# Original: Install
+install: Installer
+
+# Original: Install {count} Items
+installNPackages: Installer {count} pakker
+
+# Original: Install (System)
+installSystem: Installer (for heile systemet)
+
+# Original: Install/Uninstall {count} Items
+installUninstallNPackages: Installer/avinstaller {count} pakker
+
+# Original: Install (User)
+installUser: Installer (for brukar)
+
+# Original: Installed
+installed: Installert
+
+# Original: Installing {name} {version}...
+installingPackage: Installerer {name} {version}...
+
+# Original: Installing/Uninstalling
+installingUninstalling: Installerer/avinstallerer
+
+# Original: Interface Language
+interfaceLanguage: Vis Pakkehandteraren med språket
+
+# Original: Please ensure that the URL begins with "https" and try again.
+invalidUrlBody: Ver greid og sjekk at URL-en byrjar med "https" og prøv på nytt.
+
+# Original: The provided URL is invalid.
+invalidUrlTitle: URL-en er ugyldig.
+
+# Original: Language
+language: Språk
+
+# Original: Loading...
+loading: Lastar inn...
+
+# Original: Minimize
+minimize: Minimer
+
+# Original: {count} items remaining.
+nItemsRemaining: {count} pakker står att.
+
+# Original: {count} Updates Available
+nUpdatesAvailable: Det finst {count} oppdateringar
+
+# Original: Never
+never: Aldri
+
+# Original: Next update check at: {date}
+nextUpdateDue: Neste oppdateringssjekk {date}
+
+# Original: Nightly
+nightly: Nattleg
+
+# Original: No Items Selected
+noPackagesSelected: Ingen valde pakker
+
+# Original: No new updates were found.
+noUpdatesBody: Fann ingen nye oppdateringar
+
+# Original: No Updates
+noUpdatesTitle: Ingen oppdateringar
+
+# Original: --
+notApplicable: —
+
+# Original: Not Installed
+notInstalled: Ikkje installert
+
+# Original: OK
+ok: Greidt
+
+# Original: Open Package Manager
+openPackageManager: Opne Pakkehandteraren
+
+# Original: Paste
+paste: Lim inn
+
+# Original: Paste and Match Style
+pasteAndMatchStyle: Lim inn tilpassa
+
+# Original: Preferences…
+preferences: Innstillingar…
+
+# Original: You may now close this window, or return to the main screen.
+processCompletedBody: No kan du lata att vindauget, eller gå attende til hovudvindauget.
+
+# Original: Done!
+processCompletedTitle: Ferdig!
+
+# Original: Queued
+queued: I kø
+
+# Original: Quit Package Manager
+quitApp: Avslutt Pakkehandteraren
+
+# Original: Redo
+redo: Gjer på nytt
+
+# Original: Remind Me Later
+remindMeLater: Minn meg på det seinare
+
+# Original: Are you sure you wish to remove this repository?
+removeRepoBody: Er du sikker på at du vil fjerna repositoriet?
+
+# Original: This will remove the selected repository.
+removeRepoTitle: Dette vil fjerna det valde repositoriet.
+
+# Original: Repositories
+repositories: Repositorium
+
+# Original: Repository
+repository: Repositorium
+
+# Original: Repository Error
+repositoryError: Repositoriefeil
+
+# Original: There was an error while opening the repository:
+# 
+# {message}
+repositoryErrorBody: Det dukka opp ein feil medan eg opna repositoriet:
+
+{message}
+
+# Original: Restart Later
+restartLater: Omstart seinare
+
+# Original: Restart Now
+restartNow: Omstart no
+
+# Original: It is highly recommended that you restart your computer in order for some changes to take effect.
+restartRequiredBody: Det er sterkt tilrådd å starta datamaskina på nytt for at somme endringar skal tre i kraft
+
+# Original: Time to reboot!
+restartRequiredTitle: Tid for å starta maskina på nytt!
+
+# Original: Save
+save: Lagre
+
+# Original: Select All
+selectAll: Vel alt
+
+# Original: Services
+services: Tenester
+
+# Original: Settings
+settings: Innstillingar
+
+# Original: Show All
+showAll: Vis alle
+
+# Original: Skip These Updates
+skipTheseUpdates: Hopp over desse oppdateringane
+
+# Original: Sort by…
+sortBy: Sorter etter…
+
+# Original: Stable
+stable: Stabil
+
+# Original: Starting...
+starting: Startar...
+
+# Original: Default Language
+systemLocale: Standardspråk
+
+# Original: There are {count} updates available!
+thereAreNUpdatesAvailable: Det finst {count} oppdateringar!
+
+# Original: Undo
+undo: Angre
+
+# Original: Uninstall
+uninstall: Avinstaller
+
+# Original: Uninstall {count} Items
+uninstallNPackages: Avinstaller {count} pakker
+
+# Original: Uninstalling {name} {version}...
+uninstallingPackage: Avinstallerer {name} {version}...
+
+# Original: Update
+update: Oppdater
+
+# Original: Update Available
+updateAvailable: Det finst ei oppdatering
+
+# Original: Update Channel
+updateChannel: Oppdateringskanal
+
+# Original: Update Frequency
+updateFrequency: Oppdateringsfrekvens
+
+# Original: Update (System)
+updateSystem: Oppdater (for heile systemet)
+
+# Original: Update (User)
+updateUser: Oppdater (for brukaren)
+
+# Original: {description} (User)
+userDescription: {description} (for brukaren)
+
+# Original: Version Skipped
+versionSkipped: Ingorert versjon
+
+# Original: Waiting for process to finish...
+waitingForCompletion: Ventar på at noko skal bli ferdig...
+
+# Original: Weekly
+weekly: Kvar veke
+
+# Original: Window
+window: Vindauge
+
+# Original: Would you like to download them now?
+wouldYouLikeToDownloadThemNow: Vil du lasta dei ned no?
+
+# Original: Zoom
+zoom: Zoom
