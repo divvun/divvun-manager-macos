@@ -40,7 +40,7 @@ cancelling: Eg avbryt...
 category: Kategori
 
 # Original: Channel
-#channel: UNTRANSLATED
+channel: Kanal
 
 # Original: Check For Updates...
 checkForUpdates: Sjå etter oppateringar...
@@ -255,7 +255,7 @@ restartRequiredBody: >-
 restartRequiredTitle: Tid for å starta maskina på nytt!
 
 # Original: Restart the app for language changes to take effect.
-#restartTheAppForLanguageChanges: UNTRANSLATED
+restartTheAppForLanguageChanges: Start programmet på nytt for å byta språk.
 
 # Original: Save
 save: Lagre
@@ -321,7 +321,7 @@ updateSystem: Oppdater (for heile systemet)
 updateUser: Oppdater (for brukaren)
 
 # Original: URL
-#url: UNTRANSLATED
+url: URL
 
 # Original: {description} (User)
 userDescription: '{description} (for brukaren)'

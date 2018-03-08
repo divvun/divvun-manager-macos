@@ -37,6 +37,9 @@ cancelling: ᛂᚵ ᛆᚡᛒᚱᛦᛐ...
 # Original: Category
 category: ᚴᛆᛐᛂᚵᚮᚱᛁ
 
+# Original: Channel
+channel: ᚴᛆᚿᛆᛚ
+
 # Original: Check For Updates...
 checkForUpdates: ᛌᛁᚭ ᛂᛐᛐᛂᚱ ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛆᚱ...
 
@@ -245,6 +248,9 @@ restartRequiredBody: ᛑᛂᛐ ᛂᚱ ᛌᛐᛂᚱᚴᛐ ᛐᛁᛚᚱᚭᛑᛑ �
 # Original: Time to reboot!
 restartRequiredTitle: ᛐᛁᛑ ᚠᚮᚱ ᚭ ᛌᛐᛆᚱᛐᛆ ᛘᛆᛌᚴᛁᚿᛆ ᛔᚭ ᚿᛦᛐᛐ!
 
+# Original: Restart the app for language changes to take effect.
+restartTheAppForLanguageChanges: ᛌᛐᛆᚱᛐ ᛔᚱᚮᚵᚱᛆᛘᛘᛂᛐ ᛔᚭ ᚿᛦᛐᛐ ᚠᚮᚱ ᚭ ᛒᛦᛐᛆ ᛌᛔᚱᚭᚴ.
+
 # Original: Save
 save: ᛚᛆᚵᚱᛂ
 
@@ -307,6 +313,9 @@ updateSystem: ᚮᛔᛔᛑᛆᛐᛂᚱ (ᚠᚮᚱ ᚼᛂᛁᛚᛂ ᛌᛦᛌᛐ�
 
 # Original: Update (User)
 updateUser: ᚮᚮᛔᛔᛑᛆᛐᛂᚱ (ᚠᚮᚱ ᛒᚱᚢᚴᛆᚱᛂᚿ)
+
+# Original: URL
+url: URL
 
 # Original: {description} (User)
 userDescription: {description} (ᚠᚮᚱ ᛒᚱᚢᚴᛆᚱᛂᚿ)
