@@ -138,7 +138,7 @@ installingPackage: 'Installerer {name} {version}...'
 installingUninstalling: Installerer/avinstallerer
 
 # Original: Interface Language
-interfaceLanguage: Vis Pakkehandteraren med språket
+interfaceLanguage: "Vis programmet på:"
 
 # Original: Please ensure that the URL begins with "https" and try again.
 invalidUrlBody: Ver greid og sjekk at URL-en byrjar med "https" og prøv på nytt.

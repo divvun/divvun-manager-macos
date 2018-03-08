@@ -134,7 +134,7 @@ installingPackage: ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ {name} {version}...
 installingUninstalling: ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ/ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ
 
 # Original: Interface Language
-interfaceLanguage: ᚡᛁᛌ ᛔᚱᚮᚵᚱᛆᛘᛘᛂᛐ ᛘᛂᛑ ᛌᛔᚱᚭᚴᛂᛐ
+interfaceLanguage: "ᚡᛁᛌ ᛔᚱᚮᚵᚱᛆᛘᛘᛂᛐ ᛔᚭ:"
 
 # Original: Please ensure that the URL begins with "https" and try again.
 invalidUrlBody: ᚡᛂᚱ ᚵᚱᛂᛁᛑ ᚮᚵ ᛌᛁᛂᚴᚴᛐ ᛆᛐ URL-ᛂᚿ ᛒᛦᚱᛁᛆᚱ ᛘᛂᛑ "https" ᚮᚵ ᛔᚱᚯᚡ ᛔᚭ ᚿᛦᛐᛐ.
