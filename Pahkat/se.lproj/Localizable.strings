@@ -11,7 +11,7 @@
 "cancelDownloadsTitle" = "Heaittit viežžamis";
 "cancelling" = "Heaittiheame...";
 "category" = "Kategoriija";
-"channel" = "Channel";
+"channel" = "Kanála";
 "checkForUpdates" = "Oza ođđa veršuvnna...";
 "completed" = "Válmmas";
 "copy" = "Máŋge";
@@ -43,7 +43,7 @@
 "installed" = "Sajáiduhtton";
 "installingPackage" = "Sajáiduhttime %1$@ %2$@...";
 "installingUninstalling" = "Sajáiduhttime/Váldime eret";
-"interfaceLanguage" = "Interface-giella";
+"interfaceLanguage" = "Prográmmagiella";
 "invalidUrlBody" = "Geahča bearrái ahte URL álgá \"https\":in ja geahččal vas.";
 "invalidUrlTitle" = "Addojuvvon URL lea boastut.";
 "language" = "Giella";
@@ -81,7 +81,7 @@
 "restartNow" = "Álggat ođđasis dál";
 "restartRequiredBody" = "Galggalit ođđasis álggahit dihtora vai rievdadusat álget doaibmat.";
 "restartRequiredTitle" = "Dál lea ođđasis álggahit!";
-"restartTheAppForLanguageChanges" = "Restart the app for language changes to take effect.";
+"restartTheAppForLanguageChanges" = "Álggat áppa ođđasis vai giellarievdadusat álget doaibmat";
 "save" = "Vurke";
 "selectAll" = "Vállje visot";
 "services" = "Bálvalusat";

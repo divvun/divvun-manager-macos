@@ -11,7 +11,9 @@ appHelp: ᚼᛁᛂᛚᛔ
 appName: ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱ
 
 # Original: Package Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
-appUpdateBody: ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱ v{version} ᛂᚱ ᚿᚮ ᛐᛁᛚᚵᛁᛂᚿᚵᛂᛚᛂᚵ. ᛞᛂᛐ ᛂᚱ ᛌᛐᛂᚱᚴᛐ ᛐᛁᛚᚱᚭᛑᛑ ᛆᛐ ᛑᚢ ᚮᛔᛔᛑᛆᛐᛂᚱᛂᚱ ᛌᚭ ᛌᚿᛆᚱᛐ ᛌᚮᛘ ᚱᚭᛑ. ᚹᛁᛚ ᛑᚢ ᚮᛔᛔᛑᛆᛐᛂᚱᛆ ᚿᚮ?
+appUpdateBody: >-
+  ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱ v{version} ᛂᚱ ᚿᚮ ᛐᛁᛚᚵᛁᛂᚿᚵᛂᛚᛂᚵ. ᛞᛂᛐ ᛂᚱ ᛌᛐᛂᚱᚴᛐ ᛐᛁᛚᚱᚭᛑᛑ ᛆᛐ ᛑᚢ
+  ᚮᛔᛔᛑᛆᛐᛂᚱᛂᚱ ᛌᚭ ᛌᚿᛆᚱᛐ ᛌᚮᛘ ᚱᚭᛑ. ᚹᛁᛚ ᛑᚢ ᚮᛔᛔᛑᛆᛐᛂᚱᛆ ᚿᚮ?
 
 # Original: Package Manager Update Available
 appUpdateTitle: ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱ-ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵ ᛐᛁᛚᚵᛁᛂᚿᚵᛂᛚᛂᚵ
@@ -50,7 +52,9 @@ completed: ᚠᚢᛚᛚᚠᚯᚱᛐ
 copy: ᚴᚮᛔᛁᛂᚱ
 
 # Original: Do you wish to send a crash report to the developers? No personal or private information is sent. (Recommended)
-crashReportBody: ᛦᚿᛌᚴᛁᛂᚱ ᛑᚢ ᚭ ᛌᛂᚿᛑᛆ ᛂᛁᚿ ᚴᚱᛅᛌᛁᚱᛆᛔᛔᚮᚱᛐ ᛐᛁᛚ ᚢᛐᚡᛁᚴᛚᛆᚱᛆᚿᛑᛂ? ᛁᚿᚵᛂᚿ ᛔᛂᚱᛌᚮᚿᛚᛂᚵ ᛁᚿᚠᚮ ᛒᛚᛁᚱ ᛌᛂᚿᛑᛐ ᛁᚿᚿ. (ᛐᛁᛚᚱᚭᛑᛑ)
+crashReportBody: >-
+  ᛦᚿᛌᚴᛁᛂᚱ ᛑᚢ ᚭ ᛌᛂᚿᛑᛆ ᛂᛁᚿ ᚴᚱᛅᛌᛁᚱᛆᛔᛔᚮᚱᛐ ᛐᛁᛚ ᚢᛐᚡᛁᚴᛚᛆᚱᛆᚿᛑᛂ? ᛁᚿᚵᛂᚿ ᛔᛂᚱᛌᚮᚿᛚᛂᚵ ᛁᚿᚠᚮ
+  ᛒᛚᛁᚱ ᛌᛂᚿᛑᛐ ᛁᚿᚿ. (ᛐᛁᛚᚱᚭᛑᛑ)
 
 # Original: Cut
 cut: ᚴᛚᛦᛔᛔ ᚢᛐ
@@ -80,13 +84,13 @@ error: ᚠᛂᛁᛚ
 errorDuringInstallation: ᛑᛂᛐ ᚵᛁᛂᚴᚴ ᛐᛁᛚ ᚼᛂᛚ ᛘᛂᛑ ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛁᚿᚵᛆ.
 
 # Original: Error: Invalid Version
-errorInvalidVersion: ᚠᛂᛁᛚ: ᚢᚵᛦᛚᛑᛁᚵ ᚡᛂᚱᛌᛁᚮᚿ
+errorInvalidVersion: 'ᚠᛂᛁᛚ: ᚢᚵᛦᛚᛑᛁᚵ ᚡᛂᚱᛌᛁᚮᚿ'
 
 # Original: Error: No Installer
-errorNoInstaller: ᚠᛂᛁᛚ: ᛁᚿᚵᛂᚿ ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛆᚱ
+errorNoInstaller: 'ᚠᛂᛁᛚ: ᛁᚿᚵᛂᚿ ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛆᚱ'
 
 # Original: Error: Unknown Item
-errorUnknownPackage: ᚠᛂᛁᛚ: ᚢᚴᛁᛂᚿᛐ ᛔᛆᚴᚴᛂ
+errorUnknownPackage: 'ᚠᛂᛁᛚ: ᚢᚴᛁᛂᚿᛐ ᛔᛆᚴᚴᛂ'
 
 # Original: Every 4 Weeks
 everyFourWeeks: ᚠᛁᛂᚱᛑᛂᚴᚡᛆᚱ ᚡᛂᚴᛂ
@@ -100,7 +104,7 @@ exit: ᛆᚡᛌᛚᚢᛐᛐ
 # Original: Finish
 finish: ᚠᛂᚱᛑᛁᚵ
 
-# Original: Package Manager Help
+# Original: Help
 help: ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱ-ᚼᛁᛂᛚᛔ
 
 # Original: Hide Package Manager
@@ -113,13 +117,13 @@ hideOthers: ᚵᚯᛦᛘ ᛆᚿᛑᚱᛂ
 install: ᛁᚿᛌᛐᛆᛚᛚᛂᚱ
 
 # Original: Install {count} Items
-installNPackages: ᛁᚿᛌᛐᛆᛚᛚᛂᚱ {count} ᛔᛆᚴᚴᛂᚱ
+installNPackages: 'ᛁᚿᛌᛐᛆᛚᛚᛂᚱ {count} ᛔᛆᚴᚴᛂᚱ'
 
 # Original: Install (System)
 installSystem: ᛁᚿᛌᛐᛆᛚᛚᛂᚱ (ᚠᚮᚱ ᚼᛂᛁᛚᛂ ᛌᛦᛌᛐᛂᛘᛂᛐ)
 
 # Original: Install/Uninstall {count} Items
-installUninstallNPackages: ᛁᚿᛌᛐᛆᛚᛚᛂᚱ/ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱ {count} ᛔᛆᚴᚴᛂᚱ
+installUninstallNPackages: 'ᛁᚿᛌᛐᛆᛚᛚᛂᚱ/ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱ {count} ᛔᛆᚴᚴᛂᚱ'
 
 # Original: Install (User)
 installUser: ᛁᚿᛌᛐᛆᛚᛚᛂᚱ (ᚠᚮᚱ ᛒᚱᚢᚴᛆᚱ)
@@ -128,13 +132,13 @@ installUser: ᛁᚿᛌᛐᛆᛚᛚᛂᚱ (ᚠᚮᚱ ᛒᚱᚢᚴᛆᚱ)
 installed: ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛐ
 
 # Original: Installing {name} {version}...
-installingPackage: ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ {name} {version}...
+installingPackage: 'ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ {name} {version}...'
 
 # Original: Installing/Uninstalling
 installingUninstalling: ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ/ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ
 
 # Original: Interface Language
-interfaceLanguage: "ᚡᛁᛌ ᛔᚱᚮᚵᚱᛆᛘᛘᛂᛐ ᛔᚭ:"
+interfaceLanguage: 'ᚡᛁᛌ ᛔᚱᚮᚵᚱᛆᛘᛘᛂᛐ ᛔᚭ:'
 
 # Original: Please ensure that the URL begins with "https" and try again.
 invalidUrlBody: ᚡᛂᚱ ᚵᚱᛂᛁᛑ ᚮᚵ ᛌᛁᛂᚴᚴᛐ ᛆᛐ URL-ᛂᚿ ᛒᛦᚱᛁᛆᚱ ᛘᛂᛑ "https" ᚮᚵ ᛔᚱᚯᚡ ᛔᚭ ᚿᛦᛐᛐ.
@@ -152,16 +156,16 @@ loading: ᛚᛆᛌᛐᛆᚱ ᛁᚿᚿ...
 minimize: ᛘᛁᚿᛁᛘᛂᚱ
 
 # Original: {count} items remaining.
-nItemsRemaining: {count} ᛔᛆᚴᚴᛂᚱ ᛌᛐᚭᚱ ᛆᛐᛐ.
+nItemsRemaining: '{count} ᛔᛆᚴᚴᛂᚱ ᛌᛐᚭᚱ ᛆᛐᛐ.'
 
 # Original: {count} Updates Available
-nUpdatesAvailable: ᛑᛂᛐ ᚠᛁᚿᛌᛐ {count} ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛆᚱ
+nUpdatesAvailable: 'ᛑᛂᛐ ᚠᛁᚿᛌᛐ {count} ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛆᚱ'
 
 # Original: Never
 never: ᛆᛚᛑᚱᛁ
 
 # Original: Next update check at: {date}
-nextUpdateDue: ᚿᛂᛌᛐᛂ ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛌᛌᛁᛂᚴᚴ {date}
+nextUpdateDue: 'ᚿᛂᛌᛐᛂ ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛌᛌᛁᛂᚴᚴ {date}'
 
 # Original: Nightly
 nightly: ᚿᛆᛐᛐᛚᛂᚵ
@@ -197,7 +201,7 @@ pasteAndMatchStyle: ᛚᛁᛘ ᛁᚿᚿ ᛐᛁᛚᛔᛆᛌᛌᛆ
 preferences: ᛁᚿᚿᛌᛐᛁᛚᛚᛁᚿᚵᛆᚱ…
 
 # Original: You may now close this window, or return to the main screen.
-processCompletedBody: ᚿᚮ ᚴᛆᚿ ᛑᚢ ᛚᛆᛐᛆ ᛆᛐᛐ ᚡᛁᚿᛑᛆᚢᚵᛂᛐ, ᛂᛚᛚᛂᚱ ᚵᚭ ᛆᛐᛐᛂᚿᛑᛂ ᛐᛁᛚ ᚼᚮᚡᚢᛑᚡᛁᚿᛑᛆᚢᚵᛂᛐ.
+processCompletedBody: 'ᚿᚮ ᚴᛆᚿ ᛑᚢ ᛚᛆᛐᛆ ᛆᛐᛐ ᚡᛁᚿᛑᛆᚢᚵᛂᛐ, ᛂᛚᛚᛂᚱ ᚵᚭ ᛆᛐᛐᛂᚿᛑᛂ ᛐᛁᛚ ᚼᚮᚡᚢᛑᚡᛁᚿᛑᛆᚢᚵᛂᛐ.'
 
 # Original: Done!
 processCompletedTitle: ᚠᛂᚱᛑᛁᚵ!
@@ -232,9 +236,9 @@ repositoryError: ᛚᛆᚵᛂᚱᚠᛂᛁᛚ
 # Original: There was an error while opening the repository:
 # 
 # {message}
-repositoryErrorBody: ᛂᚵ ᚠᛂᚴᚴ ᛂᛁᚿ ᚠᛂᛁᛚ ᛘᛂᛑᛆᚿ ᛂᚵ ᚮᛔᚿᛆ ᛚᛆᚵᛂᚱᛂᛐ:
-
-{message}
+repositoryErrorBody: |
+  ᛂᚵ ᚠᛂᚴᚴ ᛂᛁᚿ ᚠᛂᛁᛚ ᛘᛂᛑᛆᚿ ᛂᚵ ᚮᛔᚿᛆ ᛚᛆᚵᛂᚱᛂᛐ:
+  {message}
 
 # Original: Restart Later
 restartLater: ᚮᛘᛌᛐᛆᚱᛐ ᛌᛂᛁᚿᛆᚱᛂ
@@ -243,7 +247,9 @@ restartLater: ᚮᛘᛌᛐᛆᚱᛐ ᛌᛂᛁᚿᛆᚱᛂ
 restartNow: ᚮᛘᛌᛐᛆᚱᛐ ᚿᚮ
 
 # Original: It is highly recommended that you restart your computer in order for some changes to take effect.
-restartRequiredBody: ᛑᛂᛐ ᛂᚱ ᛌᛐᛂᚱᚴᛐ ᛐᛁᛚᚱᚭᛑᛑ ᚭ ᛌᛐᛆᚱᛐᛆ ᛑᛆᛐᛆᛘᛆᛌᚴᛁᚿᛆ ᛔᚭ ᚿᛦᛐᛐ ᚠᚮᚱ ᛆᛐ ᛌᚢᛘᛂ ᛂᚿᛑᚱᛁᚿᚵᛆᚱ ᛌᚴᛆᛚ ᛐᚱᛂ ᛁ ᚴᚱᛆᚠᛐ.
+restartRequiredBody: >-
+  ᛑᛂᛐ ᛂᚱ ᛌᛐᛂᚱᚴᛐ ᛐᛁᛚᚱᚭᛑᛑ ᚭ ᛌᛐᛆᚱᛐᛆ ᛑᛆᛐᛆᛘᛆᛌᚴᛁᚿᛆ ᛔᚭ ᚿᛦᛐᛐ ᚠᚮᚱ ᛆᛐ ᛌᚢᛘᛂ ᛂᚿᛑᚱᛁᚿᚵᛆᚱ ᛌᚴᛆᛚ
+  ᛐᚱᛂ ᛁ ᚴᚱᛆᚠᛐ.
 
 # Original: Time to reboot!
 restartRequiredTitle: ᛐᛁᛑ ᚠᚮᚱ ᚭ ᛌᛐᛆᚱᛐᛆ ᛘᛆᛌᚴᛁᚿᛆ ᛔᚭ ᚿᛦᛐᛐ!
@@ -282,7 +288,7 @@ starting: ᛌᛐᛆᚱᛐᛆᚱ...
 systemLocale: ᛌᛐᛆᚿᛑᛆᚱᛑᛌᛔᚱᚭᚴ
 
 # Original: There are {count} updates available!
-thereAreNUpdatesAvailable: ᛑᛂᛐ ᚠᛁᚿᛌᛐ {count} ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛆᚱ!
+thereAreNUpdatesAvailable: 'ᛑᛂᛐ ᚠᛁᚿᛌᛐ {count} ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛆᚱ!'
 
 # Original: Undo
 undo: ᛆᚿᚵᚱᛂ
@@ -291,10 +297,10 @@ undo: ᛆᚿᚵᚱᛂ
 uninstall: ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱ
 
 # Original: Uninstall {count} Items
-uninstallNPackages: ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱ {count} ᛔᛆᚴᚴᛂᚱ
+uninstallNPackages: 'ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱ {count} ᛔᛆᚴᚴᛂᚱ'
 
 # Original: Uninstalling {name} {version}...
-uninstallingPackage: ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ {name} {version}...
+uninstallingPackage: 'ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ {name} {version}...'
 
 # Original: Update
 update: ᚮᛔᛔᛑᛆᛐᛂᚱ
@@ -318,7 +324,7 @@ updateUser: ᚮᚮᛔᛔᛑᛆᛐᛂᚱ (ᚠᚮᚱ ᛒᚱᚢᚴᛆᚱᛂᚿ)
 url: URL
 
 # Original: {description} (User)
-userDescription: {description} (ᚠᚮᚱ ᛒᚱᚢᚴᛆᚱᛂᚿ)
+userDescription: '{description} (ᚠᚮᚱ ᛒᚱᚢᚴᛆᚱᛂᚿ)'
 
 # Original: Version Skipped
 versionSkipped: ᛁᚵᚿᚮᚱᛂᚱᛐ ᚡᛂᚱᛌᛁᚮᚿ

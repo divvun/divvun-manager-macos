@@ -172,6 +172,7 @@
 		C60B22F120432AF400A2027A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Pahkat/Base.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		C60B22F320432AF800A2027A /* nn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nn; path = ../nn.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C60B81A9203489B800D3E093 /* Pahkat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pahkat-Bridging-Header.h"; sourceTree = "<group>"; };
+		C61C52352051350000CAA498 /* nn-Runr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nn-Runr"; path = "../nn-Runr.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		C61F46D2204FF5410080577D /* RepositoryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryModels.swift; sourceTree = "<group>"; };
 		C61F46D4204FF5750080577D /* PackageInstallModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageInstallModels.swift; sourceTree = "<group>"; };
 		C622703E20358F1B00DBCD65 /* RepositoryIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryIndex.swift; sourceTree = "<group>"; };
@@ -198,6 +199,7 @@
 		C6646CD920507E6F00602C20 /* en-001 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-001"; path = "../en-001.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		C6646CDA20507E7500602C20 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = ../nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C6646CDB20507E7700602C20 /* en-001 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-001"; path = "../en-001.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		C6646CDB20507E7700602C21 /* nn-Runr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nn-Runr"; path = "../nn-Runr.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C69F948A2028B1EA00127A47 /* Pahkat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pahkat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C69F948D2028B1EA00127A47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C69F948F2028B1EA00127A47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -636,6 +638,7 @@
 				en,
 				Base,
 				nn,
+				"nn-Runr",
 				se,
 				nb,
 				"en-001",
@@ -912,6 +915,7 @@
 				C6646CD620507E3300602C20 /* se */,
 				C6646CD820507E5900602C20 /* nb */,
 				C6646CD920507E6F00602C20 /* en-001 */,
+				C61C52352051350000CAA498 /* nn-Runr */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -925,6 +929,7 @@
 				C6646CD720507E4800602C20 /* se */,
 				C6646CDA20507E7500602C20 /* nb */,
 				C6646CDB20507E7700602C20 /* en-001 */,
+				C6646CDB20507E7700602C21 /* nn-Runr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

@@ -247,12 +247,18 @@ enum InterfaceLanguage: String, Comparable {
     case systemLocale = ""
     case en = "en"
     case nn = "nn"
+    case nnRunic = "nn-Runr"
     case se = "se"
     
     var description: String {
         if self == .systemLocale {
             return Strings.systemLocale
         }
+        
+        if self == .nnRunic {
+            return "ᚿᛦᚿᚮᚱᛌᚴ"
+        }
+        
         return ISO639.get(tag: self.rawValue)?.autonymOrName ?? self.rawValue
     }
     
@@ -269,6 +275,7 @@ enum InterfaceLanguage: String, Comparable {
             InterfaceLanguage.systemLocale,
             InterfaceLanguage.en,
             InterfaceLanguage.nn,
+            InterfaceLanguage.nnRunic,
             InterfaceLanguage.se
         ].sorted().map { createMenuItem($0) }
     }

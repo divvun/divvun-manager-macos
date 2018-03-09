@@ -14,6 +14,7 @@ class SettingsView: View {
     
     @IBOutlet weak var languageDropdown: NSPopUpButton!
     @IBOutlet weak var languageLabel: NSTextField!
+    @IBOutlet weak var languageHelpLabel: NSTextField!
     
     @IBOutlet weak var repoTableView: NSTableView!
     @IBOutlet weak var repoLabel: NSTextField!
@@ -26,14 +27,15 @@ class SettingsView: View {
     override func awakeFromNib() {
         frequencyLabel.stringValue = "\(Strings.updateFrequency):"
         languageLabel.stringValue = "\(Strings.interfaceLanguage):"
+        languageHelpLabel.stringValue = Strings.restartTheAppForLanguageChanges
         repoLabel.stringValue = "\(Strings.repositories):"
         
         for column in repoTableView.tableColumns {
-            let id = column.headerCell.accessibilityIdentifier()
-            if id != "" {
-                column.title = Strings.string(for: id)
-            }
+            let id = column.identifier.rawValue
+            column.headerCell.stringValue = Strings.string(for: id)
         }
+        
+        self.repoTableView.headerView?.needsLayout = true
         
         repoChannelColumn.menu = NSMenu()
     }

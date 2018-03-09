@@ -123,7 +123,7 @@ installNPackages: 'Installer {count} pakker'
 installSystem: Installer (for heile systemet)
 
 # Original: Install/Uninstall {count} Items
-installUninstallNPackages: Installer/avinstaller {count} pakker
+installUninstallNPackages: 'Installer/avinstaller {count} pakker'
 
 # Original: Install (User)
 installUser: Installer (for brukar)
@@ -138,7 +138,7 @@ installingPackage: 'Installerer {name} {version}...'
 installingUninstalling: Installerer/avinstallerer
 
 # Original: Interface Language
-interfaceLanguage: "Vis programmet på:"
+interfaceLanguage: 'Vis programmet på:'
 
 # Original: Please ensure that the URL begins with "https" and try again.
 invalidUrlBody: Ver greid og sjekk at URL-en byrjar med "https" og prøv på nytt.

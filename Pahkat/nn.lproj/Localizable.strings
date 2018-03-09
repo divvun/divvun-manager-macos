@@ -11,7 +11,7 @@
 "cancelDownloadsTitle" = "Avbryt nedlastingane";
 "cancelling" = "Eg avbryt...";
 "category" = "Kategori";
-"channel" = "Channel";
+"channel" = "Kanal";
 "checkForUpdates" = "Sjå etter oppateringar...";
 "completed" = "Fullført";
 "copy" = "Kopier";
@@ -38,12 +38,12 @@
 "install" = "Installer";
 "installNPackages" = "Installer %1$@ pakker";
 "installSystem" = "Installer (for heile systemet)";
-"installUninstallNPackages" = "Avinstaller %1$@ pakker";
+"installUninstallNPackages" = "Installer/avinstaller %1$@ pakker";
 "installUser" = "Installer (for brukar)";
 "installed" = "Installert";
 "installingPackage" = "Installerer %1$@ %2$@...";
 "installingUninstalling" = "Installerer/avinstallerer";
-"interfaceLanguage" = "Vis Pakkehandteraren med språket";
+"interfaceLanguage" = "Vis programmet på:";
 "invalidUrlBody" = "Ver greid og sjekk at URL-en byrjar med \"https\" og prøv på nytt.";
 "invalidUrlTitle" = "URL-en er ugyldig.";
 "language" = "Språk";
@@ -81,7 +81,7 @@
 "restartNow" = "Omstart no";
 "restartRequiredBody" = "Det er sterkt tilrådd å starta datamaskina på nytt for at somme endringar skal tre i kraft";
 "restartRequiredTitle" = "Tid for å starta maskina på nytt!";
-"restartTheAppForLanguageChanges" = "Restart the app for language changes to take effect.";
+"restartTheAppForLanguageChanges" = "Start programmet på nytt for å byta språk.";
 "save" = "Lagre";
 "selectAll" = "Vel alt";
 "services" = "Tenester";

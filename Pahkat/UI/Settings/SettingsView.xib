@@ -231,6 +231,7 @@
                 <outlet property="frequencyLabel" destination="aQP-oQ-Gi6" id="2pg-RG-pvQ"/>
                 <outlet property="frequencyPopUp" destination="2pl-4T-VLV" id="CpX-JP-hcR"/>
                 <outlet property="languageDropdown" destination="QxT-ru-XR2" id="l77-Uh-kzz"/>
+                <outlet property="languageHelpLabel" destination="IlL-BY-dY4" id="yCZ-dO-7nW"/>
                 <outlet property="languageLabel" destination="cd7-sj-BfF" id="DXz-SF-hgO"/>
                 <outlet property="repoAddButton" destination="xWU-Yp-0E0" id="sYS-he-K9w"/>
                 <outlet property="repoChannelColumn" destination="mem-kB-34w" id="2C5-Iy-sVe"/>
