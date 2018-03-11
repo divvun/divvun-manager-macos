@@ -45,7 +45,6 @@ class SettingsStore: RxStore<SettingsState, SettingsEvent> {
         case let .setUpdateCheckInterval(period):
             prefs.set(period.rawValue, forKey: SettingsKey.updateCheckInterval.rawValue)
             newState.updateCheckInterval = period
-            print(prefs.object(forKey: SettingsKey.updateCheckInterval.rawValue))
         case let .setRepositoryConfigs(configs):
             prefs[SettingsKey.repositories] = configs
             newState.repositories = configs

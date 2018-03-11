@@ -7,7 +7,7 @@ class Strings {
             if let dir = Bundle.main.path(forResource: languageCode, ofType: "lproj"), let bundle = Bundle(path: dir) {
                 self.bundle = bundle
             } else {
-                print("No bundle found for \(languageCode ?? nil)")
+                print("No bundle found for \(String(describing: languageCode ?? nil))")
                 self.bundle = Bundle.main
             }
         }

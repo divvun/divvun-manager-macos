@@ -61,6 +61,7 @@
 		C6B742DF204C194200C7877D /* Cocoa.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F8A81A2028B404009A016E /* Cocoa.swift */; };
 		C6B742E1204C456100C7877D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742E0204C456100C7877D /* Constants.swift */; };
 		C6B742E2204C456300C7877D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742E0204C456100C7877D /* Constants.swift */; };
+		C6C3338D205549E400C4D079 /* pahkatc in Copy agenthelper Into App Bundle */ = {isa = PBXBuildFile; fileRef = C622705B203734F300DBCD65 /* pahkatc */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C6C820C9204C52F2001682E8 /* RPCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62270572037132200DBCD65 /* RPCService.swift */; };
 		C6C820CB204C530D001682E8 /* RepoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820CA204C530C001682E8 /* RepoConfig.swift */; };
 		C6C820CC204C5340001682E8 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CC912920291A2D00CB0B10 /* APIService.swift */; };
@@ -139,6 +140,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
+				C6C3338D205549E400C4D079 /* pahkatc in Copy agenthelper Into App Bundle */,
 				C6B742DA204C128D00C7877D /* agenthelper in Copy agenthelper Into App Bundle */,
 			);
 			name = "Copy agenthelper Into App Bundle";
@@ -184,7 +186,7 @@
 		C62270512035C69000DBCD65 /* UpdateWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdateWindow.xib; sourceTree = "<group>"; };
 		C62270552036EA9E00DBCD65 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		C62270572037132200DBCD65 /* RPCService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPCService.swift; sourceTree = "<group>"; };
-		C622705B203734F300DBCD65 /* pahkatc */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = pahkatc; path = "../pahkat-client/target/debug/pahkatc"; sourceTree = "<group>"; };
+		C622705B203734F300DBCD65 /* pahkatc */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = pahkatc; path = "../${PAHKAT_CLIENT_CORE_DIR}/target/${CONFIGURATION}/pahkatc"; sourceTree = "<group>"; };
 		C622705E2039DEC800DBCD65 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		C62270632039E08B00DBCD65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Pahkat/Base.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		C62270652039E09600DBCD65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = ../en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -571,7 +573,6 @@
 				C69F94872028B1EA00127A47 /* Frameworks */,
 				C69F94882028B1EA00127A47 /* Resources */,
 				C6B742D9204C127100C7877D /* Copy agenthelper Into App Bundle */,
-				C622705D203735FD00DBCD65 /* Copy pahkatc Into App Bundle */,
 				E627452B56407B0E8E4FE3E0 /* [CP] Embed Pods Frameworks */,
 				C384180AD53213270088D961 /* [CP] Copy Pods Resources */,
 			);
@@ -623,6 +624,11 @@
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 					C6B742CF204C122600C7877D = {
 						CreatedOnToolsVersion = 9.2;
@@ -747,20 +753,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pahkat/Pods-Pahkat-resources.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		C622705D203735FD00DBCD65 /* Copy pahkatc Into App Bundle */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy pahkatc Into App Bundle";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "RESOURCE_PATH=$SRCROOT/../${PAHKAT_CLIENT_CORE_DIR}/target/${CONFIGURATION}/pahkatc\n\nBUILD_APP_DIR=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\n\ncp $RESOURCE_PATH $BUILD_APP_DIR/Contents/MacOS/";
 		};
 		E627452B56407B0E8E4FE3E0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -957,6 +949,7 @@
 				DEVELOPMENT_TEAM = 2K5J2584NX;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				LZMA_API_STATIC = 1;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -972,6 +965,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 2K5J2584NX;
+				LZMA_API_STATIC = 1;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1095,7 +1089,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Pahkat/Support/Pahkat.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 2K5J2584NX;
@@ -1107,6 +1101,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = no.divvun.Pahkat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pahkat/Support/Pahkat-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -1120,7 +1115,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Pahkat/Support/Pahkat.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 2K5J2584NX;
@@ -1132,6 +1127,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = no.divvun.Pahkat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pahkat/Support/Pahkat-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};

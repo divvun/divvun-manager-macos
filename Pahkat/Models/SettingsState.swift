@@ -9,7 +9,9 @@
 import Foundation
 
 struct SettingsState: Codable {
-    internal(set) var repositories: [RepoConfig] = UserDefaults.standard[SettingsKey.repositories] ?? []
+    internal(set) var repositories: [RepoConfig] = UserDefaults.standard[SettingsKey.repositories] ?? [
+        RepoConfig(url: URL(string: "https://x.brendan.so/divvun-repo/")!, channel: .stable)
+    ]
     internal(set) var updateCheckInterval: UpdateFrequency = {
         if let v = UserDefaults.standard.string(forKey: SettingsKey.updateCheckInterval.rawValue) {
             return UpdateFrequency(rawValue: v) ?? .daily
