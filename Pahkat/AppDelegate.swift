@@ -28,11 +28,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     internal var requiresAppDeath = false
     
     func requestRepos(_ configs: [RepoConfig]) throws -> Observable<[RepositoryIndex]> {
-        return Observable.from(try configs.map { config in try AppContext.rpc.repository(with: config).asObservable() })
+        return Observable.from(try configs.map { config in try AppContext.rpc.repository(with: config).asObservable().take(1) })
             .merge()
             .toArray()
             .flatMapLatest { (repos: [RepositoryIndex]) -> Observable<[RepositoryIndex]> in
-                return Observable.from(try repos.map { repo in try AppContext.rpc.statuses(for: repo.meta.base).asObservable().map { (repo, $0) } })
+                return Observable.from(try repos.map { repo in try AppContext.rpc.statuses(for: repo.meta.base).asObservable().take(1).map { (repo, $0) } })
                     .merge()
                     .map {
                         print($0.1)
@@ -40,7 +40,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         return $0.0
                     }
                     .toArray()
-            }
+            }.take(1)
     }
     
     private func onUpdateRequested() {

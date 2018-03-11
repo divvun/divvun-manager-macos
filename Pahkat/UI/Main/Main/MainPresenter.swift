@@ -80,7 +80,7 @@ class MainPresenter {
     private func bindUpdatePackageList() -> Disposable {
         return AppContext.store.state
             .map { $0.repositories }
-            .distinctUntilChanged({ (a, b) in a == b })
+//            .distinctUntilChanged({ (a, b) in a == b })
             .observeOn(MainScheduler.instance)
             .subscribeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] repos in
@@ -139,13 +139,13 @@ class MainPresenter {
                 continue
             }
             
-            if let outlinePackage = item.1.first(where: { $0.package == package }), let status = repo.repo.status(for: package)?.status {
+            if let outlinePackage = item.1.first(where: { $0.package == package }), let info = repo.repo.status(for: package) {
                 switch option {
                 case .toggle:
                     if outlinePackage.action == nil {
-                        switch status {
+                        switch info.status {
                         case .upToDate:
-                            outlinePackage.action = PackageAction.uninstall(repo.repo, package, installer.targets[0])
+                            outlinePackage.action = PackageAction.uninstall(repo.repo, package, info.target)
                         default:
                             outlinePackage.action = PackageAction.install(repo.repo, package, installer.targets[0])
                         }
@@ -160,6 +160,21 @@ class MainPresenter {
                 }
             }
         }
+    }
+    
+    private func bindUpdatePackagesOnLoad() -> Disposable {
+        // Always update the repos on load.
+        return AppContext.settings.state.map { $0.repositories }
+            .flatMapLatest { (configs: [RepoConfig]) -> Observable<[RepositoryIndex]> in
+                return try AppDelegate.instance.requestRepos(configs)
+            }
+            .observeOn(MainScheduler.instance)
+            .subscribeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] repos in
+                print("Refreshed repos in main view.")
+                self?.view.updateSettingsButton(isEnabled: true)
+                AppContext.store.dispatch(event: AppEvent.setRepositories(repos))
+            })
     }
     
     private func bindContextMenuEvents() -> Disposable {
@@ -226,7 +241,8 @@ class MainPresenter {
             bindUpdatePackageList(),
             bindPackageToggleEvent(),
             bindPrimaryButton(),
-            bindContextMenuEvents()
+            bindContextMenuEvents(),
+            bindUpdatePackagesOnLoad()
         ])
     }
 }

@@ -80,6 +80,10 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         super.keyUp(with: event)
     }
     
+    func updateSettingsButton(isEnabled: Bool) {
+        contentView.settingsButton.isEnabled = isEnabled
+    }
+    
     func updatePrimaryButton(isEnabled: Bool, label: String) {
         contentView.primaryButton.isEnabled = isEnabled
         contentView.primaryButton.title = label
@@ -162,21 +166,6 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         super.viewDidLoad()
         
         configureToolbar()
-        contentView.settingsButton.isEnabled = false
-        // TODO move to presenter?
-        // Always update the repos on load.
-        AppContext.settings.state.map { $0.repositories }
-            .flatMapLatest { (configs: [RepoConfig]) -> Observable<[RepositoryIndex]> in
-                return try AppDelegate.instance.requestRepos(configs)
-            }
-            .observeOn(MainScheduler.instance)
-            .subscribeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] repos in
-                print("Refreshed repos in main view.")
-                self?.contentView.settingsButton.isEnabled = true
-                AppContext.store.dispatch(event: AppEvent.setRepositories(repos))
-            })
-            .disposed(by: bag)
         
         dataSource.events.subscribe(onPackageEventSubject).disposed(by: bag)
         
@@ -187,6 +176,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     override func viewWillAppear() {
         super.viewWillAppear()
         
+        contentView.settingsButton.isEnabled = false
         contentView.primaryLabel.stringValue = Strings.appName
         updatePrimaryButton(isEnabled: false, label: Strings.noPackagesSelected)
         
@@ -433,7 +423,6 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
             }
             
             cell.textField?.attributedStringValue = NSAttributedString(string: group.value, attributes: bold)
-//            cell.textField?.stringValue = group.value
         case let .item(item, _, repo):
             switch column {
             case .name:
@@ -477,7 +466,6 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                         msg = selectedPackage.description
                     case .user:
                         msg = Strings.userDescription(description: selectedPackage.description)
-//                        msg = "\(selectedPackage.description) \(Strings.user)"
                     }
                     
                     cell.textField?.attributedStringValue = NSAttributedString(string: msg, attributes: attrs)
@@ -491,7 +479,6 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                                 cell.textField?.stringValue = response.status.description
                             case .user:
                                 cell.textField?.stringValue = Strings.userDescription(description: response.status.description.description)
-//                                cell.textField?.stringValue = "\(response.status.description) (User)"
                             }
                         }
                     } else {

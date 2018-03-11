@@ -53,15 +53,41 @@ struct JSONRPCRawCallback<R: Decodable>: Decodable {
     private let params: JSONRPCRawCallbackParams<R>
 }
 
+private struct JSONRPCRawErrorCallbackParams: Decodable {
+    let error: JSONRPCError
+    let subscription: Int
+}
+
+struct JSONRPCRawErrorCallback: Decodable {
+    let method: String
+    var error: JSONRPCError { return params.error }
+    var subscription: Int { return params.subscription }
+    
+    private let params: JSONRPCRawErrorCallbackParams
+}
+
 struct JSONRPCRawResponse<R: Decodable>: Decodable {
     let id: Int
     let error: JSONRPCError?
     let result: R?
 }
 
+enum JSONRPCErrorCode: Int, Codable {
+    case parseError = -32700
+    case invalidRequest = -32600
+    case methodNotFound = -32601
+    case invalidParams = -32602
+    case internalError = -32603
+}
+
 struct JSONRPCError: Error, Codable {
-    let code: Int
+    let code: JSONRPCErrorCode
     let message: String
+}
+
+fileprivate struct JSONRPCRawUnsubscribeResponse: Codable {
+    let id: Int
+    let result: Int
 }
 
 fileprivate struct JSONRPCRawSubscribeRequest {
@@ -199,12 +225,33 @@ class JSONRPCClient {
             .flatMapLatest { [weak self] (subscription: Int, data: Data) -> Observable<JSONRPCRawCallback<R.Response>> in
                 subscriptionId = subscription
                 
+                print("\(subscription) subscription")
+                
                 guard let jsonDecoder = self?.jsonDecoder else { return Observable.empty() }
-                guard let obj = try? jsonDecoder.decode(JSONRPCRawCallback<R.Response>.self, from: data) else {
-                    return Observable.empty()
+                
+                do {
+                    let obj = try jsonDecoder.decode(JSONRPCRawCallback<R.Response>.self, from: data)
+                    if subscription != obj.subscription { return Observable.empty() }
+                    return Observable.just(obj)
+                } catch {
+                    // Check for errors in callback
+                    do {
+                        let obj = try jsonDecoder.decode(JSONRPCRawErrorCallback.self, from: data)
+                        if subscription != obj.subscription { return Observable.empty() }
+                        return Observable.error(obj.error)
+                    } catch {
+                        // Check for unsubscription request due to errors
+                        do {
+                            let obj = try jsonDecoder.decode(JSONRPCRawUnsubscribeResponse.self, from: data)
+                            if subscription != obj.id { return Observable.empty() }
+                            print("UNSUB GET")
+                            return Observable.empty()
+                        } catch {
+                            print("Failed to decode: \(String(data: data, encoding: .utf8)!)")
+                            return Observable.error(error)
+                        }
+                    }
                 }
-                if subscription != obj.subscription { return Observable.empty() }
-                return Observable.just(obj)
             }
             .map { $0.result }
             .takeWhile({ !request.completionFilter($0) })

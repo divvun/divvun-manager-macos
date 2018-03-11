@@ -76,7 +76,7 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
         let alert = NSAlert()
         alert.alertStyle = .critical
         alert.addButton(withTitle: Strings.ok)
-        alert.messageText = Strings.errorDuringInstallation // "An error occurred during installation/uninstallation."
+        alert.messageText = Strings.errorDuringInstallation
         
         if let error = error as? JSONRPCError {
             alert.informativeText = error.message
