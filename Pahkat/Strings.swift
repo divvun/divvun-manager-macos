@@ -1,19 +1,78 @@
 // Generated. Do not edit.
 import Foundation
 
+fileprivate extension UserDefaults {
+    var appleLanguages: [String] {
+        return self.array(forKey: "AppleLanguages") as? [String] ??
+            [Locale.autoupdatingCurrent.languageCode ?? "en"]
+    }
+}
+
+extension Locale {
+    var derivedIdentifiers: [String] {
+        let x = self
+        var opts: [String] = []
+        
+        if let lang = x.languageCode {
+            if let script = x.scriptCode, let region = x.regionCode {
+                let c = "\(lang)-\(script)-\(region)"
+                opts.append(c)
+                if let x = localeTree[c] {
+                    opts.append(contentsOf: x)
+                    return opts
+                }
+            }
+            
+            if let script = x.scriptCode {
+                let c = "\(lang)-\(script)"
+                opts.append(c)
+                if let x = localeTree[c] {
+                    opts.append(contentsOf: x)
+                    return opts
+                }
+            }
+            
+            if let region = x.regionCode {
+                let c = "\(lang)-\(region)"
+                opts.append(c)
+                if let x = localeTree[c] {
+                    opts.append(contentsOf: x)
+                    return opts
+                }
+            }
+            
+            opts.append(lang)
+            if let x = localeTree[lang] {
+                opts.append(contentsOf: x)
+            }
+        }
+        
+        return opts
+    }
+}
+
 class Strings {
-    static var languageCode: String? = nil {
+    static var bundle: Bundle = Bundle.main
+    
+    static var languageCode: String = UserDefaults.standard.appleLanguages[0] {
         didSet {
-            if let dir = Bundle.main.path(forResource: languageCode, ofType: "lproj"), let bundle = Bundle(path: dir) {
+            var bundle: Bundle? = nil
+            
+            for code in Locale(identifier: languageCode).derivedIdentifiers {
+                if let dir = Bundle.main.path(forResource: code, ofType: "lproj"), let b = Bundle(path: dir) {
+                    bundle = b
+                    break
+                }
+            }
+            
+            if let bundle = bundle {
                 self.bundle = bundle
             } else {
-                print("No bundle found for \(String(describing: languageCode ?? nil))")
+                print("No bundle found for \(languageCode))")
                 self.bundle = Bundle.main
             }
         }
     }
-
-    static var bundle: Bundle = Bundle.main
 
     internal static func string(for key: String) -> String {
         return bundle.localizedString(forKey: key, value: nil, table: nil)
@@ -601,3 +660,12 @@ class Strings {
 
     private init() {}
 }
+
+fileprivate let localeTree = [
+    "en-001": ["en-001","en"],
+    "en": ["en"],
+    "nb": ["nb"],
+    "nn-Runr": ["nn-Runr","nn"],
+    "nn": ["nn"],
+    "se": ["se"]
+]

@@ -271,13 +271,16 @@ enum InterfaceLanguage: String, Comparable {
     }
     
     static func asMenuItems() -> [NSMenuItem] {
-        return [
-            InterfaceLanguage.systemLocale,
+        var x = [
             InterfaceLanguage.en,
             InterfaceLanguage.nn,
             InterfaceLanguage.nnRunic,
             InterfaceLanguage.se
-        ].sorted().map { createMenuItem($0) }
+        ].sorted()
+        
+        x.insert(InterfaceLanguage.systemLocale, at: 0)
+        
+        return x.map { createMenuItem($0) }
     }
     
     static func bind(to menu: NSMenu) {

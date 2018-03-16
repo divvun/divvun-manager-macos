@@ -34,20 +34,36 @@ extension Package: Comparable {
 
 extension Package {
     var nativeName: String {
-        return self.name[Strings.languageCode ?? "en"] ?? ""
+        for code in Locale(identifier: Strings.languageCode).derivedIdentifiers {
+            if let name = self.name[code] {
+                return name
+            }
+        }
+        
+        return self.name["en"] ?? ""
     }
 }
 
 extension Repository {
     var nativeName: String {
-        return self.name[Strings.languageCode ?? "en"] ?? ""
+        for code in Locale(identifier: Strings.languageCode).derivedIdentifiers {
+            if let name = self.name[code] {
+                return name
+            }
+        }
+        
+        return self.name["en"] ?? ""
     }
     
     func nativeCategory(for key: String) -> String {
-        guard let map = self.categories[Strings.languageCode ?? "en"] else {
-            return key
+        for code in Locale(identifier: Strings.languageCode).derivedIdentifiers {
+            guard let map = self.categories[code] else {
+                continue
+            }
+            
+            return map[key] ?? key
         }
         
-        return map[key] ?? key
+        return key
     }
 }
