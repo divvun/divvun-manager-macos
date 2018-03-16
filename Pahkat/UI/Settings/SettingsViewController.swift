@@ -46,10 +46,12 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
     func addBlankRepositoryRow() {
         let rows = self.contentView.repoTableView.numberOfRows
         self.contentView.repoTableView.beginUpdates()
-        self.tableDelegate.configs.append(RepositoryTableRowData(name: nil, url: nil, channel: nil))
+        self.tableDelegate.configs.append(RepositoryTableRowData(name: nil, url: nil, channel: .stable))
         self.contentView.repoTableView.insertRows(at: IndexSet(integer: rows), withAnimation: .effectFade)
         self.contentView.repoTableView.endUpdates()
-        self.contentView.repoTableView.selectRowIndexes(IndexSet(integer: rows), byExtendingSelection: false)
+        self.contentView.repoTableView.editColumn(0, row: rows, with: nil, select: true)
+    }
+    
     func updateProgressIndicator(isEnabled: Bool) {
         DispatchQueue.main.async {
             if isEnabled {
@@ -83,6 +85,10 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
     }
     
     func windowWillClose(_ notification: Notification) {
+        if tableDelegate == nil {
+            return
+        }
+        
         AppContext.settings.dispatch(event: .setRepositoryConfigs(tableDelegate.configs.flatMap {
             if let url = $0.url, let channel = $0.channel {
                 return RepoConfig(url: url, channel: channel)
@@ -241,6 +247,11 @@ class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSou
         switch column {
         case .url:
             guard let string = object as? String else { return }
+            
+            if string == "" {
+                return
+            }
+            
             if let url = URL(string: string), url.scheme?.starts(with: "http") ?? false {
                 self.configs[row] = RepositoryTableRowData(name: Strings.loading, url: url, channel: configs[row].channel)
                 events.onNext(.setURL(row, url))
