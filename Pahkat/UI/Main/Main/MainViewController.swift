@@ -35,8 +35,9 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     
     func setRepositories(data: MainOutlineMap) {
         dataSource.repos = data
+        
         contentView.outlineView.reloadData()
-//        refreshRepositories()
+        contentView.outlineView.expandItem(nil, expandChildren: true)
     }
     
     func refreshRepositories() {
