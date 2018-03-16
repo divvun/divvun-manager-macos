@@ -50,6 +50,9 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     
     func update(title: String) {
         self.title = title
+        contentView.primaryLabel.stringValue = title
+    }
+    
     func updateProgressIndicator(isEnabled: Bool) {
         DispatchQueue.main.async {
             if isEnabled {
@@ -198,7 +201,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         super.viewWillAppear()
         
         contentView.settingsButton.isEnabled = false
-        contentView.primaryLabel.stringValue = Strings.appName
+        self.update(title: Strings.appName)
         updatePrimaryButton(isEnabled: false, label: Strings.noPackagesSelected)
         
         presenter.start().disposed(by: bag)
