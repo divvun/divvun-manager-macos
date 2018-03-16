@@ -13,8 +13,6 @@ import BTree
 
 class MainViewController: DisposableViewController<MainView>, MainViewable, NSToolbarDelegate {
     private lazy var presenter = { MainPresenter(view: self) }()
-//    private var repo: RepositoryIndex? = nil
-//    private var statuses = [String: PackageInstallStatus]()
     private var dataSource = MainViewControllerDataSource()
     
     let onPackageEventSubject = PublishSubject<OutlineEvent>()
@@ -51,6 +49,14 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     
     func update(title: String) {
         self.title = title
+    func updateProgressIndicator(isEnabled: Bool) {
+        DispatchQueue.main.async {
+            if isEnabled {
+                self.contentView.progressIndicator.startAnimation(self)
+            } else {
+                self.contentView.progressIndicator.stopAnimation(self)
+            }
+        }
     }
     
     func showDownloadView(with packages: [URL: PackageAction]) {
@@ -75,13 +81,15 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
             case let .item(package, _, repo):
                 onPackageEventSubject.onNext(OutlineEvent.togglePackage(repo, package.package))
             }
+        } else {
+            super.keyUp(with: event)
         }
-        
-        super.keyUp(with: event)
     }
     
     func updateSettingsButton(isEnabled: Bool) {
-        contentView.settingsButton.isEnabled = isEnabled
+        DispatchQueue.main.async {
+            self.contentView.settingsButton.isEnabled = isEnabled
+        }
     }
     
     func updatePrimaryButton(isEnabled: Bool, label: String) {
@@ -96,9 +104,21 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     }
     
     func handle(error: Error) {
-        print(error)
-        // TODO: show errors in a meaningful way to the user
-        fatalError("Not implemented")
+        DispatchQueue.main.async {
+            let alert = NSAlert()
+            alert.messageText = Strings.downloadError
+            
+            if let error = error as? JSONRPCError {
+                alert.informativeText = error.message
+            } else {
+                alert.informativeText = error.localizedDescription
+            }
+            
+            alert.alertStyle = .critical
+            alert.runModal()
+            
+            self.contentView.settingsButton.isEnabled = true
+        }
     }
     
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {

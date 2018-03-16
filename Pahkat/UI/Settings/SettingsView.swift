@@ -23,6 +23,7 @@ class SettingsView: View {
     @IBOutlet weak var repoRemoveButton: NSButton!
     
     @IBOutlet weak var repoChannelColumn: NSPopUpButtonCell!
+    @IBOutlet weak var progressIndicator: NSProgressIndicator!
     
     override func awakeFromNib() {
         frequencyLabel.stringValue = "\(Strings.updateFrequency):"

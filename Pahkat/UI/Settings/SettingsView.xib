@@ -220,12 +220,17 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
+                <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="4Mv-bB-OCk">
+                    <rect key="frame" x="234" y="31" width="32" height="32"/>
+                </progressIndicator>
             </subviews>
             <constraints>
                 <constraint firstItem="KRR-39-7Gl" firstAttribute="width" secondItem="c22-O7-iKe" secondAttribute="width" id="6rX-tA-cVp"/>
+                <constraint firstItem="4Mv-bB-OCk" firstAttribute="centerX" secondItem="Ya4-kd-DGy" secondAttribute="centerX" id="8Hs-9Y-yab"/>
                 <constraint firstItem="KRR-39-7Gl" firstAttribute="height" secondItem="c22-O7-iKe" secondAttribute="height" id="L5N-4T-N5l"/>
                 <constraint firstItem="KRR-39-7Gl" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="iiR-yU-MkJ"/>
                 <constraint firstItem="KRR-39-7Gl" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="kn0-95-Ohx"/>
+                <constraint firstItem="4Mv-bB-OCk" firstAttribute="centerY" secondItem="Ya4-kd-DGy" secondAttribute="centerY" constant="20" id="xO7-Id-Q7z"/>
             </constraints>
             <connections>
                 <outlet property="frequencyLabel" destination="aQP-oQ-Gi6" id="2pg-RG-pvQ"/>
@@ -233,6 +238,7 @@
                 <outlet property="languageDropdown" destination="QxT-ru-XR2" id="l77-Uh-kzz"/>
                 <outlet property="languageHelpLabel" destination="IlL-BY-dY4" id="yCZ-dO-7nW"/>
                 <outlet property="languageLabel" destination="cd7-sj-BfF" id="DXz-SF-hgO"/>
+                <outlet property="progressIndicator" destination="4Mv-bB-OCk" id="Gyp-cn-4Me"/>
                 <outlet property="repoAddButton" destination="xWU-Yp-0E0" id="sYS-he-K9w"/>
                 <outlet property="repoChannelColumn" destination="mem-kB-34w" id="2C5-Iy-sVe"/>
                 <outlet property="repoLabel" destination="VN1-JO-Hvd" id="amJ-CA-xKf"/>

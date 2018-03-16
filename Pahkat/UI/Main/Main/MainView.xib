@@ -46,7 +46,7 @@
                                                     <button horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="10i-S8-dpG" customClass="OutlineCheckbox" customModule="Pahkat" customModuleProvider="target">
                                                         <rect key="frame" x="2" y="0.0" width="22" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" allowsMixedState="YES" inset="2" id="iDQ-gG-M71">
+                                                        <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" refusesFirstResponder="YES" allowsMixedState="YES" inset="2" id="iDQ-gG-M71">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
@@ -147,17 +147,23 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
+                <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="8f9-j2-fvG">
+                    <rect key="frame" x="259" y="120" width="32" height="32"/>
+                </progressIndicator>
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Wg3-4c-mmT" secondAttribute="trailing" constant="20" id="3c8-9n-n86"/>
+                <constraint firstItem="8f9-j2-fvG" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="884-Em-gHp"/>
                 <constraint firstItem="Wg3-4c-mmT" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="20" id="OTb-8W-G5a"/>
                 <constraint firstAttribute="bottom" secondItem="Wg3-4c-mmT" secondAttribute="bottom" constant="20" id="bpf-9O-hPT"/>
                 <constraint firstItem="Wg3-4c-mmT" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" id="deB-Il-dyD"/>
+                <constraint firstItem="8f9-j2-fvG" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="fO6-bQ-JQA"/>
             </constraints>
             <connections>
                 <outlet property="outlineView" destination="qQh-sV-PqP" id="Sd2-f7-Uz6"/>
                 <outlet property="primaryButton" destination="R6u-Ct-oD5" id="Var-N3-yPT"/>
                 <outlet property="primaryLabel" destination="tmX-W5-PJQ" id="akr-OL-K6V"/>
+                <outlet property="progressIndicator" destination="8f9-j2-fvG" id="msV-JE-liI"/>
                 <outlet property="settingsButton" destination="jxA-Vr-T8K" id="hXZ-kj-Jgl"/>
             </connections>
             <point key="canvasLocation" x="-280.5" y="175.5"/>

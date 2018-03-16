@@ -50,6 +50,16 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
         self.contentView.repoTableView.insertRows(at: IndexSet(integer: rows), withAnimation: .effectFade)
         self.contentView.repoTableView.endUpdates()
         self.contentView.repoTableView.selectRowIndexes(IndexSet(integer: rows), byExtendingSelection: false)
+    func updateProgressIndicator(isEnabled: Bool) {
+        DispatchQueue.main.async {
+            if isEnabled {
+                self.contentView.repoTableView.isHidden = true
+                self.contentView.progressIndicator.startAnimation(self)
+            } else {
+                self.contentView.repoTableView.isHidden = false
+                self.contentView.progressIndicator.stopAnimation(self)
+            }
+        }
     }
     
     func promptRemoveRepositoryRow() {
@@ -79,6 +89,22 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
             }
             return nil
         }))
+    }
+    
+    func handle(error: Error) {
+        DispatchQueue.main.async {
+            let alert = NSAlert()
+            alert.messageText = Strings.downloadError
+            
+            if let error = error as? JSONRPCError {
+                alert.informativeText = error.message
+            } else {
+                alert.informativeText = error.localizedDescription
+            }
+            
+            alert.alertStyle = .critical
+            alert.runModal()
+        }
     }
     
     override func viewDidLoad() {

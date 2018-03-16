@@ -15,10 +15,13 @@ class MainView: View {
     @IBOutlet weak var primaryButton: NSButton!
     @IBOutlet weak var settingsButton: NSButton!
     @IBOutlet weak var outlineView: NSOutlineView!
+    @IBOutlet weak var progressIndicator: NSProgressIndicator!
     
     override func awakeFromNib() {
         primaryButton.title = Strings.noPackagesSelected
         primaryLabel.stringValue = Strings.appName
+        
+        progressIndicator.startAnimation(self)
     }
 }
 

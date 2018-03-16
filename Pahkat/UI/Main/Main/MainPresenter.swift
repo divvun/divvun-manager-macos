@@ -86,7 +86,9 @@ class MainPresenter {
             .subscribe(onNext: { [weak self] repos in
                 guard let `self` = self else { return }
                 self.updateData(with: repos)
+                self.view.updateProgressIndicator(isEnabled: false)
                 self.view.setRepositories(data: self.data)
+                
             }, onError: { [weak self] in self?.view.handle(error: $0) })
     }
     
@@ -165,15 +167,23 @@ class MainPresenter {
     private func bindUpdatePackagesOnLoad() -> Disposable {
         // Always update the repos on load.
         return AppContext.settings.state.map { $0.repositories }
-            .flatMapLatest { (configs: [RepoConfig]) -> Observable<[RepositoryIndex]> in
-                return try AppDelegate.instance.requestRepos(configs)
-            }
+//            .distinctUntilChanged({ (a, b) in a == b })
             .observeOn(MainScheduler.instance)
             .subscribeOn(MainScheduler.instance)
+            .flatMapLatest { [weak self] (configs: [RepoConfig]) -> Observable<[RepositoryIndex]> in
+                self?.view.updateSettingsButton(isEnabled: false)
+                self?.view.updateProgressIndicator(isEnabled: true)
+                return try AppDelegate.instance.requestRepos(configs)
+            }
             .subscribe(onNext: { [weak self] repos in
                 print("Refreshed repos in main view.")
                 self?.view.updateSettingsButton(isEnabled: true)
                 AppContext.store.dispatch(event: AppEvent.setRepositories(repos))
+                self?.view.updateProgressIndicator(isEnabled: false)
+            }, onError: { [weak self] error in
+                self?.view.handle(error: error)
+                self?.view.updateSettingsButton(isEnabled: true)
+                self?.view.updateProgressIndicator(isEnabled: false)
             })
     }
     

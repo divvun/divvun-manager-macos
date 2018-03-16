@@ -48,6 +48,8 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
             .subscribe(onNext: { repos in
                 print("Refreshed repos in main view.")
                 AppContext.store.dispatch(event: AppEvent.setRepositories(repos))
+            }, onError: { _ in
+                // Do nothing.
             })
             .disposed(by: bag)
     }

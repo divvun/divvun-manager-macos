@@ -18,7 +18,8 @@ class SettingsPresenter {
     
     private func bindRepositoryTable() -> Disposable {
         return AppContext.settings.state.map { $0.repositories }
-            .flatMapLatest { (configs: [RepoConfig]) -> Observable<[RepositoryTableRowData]> in
+            .flatMapLatest { [weak self] (configs: [RepoConfig]) -> Observable<[RepositoryTableRowData]> in
+                self?.view.updateProgressIndicator(isEnabled: true)
                 return Observable.merge(try configs.map { (config: RepoConfig) -> Observable<RepositoryTableRowData> in
                     return try AppContext.rpc.repository(with: config).asObservable().map { repo in
                         return RepositoryTableRowData(name: repo.meta.nativeName, url: config.url, channel: config.channel)
@@ -29,6 +30,9 @@ class SettingsPresenter {
             .subscribeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] rowData in
                 self?.view.setRepositories(repositories: rowData)
+                self?.view.updateProgressIndicator(isEnabled: false)
+            }, onError: { [weak self] error in
+                self?.view.handle(error: error)
             })
     }
     
