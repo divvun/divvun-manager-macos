@@ -41,6 +41,10 @@ class WindowController<T: Window>: NSWindowController {
     
     required init() {
         super.init(window: contentWindow)
+        let name = NSWindow.FrameAutosaveName(rawValue: contentWindow.representedFilename)
+        self.shouldCascadeWindows = false
+        contentWindow.setFrameUsingName(name)
+        contentWindow.setFrameAutosaveName(name)
         self.windowWillLoad()
         self.windowDidLoad()
     }

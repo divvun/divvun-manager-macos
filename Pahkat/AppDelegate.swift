@@ -55,7 +55,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let window = NSApp.windows.filter({ $0.isVisible }).first {
             window.windowController?.showWindow(self)
         } else {
-            AppContext.windows.show(MainWindowController.self, viewController: MainViewController())
+            AppContext.windows.show(MainWindowController.self, viewController: MainViewController(), sender: self)
         }
     }
     
@@ -95,7 +95,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             requiresAppDeath = true
             onUpdateRequested()
         } else {
-            AppContext.windows.show(MainWindowController.self, viewController: MainViewController())
+            AppContext.windows.show(MainWindowController.self, viewController: MainViewController(), sender: self)
         }
         
         // Manage the launch agents

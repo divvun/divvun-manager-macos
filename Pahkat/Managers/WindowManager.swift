@@ -14,6 +14,10 @@ class WindowManager: NSObject, NSWindowDelegate {
     
     func windowWillClose(_ notification: Notification) {
         guard let closingWindow = notification.object as? NSWindow else { return }
+        
+        let name = NSWindow.FrameAutosaveName(rawValue: closingWindow.representedFilename)
+        closingWindow.saveFrame(usingName: name)
+        
         if let (key, window) = instances.first(where: { $0.1.window === closingWindow }) {
             instances.removeValue(forKey: key)
         }
@@ -42,12 +46,12 @@ class WindowManager: NSObject, NSWindowDelegate {
         windowController.contentWindow.set(viewController: viewController)
     }
     
-    func show<Window, T: WindowController<Window>>(_ type: T.Type, viewController: NSViewController? = nil) {
+    func show<Window, T: WindowController<Window>>(_ type: T.Type, viewController: NSViewController? = nil, sender: NSObject? = nil) {
         let windowController = get(type)
-        windowController.showWindow(nil)
         if let viewController = viewController {
             windowController.contentWindow.set(viewController: viewController)
         }
+        windowController.showWindow(sender)
     }
     
     func close<Window, T: WindowController<Window>>(_ type: T.Type) {
