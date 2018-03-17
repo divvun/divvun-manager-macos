@@ -132,6 +132,12 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
                         <items>
+                            <menuItem title="Close" keyEquivalent="w" id="att-dC-lxr" userLabel="Close">
+                                <accessibility identifier="close"/>
+                                <connections>
+                                    <action selector="performClose:" target="-1" id="FnF-no-nFY"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Minimize" keyEquivalent="m" id="OY7-WF-poV">
                                 <accessibility identifier="minimize"/>
                                 <connections>
