@@ -28,10 +28,6 @@ class ViewController<T: View>: NSViewController {
 }
 
 class Window: NSWindow, Nibbable {
-    public func set(viewController: NSViewController) {
-        self.contentViewController = viewController
-        self.bind(.title, to: viewController, withKeyPath: "title", options: nil)
-    }
 }
 
 class WindowController<T: Window>: NSWindowController {
@@ -39,9 +35,21 @@ class WindowController<T: Window>: NSWindowController {
     
     let contentWindow = T.loadFromNib()
     
+    var viewController: NSViewController? {
+        didSet {
+            if let v = viewController {
+                contentWindow.contentView = v.view
+                contentWindow.bind(.title, to: v, withKeyPath: "title", options: nil)
+            } else {
+                contentWindow.contentView = nil
+                contentWindow.unbind(.title)
+            }
+        }
+    }
+    
     required init() {
         super.init(window: contentWindow)
-        let name = NSWindow.FrameAutosaveName(rawValue: contentWindow.representedFilename)
+        let name = NSWindow.FrameAutosaveName(rawValue: T.nibPath)
         self.shouldCascadeWindows = false
         contentWindow.setFrameUsingName(name)
         contentWindow.setFrameAutosaveName(name)

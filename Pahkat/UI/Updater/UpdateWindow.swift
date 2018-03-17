@@ -12,7 +12,7 @@ class UpdateWindow: Window {}
 
 class UpdateWindowController: WindowController<UpdateWindow> {
     override func windowDidLoad() {
-        self.contentWindow.set(viewController: UpdateViewController())
+        self.viewController = UpdateViewController()
     }
 }
 
