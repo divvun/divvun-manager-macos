@@ -42,8 +42,8 @@ class PahkatRPCService {
             self.rpc.input.onNext(data)
         }
         
-        pahkatcIPC.standardError = {
-            print($0)
+        pahkatcIPC.standardError = { line in
+            print(line)
         }
         
         // Handle output to process

@@ -27,7 +27,7 @@ extension STPrivilegedTask {
 class AdminSubprocess: BufferedProcess {
     private let task: STPrivilegedTask
     
-    var onComplete: (() -> ())?
+    var onComplete: ((Int32) -> ())?
     
     init(_ launchPath: String, arguments: [String]) {
         task = STPrivilegedTask(launchPath: launchPath, arguments: arguments)
@@ -37,9 +37,7 @@ class AdminSubprocess: BufferedProcess {
             
             print("Exit code (\(self.task.launchPath!)): \(self.exitCode)")
             
-            if self.exitCode == 0 {
-                self.onComplete?()
-            }
+            self.onComplete?(self.exitCode)
             
             // Avoids memory leaks.
             self.standardOutput = nil

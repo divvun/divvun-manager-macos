@@ -23,7 +23,7 @@ class SettingsPresenter {
                 return Observable.merge(try configs.map { (config: RepoConfig) -> Observable<RepositoryTableRowData> in
                     return try AppContext.rpc.repository(with: config).asObservable().map { repo in
                         return RepositoryTableRowData(name: repo.meta.nativeName, url: config.url, channel: config.channel)
-                    }
+                    }.catchErrorJustReturn(RepositoryTableRowData(name: "❓", url: config.url, channel: config.channel))
                 }).toArray()
             }
             .observeOn(MainScheduler.instance)

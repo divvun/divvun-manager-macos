@@ -73,6 +73,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             // Wrong DSN or KSCrash not installed
         }
         
+        AppContext.rpc.pahkatcIPC.onComplete = { exitCode in
+            if exitCode != 0 && exitCode != 15 {
+                DispatchQueue.main.async {
+                    let alert = NSAlert()
+                    alert.messageText = "The RPC client has crashed. Please restart the app and try again."
+                    alert.runModal()
+                    exit(101)
+                }
+            }
+        }
+        
         NSApp.mainMenu = MainMenu.loadFromNib()
         AppDelegate.instance = self
         

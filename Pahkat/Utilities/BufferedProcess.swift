@@ -16,7 +16,7 @@ enum TaskLaunchResult {
 }
 
 protocol BufferedProcess: class {
-    var onComplete: (() -> ())? { set get }
+    var onComplete: ((Int32) -> ())? { set get }
     var standardOutput: ((String) -> ())? { set get }
     var standardError: ((String) -> ())? { set get }
     func write(string: String, withNewline: Bool)
@@ -73,7 +73,7 @@ class BufferedStringSubprocess: BufferedProcess {
         }
     }
     
-    var onComplete: (() -> ())?
+    var onComplete: ((Int32) -> ())?
     
     init(_ launchPath: String, arguments: [String], environment: [String: String]? = nil, qos: QualityOfService? = nil) {
         task.standardInput = stdin
@@ -96,9 +96,7 @@ class BufferedStringSubprocess: BufferedProcess {
             
             print("Exit code (\(self.task.launchPath!)): \(self.exitCode)")
             
-            if self.exitCode == 0 {
-                self.onComplete?()
-            }
+            self.onComplete?(self.exitCode)
             
             // Avoids memory leaks.
             self.standardOutput = nil
