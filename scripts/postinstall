@@ -1,0 +1,3 @@
+#!/bin/bash
+
+$DSTROOT/Pahkat.app/Contents/MacOS/agenthelper restart-app

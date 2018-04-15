@@ -28,17 +28,23 @@ func requestRepos(_ configs: [RepoConfig], rpc: PahkatRPCService) throws -> Obse
         }
 }
 
-func openMainApp() {
-    let event = NSAppleEventDescriptor.appleEvent(withEventClass: PahkatAppleEvent.classID,
-                                                  eventID: PahkatAppleEvent.update.rawValue,
-                                                  targetDescriptor: nil,
-                                                  returnID: Int16(kAutoGenerateReturnID),
-                                                  transactionID: Int32(kAnyTransactionID))
-    
-    try! NSWorkspace.shared.launchApplication(at: Bundle.main.bundleURL, options: .default, configuration: [
-        NSWorkspace.LaunchConfigurationKey.appleEvent: event,
-        NSWorkspace.LaunchConfigurationKey.arguments: ["update"]
-    ])
+func pahkatEvent(eventID: PahkatAppleEvent) -> NSAppleEventDescriptor {
+    return NSAppleEventDescriptor.appleEvent(withEventClass: PahkatAppleEvent.classID,
+                                             eventID: eventID.rawValue,
+                                             targetDescriptor: nil,
+                                             returnID: Int16(kAutoGenerateReturnID),
+                                             transactionID: Int32(kAnyTransactionID))
+}
+
+func launchConfig(eventID: PahkatAppleEvent) -> [NSWorkspace.LaunchConfigurationKey: Any] {
+    return [
+        NSWorkspace.LaunchConfigurationKey.appleEvent: pahkatEvent(eventID: eventID),
+        NSWorkspace.LaunchConfigurationKey.arguments: [eventID.stringValue]
+    ]
+}
+
+func openAppWith(event: PahkatAppleEvent) {
+    try! NSWorkspace.shared.launchApplication(at: Bundle.main.bundleURL, options: .default, configuration: launchConfig(eventID: event))
 }
 
 func checkForUpdates() {
@@ -54,7 +60,7 @@ func checkForUpdates() {
             for repo in repos {
                 if let _ = repo.statuses.first(where: { $0.1.status == .requiresUpdate }) {
                     print("Updates found!")
-                    openMainApp()
+                    openAppWith(event: .update)
                     exit(0)
                 }
             }
@@ -66,8 +72,30 @@ func checkForUpdates() {
         })
 }
 
+func restartApp() {
+    let exe = Bundle.main.bundleURL.appendingPathComponent("Contents/MacOS/Pahkat")
+    
+    if let app = NSWorkspace.shared.runningApplications.first(where: { $0.executableURL == exe }) {
+        app.forceTerminate()
+    }
+    
+    openAppWith(event: .restartApp)
+    exit(0)
+}
+
 print(Bundle.main)
-checkForUpdates()
+print(CommandLine.arguments)
+
+if CommandLine.argc > 1 {
+    switch CommandLine.arguments[1] {
+    case "restart-app":
+        restartApp()
+    default:
+        checkForUpdates()
+    }
+} else {
+    checkForUpdates()
+}
 
 while true {
     usleep(50000)
