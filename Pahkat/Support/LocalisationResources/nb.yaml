@@ -65,7 +65,7 @@ daily: Daglig
 # Original: Delete
 delete: Slett
 
-# Original: Error 😞
+# Original: Error \U0001F61E
 downloadError: "Feil \U0001F61E"
 
 # Original: Downloaded
