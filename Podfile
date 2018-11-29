@@ -3,18 +3,18 @@ platform :osx, '10.10'
 use_frameworks!
 
 target 'agenthelper' do
-  pod 'RxSwift'
+  pod 'RxSwift', '~> 4.4'
 end
 
 target 'Pahkat' do
   # Pods for Pahkat
-  pod 'RxSwift'
-  pod 'RxCocoa'
-  pod 'RxFeedback'
+  pod 'RxSwift', '~> 4.4'
+  pod 'RxCocoa', '~> 4.4'
+  pod 'RxFeedback', '~> 1.1'
   pod 'STPrivilegedTask', git: "https://github.com/sveinbjornt/STPrivilegedTask.git"
   pod 'BTree', '~> 4.1'
   pod 'Sparkle'
-  pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '3.11.1'
+  pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '4.1.0'
 end
 
 post_install do |installer|

@@ -18,10 +18,8 @@ class DownloadPresenter {
         self.packages = packages
     }
     
-    func downloadablePackages() -> [(Package, RepositoryIndex, MacOsInstaller.Targets)] {
-        return packages.values
-            .filter { $0.isInstalling }
-            .map { ($0.package, $0.repository, $0.target) }
+    func downloadablePackages() -> [URL: PackageAction] {
+        return packages.filter { (k, v) in v.isInstalling }
     }
     
     private func bindCancel() -> Disposable {
@@ -29,14 +27,17 @@ class DownloadPresenter {
     }
     
     private func bindDownload() -> Disposable {
-        return Observable.from(downloadablePackages())
-            .map { (package: Package, repo: RepositoryIndex, target: MacOsInstaller.Targets) -> Observable<(Package, PackageDownloadStatus)> in
-                try AppContext.rpc.download(package, repo: repo, target: target)
-                    .do(onNext: { [weak self] status in
-                        self?.view.setStatus(package: package, status: status)
-                    }).takeWhile({
-                        if case .completed = $0 { return false } else { return true }
-                    }).map { (package, $0) }
+        let client = PahkatClient()
+        
+        return Observable.from(downloadablePackages().values).map { action -> Observable<(Package, PackageDownloadStatus)> in
+            print("Downloading \(action.packageRecord.id)")
+            
+            return client.download(packageKey: action.packageRecord.id, target: action.target)
+                .do(onNext: { [weak self] args in
+                    print(args)
+                    self?.view.setStatus(package: action.packageRecord.package, status: args.status)
+                })
+                .map { (action.packageRecord.package, $0.1) }
             }
             .merge(maxConcurrent: 3)
             .toArray()
@@ -49,11 +50,11 @@ class DownloadPresenter {
                 },
                 onError: { [weak self] in
                     self?.view.handle(error: $0)
-            })
+                })
     }
         
     func start() -> Disposable {
-        self.view.initializeDownloads(packages: downloadablePackages().map { $0.0 })
+        self.view.initializeDownloads(packages: downloadablePackages().map { $0.1.packageRecord.package })
         
         return CompositeDisposable.init(disposables: [
             self.bindDownload(),

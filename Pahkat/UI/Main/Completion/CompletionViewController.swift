@@ -22,7 +22,7 @@ class CompletionViewController: DisposableViewController<CompletionView>, Comple
         var requiresReboot = false
         
         for action in packages.values {
-            guard case let .macOsInstaller(installer) = action.package.installer else {
+            guard case let .macOsInstaller(installer) = action.packageRecord.package.installer else {
                 continue
             }
             

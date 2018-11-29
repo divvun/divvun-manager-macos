@@ -89,7 +89,7 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
             return
         }
         
-        AppContext.settings.dispatch(event: .setRepositoryConfigs(tableDelegate.configs.flatMap {
+        AppContext.settings.dispatch(event: .setRepositoryConfigs(tableDelegate.configs.compactMap {
             if let url = $0.url, let channel = $0.channel {
                 return RepoConfig(url: url, channel: channel)
             }

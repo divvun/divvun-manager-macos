@@ -9,12 +9,12 @@
 import Foundation
 
 enum PackageAction: Hashable {
-    case install(RepositoryIndex, Package, MacOsInstaller.Targets)
-    case uninstall(RepositoryIndex, Package, MacOsInstaller.Targets)
+    case install(RepositoryIndex, PackageRecord, MacOsInstaller.Targets)
+    case uninstall(RepositoryIndex, PackageRecord, MacOsInstaller.Targets)
     
     static func ==(lhs: PackageAction, rhs: PackageAction) -> Bool {
         return lhs.repository == rhs.repository &&
-            lhs.package == rhs.package &&
+            lhs.packageRecord == rhs.packageRecord &&
             lhs.target == rhs.target
     }
     
@@ -27,7 +27,7 @@ enum PackageAction: Hashable {
     }
     
     var hashValue: Int {
-        return self.repository.hashValue ^ self.package.hashValue ^ self.target.hashValue
+        return self.repository.hashValue ^ self.packageRecord.hashValue ^ self.target.hashValue
     }
     
     var repository: RepositoryIndex {
@@ -39,7 +39,7 @@ enum PackageAction: Hashable {
         }
     }
     
-    var package: Package {
+    var packageRecord: PackageRecord {
         switch self {
         case let .install(_, package, _):
             return package

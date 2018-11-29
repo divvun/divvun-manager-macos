@@ -39,19 +39,19 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
         self.contentView.tableView.dataSource = self.tableDelegate
         self.contentView.tableView.delegate = self.tableDelegate
         
-        AppContext.settings.state.map { $0.repositories }
-            .flatMapLatest { (configs: [RepoConfig]) -> Observable<[RepositoryIndex]> in
-                return try AppDelegate.instance.requestRepos(configs)
-            }
-            .observeOn(MainScheduler.instance)
-            .subscribeOn(MainScheduler.instance)
-            .subscribe(onNext: { repos in
-                print("Refreshed repos in main view.")
-                AppContext.store.dispatch(event: AppEvent.setRepositories(repos))
-            }, onError: { _ in
-                // Do nothing.
-            })
-            .disposed(by: bag)
+//        AppContext.settings.state.map { $0.repositories }
+//            .flatMapLatest { (configs: [RepoConfig]) -> Observable<[RepositoryIndex]> in
+//                return try AppDelegate.instance.requestRepos(configs)
+//            }
+//            .observeOn(MainScheduler.instance)
+//            .subscribeOn(MainScheduler.instance)
+//            .subscribe(onNext: { repos in
+//                print("Refreshed repos in main view.")
+//                AppContext.store.dispatch(event: AppEvent.setRepositories(repos))
+//            }, onError: { _ in
+//                // Do nothing.
+//            })
+//            .disposed(by: bag)
     }
     
     override func viewWillAppear() {

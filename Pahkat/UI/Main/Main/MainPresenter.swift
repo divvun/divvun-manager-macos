@@ -142,14 +142,16 @@ class MainPresenter {
             }
             
             if let outlinePackage = item.1.first(where: { $0.package == package }), let info = repo.repo.status(for: package) {
+                let packageKey = repo.repo.absoluteKey(for: package)
+                let packageRecord = PackageRecord.init(id: packageKey, package: package)
                 switch option {
                 case .toggle:
                     if outlinePackage.action == nil {
                         switch info.status {
                         case .upToDate:
-                            outlinePackage.action = PackageAction.uninstall(repo.repo, package, info.target)
+                            outlinePackage.action = PackageAction.uninstall(repo.repo, packageRecord, info.target)
                         default:
-                            outlinePackage.action = PackageAction.install(repo.repo, package, installer.targets[0])
+                            outlinePackage.action = PackageAction.install(repo.repo, packageRecord, installer.targets[0])
                         }
                     } else {
                         outlinePackage.action = nil
@@ -166,15 +168,15 @@ class MainPresenter {
     
     private func bindUpdatePackagesOnLoad() -> Disposable {
         // Always update the repos on load.
-        return AppContext.settings.state.map { $0.repositories }
-//            .distinctUntilChanged({ (a, b) in a == b })
-            .observeOn(MainScheduler.instance)
-            .subscribeOn(MainScheduler.instance)
-            .flatMapLatest { [weak self] (configs: [RepoConfig]) -> Observable<[RepositoryIndex]> in
-                self?.view.updateSettingsButton(isEnabled: false)
-                self?.view.updateProgressIndicator(isEnabled: true)
-                return try AppDelegate.instance.requestRepos(configs)
-            }
+        return Observable.of(PahkatClient().repos())
+//        return AppContext.settings.state.map { $0.repositories }
+//            .observeOn(MainScheduler.instance)
+//            .subscribeOn(MainScheduler.instance)
+//            .flatMapLatest { [weak self] (configs: [RepoConfig]) -> Observable<[RepositoryIndex]> in
+//                self?.view.updateSettingsButton(isEnabled: false)
+//                self?.view.updateProgressIndicator(isEnabled: true)
+//                return try AppDelegate.instance.requestRepos(configs)
+//            }
             .subscribe(onNext: { [weak self] repos in
                 print("Refreshed repos in main view.")
                 self?.view.updateSettingsButton(isEnabled: true)
@@ -196,14 +198,14 @@ class MainPresenter {
                 guard let outlineRepo = self.data.keys.first(where: { $0.repo == action.repository })  else {
                     return
                 }
-                self.setPackageState(to: .set(action), package: action.package, repo: outlineRepo)
+                self.setPackageState(to: .set(action), package: action.packageRecord.package, repo: outlineRepo)
                 self.updatePrimaryButton()
                 self.view.refreshRepositories()
             case let .changeFilter(repo, filter):
                 repo.filter = filter
                 self.updateFilters(key: repo)
                 for action in self.selectedPackages.values {
-                    self.setPackageState(to: .set(action), package: action.package, repo: repo)
+                    self.setPackageState(to: .set(action), package: action.packageRecord.package, repo: repo)
                 }
                 self.view.setRepositories(data: self.data)
             default:
@@ -223,7 +225,9 @@ class MainPresenter {
                 case let .toggleGroup(repo, group):
                     let packages = self.data[repo]![group]!
                     let toggleIds = Set(self.selectedPackages.keys).intersection(packages.map { repo.repo.url(for: $0.package) })
-                    let x = toggleIds.count > 0 ? toggleIds.map { url in packages.first(where: { url == repo.repo.url(for: $0.package) })!.package } : packages.map { $0.package }
+                    let x = toggleIds.count > 0
+                        ? toggleIds.map { url in packages.first(where: { url == repo.repo.url(for: $0.package) })!.package }
+                        : packages.map { $0.package }
                     return Observable.just((repo, x))
                 default:
                     return Observable.empty()

@@ -46,6 +46,6 @@ extension DownloadSubscriptionRequest: JSONRPCSubscriptionRequest {
     
     var method: String { return "download_subscribe" }
     var unsubscribeMethod: String? { return "download_unsubscribe" }
-    var params: Encodable? { return [repo.meta.base.absoluteString, package.id, target == MacOsInstaller.Targets.system ? 0 : 1] }
+    var params: Encodable? { return [repo.meta.base.absoluteString, package.id, MacOsInstaller.Targets.system.rawValue] }
     var callback: String { return "download" }
 }

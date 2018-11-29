@@ -18,7 +18,7 @@ extension PackageInstallStatusRequest: JSONRPCRequest {
     typealias Response = PackageInstallStatus
     
     var method: String { return "status" }
-    var params: Encodable? { return [repo.meta.base.absoluteString, package.id, target == MacOsInstaller.Targets.system ? 0 : 1] }
+    var params: Encodable? { return [repo.meta.base.absoluteString, package.id, MacOsInstaller.Targets.system.rawValue] }
 }
 
 struct InstallRequest {
@@ -31,7 +31,7 @@ extension InstallRequest: JSONRPCRequest {
     typealias Response = PackageInstallStatus
     
     var method: String { return "install" }
-    var params: Encodable? { return [repo.meta.base.absoluteString, package.id, target == MacOsInstaller.Targets.system ? 0 : 1] }
+    var params: Encodable? { return [repo.meta.base.absoluteString, package.id, MacOsInstaller.Targets.system.rawValue] }
 }
 
 struct UninstallRequest {
@@ -44,5 +44,5 @@ extension UninstallRequest: JSONRPCRequest {
     typealias Response = PackageInstallStatus
     
     var method: String { return "uninstall" }
-    var params: Encodable? { return [repo.meta.base.absoluteString, package.id, target == MacOsInstaller.Targets.system ? 0 : 1] }
+    var params: Encodable? { return [repo.meta.base.absoluteString, package.id, MacOsInstaller.Targets.system.rawValue] }
 }

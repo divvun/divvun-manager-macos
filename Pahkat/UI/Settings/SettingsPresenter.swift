@@ -21,9 +21,10 @@ class SettingsPresenter {
             .flatMapLatest { [weak self] (configs: [RepoConfig]) -> Observable<[RepositoryTableRowData]> in
                 self?.view.updateProgressIndicator(isEnabled: true)
                 return Observable.merge(try configs.map { (config: RepoConfig) -> Observable<RepositoryTableRowData> in
-                    return try AppContext.rpc.repository(with: config).asObservable().map { repo in
-                        return RepositoryTableRowData(name: repo.meta.nativeName, url: config.url, channel: config.channel)
-                    }.catchErrorJustReturn(RepositoryTableRowData(name: "❓", url: config.url, channel: config.channel))
+                    Observable.just(RepositoryTableRowData(name: "❓", url: config.url, channel: config.channel))
+//                    return try AppContext.rpc.repository(with: config).asObservable().map { repo in
+//                        return RepositoryTableRowData(name: repo.meta.nativeName, url: config.url, channel: config.channel)
+//                    }.catchErrorJustReturn(RepositoryTableRowData(name: "❓", url: config.url, channel: config.channel))
                 }).toArray()
             }
             .observeOn(MainScheduler.instance)

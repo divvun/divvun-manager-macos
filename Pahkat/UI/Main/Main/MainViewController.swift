@@ -128,7 +128,9 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
         switch itemIdentifier.rawValue {
         case "settings":
-            return NSToolbarItem(view: contentView.settingsButton, identifier: itemIdentifier)
+            let item = NSToolbarItem(view: contentView.settingsButton, identifier: itemIdentifier)
+            item.maxSize = NSSize(width: CGFloat(48.0), height: item.maxSize.height)
+            return item
         case "button":
             contentView.primaryButton.sizeToFit()
             return NSToolbarItem(view: contentView.primaryButton, identifier: itemIdentifier)
@@ -269,23 +271,25 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
             let status = outlineStatus.status
             let target = outlineStatus.target
             
+            let packageRecord = PackageRecord(id: repo.repo.absoluteKey(for: item.package), package: item.package)
+            
             switch status {
             case .notInstalled:
                 if installer.targets.contains(.system) {
-                    menu.addItem(makeMenuItem(Strings.installSystem, value: OutlineContextMenuItem.packageAction(.install(repo.repo, item.package, .system))))
+                    menu.addItem(makeMenuItem(Strings.installSystem, value: OutlineContextMenuItem.packageAction(.install(repo.repo, packageRecord, .system))))
                 }
                 if installer.targets.contains(.user) {
-                    menu.addItem(makeMenuItem(Strings.installUser, value: OutlineContextMenuItem.packageAction(.install(repo.repo, item.package, .user))))
+                    menu.addItem(makeMenuItem(Strings.installUser, value: OutlineContextMenuItem.packageAction(.install(repo.repo, packageRecord, .user))))
                 }
             case .requiresUpdate, .versionSkipped:
-                menu.addItem(makeMenuItem(Strings.update, value: OutlineContextMenuItem.packageAction(.install(repo.repo, item.package, target))))
+                menu.addItem(makeMenuItem(Strings.update, value: OutlineContextMenuItem.packageAction(.install(repo.repo, packageRecord, target))))
             default:
                 break
             }
             
             switch status {
             case .upToDate, .requiresUpdate, .versionSkipped:
-                menu.addItem(makeMenuItem(Strings.uninstall, value: OutlineContextMenuItem.packageAction(.uninstall(repo.repo, item.package, target))))
+                menu.addItem(makeMenuItem(Strings.uninstall, value: OutlineContextMenuItem.packageAction(.uninstall(repo.repo, packageRecord, target))))
             default:
                 break
             }
@@ -439,11 +443,11 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                 cell.textField?.stringValue = name
             }
             
-            let bold: [NSAttributedStringKey: Any]
+            let bold: [NSAttributedString.Key: Any]
             if #available(OSX 10.11, *) {
-                bold = [kCTFontAttributeName as NSAttributedStringKey: NSFont.systemFont(ofSize: 13, weight: .semibold)]
+                bold = [kCTFontAttributeName as NSAttributedString.Key: NSFont.systemFont(ofSize: 13, weight: .semibold)]
             } else {
-                bold = [kCTFontAttributeName as NSAttributedStringKey: NSFont.boldSystemFont(ofSize: 13)]
+                bold = [kCTFontAttributeName as NSAttributedString.Key: NSFont.boldSystemFont(ofSize: 13)]
             }
             
             cell.textField?.attributedStringValue = NSAttributedString(string: group.value, attributes: bold)
@@ -475,14 +479,14 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                     let paraStyle = NSMutableParagraphStyle()
                     paraStyle.alignment = .left
                     
-                    var attrs = [NSAttributedStringKey: Any]()
+                    var attrs = [NSAttributedString.Key: Any]()
                     if #available(OSX 10.11, *) {
-                        attrs[kCTFontAttributeName as NSAttributedStringKey] = NSFont.systemFont(ofSize: 13, weight: .semibold)
+                        attrs[kCTFontAttributeName as NSAttributedString.Key] = NSFont.systemFont(ofSize: 13, weight: .semibold)
                     } else {
-                        attrs[kCTFontAttributeName as NSAttributedStringKey] = NSFont.boldSystemFont(ofSize: 13)
+                        attrs[kCTFontAttributeName as NSAttributedString.Key] = NSFont.boldSystemFont(ofSize: 13)
                     }
                     
-                    attrs[NSAttributedStringKey.paragraphStyle] = paraStyle
+                    attrs[NSAttributedString.Key.paragraphStyle] = paraStyle
                     
                     let msg: String
                     switch selectedPackage.target {

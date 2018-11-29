@@ -41,83 +41,70 @@ class InstallPresenter {
             .delay(2.0, scheduler: MainScheduler.instance)
     }
     
-    private func loadAppropriateRPC() -> Single<PahkatRPCService> {
-        if packages.values.first(where: { $0.target == .system }) != nil {
-            if let rpc = PahkatRPCService(requiresAdmin: true) {
-                return AppContext.settings.state.take(1)
-                    .map { $0.repositories }
-                    .flatMapLatest { try rpc.repository(with: $0[0]) }
-                    .map { _ in rpc }
-                    .asSingle()
-            }
-            return Single.error(RPCError(message: "Could not get RPC"))
-        } else {
-            return Single.just(AppContext.rpc)
-        }
-    }
+//    private func loadAppropriateRPC() -> Single<PahkatRPCService> {
+//        if packages.values.first(where: { $0.target == .system }) != nil {
+//            if let rpc = PahkatRPCService(requiresAdmin: true) {
+//                return AppContext.settings.state.take(1)
+//                    .map { $0.repositories }
+//                    .flatMapLatest { try rpc.repository(with: $0[0]) }
+//                    .map { _ in rpc }
+//                    .asSingle()
+//            }
+//            return Single.error(RPCError(message: "Could not get RPC"))
+//        } else {
+//            return Single.just(AppContext.rpc)
+//        }
+//    }
     
     private func sortPackages() -> [PackageAction] {
         return packages.values
             .sorted(by: { (a, b) in
                 if (a.isInstalling && b.isInstalling) || (a.isUninstalling && b.isUninstalling) {
                     // TODO: fix when dependency management is added
-                    return a.package.id < b.package.id
+                    return a.packageRecord.id < b.packageRecord.id
                 }
                 
                 return a.isUninstalling
             })
     }
     
-    private func parseAction(rpc: PahkatRPCService, action: PackageAction, cancelToken: CancelToken) throws -> Observable<PackageInstallStatus> {
-        if cancelToken.isCancelled {
-            return Observable.empty()
-        }
-        
-        switch action {
-        case let .install(repo, package, target):
-            return try rpc.install(package, repo: repo, target: target).do(
-                onSuccess: ({ _ in
-                    self.view.setEnding(action: action)
-                }),
-                onSubscribe: {
-                    self.view.setStarting(action: action)
-                })
-                .asObservable()
-        case let .uninstall(repo, package, target):
-            return try rpc.uninstall(package, repo: repo, target: target).do(
-                onSuccess: ({ _ in
-                    self.view.setEnding(action: action)
-                }),
-                onSubscribe: {
-                    self.view.setStarting(action: action)
-                })
-                .asObservable()
-        }
-    }
-    
     private func bindInstallProcess() -> CancelToken {
         let cancelToken = CancelToken()
         
-        cancelToken.childDisposable = loadAppropriateRPC().asObservable()
-            .flatMapLatest { [weak self] (rpc: PahkatRPCService) -> Observable<PackageInstallStatus> in
-                guard let `self` = self else { return Observable.empty() }
-                let packages = self.sortPackages()
-                
-                return Observable.from(try packages.map { action in
-                    return try self.parseAction(rpc: rpc, action: action, cancelToken: cancelToken)
-                }).merge(maxConcurrent: 1)
-            }
-            .toArray()
+        let client = PahkatClient()
+        // TODO: re-add admin mechanism for installing things
+        let packages = self.sortPackages()
+        
+        let tx = client.transaction(of: packages)
+        
+        cancelToken.childDisposable = tx.process()
+//            .subscribeOn(MainScheduler.instance)
             .observeOn(MainScheduler.instance)
-            .subscribeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] _ in
+            .subscribe(onNext: { event in
+                guard let action = packages.first(where: { $0.packageRecord.id == event.packageId }) else {
+                    fatalError("No package found for id: \(event.packageId)")
+                }
+                
+                switch event.event {
+                case .installing, .uninstalling:
+                    self.view.setStarting(action: action)
+                case .completed:
+                    self.view.setEnding(action: action)
+                case .notStarted:
+                    break
+                case .error:
+                    break // TODO
+                }
+            },
+            onError: { [weak self] error in
+                self?.view.handle(error: error)
+            },
+            onCompleted: { [weak self] in
                 if cancelToken.isCancelled {
                     self?.view.processCancelled()
                 } else {
                     self?.view.showCompletion()
                 }
-            }, onError: { [weak self] error in
-                self?.view.handle(error: error)
             })
         
         return cancelToken

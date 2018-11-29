@@ -179,7 +179,7 @@ extension NSClipView {
     func animate(to point:NSPoint, with duration:TimeInterval) {
         NSAnimationContext.beginGrouping()
         NSAnimationContext.current.duration = duration
-        NSAnimationContext.current.timingFunction = CAMediaTimingFunction.init(name: kCAMediaTimingFunctionDefault)
+        NSAnimationContext.current.timingFunction = CAMediaTimingFunction.init(name: CAMediaTimingFunctionName.default)
         self.animator().setBoundsOrigin(point)
         if let scrollView = self.superview as? NSScrollView {
             scrollView.reflectScrolledClipView(self)

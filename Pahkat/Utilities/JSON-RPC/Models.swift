@@ -107,7 +107,7 @@ fileprivate struct JSONRPCRawUnsubscribeRequest {
 extension JSONRPCRawUnsubscribeRequest: JSONRPCRequest {
     typealias Response = Bool
     
-    var params: Any? { return [subscription] }
+    var params: Encodable? { return [subscription] }
 }
 
 fileprivate struct JSONRPCPayload<T: Encodable>: Encodable {
@@ -148,7 +148,7 @@ class JSONRPCClient {
         return outputSubject.asObserver()
     }
     
-    private func generatePayload<T: Encodable>(id: UInt?, method: String, params: T? = nil) throws -> Data {
+    private func generatePayload(id: UInt?, method: String, params: Encodable? = nil) throws -> Data {
         var structure: [String: Encodable] = [
             "jsonrpc": "2.0",
             "method": method

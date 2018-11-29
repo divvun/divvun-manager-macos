@@ -12,7 +12,7 @@ import Sentry
 import Sparkle
 
 class AppContext {
-    static let rpc = PahkatRPCService()!
+    // static let rpc = PahkatRPCService()!
     static let settings = SettingsStore()
     static let store = AppStore()
     static let windows = WindowManager()
@@ -26,23 +26,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     private let bag = DisposeBag()
     internal var requiresAppDeath = false
-    
-    func requestRepos(_ configs: [RepoConfig]) throws -> Observable<[RepositoryIndex]> {
-        return Observable.from(try configs.map { config in try AppContext.rpc.repository(with: config).asObservable().take(1) })
-            .merge()
-            .toArray()
-            .flatMapLatest { (repos: [RepositoryIndex]) -> Observable<[RepositoryIndex]> in
-                return Observable.from(try repos.map { repo in try AppContext.rpc.statuses(for: repo.meta.base).asObservable().take(1).map { (repo, $0) } })
-                    .merge()
-                    .map {
-                        print($0.1)
-                        $0.0.set(statuses: $0.1)
-                        return $0.0
-                    }
-                    .toArray()
-            }.take(1)
-    }
-    
+//
+//    func requestRepos(_ configs: [RepoConfig]) throws -> Observable<[RepositoryIndex]> {
+//        return Observable.from(try configs.map { config in try AppContext.rpc.repository(with: config).asObservable().take(1) })
+//            .merge()
+//            .toArray()
+//            .flatMapLatest { (repos: [RepositoryIndex]) -> Observable<[RepositoryIndex]> in
+//                return Observable.from(try repos.map { repo in try AppContext.rpc.statuses(for: repo.meta.base).asObservable().take(1).map { (repo, $0) } })
+//                    .merge()
+//                    .map {
+//                        print($0.1)
+//                        $0.0.set(statuses: $0.1)
+//                        return $0.0
+//                    }
+//                    .toArray()
+//            }.take(1)
+//    }
+//
     private func onUpdateRequested() {
         AppContext.windows.show(UpdateWindowController.self, viewController: UpdateViewController())
     }
@@ -73,16 +73,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             // Wrong DSN or KSCrash not installed
         }
         
-        AppContext.rpc.pahkatcIPC.onComplete = { exitCode in
-            if exitCode != 0 && exitCode != 15 {
-                DispatchQueue.main.async {
-                    let alert = NSAlert()
-                    alert.messageText = "The RPC client has crashed. Please restart the app and try again."
-                    alert.runModal()
-                    exit(101)
-                }
-            }
-        }
+//        AppContext.rpc.pahkatcIPC.onComplete = { exitCode in
+//            if exitCode != 0 && exitCode != 15 {
+//                DispatchQueue.main.async {
+//                    let alert = NSAlert()
+//                    alert.messageText = "The RPC client has crashed. Please restart the app and try again."
+//                    alert.runModal()
+//                    exit(101)
+//                }
+//            }
+//        }
         
         NSApp.mainMenu = MainMenu.loadFromNib()
         AppDelegate.instance = self

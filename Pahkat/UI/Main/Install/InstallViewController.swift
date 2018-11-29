@@ -37,10 +37,10 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
             let label: String
             
             switch action {
-            case let .install(_, package, _):
-                label = Strings.installingPackage(name: package.nativeName, version: package.version)
-            case let .uninstall(_, package, _):
-                label = Strings.uninstallingPackage(name: package.nativeName, version: package.version)
+            case let .install(_, record, _):
+                label = Strings.installingPackage(name: record.package.nativeName, version: record.package.version)
+            case let .uninstall(_, record, _):
+                label = Strings.uninstallingPackage(name: record.package.nativeName, version: record.package.version)
             }
             
             self.contentView.nameLabel.stringValue = label

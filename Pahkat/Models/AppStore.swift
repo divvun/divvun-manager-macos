@@ -18,18 +18,20 @@ struct AppState {
 }
 
 class AppStore: RxStore<AppState, AppEvent> {
-    func reducer(state: AppState, event: AppEvent) -> AppState {
-        var newState = state
-        
-        switch (event) {
-        case let .setRepositories(repos):
-            newState.repositories = repos
+    static func reducer() -> (AppState, AppEvent) -> AppState {
+        return { (state: AppState, event: AppEvent) -> AppState in
+            var newState = state
+            
+            switch (event) {
+            case let .setRepositories(repos):
+                newState.repositories = repos
+            }
+            
+            return newState
         }
-        
-        return newState
     }
     
     init() {
-        super.init(initialState: AppState(), reducers: [self.reducer])
+        super.init(initialState: AppState(), reducers: [AppStore.reducer()])
     }
 }

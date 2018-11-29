@@ -11,15 +11,17 @@ import RxSwift
 
 class RepositoryIndex: Decodable, Hashable, Equatable, Comparable {
     let meta: Repository
+    let channel: Repository.Channels
     private let packagesMeta: Packages
     private let virtualsMeta: Virtuals
     
     var statuses: [String: PackageStatusResponse] = [:]
     
-    init(repository: Repository, packages: Packages, virtuals: Virtuals) {
+    init(repository: Repository, packages: Packages, virtuals: Virtuals, channel: Repository.Channels) {
         self.meta = repository
         self.packagesMeta = packages
         self.virtualsMeta = virtuals
+        self.channel = channel
     }
     
     var packages: [String: Package] {
@@ -38,12 +40,22 @@ class RepositoryIndex: Decodable, Hashable, Equatable, Comparable {
         return statuses[package.id]
     }
     
+    func absoluteKey(for package: Package) -> AbsolutePackageKey {
+        var builder = URLComponents(url: meta.base
+            .appendingPathComponent("packages")
+            .appendingPathComponent(package.id), resolvingAgainstBaseURL: false)!
+        builder.fragment = channel.rawValue
+        
+        return AbsolutePackageKey(from: builder.url!)
+    }
+    
     func set(statuses: [String: PackageStatusResponse]) {
         self.statuses = statuses
     }
     
     private enum CodingKeys: String, CodingKey {
         case meta = "meta"
+        case channel = "channel"
         case packagesMeta = "packages"
         case virtualsMeta = "virtuals"
     }

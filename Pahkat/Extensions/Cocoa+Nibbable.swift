@@ -49,7 +49,7 @@ class WindowController<T: Window>: NSWindowController {
     
     required init() {
         super.init(window: contentWindow)
-        let name = NSWindow.FrameAutosaveName(rawValue: T.nibPath)
+        let name = T.nibPath
         self.shouldCascadeWindows = false
         contentWindow.setFrameUsingName(name)
         contentWindow.setFrameAutosaveName(name)
@@ -73,7 +73,7 @@ extension Nibbable where Self: NSUserInterfaceItemIdentification {
         
         var views: NSArray? = NSArray()
         
-        if let nib = NSNib(nibNamed: NSNib.Name(rawValue: nibPath), bundle: bundle) {
+        if let nib = NSNib(nibNamed: nibPath, bundle: bundle) {
             nib.instantiate(withOwner: nil, topLevelObjects: &views)
         }
         

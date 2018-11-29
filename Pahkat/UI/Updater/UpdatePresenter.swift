@@ -74,14 +74,17 @@ class UpdatePresenter {
                 
                 // Get all the updateables
                 for repo in repos {
-                    let outlines: [UpdateTablePackage] = repo.statuses.flatMap {
+                    let outlines: [UpdateTablePackage] = repo.statuses.compactMap {
                         if $0.1.status != PackageInstallStatus.requiresUpdate {
                             return nil
                         }
                         
-                        let package = repo.packages[$0.0]!
                         
-                        return UpdateTablePackage(package: package, action: PackageAction.install(repo, package, $0.1.target), isEnabled: true)
+                        let package = repo.packages[$0.0]!
+                        let key = repo.absoluteKey(for: package)
+                        let record = PackageRecord(id: key, package: package)
+                        
+                        return UpdateTablePackage(package: package, action: PackageAction.install(repo, record, $0.1.target), isEnabled: true)
                     }
                     
                     packageOutlines.append(contentsOf: outlines)

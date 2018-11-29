@@ -74,7 +74,7 @@ extension Process {
 
 extension NSSegmentedControl {
     var selectedSegments: [Int] {
-        return (0..<self.segmentCount).flatMap({ self.isSelected(forSegment: $0) ? $0 : nil })
+        return (0..<self.segmentCount).compactMap({ self.isSelected(forSegment: $0) ? $0 : nil })
     }
 }
 
