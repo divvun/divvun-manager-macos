@@ -29,14 +29,14 @@ class UpdatePresenter {
         return view.onInstallButtonPressed.drive(onNext: { [weak self] in
             guard let `self` = self else { return }
             
-            var map = [URL: PackageAction]()
+            var map = [AbsolutePackageKey: PackageAction]()
             
             for item in self.packages {
                 if !item.isEnabled {
                     continue
                 }
                 
-                map[item.action.repository.url(for: item.package)] = item.action
+                map[item.action.packageRecord.id] = item.action
             }
             
             self.view.installPackages(packages: map)
@@ -84,7 +84,8 @@ class UpdatePresenter {
                         let key = repo.absoluteKey(for: package)
                         let record = PackageRecord(id: key, package: package)
                         
-                        return UpdateTablePackage(package: package, action: PackageAction.install(repo, record, $0.1.target), isEnabled: true)
+                        let action = PackageAction(action: .install, packageRecord: record, target: $0.1.target)
+                        return UpdateTablePackage(package: package, action: action, isEnabled: true)
                     }
                     
                     packageOutlines.append(contentsOf: outlines)

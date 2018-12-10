@@ -74,7 +74,7 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
         AppContext.windows.close(UpdateWindowController.self)
     }
     
-    func installPackages(packages: [URL : PackageAction]) {
+    func installPackages(packages: [AbsolutePackageKey: PackageAction]) {
         AppContext.windows.show(MainWindowController.self, viewController: DownloadViewController(packages: packages))
         AppDelegate.instance.requiresAppDeath = false
         closeWindow()

@@ -9,7 +9,17 @@
 import Foundation
 import RxSwift
 
-class RepositoryIndex: Decodable, Hashable, Equatable, Comparable {
+@objc enum InstallerTarget: Int, Codable {
+    case system
+    case user
+}
+
+struct PackageStatusResponse : Codable {
+    let status: PackageInstallStatus
+    let target: InstallerTarget
+}
+
+@objc class RepositoryIndex: NSObject, Decodable, Comparable {
     let meta: Repository
     let channel: Repository.Channels
     private let packagesMeta: Packages
@@ -32,9 +42,9 @@ class RepositoryIndex: Decodable, Hashable, Equatable, Comparable {
         return virtualsMeta.virtuals
     }
     
-    func url(for package: Package) -> URL {
-        return packagesMeta.base.appendingPathComponent(package.id)
-    }
+//    func url(for package: Package) -> URL {
+//        return packagesMeta.base.appendingPathComponent(package.id)
+//    }
     
     func status(for package: Package) -> PackageStatusResponse? {
         return statuses[package.id]
@@ -74,7 +84,7 @@ class RepositoryIndex: Decodable, Hashable, Equatable, Comparable {
         return lhs.meta.nativeName < rhs.meta.nativeName
     }
     
-    var hashValue: Int {
-        return meta.hashValue ^ packagesMeta.hashValue ^ virtualsMeta.hashValue
-    }
+//    override var hashValue: Int {
+//        return meta.hashValue ^ packagesMeta.hashValue ^ virtualsMeta.hashValue
+//    }
 }

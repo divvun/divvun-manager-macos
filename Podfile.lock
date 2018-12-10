@@ -8,20 +8,16 @@ PODS:
     - RxSwift (~> 4.0)
   - RxSwift (4.4.0):
     - RxAtomic (~> 4.4)
-  - Sentry (4.1.0):
-    - Sentry/Core (= 4.1.0)
-  - Sentry/Core (4.1.0)
-  - Sparkle (1.18.1)
-  - STPrivilegedTask (1.0.6)
+  - Sentry (4.1.1):
+    - Sentry/Core (= 4.1.1)
+  - Sentry/Core (4.1.1)
 
 DEPENDENCIES:
   - BTree (~> 4.1)
   - RxCocoa (~> 4.4)
   - RxFeedback (~> 1.1)
   - RxSwift (~> 4.4)
-  - Sentry (from `https://github.com/getsentry/sentry-cocoa.git`, tag `4.1.0`)
-  - Sparkle
-  - STPrivilegedTask (from `https://github.com/sveinbjornt/STPrivilegedTask.git`)
+  - Sentry (from `https://github.com/getsentry/sentry-cocoa.git`, tag `4.1.1`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -30,22 +26,16 @@ SPEC REPOS:
     - RxCocoa
     - RxFeedback
     - RxSwift
-    - Sparkle
 
 EXTERNAL SOURCES:
   Sentry:
     :git: https://github.com/getsentry/sentry-cocoa.git
-    :tag: 4.1.0
-  STPrivilegedTask:
-    :git: https://github.com/sveinbjornt/STPrivilegedTask.git
+    :tag: 4.1.1
 
 CHECKOUT OPTIONS:
   Sentry:
     :git: https://github.com/getsentry/sentry-cocoa.git
-    :tag: 4.1.0
-  STPrivilegedTask:
-    :commit: b0b58d86c1d7aa88671fd803ce1fb271d82016a4
-    :git: https://github.com/sveinbjornt/STPrivilegedTask.git
+    :tag: 4.1.1
 
 SPEC CHECKSUMS:
   BTree: 99b99930790b88dc5e8bafbf666a5dfb8d7808b4
@@ -53,10 +43,8 @@ SPEC CHECKSUMS:
   RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
   RxFeedback: 640e317bc7f6c4914c39a2063c6d5c0e6c1aa65d
   RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
-  Sentry: 44b85e768f435ede4d12ea279af588ff275c3939
-  Sparkle: 06ea33170007c5937ee54da481b4481af98fac79
-  STPrivilegedTask: 890e43ce2ed0bdfc6ff6f10e2b8d49831cc3bb97
+  Sentry: c9d0543c7223ddec036027f4c7391ea057ba9856
 
-PODFILE CHECKSUM: 7b85ee8968ddc1a3578332eeda269107b8d89ae0
+PODFILE CHECKSUM: e6249603c466602d1e85435e18a8288757f347e6
 
 COCOAPODS: 1.6.0.beta.2

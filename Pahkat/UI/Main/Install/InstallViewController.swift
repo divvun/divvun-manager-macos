@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 class InstallViewController: DisposableViewController<InstallView>, InstallViewable, NSToolbarDelegate {
-    private let packages: [URL: PackageAction]
+    private let packages: [AbsolutePackageKey: PackageAction]
     private lazy var presenter = { InstallPresenter(view: self, packages: packages) }()
     private var cancelToken: CancelToken? = nil
     
@@ -19,7 +19,7 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
         return self.contentView.primaryButton.rx.tap.asDriver()
     }
     
-    init(packages: [URL: PackageAction]) {
+    init(packages: [AbsolutePackageKey: PackageAction]) {
         self.packages = packages
         super.init()
     }
@@ -36,11 +36,13 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
         DispatchQueue.main.async {
             let label: String
             
-            switch action {
-            case let .install(_, record, _):
-                label = Strings.installingPackage(name: record.package.nativeName, version: record.package.version)
-            case let .uninstall(_, record, _):
-                label = Strings.uninstallingPackage(name: record.package.nativeName, version: record.package.version)
+            let package = action.packageRecord.package
+            
+            switch action.action {
+            case .install:
+                label = Strings.installingPackage(name: package.nativeName, version: package.version)
+            case .uninstall:
+                label = Strings.uninstallingPackage(name: package.nativeName, version: package.version)
             }
             
             self.contentView.nameLabel.stringValue = label
@@ -77,12 +79,7 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
         alert.alertStyle = .critical
         alert.addButton(withTitle: Strings.ok)
         alert.messageText = Strings.errorDuringInstallation
-        
-        if let error = error as? JSONRPCError {
-            alert.informativeText = error.message
-        } else {
-            alert.informativeText = error.localizedDescription
-        }
+        alert.informativeText = error.localizedDescription
         
         alert.runModal()
         

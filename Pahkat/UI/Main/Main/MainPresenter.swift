@@ -49,9 +49,11 @@ fileprivate func languageFilter(repo: RepositoryIndex) -> PackageOutlineMap {
 }
 
 class MainPresenter {
+    private let bag = DisposeBag()
     private unowned let view: MainViewable
     private var data: MainOutlineMap = Map()
-    private var selectedPackages = [URL: PackageAction]()
+    private let client = PahkatClient()!
+    private var selectedPackages = [AbsolutePackageKey: PackageAction]()
     
     init(view: MainViewable) {
         self.view = view
@@ -124,7 +126,36 @@ class MainPresenter {
     private func bindPrimaryButton() -> Disposable {
         return view.onPrimaryButtonPressed.drive(onNext: { [weak self] in
             guard let `self` = self else { return }
-            self.view.showDownloadView(with: self.selectedPackages)
+            if self.selectedPackages.values.contains(where: { $0.target == .system }) {
+                let recv = PahkatAdminReceiver()
+                recv.isLaunchServiceInstalled
+                    .observeOn(MainScheduler.instance)
+                    .timeout(1.0, scheduler: MainScheduler.instance)
+                    .catchErrorJustReturn(false)
+                    .subscribe(onSuccess: { isInstalled in
+                        print("Service is installed? \(isInstalled)")
+                        
+                        if isInstalled {
+                            self.view.showDownloadView(with: self.selectedPackages)
+                            return
+                        }
+                        
+                        do {
+                            _ = try recv.installLaunchService(errorCallback: { error in
+                                DispatchQueue.main.async {
+                                    self.view.handle(error: error)
+                                }
+                            })
+                            self.view.showDownloadView(with: self.selectedPackages)
+                        } catch  {
+                            self.view.handle(error: error)
+                            return
+                        }
+                    })
+                    .disposed(by: self.bag)
+            } else {
+                self.view.showDownloadView(with: self.selectedPackages)
+            }
         })
     }
     
@@ -149,18 +180,23 @@ class MainPresenter {
                     if outlinePackage.action == nil {
                         switch info.status {
                         case .upToDate:
-                            outlinePackage.action = PackageAction.uninstall(repo.repo, packageRecord, info.target)
+                            outlinePackage.action = PackageAction(action: .uninstall, packageRecord: packageRecord, target: info.target)
                         default:
-                            outlinePackage.action = PackageAction.install(repo.repo, packageRecord, installer.targets[0])
+                            let target = installer.targets[0].rawValue == "system" ? InstallerTarget.system : InstallerTarget.user
+                            outlinePackage.action = PackageAction(action: .install, packageRecord: packageRecord, target: target)
                         }
                     } else {
                         outlinePackage.action = nil
                     }
                     
-                    self.selectedPackages[repo.repo.url(for: package)] = outlinePackage.action
+                    if let action = outlinePackage.action {
+                        self.selectedPackages[action.packageRecord.id] = action
+                    }
                 case let .set(action):
                     outlinePackage.action = action
-                    self.selectedPackages[repo.repo.url(for: package)] = action
+                    if let action = action {
+                        self.selectedPackages[action.packageRecord.id] = action
+                    }
                 }
             }
         }
@@ -168,15 +204,7 @@ class MainPresenter {
     
     private func bindUpdatePackagesOnLoad() -> Disposable {
         // Always update the repos on load.
-        return Observable.of(PahkatClient().repos())
-//        return AppContext.settings.state.map { $0.repositories }
-//            .observeOn(MainScheduler.instance)
-//            .subscribeOn(MainScheduler.instance)
-//            .flatMapLatest { [weak self] (configs: [RepoConfig]) -> Observable<[RepositoryIndex]> in
-//                self?.view.updateSettingsButton(isEnabled: false)
-//                self?.view.updateProgressIndicator(isEnabled: true)
-//                return try AppDelegate.instance.requestRepos(configs)
-//            }
+        return Observable.of(client.repos())
             .subscribe(onNext: { [weak self] repos in
                 print("Refreshed repos in main view.")
                 self?.view.updateSettingsButton(isEnabled: true)
@@ -195,7 +223,8 @@ class MainPresenter {
             
             switch event {
             case let .setPackageAction(action):
-                guard let outlineRepo = self.data.keys.first(where: { $0.repo == action.repository })  else {
+                
+                guard let outlineRepo = self.data.keys.first(where: { $0.repo.packages.values.contains(action.packageRecord.package) }) else {
                     return
                 }
                 self.setPackageState(to: .set(action), package: action.packageRecord.package, repo: outlineRepo)
@@ -224,9 +253,9 @@ class MainPresenter {
                     return Observable.just((repo, [package]))
                 case let .toggleGroup(repo, group):
                     let packages = self.data[repo]![group]!
-                    let toggleIds = Set(self.selectedPackages.keys).intersection(packages.map { repo.repo.url(for: $0.package) })
+                    let toggleIds = Set(self.selectedPackages.keys).intersection(packages.map { repo.repo.absoluteKey(for: $0.package) })
                     let x = toggleIds.count > 0
-                        ? toggleIds.map { url in packages.first(where: { url == repo.repo.url(for: $0.package) })!.package }
+                        ? toggleIds.map { url in packages.first(where: { url == repo.repo.absoluteKey(for: $0.package) })!.package }
                         : packages.map { $0.package }
                     return Observable.just((repo, x))
                 default:

@@ -102,11 +102,11 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
             let alert = NSAlert()
             alert.messageText = Strings.downloadError
             
-            if let error = error as? JSONRPCError {
-                alert.informativeText = error.message
-            } else {
+//            if let error = error as? JSONRPCError {
+//                alert.informativeText = error.message
+//            } else {
                 alert.informativeText = error.localizedDescription
-            }
+//            }
             
             alert.alertStyle = .critical
             alert.runModal()

@@ -11,14 +11,14 @@ import RxSwift
 
 class DownloadPresenter {
     private weak var view: DownloadViewable!
-    let packages: [URL: PackageAction]
+    let packages: [AbsolutePackageKey: PackageAction]
     
-    required init(view: DownloadViewable, packages: [URL: PackageAction]) {
+    required init(view: DownloadViewable, packages: [AbsolutePackageKey: PackageAction]) {
         self.view = view
         self.packages = packages
     }
     
-    func downloadablePackages() -> [URL: PackageAction] {
+    func downloadablePackages() -> [AbsolutePackageKey: PackageAction] {
         return packages.filter { (k, v) in v.isInstalling }
     }
     
@@ -27,7 +27,7 @@ class DownloadPresenter {
     }
     
     private func bindDownload() -> Disposable {
-        let client = PahkatClient()
+        let client = PahkatClient()!
         
         return Observable.from(downloadablePackages().values).map { action -> Observable<(Package, PackageDownloadStatus)> in
             print("Downloading \(action.packageRecord.id)")
@@ -37,7 +37,7 @@ class DownloadPresenter {
                     print(args)
                     self?.view.setStatus(package: action.packageRecord.package, status: args.status)
                 })
-                .map { (action.packageRecord.package, $0.1) }
+                .map { (action.packageRecord.package, $0.status) }
             }
             .merge(maxConcurrent: 3)
             .toArray()

@@ -28,9 +28,9 @@ class CancelToken {
 
 class InstallPresenter {
     private unowned var view: InstallViewable
-    private let packages: [URL: PackageAction]
+    private let packages: [AbsolutePackageKey: PackageAction]
     
-    init(view: InstallViewable, packages: [URL: PackageAction]) {
+    init(view: InstallViewable, packages: [AbsolutePackageKey: PackageAction]) {
         self.view = view
         self.packages = packages
     }
@@ -40,21 +40,6 @@ class InstallPresenter {
         return Single.just(PackageInstallStatus.notInstalled)
             .delay(2.0, scheduler: MainScheduler.instance)
     }
-    
-//    private func loadAppropriateRPC() -> Single<PahkatRPCService> {
-//        if packages.values.first(where: { $0.target == .system }) != nil {
-//            if let rpc = PahkatRPCService(requiresAdmin: true) {
-//                return AppContext.settings.state.take(1)
-//                    .map { $0.repositories }
-//                    .flatMapLatest { try rpc.repository(with: $0[0]) }
-//                    .map { _ in rpc }
-//                    .asSingle()
-//            }
-//            return Single.error(RPCError(message: "Could not get RPC"))
-//        } else {
-//            return Single.just(AppContext.rpc)
-//        }
-//    }
     
     private func sortPackages() -> [PackageAction] {
         return packages.values
@@ -71,14 +56,16 @@ class InstallPresenter {
     private func bindInstallProcess() -> CancelToken {
         let cancelToken = CancelToken()
         
-        let client = PahkatClient()
-        // TODO: re-add admin mechanism for installing things
+        let client = PahkatClient()!
         let packages = self.sortPackages()
+        let txActions = packages.map {
+            return TransactionAction(action: $0.action, id: $0.packageRecord.id, target: $0.target)
+        }
         
-        let tx = client.transaction(of: packages)
-        
-        cancelToken.childDisposable = tx.process()
-//            .subscribeOn(MainScheduler.instance)
+        cancelToken.childDisposable = client.transaction(of: txActions)
+            .asObservable()
+            .flatMapLatest { $0.process() }
+            .subscribeOn(MainScheduler.instance)
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { event in
                 guard let action = packages.first(where: { $0.packageRecord.id == event.packageId }) else {

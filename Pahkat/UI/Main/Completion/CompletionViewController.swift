@@ -14,10 +14,10 @@ class CompletionViewController: DisposableViewController<CompletionView>, Comple
     var onRestartButtonTapped: Observable<Void> = Observable.empty()
     var onFinishButtonTapped: Observable<Void> = Observable.empty()
     
-    private let packages: [URL: PackageAction]
+    private let packages: [AbsolutePackageKey: PackageAction]
     private let requiresReboot: Bool
     
-    init(with packages: [URL: PackageAction]) {
+    init(with packages: [AbsolutePackageKey: PackageAction]) {
         self.packages = packages
         var requiresReboot = false
         
@@ -26,10 +26,10 @@ class CompletionViewController: DisposableViewController<CompletionView>, Comple
                 continue
             }
             
-            if case .install(_) = action, installer.requiresReboot {
+            if case .install = action.action, installer.requiresReboot {
                 requiresReboot = true
                 break
-            } else if case .uninstall(_) = action, installer.requiresUninstallReboot {
+            } else if case .uninstall = action.action, installer.requiresUninstallReboot {
                 requiresReboot = true
                 break
             }

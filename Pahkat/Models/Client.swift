@@ -8,18 +8,22 @@
 
 import Foundation
 
-struct PackageRecord : Equatable, Hashable {
+struct PackageRecord : Equatable, Hashable, Codable {
     let id: AbsolutePackageKey
     let package: Package
 }
 
-public struct AbsolutePackageKey : Equatable, Decodable, Hashable, Comparable {
+public struct AbsolutePackageKey : Codable, Hashable, Comparable {
     let url: String
     let id: String
     let channel: String
     
     public static func < (lhs: AbsolutePackageKey, rhs: AbsolutePackageKey) -> Bool {
         return lhs.rawValue < rhs.rawValue
+    }
+    
+    public static func == (lhs: AbsolutePackageKey, rhs: AbsolutePackageKey) -> Bool {
+        return lhs.rawValue == rhs.rawValue
     }
     
     let rawValue: String

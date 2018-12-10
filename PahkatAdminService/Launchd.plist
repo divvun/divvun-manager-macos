@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StandardErrorPath</key>
+	<string>/tmp/pahkat_err.log</string>
+	<key>StandardOutPath</key>
+	<string>/tmp/pahkat.log</string>
+	<key>Label</key>
+	<string>no.divvun.PahkatAdminService</string>
+	<key>MachServices</key>
+	<dict>
+		<key>no.divvun.PahkatAdminService</key>
+		<true/>
+	</dict>
+</dict>
+</plist>

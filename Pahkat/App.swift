@@ -16,6 +16,10 @@ class App: NSApplication {
         super.init()
         
         self.delegate = appDelegate
+        
+        PahkatAdminReceiver().service(errorCallback: { print($0) }).xpcServiceVersion(withReply: {
+            print("XPC service version: \($0)")
+        })
     }
     
     override func terminate(_ sender: Any?) {

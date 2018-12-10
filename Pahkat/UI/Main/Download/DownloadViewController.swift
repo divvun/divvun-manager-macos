@@ -14,10 +14,10 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
     private let byteCountFormatter = ByteCountFormatter()
     private var delegate: DownloadProgressTableDelegate! = nil
     
-    private let packages: [URL: PackageAction]
+    private let packages: [AbsolutePackageKey: PackageAction]
     internal lazy var presenter = { DownloadPresenter(view: self, packages: packages) }()
     
-    init(packages: [URL: PackageAction]) {
+    init(packages: [AbsolutePackageKey: PackageAction]) {
         self.packages = packages
         super.init()
     }
@@ -68,7 +68,7 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
         AppContext.windows.set(MainViewController(), for: MainWindowController.self)
     }
     
-    func startInstallation(packages: [URL: PackageAction]) {
+    func startInstallation(packages: [AbsolutePackageKey: PackageAction]) {
         DispatchQueue.main.async {
             AppContext.windows.set(InstallViewController(packages: packages), for: MainWindowController.self)
         }
@@ -78,12 +78,7 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
         DispatchQueue.main.async {
             let alert = NSAlert()
             alert.messageText = Strings.downloadError
-            
-            if let error = error as? JSONRPCError {
-                alert.informativeText = error.message
-            } else {
-                alert.informativeText = error.localizedDescription
-            }
+            alert.informativeText = error.localizedDescription
             
             alert.alertStyle = .critical
             alert.runModal()

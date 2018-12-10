@@ -63,7 +63,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         }
     }
     
-    func showDownloadView(with packages: [URL: PackageAction]) {
+    func showDownloadView(with packages: [AbsolutePackageKey: PackageAction]) {
         AppContext.windows.set(DownloadViewController(packages: packages), for: MainWindowController.self)
     }
     
@@ -111,12 +111,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         DispatchQueue.main.async {
             let alert = NSAlert()
             alert.messageText = Strings.downloadError
-            
-            if let error = error as? JSONRPCError {
-                alert.informativeText = error.message
-            } else {
-                alert.informativeText = error.localizedDescription
-            }
+            alert.informativeText = error.localizedDescription
             
             alert.alertStyle = .critical
             alert.runModal()
@@ -276,20 +271,24 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
             switch status {
             case .notInstalled:
                 if installer.targets.contains(.system) {
-                    menu.addItem(makeMenuItem(Strings.installSystem, value: OutlineContextMenuItem.packageAction(.install(repo.repo, packageRecord, .system))))
+                    let v = PackageAction(action: .install, packageRecord: packageRecord, target: .system)
+                    menu.addItem(makeMenuItem(Strings.installSystem, value: OutlineContextMenuItem.packageAction(v)))
                 }
                 if installer.targets.contains(.user) {
-                    menu.addItem(makeMenuItem(Strings.installUser, value: OutlineContextMenuItem.packageAction(.install(repo.repo, packageRecord, .user))))
+                    let v = PackageAction(action: .install, packageRecord: packageRecord, target: .user)
+                    menu.addItem(makeMenuItem(Strings.installUser, value: OutlineContextMenuItem.packageAction(v)))
                 }
             case .requiresUpdate, .versionSkipped:
-                menu.addItem(makeMenuItem(Strings.update, value: OutlineContextMenuItem.packageAction(.install(repo.repo, packageRecord, target))))
+                let v = PackageAction(action: .install, packageRecord: packageRecord, target: target)
+                menu.addItem(makeMenuItem(Strings.update, value: OutlineContextMenuItem.packageAction(v)))
             default:
                 break
             }
             
             switch status {
             case .upToDate, .requiresUpdate, .versionSkipped:
-                menu.addItem(makeMenuItem(Strings.uninstall, value: OutlineContextMenuItem.packageAction(.uninstall(repo.repo, packageRecord, target))))
+                let v = PackageAction(action: .uninstall, packageRecord: packageRecord, target: target)
+                menu.addItem(makeMenuItem(Strings.uninstall, value: OutlineContextMenuItem.packageAction(v)))
             default:
                 break
             }
