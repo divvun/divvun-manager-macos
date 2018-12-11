@@ -10,15 +10,6 @@ import Cocoa
 import RxSwift
 import Sentry
 
-class AppContext {
-    static let client = PahkatClient()!
-    static let settings = SettingsStore()
-    static let store = AppStore()
-    static let windows = WindowManager()
-    
-    private init() { fatalError() }
-}
-
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     static weak var instance: AppDelegate!
@@ -40,6 +31,40 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         } else {
             AppContext.windows.show(MainWindowController.self, viewController: MainViewController(), sender: self)
         }
+    }
+    
+    func checkForSelfUpdate() -> PahkatClient? {
+        guard let selfUpdatePath = Bundle.main.url(forResource: "selfupdate", withExtension: "json")?.path else {
+            fatalError("No selfupdate.json found in bundle.")
+        }
+        
+        guard let client = PahkatClient(configPath: selfUpdatePath) else {
+            fatalError("No PahkatClient generated for given config.")
+        }
+        
+        guard let repo = client.repos().first else {
+            fatalError("No repo found in config.")
+        }
+        
+        guard let package = repo.packages["pahkat-client-macos"], let status = repo.status(for: package)?.status else {
+            fatalError("No self update package found!")
+        }
+        
+        print("Found pahkat-client-macos version: \(package.version) \(status)")
+        
+        switch status {
+        case .notInstalled:
+            print("Selfupdate: self not installed, likely debugging.")
+            return client
+        case .versionSkipped:
+            print("Selfupdate: self is blocked from updating itself")
+        case .requiresUpdate:
+            return client
+        default:
+            break
+        }
+        
+        return nil
     }
     
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
@@ -72,6 +97,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             andSelector: #selector(handleReopenEvent(_:withReplyEvent:)),
             forEventClass: kCoreEventClass,
             andEventID: kAEReopenApplication)
+        
+        if let client = checkForSelfUpdate() {
+            AppContext.windows.show(SelfUpdateWindowController.self,
+                                    viewController: SelfUpdateViewController(client: client),
+                                    sender: self)
+            // Early return
+            return
+        }
         
         // If triggered by agent, only show update window.
         if ProcessInfo.processInfo.arguments.contains("update") {

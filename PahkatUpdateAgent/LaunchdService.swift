@@ -9,11 +9,17 @@
 import Foundation
 
 class LaunchdService {
-    static let plistName = "\(Bundle.main.bundleIdentifier!).PahkatUpdateAgent.plist"
+    static let plistName = "\(Bundle.main.bundleIdentifier!).PahkatUpdateAgent"
+    static let restartPlistName = "\(Bundle.main.bundleIdentifier!).PahkatRestartAgent"
     static let agentHelper = Bundle.main.bundleURL.appendingPathComponent("Contents/MacOS/PahkatUpdateAgent").path
+    
     static let plistUserPath: URL = {
         let libraryDirectory = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)[0]
-        return URL(string: "file://\(libraryDirectory)/LaunchAgents/\(plistName)")!
+        return URL(string: "file://\(libraryDirectory)/LaunchAgents/\(plistName).plist")!
+    }()
+    static let restartPlistUserPath: URL = {
+        let libraryDirectory = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)[0]
+        return URL(string: "file://\(libraryDirectory)/LaunchAgents/\(restartPlistName).plist")!
     }()
     
     static func generateLaunchAgent(startInterval: Int) -> NSDictionary {
@@ -25,8 +31,19 @@ class LaunchdService {
         return plist
     }
     
-    static func writeLaunchAgent(_ agent: NSDictionary) -> Bool {
-        return agent.write(to: plistUserPath, atomically: true)
+    static func generateRestartLaunchAgent() -> NSDictionary {
+        let plist = NSMutableDictionary()
+        plist.setValue(restartPlistName, forKey: "Label")
+        plist.setValue(agentHelper, forKey: "Program")
+        plist.setValue(["restart-app"], forKey: "ProgramArguments")
+        plist.setValue(false, forKey: "RunAtLoad")
+        plist.setValue("/tmp/pahkat_restart.log", forKey: "StandardOutPath")
+        plist.setValue("/tmp/pahkat_restart_err.log", forKey: "StandardErrorPath")
+        return plist
+    }
+    
+    static func writeLaunchAgent(_ agent: NSDictionary, path: URL) -> Bool {
+        return agent.write(to: path, atomically: true)
     }
     
     static func hasLaunchAgent() -> Bool {
@@ -45,6 +62,24 @@ class LaunchdService {
         try launchctl(["load", plistUserPath.path])
     }
     
+    static func restartApp() -> Bool {
+        let plist = generateRestartLaunchAgent()
+        if !writeLaunchAgent(plist, path: restartPlistUserPath) {
+            return false
+        }
+        
+        try? launchctl(["unload", restartPlistUserPath.path])
+        try? launchctl(["load", restartPlistUserPath.path])
+        
+        DispatchQueue.global(qos: .background).async {
+            try! launchctl(["start", restartPlistName])
+        }
+        
+        
+        
+        return true
+    }
+    
     static func removeLaunchAgent() throws {
         if hasLaunchAgent() {
             try unload()
@@ -58,7 +93,7 @@ class LaunchdService {
         }
         
         let plist = generateLaunchAgent(startInterval: startInterval)
-        if !writeLaunchAgent(plist) {
+        if !writeLaunchAgent(plist, path: plistUserPath) {
             return false
         }
         

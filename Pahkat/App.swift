@@ -9,6 +9,15 @@
 import Foundation
 import Cocoa
 
+class AppContextImpl {
+    lazy var client = { PahkatClient()! }()
+    lazy var settings = { SettingsStore() }()
+    let store = { AppStore() }()
+    let windows = { WindowManager() }()
+}
+
+var AppContext: AppContextImpl!
+
 class App: NSApplication {
     private lazy var appDelegate = AppDelegate()
     
@@ -20,9 +29,12 @@ class App: NSApplication {
         PahkatAdminReceiver().service(errorCallback: { print($0) }).xpcServiceVersion(withReply: {
             print("XPC service version: \($0)")
         })
+        
+        AppContext = AppContextImpl()
     }
     
     override func terminate(_ sender: Any?) {
+        AppContext = nil
         super.terminate(sender)
     }
     

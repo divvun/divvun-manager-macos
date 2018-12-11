@@ -52,7 +52,12 @@ func restartApp() {
     let exe = Bundle.main.bundleURL.appendingPathComponent("Contents/MacOS/Pahkat")
 
     if let app = NSWorkspace.shared.runningApplications.first(where: { $0.executableURL == exe }) {
+        app.terminate()
         app.forceTerminate()
+        
+        while !app.isTerminated {
+            usleep(100000)
+        }
     }
 
     openAppWith(event: .restartApp)
@@ -62,13 +67,8 @@ func restartApp() {
 print(Bundle.main)
 print(CommandLine.arguments)
 
-if CommandLine.argc > 1 {
-    switch CommandLine.arguments[1] {
-    case "restart-app":
-        restartApp()
-    default:
-        checkForUpdates()
-    }
+if CommandLine.arguments.contains("restart-app") {
+    restartApp()
 } else {
     checkForUpdates()
 }

@@ -35,6 +35,12 @@
 		C60A13EB21BFED08003C813D /* RepoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820CA204C530C001682E8 /* RepoConfig.swift */; };
 		C60A13EC21BFED47003C813D /* LaunchdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742CA204C005800C7877D /* LaunchdService.swift */; };
 		C60A13F121BFEDE1003C813D /* libpahkat_client.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C676C35B21AAEE78005CC7AF /* libpahkat_client.a */; };
+		C60A13F421BFFACF003C813D /* SelfUpdateWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C60A13F321BFFACF003C813D /* SelfUpdateWindow.xib */; };
+		C60A13F621BFFC2C003C813D /* SelfUpdateWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60A13F521BFFC2C003C813D /* SelfUpdateWindow.swift */; };
+		C60A13F821BFFC37003C813D /* SelfUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60A13F721BFFC37003C813D /* SelfUpdateViewController.swift */; };
+		C60A13FA21BFFC99003C813D /* SelfUpdateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C60A13F921BFFC99003C813D /* SelfUpdateView.xib */; };
+		C60A13FC21BFFD0A003C813D /* SelfUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60A13FB21BFFD0A003C813D /* SelfUpdateView.swift */; };
+		C60A13FE21C00363003C813D /* selfupdate.json in Resources */ = {isa = PBXBuildFile; fileRef = C60A13FD21C00363003C813D /* selfupdate.json */; };
 		C60B22F220432AF400A2027A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C60B22F020432AF400A2027A /* InfoPlist.strings */; };
 		C6141AF821BA8F9600456CDB /* PackageAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742C22048697400C7877D /* PackageAction.swift */; };
 		C6141AF921BA8F9800456CDB /* PackageDownloadProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820D2204C53EF001682E8 /* PackageDownloadProgress.swift */; };
@@ -217,6 +223,12 @@
 		9A9ED0C6C5B84C9790E0681B /* libPods-Pahkat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Pahkat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B916A3ACEF413A1A6F6EF4D9 /* Pods-PahkatAdminService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PahkatAdminService.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PahkatAdminService/Pods-PahkatAdminService.debug.xcconfig"; sourceTree = "<group>"; };
 		BEFE62699B59C18720371EB7 /* libPods-agenthelper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-agenthelper.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C60A13F321BFFACF003C813D /* SelfUpdateWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelfUpdateWindow.xib; sourceTree = "<group>"; };
+		C60A13F521BFFC2C003C813D /* SelfUpdateWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfUpdateWindow.swift; sourceTree = "<group>"; };
+		C60A13F721BFFC37003C813D /* SelfUpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfUpdateViewController.swift; sourceTree = "<group>"; };
+		C60A13F921BFFC99003C813D /* SelfUpdateView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelfUpdateView.xib; sourceTree = "<group>"; };
+		C60A13FB21BFFD0A003C813D /* SelfUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfUpdateView.swift; sourceTree = "<group>"; };
+		C60A13FD21C00363003C813D /* selfupdate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = selfupdate.json; sourceTree = "<group>"; };
 		C60B22ED2043217300A2027A /* nn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nn; path = ../nn.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C60B22F120432AF400A2027A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Pahkat/Base.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		C60B22F320432AF800A2027A /* nn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nn; path = ../nn.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -357,6 +369,18 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		C60A13F221BFF76F003C813D /* SelfUpdate */ = {
+			isa = PBXGroup;
+			children = (
+				C60A13F321BFFACF003C813D /* SelfUpdateWindow.xib */,
+				C60A13F521BFFC2C003C813D /* SelfUpdateWindow.swift */,
+				C60A13F721BFFC37003C813D /* SelfUpdateViewController.swift */,
+				C60A13F921BFFC99003C813D /* SelfUpdateView.xib */,
+				C60A13FB21BFFD0A003C813D /* SelfUpdateView.swift */,
+			);
+			path = SelfUpdate;
+			sourceTree = "<group>";
+		};
 		C62270432035C1BE00DBCD65 /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -405,6 +429,7 @@
 				C69F94942028B1EA00127A47 /* Info.plist */,
 				C60B81A9203489B800D3E093 /* Pahkat-Bridging-Header.h */,
 				C645168021BD85190019AD1D /* PahkatAdminService-Bridging-Header.h */,
+				C60A13FD21C00363003C813D /* selfupdate.json */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -486,6 +511,7 @@
 		C6CC912B2029A56F00CB0B10 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				C60A13F221BFF76F003C813D /* SelfUpdate */,
 				271249B5204043E2009EE80B /* Settings */,
 				C62270442035C1DA00DBCD65 /* Updater */,
 				C6CC912C2029A57700CB0B10 /* Main */,
@@ -753,6 +779,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				271249B7204043F7009EE80B /* SettingsWindow.xib in Resources */,
+				C60A13FE21C00363003C813D /* selfupdate.json in Resources */,
+				C60A13FA21BFFC99003C813D /* SelfUpdateView.xib in Resources */,
 				C60B22F220432AF400A2027A /* InfoPlist.strings in Resources */,
 				C6227069203A243700DBCD65 /* iso639-autonyms.tsv in Resources */,
 				C656A696203EE5190004E7F1 /* base.yaml in Resources */,
@@ -764,6 +792,7 @@
 				276391AE203DA3020096E10C /* DownloadProgressView.xib in Resources */,
 				C69F94902028B1EA00127A47 /* Assets.xcassets in Resources */,
 				C69F94932028B1EA00127A47 /* MainMenu.xib in Resources */,
+				C60A13F421BFFACF003C813D /* SelfUpdateWindow.xib in Resources */,
 				C656A693203ECAF80004E7F1 /* CompletionView.xib in Resources */,
 				C62270642039E08B00DBCD65 /* Localizable.strings in Resources */,
 				C62270522035C69000DBCD65 /* UpdateWindow.xib in Resources */,
@@ -852,9 +881,11 @@
 				C6F4BC6C2031DBC0002EE523 /* DownloadPresenter.swift in Sources */,
 				271249C12040449E009EE80B /* SettingsViewController.swift in Sources */,
 				C6F8A8182028B3C1009A016E /* Cocoa+Nibbable.swift in Sources */,
+				C60A13F621BFFC2C003C813D /* SelfUpdateWindow.swift in Sources */,
 				C6C820D6204C540A001682E8 /* PackageInstallStatus.swift in Sources */,
 				C6D675EF21BA7FFA00AF6DD7 /* Auth.swift in Sources */,
 				C6F4BC5D202A410A002EE523 /* SettingsStore.swift in Sources */,
+				C60A13F821BFFC37003C813D /* SelfUpdateViewController.swift in Sources */,
 				271249BD2040448B009EE80B /* SettingsView.swift in Sources */,
 				271249B920404409009EE80B /* SettingsWindow.swift in Sources */,
 				271249B32040118A009EE80B /* UpdatePresenter.swift in Sources */,
@@ -876,6 +907,7 @@
 				C6F8A81B2028B404009A016E /* Cocoa.swift in Sources */,
 				C6B742C52049911B00C7877D /* MainOutlineModels.swift in Sources */,
 				C622706B203A247300DBCD65 /* ISO639.swift in Sources */,
+				C60A13FC21BFFD0A003C813D /* SelfUpdateView.swift in Sources */,
 				C6B742C9204BF22600C7877D /* App.swift in Sources */,
 				276391A2203ADDD60096E10C /* InstallPresenter.swift in Sources */,
 				C6F8A8232028BC07009A016E /* WindowManager.swift in Sources */,

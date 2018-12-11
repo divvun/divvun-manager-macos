@@ -28,7 +28,6 @@ final class PahkatAdminClient : PahkatClient {
 }
 
 class PahkatAdminService: NSObject, NSXPCListenerDelegate, PahkatAdminProtocol {
-//    let client = PahkatAdminClient()
     let bag = DisposeBag()
     
     private var clientCache = [String: PahkatAdminClient]()
