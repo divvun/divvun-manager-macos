@@ -23,8 +23,6 @@ class App: NSApplication {
     }
     
     override func terminate(_ sender: Any?) {
-//        AppContext.rpc.pahkatcIPC.terminate()
-//        AppContext.rpc.pahkatcIPC.waitUntilExit()
         super.terminate(sender)
     }
     

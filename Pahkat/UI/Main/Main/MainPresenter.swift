@@ -52,7 +52,7 @@ class MainPresenter {
     private let bag = DisposeBag()
     private unowned let view: MainViewable
     private var data: MainOutlineMap = Map()
-    private let client = PahkatClient()!
+    private let client = AppContext.client
     private var selectedPackages = [AbsolutePackageKey: PackageAction]()
     
     init(view: MainViewable) {
@@ -204,7 +204,17 @@ class MainPresenter {
     
     private func bindUpdatePackagesOnLoad() -> Disposable {
         // Always update the repos on load.
-        return Observable.of(client.repos())
+        return AppContext.settings.state.map { $0.repositories }
+            .observeOn(MainScheduler.instance)
+            .subscribeOn(MainScheduler.instance)
+            .flatMapLatest { [weak self] (configs: [RepoConfig]) -> Observable<[RepositoryIndex]> in
+                guard let `self` = self else { return Observable.empty() }
+                
+                self.view.updateSettingsButton(isEnabled: false)
+                self.view.updateProgressIndicator(isEnabled: true)
+                self.client.refreshRepos()
+                return Observable.just(self.client.repos())
+            }
             .subscribe(onNext: { [weak self] repos in
                 print("Refreshed repos in main view.")
                 self?.view.updateSettingsButton(isEnabled: true)

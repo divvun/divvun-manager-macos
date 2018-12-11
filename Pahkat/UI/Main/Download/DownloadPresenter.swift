@@ -27,7 +27,7 @@ class DownloadPresenter {
     }
     
     private func bindDownload() -> Disposable {
-        let client = PahkatClient()!
+        let client = AppContext.client
         
         return Observable.from(downloadablePackages().values).map { action -> Observable<(Package, PackageDownloadStatus)> in
             print("Downloading \(action.packageRecord.id)")

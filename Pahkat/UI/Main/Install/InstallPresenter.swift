@@ -56,7 +56,7 @@ class InstallPresenter {
     private func bindInstallProcess() -> CancelToken {
         let cancelToken = CancelToken()
         
-        let client = PahkatClient()!
+        let client = AppContext.client
         let packages = self.sortPackages()
         let txActions = packages.map {
             return TransactionAction(action: $0.action, id: $0.packageRecord.id, target: $0.target)

@@ -218,9 +218,52 @@ struct PahkatTransactionProxy: PahkatTransactionType {
     }
 }
 
+class PahkatConfig {
+    private let handle: UnsafeMutableRawPointer
+    
+    init(handle: UnsafeMutableRawPointer) {
+        self.handle = handle
+    }
+    
+    func set(uiSetting key: String, value: String?) {
+        let cKey = key.cString(using: .utf8)
+        
+        if let value = value, let cValue = value.cString(using: .utf8) {
+            pahkat_config_ui_set(handle, cKey, cValue)
+        } else {
+            pahkat_config_ui_set(handle, cKey, nil)
+        }
+    }
+    
+    func get(uiSetting key: String) -> String? {
+        let cKey = key.cString(using: .utf8)
+        let cValue = pahkat_config_ui_get(handle, cKey)
+        defer { pahkat_str_free(cValue) }
+        if let cValue = cValue {
+            return String(cString: cValue)
+        } else {
+            return nil
+        }
+    }
+    
+    func repos() -> [RepoConfig] {
+        let cStr = pahkat_config_repos(handle)
+        defer { pahkat_str_free(cStr) }
+        let data = String(cString: pahkat_config_repos(handle)).data(using: .utf8)!
+        return try! JSONDecoder().decode([RepoConfig].self, from: data)
+    }
+    
+    func set(repos: [RepoConfig]) {
+        let json = try! JSONEncoder().encode(repos)
+        let cStr = String(data: json, encoding: .utf8)!.cString(using: .utf8)
+        pahkat_config_set_repos(handle, cStr)
+    }
+}
+
 class PahkatClient {
     internal let handle: UnsafeMutableRawPointer
     private let admin = PahkatAdminReceiver()
+    let config: PahkatConfig
     
     init?(configPath: String? = nil) {
         if let configPath = configPath {
@@ -234,6 +277,8 @@ class PahkatClient {
         } else {
             handle = pahkat_client_new(nil)
         }
+        
+        config = PahkatConfig(handle: handle)
     }
     
     lazy var configPath: String = {
@@ -241,6 +286,10 @@ class PahkatClient {
         defer { pahkat_str_free(cStr) }
         return String(cString: cStr)
     }()
+    
+    func refreshRepos() {
+        pahkat_refresh_repos(handle)
+    }
     
     func repos() -> [RepositoryIndex] {
         let rawString = pahkat_repos_json(handle)!

@@ -27,6 +27,8 @@
 		A27D1A7F3EDED5B483A7EE2D /* libPods-PahkatAdminService.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A872D0FAD644A2BE61E21C /* libPods-PahkatAdminService.a */; };
 		AD115823CA77CC0488F9881A /* libPods-agenthelper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BEFE62699B59C18720371EB7 /* libPods-agenthelper.a */; };
 		BAAC83E3B68F8D52CCDD364C /* libPods-Pahkat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A9ED0C6C5B84C9790E0681B /* libPods-Pahkat.a */; };
+		C60A13C721BEC2D4003C813D /* RepoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820CA204C530C001682E8 /* RepoConfig.swift */; };
+		C60A13C821BEC314003C813D /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CC912920291A2D00CB0B10 /* APIService.swift */; };
 		C60B22F220432AF400A2027A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C60B22F020432AF400A2027A /* InfoPlist.strings */; };
 		C6141AF821BA8F9600456CDB /* PackageAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742C22048697400C7877D /* PackageAction.swift */; };
 		C6141AF921BA8F9800456CDB /* PackageDownloadProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820D2204C53EF001682E8 /* PackageDownloadProgress.swift */; };
@@ -71,16 +73,13 @@
 		C6B742E1204C456100C7877D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742E0204C456100C7877D /* Constants.swift */; };
 		C6B742E2204C456300C7877D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742E0204C456100C7877D /* Constants.swift */; };
 		C6C820CB204C530D001682E8 /* RepoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820CA204C530C001682E8 /* RepoConfig.swift */; };
-		C6C820CC204C5340001682E8 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CC912920291A2D00CB0B10 /* APIService.swift */; };
 		C6C820D0204C53A8001682E8 /* RepositoryIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622703E20358F1B00DBCD65 /* RepositoryIndex.swift */; };
-		C6C820D1204C53B8001682E8 /* RepoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820CA204C530C001682E8 /* RepoConfig.swift */; };
 		C6C820D3204C53EF001682E8 /* PackageDownloadProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820D2204C53EF001682E8 /* PackageDownloadProgress.swift */; };
 		C6C820D4204C53F4001682E8 /* PackageDownloadProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820D2204C53EF001682E8 /* PackageDownloadProgress.swift */; };
 		C6C820D6204C540A001682E8 /* PackageInstallStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820D5204C540A001682E8 /* PackageInstallStatus.swift */; };
 		C6C820D7204C5420001682E8 /* PackageInstallStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820D5204C540A001682E8 /* PackageInstallStatus.swift */; };
 		C6C820D8204C5432001682E8 /* APIService+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F2676C203B96E8006EC59C /* APIService+Extensions.swift */; };
 		C6C820DA204C5450001682E8 /* SettingsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820D9204C5450001682E8 /* SettingsState.swift */; };
-		C6C820DB204C547B001682E8 /* SettingsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820D9204C5450001682E8 /* SettingsState.swift */; };
 		C6C820DC204C5496001682E8 /* UpdateFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271249C4204055EC009EE80B /* UpdateFrequency.swift */; };
 		C6C820DD204C54A6001682E8 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622705E2039DEC800DBCD65 /* Strings.swift */; };
 		C6CC91272028E69300CB0B10 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6CC91262028E69300CB0B10 /* MainWindow.xib */; };
@@ -893,15 +892,13 @@
 				C6C820D0204C53A8001682E8 /* RepositoryIndex.swift in Sources */,
 				C6C820D4204C53F4001682E8 /* PackageDownloadProgress.swift in Sources */,
 				C6B742DF204C194200C7877D /* Cocoa.swift in Sources */,
-				C6C820DB204C547B001682E8 /* SettingsState.swift in Sources */,
 				C6B742DE204C17D100C7877D /* SettingsKey.swift in Sources */,
 				C6C820DD204C54A6001682E8 /* Strings.swift in Sources */,
 				C6B742D3204C122600C7877D /* main.swift in Sources */,
-				C6C820CC204C5340001682E8 /* APIService.swift in Sources */,
 				C6B742E2204C456300C7877D /* Constants.swift in Sources */,
 				C6C820D7204C5420001682E8 /* PackageInstallStatus.swift in Sources */,
-				C6C820D1204C53B8001682E8 /* RepoConfig.swift in Sources */,
 				C68DCC6721ACA68700A4AA77 /* Client.swift in Sources */,
+				C60A13C821BEC314003C813D /* APIService.swift in Sources */,
 				C6C820DC204C5496001682E8 /* UpdateFrequency.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -917,6 +914,7 @@
 				C6141AF821BA8F9600456CDB /* PackageAction.swift in Sources */,
 				C6141AF921BA8F9800456CDB /* PackageDownloadProgress.swift in Sources */,
 				C6D675FB21BA8B2000AF6DD7 /* main.swift in Sources */,
+				C60A13C721BEC2D4003C813D /* RepoConfig.swift in Sources */,
 				C6D675FC21BA8B2300AF6DD7 /* Auth.swift in Sources */,
 				C6141AFC21BA8FC500456CDB /* APIService.swift in Sources */,
 				C6141AFE21BA8FF300456CDB /* APIService+Extensions.swift in Sources */,

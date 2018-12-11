@@ -11,7 +11,7 @@ import RxSwift
 import Sentry
 
 class AppContext {
-    // static let rpc = PahkatRPCService()!
+    static let client = PahkatClient()!
     static let settings = SettingsStore()
     static let store = AppStore()
     static let windows = WindowManager()

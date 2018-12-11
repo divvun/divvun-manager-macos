@@ -15,4 +15,9 @@ struct RepoConfig: Codable, Equatable {
     static func ==(lhs: RepoConfig, rhs: RepoConfig) -> Bool {
         return lhs.url == rhs.url && lhs.channel == rhs.channel
     }
+    
+    init(url: URL, channel: Repository.Channels) {
+        self.url = url
+        self.channel = channel
+    }
 }

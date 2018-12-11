@@ -11,51 +11,47 @@ import RxSwift
 
 enum SettingsEvent {
     case setRepositoryConfigs([RepoConfig])
-    case updateRepoConfig(URL, Repository.Channels)
     case setUpdateCheckInterval(UpdateFrequency)
     case setNextUpdateCheck(Date)
     case setInterfaceLanguage(String)
 }
 
 class SettingsStore: RxStore<SettingsState, SettingsEvent> {
-    static func reducer(prefs: UserDefaults) -> (SettingsState, SettingsEvent) -> SettingsState {
+    private let client: PahkatClient
+    
+    init() {
+        client = AppContext.client
+        let s = SettingsState(client: client)
+        super.init(initialState: s, reducers: [SettingsStore.reducer(client: client)])
+        print(s)
+    }
+    
+    static func reducer(client: PahkatClient) -> (SettingsState, SettingsEvent) -> SettingsState {
         return { (state: SettingsState, event: SettingsEvent) -> SettingsState in
-            var newState = state
+            let newState = state
 
             switch (event) {
-            case let .updateRepoConfig(url, channel):
-                let newConfig = RepoConfig(url: url, channel: channel)
-                if let index = newState.repositories.index(where: { $0.url == url }) {
-                    newState.repositories[index] = newConfig
-                } else {
-                    newState.repositories.append(newConfig)
-                }
-                prefs[json: SettingsKey.repositories.rawValue] = newState.repositories
             case let .setInterfaceLanguage(language):
                 if language == "" {
-                    prefs.set(nil, forKey: SettingsKey.interfaceLanguage.rawValue)
+                    client.config.set(uiSetting: SettingsKey.interfaceLanguage.rawValue, value: nil)
+                    UserDefaults.standard.set(nil, forKey: "AppleLanguages")
                 } else {
-                    prefs.setValue([language], forKeyPath: SettingsKey.interfaceLanguage.rawValue)
+                    client.config.set(uiSetting: SettingsKey.interfaceLanguage.rawValue, value: language)
+                    UserDefaults.standard.set([language], forKey: "AppleLanguages")
                 }
                 newState.interfaceLanguage = language
             case let .setNextUpdateCheck(date):
-                prefs[SettingsKey.nextUpdateCheck] = date
+                client.config.set(uiSetting: SettingsKey.nextUpdateCheck.rawValue, value: date.iso8601)
                 newState.nextUpdateCheck = date
             case let .setUpdateCheckInterval(period):
-                prefs.set(period.rawValue, forKey: SettingsKey.updateCheckInterval.rawValue)
+                client.config.set(uiSetting: SettingsKey.updateCheckInterval.rawValue, value: period.rawValue)
                 newState.updateCheckInterval = period
             case let .setRepositoryConfigs(configs):
-                prefs[SettingsKey.repositories] = configs
+                client.config.set(repos: configs)
                 newState.repositories = configs
             }
 
             return newState
         }
-    }
-
-    init() {
-        let s = SettingsState()
-        super.init(initialState: s, reducers: [SettingsStore.reducer(prefs: UserDefaults.standard)])
-        print(s)
     }
 }
