@@ -72,14 +72,22 @@ class PahkatTransaction: PahkatTransactionType {
     private let handle: OpaquePointer
     private let actions: [UnsafeMutablePointer<pahkat_action_t>]
     
-    internal init(client: PahkatClient, actions: [TransactionAction]) {
+    internal init(client: PahkatClient, actions: [TransactionAction]) throws {
         self.client = client
         self.actions = actions.map { $0.toCType() }
         
-        var errors: UnsafeMutablePointer<pahkat_error_t>? = UnsafeMutablePointer.allocate(capacity: 0)
+        var error: UnsafeMutablePointer<pahkat_error_t>? = nil
         self.handle = pahkat_create_package_transaction(
-            client.handle, UInt32(self.actions.count), self.actions.map { $0.pointee }, &errors)
-        // TODO: check and show errors
+            client.handle, UInt32(self.actions.count), self.actions.map { $0.pointee }, &error)
+        
+        if error != nil {
+            defer { pahkat_error_free(&error) }
+        }
+        
+        if let error = error {
+            
+            throw PahkatClientError(message: String(cString: error.pointee.message))
+        }
     }
     
     func validate() -> Bool {
@@ -390,7 +398,11 @@ class PahkatClient {
         if actions.contains(where: { $0.target == .system }) {
             return adminTransaction(of: actions)
         } else {
-            return Single.just(PahkatTransaction(client: self, actions: actions))
+            do {
+                return Single.just(try PahkatTransaction(client: self, actions: actions))
+            } catch {
+                return Single.error(error)
+            }
         }
     }
     

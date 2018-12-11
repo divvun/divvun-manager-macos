@@ -19,7 +19,11 @@ let kAuthorizationFailedExitCode = NSNumber(value: 503340)
 
 final class PahkatAdminClient : PahkatClient {
     override func transaction(of actions: [TransactionAction]) -> Single<PahkatTransactionType> {
-        return Single.just(PahkatTransaction(client: self, actions: actions))
+        do {
+            return Single.just(try PahkatTransaction(client: self, actions: actions))
+        } catch {
+            return Single.error(error)
+        }
     }
 }
 

@@ -9,8 +9,8 @@
 import Foundation
 
 class LaunchdService {
-    static let plistName = "\(Bundle.main.bundleIdentifier!).PollForUpdates.plist"
-    static let agentHelper = Bundle.main.bundleURL.appendingPathComponent("Contents/MacOS/agenthelper").path
+    static let plistName = "\(Bundle.main.bundleIdentifier!).PahkatUpdateAgent.plist"
+    static let agentHelper = Bundle.main.bundleURL.appendingPathComponent("Contents/MacOS/PahkatUpdateAgent").path
     static let plistUserPath: URL = {
         let libraryDirectory = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)[0]
         return URL(string: "file://\(libraryDirectory)/LaunchAgents/\(plistName)")!

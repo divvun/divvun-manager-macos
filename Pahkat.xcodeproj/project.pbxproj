@@ -29,6 +29,12 @@
 		BAAC83E3B68F8D52CCDD364C /* libPods-Pahkat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A9ED0C6C5B84C9790E0681B /* libPods-Pahkat.a */; };
 		C60A13C721BEC2D4003C813D /* RepoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820CA204C530C001682E8 /* RepoConfig.swift */; };
 		C60A13C821BEC314003C813D /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CC912920291A2D00CB0B10 /* APIService.swift */; };
+		C60A13E821BFEC01003C813D /* PahkatClientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68DCC6221AAF91000A4AA77 /* PahkatClientService.swift */; };
+		C60A13E921BFECC7003C813D /* PackageAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742C22048697400C7877D /* PackageAction.swift */; };
+		C60A13EA21BFECF9003C813D /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D4092A21B983790094C2E7 /* Auth.swift */; };
+		C60A13EB21BFED08003C813D /* RepoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820CA204C530C001682E8 /* RepoConfig.swift */; };
+		C60A13EC21BFED47003C813D /* LaunchdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742CA204C005800C7877D /* LaunchdService.swift */; };
+		C60A13F121BFEDE1003C813D /* libpahkat_client.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C676C35B21AAEE78005CC7AF /* libpahkat_client.a */; };
 		C60B22F220432AF400A2027A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C60B22F020432AF400A2027A /* InfoPlist.strings */; };
 		C6141AF821BA8F9600456CDB /* PackageAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742C22048697400C7877D /* PackageAction.swift */; };
 		C6141AF921BA8F9800456CDB /* PackageDownloadProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820D2204C53EF001682E8 /* PackageDownloadProgress.swift */; };
@@ -64,9 +70,8 @@
 		C6B742C52049911B00C7877D /* MainOutlineModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742C42049911B00C7877D /* MainOutlineModels.swift */; };
 		C6B742C7204BF19E00C7877D /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742C6204BF19E00C7877D /* MainMenu.swift */; };
 		C6B742C9204BF22600C7877D /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742C8204BF22600C7877D /* App.swift */; };
-		C6B742CB204C005800C7877D /* LaunchdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742CA204C005800C7877D /* LaunchdService.swift */; };
 		C6B742D3204C122600C7877D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742D2204C122600C7877D /* main.swift */; };
-		C6B742DA204C128D00C7877D /* agenthelper in Copy agenthelper Into App Bundle */ = {isa = PBXBuildFile; fileRef = C6B742D0204C122600C7877D /* agenthelper */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C6B742DA204C128D00C7877D /* PahkatUpdateAgent in Copy agenthelper Into App Bundle */ = {isa = PBXBuildFile; fileRef = C6B742D0204C122600C7877D /* PahkatUpdateAgent */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C6B742DC204C14BC00C7877D /* SettingsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742DB204C14BC00C7877D /* SettingsKey.swift */; };
 		C6B742DE204C17D100C7877D /* SettingsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742DB204C14BC00C7877D /* SettingsKey.swift */; };
 		C6B742DF204C194200C7877D /* Cocoa.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F8A81A2028B404009A016E /* Cocoa.swift */; };
@@ -84,8 +89,6 @@
 		C6C820DD204C54A6001682E8 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622705E2039DEC800DBCD65 /* Strings.swift */; };
 		C6CC91272028E69300CB0B10 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6CC91262028E69300CB0B10 /* MainWindow.xib */; };
 		C6CC912A20291A2D00CB0B10 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CC912920291A2D00CB0B10 /* APIService.swift */; };
-		C6D675EC21B9A7EA00AF6DD7 /* LowLevelPahkatClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D675EB21B9A7EA00AF6DD7 /* LowLevelPahkatClient.swift */; };
-		C6D675EE21B9AADC00AF6DD7 /* PahkatClientProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D675ED21B9AADC00AF6DD7 /* PahkatClientProxy.swift */; };
 		C6D675EF21BA7FFA00AF6DD7 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D4092A21B983790094C2E7 /* Auth.swift */; };
 		C6D675FB21BA8B2000AF6DD7 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EA31D821B0A3360014F3B6 /* main.swift */; };
 		C6D675FC21BA8B2300AF6DD7 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D4092A21B983790094C2E7 /* Auth.swift */; };
@@ -115,6 +118,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C60A13ED21BFED6F003C813D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C69F94822028B1EA00127A47 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C60B81A5203478E400D3E093;
+			remoteInfo = "pahkat-client";
+		};
+		C60A13EF21BFED74003C813D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C69F94822028B1EA00127A47 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C60B81A5203478E400D3E093;
+			remoteInfo = "pahkat-client";
+		};
 		C60B81AC20348A1200D3E093 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C69F94822028B1EA00127A47 /* Project object */;
@@ -147,7 +164,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
-				C6B742DA204C128D00C7877D /* agenthelper in Copy agenthelper Into App Bundle */,
+				C6B742DA204C128D00C7877D /* PahkatUpdateAgent in Copy agenthelper Into App Bundle */,
 			);
 			name = "Copy agenthelper Into App Bundle";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -242,7 +259,7 @@
 		C6B742C6204BF19E00C7877D /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		C6B742C8204BF22600C7877D /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		C6B742CA204C005800C7877D /* LaunchdService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchdService.swift; sourceTree = "<group>"; };
-		C6B742D0204C122600C7877D /* agenthelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = agenthelper; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6B742D0204C122600C7877D /* PahkatUpdateAgent */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PahkatUpdateAgent; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6B742D2204C122600C7877D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		C6B742DB204C14BC00C7877D /* SettingsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsKey.swift; sourceTree = "<group>"; };
 		C6B742E0204C456100C7877D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -254,8 +271,6 @@
 		C6CC91262028E69300CB0B10 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		C6CC912920291A2D00CB0B10 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		C6D4092A21B983790094C2E7 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
-		C6D675EB21B9A7EA00AF6DD7 /* LowLevelPahkatClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowLevelPahkatClient.swift; sourceTree = "<group>"; };
-		C6D675ED21B9AADC00AF6DD7 /* PahkatClientProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PahkatClientProxy.swift; sourceTree = "<group>"; };
 		C6D675F421BA8AD900AF6DD7 /* no.divvun.PahkatAdminService */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = no.divvun.PahkatAdminService; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6D675FD21BA8B6400AF6DD7 /* Launchd.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Launchd.plist; sourceTree = "<group>"; };
 		C6EA31D021B0A2460014F3B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -298,6 +313,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C60A13F121BFEDE1003C813D /* libpahkat_client.a in Frameworks */,
 				AD115823CA77CC0488F9881A /* libPods-agenthelper.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -405,8 +421,6 @@
 			isa = PBXGroup;
 			children = (
 				C68DCC6221AAF91000A4AA77 /* PahkatClientService.swift */,
-				C6D675EB21B9A7EA00AF6DD7 /* LowLevelPahkatClient.swift */,
-				C6D675ED21B9AADC00AF6DD7 /* PahkatClientProxy.swift */,
 			);
 			path = ClientService;
 			sourceTree = "<group>";
@@ -415,7 +429,7 @@
 			isa = PBXGroup;
 			children = (
 				C68DCC6121AAF90100A4AA77 /* ClientService */,
-				C6B742D1204C122600C7877D /* AgentHelper */,
+				C6B742D1204C122600C7877D /* PahkatUpdateAgent */,
 				C6EA31C921B0A2460014F3B6 /* PahkatAdminService */,
 				FA0E3526D5964C9EC14FAF12 /* Frameworks */,
 				C69F948C2028B1EA00127A47 /* Pahkat */,
@@ -428,7 +442,7 @@
 			isa = PBXGroup;
 			children = (
 				C69F948A2028B1EA00127A47 /* Pahkat.app */,
-				C6B742D0204C122600C7877D /* agenthelper */,
+				C6B742D0204C122600C7877D /* PahkatUpdateAgent */,
 				C6D675F421BA8AD900AF6DD7 /* no.divvun.PahkatAdminService */,
 			);
 			name = Products;
@@ -452,19 +466,19 @@
 			path = Pahkat;
 			sourceTree = "<group>";
 		};
-		C6B742D1204C122600C7877D /* AgentHelper */ = {
+		C6B742D1204C122600C7877D /* PahkatUpdateAgent */ = {
 			isa = PBXGroup;
 			children = (
 				C6B742D2204C122600C7877D /* main.swift */,
+				C6B742CA204C005800C7877D /* LaunchdService.swift */,
 			);
-			path = AgentHelper;
+			path = PahkatUpdateAgent;
 			sourceTree = "<group>";
 		};
 		C6CC912820291A1B00CB0B10 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				C6CC912920291A2D00CB0B10 /* APIService.swift */,
-				C6B742CA204C005800C7877D /* LaunchdService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -634,9 +648,9 @@
 			productReference = C69F948A2028B1EA00127A47 /* Pahkat.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C6B742CF204C122600C7877D /* agenthelper */ = {
+		C6B742CF204C122600C7877D /* PahkatUpdateAgent */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C6B742D4204C122600C7877D /* Build configuration list for PBXNativeTarget "agenthelper" */;
+			buildConfigurationList = C6B742D4204C122600C7877D /* Build configuration list for PBXNativeTarget "PahkatUpdateAgent" */;
 			buildPhases = (
 				21E6D09BF5256B1A951C11A2 /* [CP] Check Pods Manifest.lock */,
 				C6B742CC204C122600C7877D /* Sources */,
@@ -646,10 +660,11 @@
 			buildRules = (
 			);
 			dependencies = (
+				C60A13EE21BFED6F003C813D /* PBXTargetDependency */,
 			);
-			name = agenthelper;
+			name = PahkatUpdateAgent;
 			productName = agenthelper;
-			productReference = C6B742D0204C122600C7877D /* agenthelper */;
+			productReference = C6B742D0204C122600C7877D /* PahkatUpdateAgent */;
 			productType = "com.apple.product-type.tool";
 		};
 		C6D675F321BA8AD900AF6DD7 /* PahkatAdminService */ = {
@@ -664,6 +679,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C60A13F021BFED74003C813D /* PBXTargetDependency */,
 			);
 			name = PahkatAdminService;
 			productName = PahkatAdminService;
@@ -725,7 +741,7 @@
 			targets = (
 				C69F94892028B1EA00127A47 /* Pahkat */,
 				C60B81A5203478E400D3E093 /* pahkat-client */,
-				C6B742CF204C122600C7877D /* agenthelper */,
+				C6B742CF204C122600C7877D /* PahkatUpdateAgent */,
 				C6D675F321BA8AD900AF6DD7 /* PahkatAdminService */,
 			);
 		};
@@ -844,11 +860,9 @@
 				271249B32040118A009EE80B /* UpdatePresenter.swift in Sources */,
 				C6F4BC7B2031E18A002EE523 /* ProcessResult.swift in Sources */,
 				C6B742DC204C14BC00C7877D /* SettingsKey.swift in Sources */,
-				C6D675EC21B9A7EA00AF6DD7 /* LowLevelPahkatClient.swift in Sources */,
-				C6B742CB204C005800C7877D /* LaunchdService.swift in Sources */,
 				276391AC203D7F620096E10C /* DownloadProgressView.swift in Sources */,
 				C6F4BC572029BC05002EE523 /* MainViewable.swift in Sources */,
-				C6D675EE21B9AADC00AF6DD7 /* PahkatClientProxy.swift in Sources */,
+				C60A13EC21BFED47003C813D /* LaunchdService.swift in Sources */,
 				271249C3204044B0009EE80B /* SettingsPresenter.swift in Sources */,
 				C62270672039E9CD00DBCD65 /* AppStore.swift in Sources */,
 				276391A4203AE2660096E10C /* CompletionViewController.swift in Sources */,
@@ -889,10 +903,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6C820D8204C5432001682E8 /* APIService+Extensions.swift in Sources */,
+				C60A13E821BFEC01003C813D /* PahkatClientService.swift in Sources */,
 				C6C820D0204C53A8001682E8 /* RepositoryIndex.swift in Sources */,
+				C60A13E921BFECC7003C813D /* PackageAction.swift in Sources */,
+				C60A13EB21BFED08003C813D /* RepoConfig.swift in Sources */,
 				C6C820D4204C53F4001682E8 /* PackageDownloadProgress.swift in Sources */,
 				C6B742DF204C194200C7877D /* Cocoa.swift in Sources */,
 				C6B742DE204C17D100C7877D /* SettingsKey.swift in Sources */,
+				C60A13EA21BFECF9003C813D /* Auth.swift in Sources */,
 				C6C820DD204C54A6001682E8 /* Strings.swift in Sources */,
 				C6B742D3204C122600C7877D /* main.swift in Sources */,
 				C6B742E2204C456300C7877D /* Constants.swift in Sources */,
@@ -925,6 +943,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		C60A13EE21BFED6F003C813D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C60B81A5203478E400D3E093 /* pahkat-client */;
+			targetProxy = C60A13ED21BFED6F003C813D /* PBXContainerItemProxy */;
+		};
+		C60A13F021BFED74003C813D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C60B81A5203478E400D3E093 /* pahkat-client */;
+			targetProxy = C60A13EF21BFED74003C813D /* PBXContainerItemProxy */;
+		};
 		C60B81AD20348A1200D3E093 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C60B81A5203478E400D3E093 /* pahkat-client */;
@@ -932,7 +960,7 @@
 		};
 		C6B742D8204C125C00C7877D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C6B742CF204C122600C7877D /* agenthelper */;
+			target = C6B742CF204C122600C7877D /* PahkatUpdateAgent */;
 			targetProxy = C6B742D7204C125C00C7877D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1192,9 +1220,24 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2K5J2584NX;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/RxAtomic\"",
+					"\"${PODS_ROOT}/Headers/Public/RxCocoa\"",
+					"\"${PODS_ROOT}/Headers/Public/Sentry\"",
+					"$(PROJECT_DIR)/../pahkat-client-core/src",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../$(PAHKAT_CLIENT_CORE_DIR)/target/release",
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RxAtomic\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Pahkat/Support/Pahkat-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
@@ -1205,9 +1248,24 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2K5J2584NX;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/RxAtomic\"",
+					"\"${PODS_ROOT}/Headers/Public/RxCocoa\"",
+					"\"${PODS_ROOT}/Headers/Public/Sentry\"",
+					"$(PROJECT_DIR)/../pahkat-client-core/src",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../$(PAHKAT_CLIENT_CORE_DIR)/target/release",
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RxAtomic\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Pahkat/Support/Pahkat-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
@@ -1321,7 +1379,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C6B742D4204C122600C7877D /* Build configuration list for PBXNativeTarget "agenthelper" */ = {
+		C6B742D4204C122600C7877D /* Build configuration list for PBXNativeTarget "PahkatUpdateAgent" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C6B742D5204C122600C7877D /* Debug */,
