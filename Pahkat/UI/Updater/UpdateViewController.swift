@@ -39,19 +39,20 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
         self.contentView.tableView.dataSource = self.tableDelegate
         self.contentView.tableView.delegate = self.tableDelegate
         
-//        AppContext.settings.state.map { $0.repositories }
-//            .flatMapLatest { (configs: [RepoConfig]) -> Observable<[RepositoryIndex]> in
-//                return try AppDelegate.instance.requestRepos(configs)
-//            }
-//            .observeOn(MainScheduler.instance)
-//            .subscribeOn(MainScheduler.instance)
-//            .subscribe(onNext: { repos in
-//                print("Refreshed repos in main view.")
-//                AppContext.store.dispatch(event: AppEvent.setRepositories(repos))
-//            }, onError: { _ in
-//                // Do nothing.
-//            })
-//            .disposed(by: bag)
+        AppContext.settings.state.map { $0.repositories }
+            .observeOn(MainScheduler.instance)
+            .subscribeOn(MainScheduler.instance)
+            .flatMapLatest { [weak self] (configs: [RepoConfig]) -> Observable<[RepositoryIndex]> in
+                AppContext.client.refreshRepos()
+                return Observable.just(AppContext.client.repos())
+            }
+            .subscribe(onNext: { repos in
+                print("Refreshed repos in main view.")
+                AppContext.store.dispatch(event: AppEvent.setRepositories(repos))
+            }, onError: { _ in
+                // Do nothing.
+            })
+            .disposed(by: bag)
     }
     
     override func viewWillAppear() {
@@ -75,10 +76,15 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
     }
     
     func installPackages(packages: [AbsolutePackageKey: PackageAction]) {
-        // TODO: re-enable
-//        AppContext.windows.show(MainWindowController.self, viewController: DownloadViewController(packages: packages))
-        AppDelegate.instance.requiresAppDeath = false
-        closeWindow()
+        let actions = packages.map { (k, v) in TransactionAction(action: v.action, id: k, target: v.target) }
+        AppContext.client.transaction(of: actions).subscribe(onSuccess: { [weak self] tx in
+            guard let `self` = self else { return }
+            let vc = DownloadViewController(transaction: tx)
+            AppContext.windows.show(MainWindowController.self, viewController: vc)
+            AppDelegate.instance.requiresAppDeath = false
+            self.closeWindow()
+        }).disposed(by: bag)
+        
     }
     
     func setPackages(packages: [UpdateTablePackage]) {
