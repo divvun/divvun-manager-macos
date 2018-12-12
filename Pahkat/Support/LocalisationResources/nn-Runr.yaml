@@ -1,0 +1,345 @@
+# Original: About Package Manager
+aboutApp: ᚮᛘ ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱᛂᚿ
+
+# Original: Alpha
+alpha: ᛆᛚᚠᛆ
+
+# Original: Help
+appHelp: ᚼᛁᛂᛚᛔ
+
+# Original: Package Manager
+appName: ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱ
+
+# Original: Package Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
+appUpdateBody: >-
+  ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱ v{version} ᛂᚱ ᚿᚮ ᛐᛁᛚᚵᛁᛂᚿᚵᛂᛚᛂᚵ. ᛞᛂᛐ ᛂᚱ ᛌᛐᛂᚱᚴᛐ ᛐᛁᛚᚱᚭᛑᛑ ᛆᛐ ᛑᚢ
+  ᚮᛔᛔᛑᛆᛐᛂᚱᛂᚱ ᛌᚭ ᛌᚿᛆᚱᛐ ᛌᚮᛘ ᚱᚭᛑ. ᚹᛁᛚ ᛑᚢ ᚮᛔᛔᛑᛆᛐᛂᚱᛆ ᚿᚮ?
+
+# Original: Package Manager Update Available
+appUpdateTitle: ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱ-ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵ ᛐᛁᛚᚵᛁᛂᚿᚵᛂᛚᛂᚵ
+
+# Original: Beta
+beta: ᛒᛂᛐᛆ
+
+# Original: Bring All to Front
+bringAllToFront: ᚠᛚᛦᛐᛐ ᛆᛚᛚᛂ ᚠᚱᛂᛘᛌᛐ
+
+# Original: Cancel
+cancel: ᛆᚡᛒᚱᛦᛐ
+
+# Original: Are you sure you want to cancel all downloads?
+cancelDownloadsBody: ᛂᚱ ᛑᚢ ᚡᛁᛌᛌ ᛔᚭ ᛆᛐ ᛑᚢ ᚡᛁᛚ ᛆᚡᛒᚱᛦᛐᛆ ᛆᛚᛚᛂ ᚿᛂᛑᛚᛆᛌᛐᛁᚿᚵᛆᚿᛂ?
+
+# Original: Cancel Downloads
+cancelDownloadsTitle: ᛆᚡᛒᚱᛦᛐ ᚿᛂᛑᛚᛆᛌᛐᛁᚿᚵᛆᚿᛂ
+
+# Original: Canceling...
+cancelling: ᛂᚵ ᛆᚡᛒᚱᛦᛐ...
+
+# Original: Category
+category: ᚴᛆᛐᛂᚵᚮᚱᛁ
+
+# Original: Channel
+channel: ᚴᛆᚿᛆᛚ
+
+# Original: Check For Updates...
+checkForUpdates: ᛌᛁᚭ ᛂᛐᛐᛂᚱ ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛆᚱ...
+
+# Original: Completed
+completed: ᚠᚢᛚᛚᚠᚯᚱᛐ
+
+# Original: Copy
+copy: ᚴᚮᛔᛁᛂᚱ
+
+# Original: Do you wish to send a crash report to the developers? No personal or private information is sent. (Recommended)
+crashReportBody: >-
+  ᛦᚿᛌᚴᛁᛂᚱ ᛑᚢ ᚭ ᛌᛂᚿᛑᛆ ᛂᛁᚿ ᚴᚱᛅᛌᛁᚱᛆᛔᛔᚮᚱᛐ ᛐᛁᛚ ᚢᛐᚡᛁᚴᛚᛆᚱᛆᚿᛑᛂ? ᛁᚿᚵᛂᚿ ᛔᛂᚱᛌᚮᚿᛚᛂᚵ ᛁᚿᚠᚮ
+  ᛒᛚᛁᚱ ᛌᛂᚿᛑᛐ ᛁᚿᚿ. (ᛐᛁᛚᚱᚭᛑᛑ)
+
+# Original: Cut
+cut: ᚴᛚᛦᛔᛔ ᚢᛐ
+
+# Original: Daily
+daily: ᛑᛆᚵᛚᛂᚵ
+
+# Original: Delete
+delete: ᛌᛚᛂᛐᛐ
+
+# Original: Error 
+downloadError: "ᚠᛂᛁᛚ \U0001F61E"
+
+# Original: Downloaded
+downloaded: ᚿᛂᛑᛚᛆᛌᛐᛆ
+
+# Original: Downloading...
+downloading: ᛚᛆᛌᛐᛆᚱ ᚿᛂᛑ...
+
+# Original: Edit
+edit: ᚱᛂᛑᛁᚵᛂᚱ
+
+# Original: Error
+error: ᚠᛂᛁᛚ
+
+# Original: An error occurring during installation.
+errorDuringInstallation: ᛑᛂᛐ ᚵᛁᛂᚴᚴ ᛐᛁᛚ ᚼᛂᛚ ᛘᛂᛑ ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛁᚿᚵᛆ.
+
+# Original: Error: Invalid Version
+errorInvalidVersion: 'ᚠᛂᛁᛚ: ᚢᚵᛦᛚᛑᛁᚵ ᚡᛂᚱᛌᛁᚮᚿ'
+
+# Original: Error: No Installer
+errorNoInstaller: 'ᚠᛂᛁᛚ: ᛁᚿᚵᛂᚿ ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛆᚱ'
+
+# Original: Error: Unknown Item
+errorUnknownPackage: 'ᚠᛂᛁᛚ: ᚢᚴᛁᛂᚿᛐ ᛔᛆᚴᚴᛂ'
+
+# Original: Every 4 Weeks
+everyFourWeeks: ᚠᛁᛂᚱᛑᛂᚴᚡᛆᚱ ᚡᛂᚴᛂ
+
+# Original: Every 2 Weeks
+everyTwoWeeks: ᛆᚿᚿᛆᚴᚡᛆᚱ ᚡᛂᚴᛂ
+
+# Original: Exit
+exit: ᛆᚡᛌᛚᚢᛐᛐ
+
+# Original: Finish
+finish: ᚠᛂᚱᛑᛁᚵ
+
+# Original: Help
+help: ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱ-ᚼᛁᛂᛚᛔ
+
+# Original: Hide Package Manager
+hideApp: ᚵᚯᛦᛘ ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱᛂᚿ
+
+# Original: Hide Others
+hideOthers: ᚵᚯᛦᛘ ᛆᚿᛑᚱᛂ
+
+# Original: Install
+install: ᛁᚿᛌᛐᛆᛚᛚᛂᚱ
+
+# Original: Install {count} Items
+installNPackages: 'ᛁᚿᛌᛐᛆᛚᛚᛂᚱ {count} ᛔᛆᚴᚴᛂᚱ'
+
+# Original: Install (System)
+installSystem: ᛁᚿᛌᛐᛆᛚᛚᛂᚱ (ᚠᚮᚱ ᚼᛂᛁᛚᛂ ᛌᛦᛌᛐᛂᛘᛂᛐ)
+
+# Original: Install/Uninstall {count} Items
+installUninstallNPackages: 'ᛁᚿᛌᛐᛆᛚᛚᛂᚱ/ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱ {count} ᛔᛆᚴᚴᛂᚱ'
+
+# Original: Install (User)
+installUser: ᛁᚿᛌᛐᛆᛚᛚᛂᚱ (ᚠᚮᚱ ᛒᚱᚢᚴᛆᚱ)
+
+# Original: Installed
+installed: ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛐ
+
+# Original: Installing {name} {version}...
+installingPackage: 'ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ {name} {version}...'
+
+# Original: Installing/Uninstalling
+installingUninstalling: ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ/ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ
+
+# Original: Interface Language
+interfaceLanguage: 'ᚡᛁᛌ ᛔᚱᚮᚵᚱᛆᛘᛘᛂᛐ ᛔᚭ:'
+
+# Original: Please ensure that the URL begins with "https" and try again.
+invalidUrlBody: ᚡᛂᚱ ᚵᚱᛂᛁᛑ ᚮᚵ ᛌᛁᛂᚴᚴᛐ ᛆᛐ URL-ᛂᚿ ᛒᛦᚱᛁᛆᚱ ᛘᛂᛑ "https" ᚮᚵ ᛔᚱᚯᚡ ᛔᚭ ᚿᛦᛐᛐ.
+
+# Original: The provided URL is invalid.
+invalidUrlTitle: URL-ᛂᚿ ᛂᚱ ᚢᚵᛦᛚᛑᛁᚵ.
+
+# Original: Language
+language: ᛌᛔᚱᚭᚴ
+
+# Original: Loading...
+loading: ᛚᛆᛌᛐᛆᚱ ᛁᚿᚿ...
+
+# Original: Minimize
+minimize: ᛘᛁᚿᛁᛘᛂᚱ
+
+# Original: {count} items remaining.
+nItemsRemaining: '{count} ᛔᛆᚴᚴᛂᚱ ᛌᛐᚭᚱ ᛆᛐᛐ.'
+
+# Original: {count} Updates Available
+nUpdatesAvailable: 'ᛑᛂᛐ ᚠᛁᚿᛌᛐ {count} ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛆᚱ'
+
+# Original: Never
+never: ᛆᛚᛑᚱᛁ
+
+# Original: Next update check at: {date}
+nextUpdateDue: 'ᚿᛂᛌᛐᛂ ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛌᛌᛁᛂᚴᚴ {date}'
+
+# Original: Nightly
+nightly: ᚿᛆᛐᛐᛚᛂᚵ
+
+# Original: No Items Selected
+noPackagesSelected: ᛁᚿᚵᛂᚿ ᚡᛆᛚᛑᛂ ᛔᛆᚴᚴᛂᚱ
+
+# Original: No new updates were found.
+noUpdatesBody: ᚠᛆᚿᚿ ᛁᚿᚵᛂᚿ ᚿᛦᛂ ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛆᚱ
+
+# Original: No Updates
+noUpdatesTitle: ᛁᚿᚵᛂᚿ ᚮᛔᛔᛑᛆᚵᛐᛂᚱᛁᚿᚵᛆᚱ
+
+# Original: --
+notApplicable: —
+
+# Original: Not Installed
+notInstalled: ᛁᚴᚴᛁᛂ ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛐ
+
+# Original: OK
+ok: ᚵᚱᛂᛁᛑᛐ
+
+# Original: Open Package Manager
+openPackageManager: ᚮᛔᚿᛂ ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱᛂᚿ
+
+# Original: Paste
+paste: ᛚᛁᛘ ᛁᚿᚿ
+
+# Original: Paste and Match Style
+pasteAndMatchStyle: ᛚᛁᛘ ᛁᚿᚿ ᛐᛁᛚᛔᛆᛌᛌᛆ
+
+# Original: Preferences…
+preferences: ᛁᚿᚿᛌᛐᛁᛚᛚᛁᚿᚵᛆᚱ…
+
+# Original: You may now close this window, or return to the main screen.
+processCompletedBody: 'ᚿᚮ ᚴᛆᚿ ᛑᚢ ᛚᛆᛐᛆ ᛆᛐᛐ ᚡᛁᚿᛑᛆᚢᚵᛂᛐ, ᛂᛚᛚᛂᚱ ᚵᚭ ᛆᛐᛐᛂᚿᛑᛂ ᛐᛁᛚ ᚼᚮᚡᚢᛑᚡᛁᚿᛑᛆᚢᚵᛂᛐ.'
+
+# Original: Done!
+processCompletedTitle: ᚠᛂᚱᛑᛁᚵ!
+
+# Original: Queued
+queued: ᛁ ᚴᚯ
+
+# Original: Quit Package Manager
+quitApp: ᛆᚡᛌᛚᚢᛐᛐ ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱᛂᚿ
+
+# Original: Redo
+redo: ᚵᛁᛂᚱ ᛔᚭ ᚿᛦᛐᛐ
+
+# Original: Remind Me Later
+remindMeLater: ᛘᛁᚿᚿ ᛘᛂᚵ ᛔᚭ ᛑᛂᛐ ᛌᛂᛁᚿᛆᚱᛂ
+
+# Original: Are you sure you wish to remove this repository?
+removeRepoBody: ᛂᚱ ᛑᚢ ᛌᛁᚴᚴᛂᚱ ᛔᚭ ᛆᛐ ᛑᚢ ᚡᛁᛚ ᚠᛁᛂᚱᚿᛆ ᛚᛆᚵᛂᚱᛂᛐ?
+
+# Original: This will remove the selected repository.
+removeRepoTitle: ᛑᛂᛐᛐᛂ ᚡᛁᛚ ᚠᛁᛂᚱᚿᛆ ᛑᛂᛐ ᚡᛆᛚᛑᛂ ᛚᛆᚵᛂᚱᛂᛐ.
+
+# Original: Repositories
+repositories: ᛚᛆᚵᛂᚱ
+
+# Original: Repository
+repository: ᛚᛆᚵᛂᚱ
+
+# Original: Repository Error
+repositoryError: ᛚᛆᚵᛂᚱᚠᛂᛁᛚ
+
+# Original: There was an error while opening the repository:
+# 
+# {message}
+repositoryErrorBody: |
+  ᛂᚵ ᚠᛂᚴᚴ ᛂᛁᚿ ᚠᛂᛁᛚ ᛘᛂᛑᛆᚿ ᛂᚵ ᚮᛔᚿᛆ ᛚᛆᚵᛂᚱᛂᛐ:
+  {message}
+
+# Original: Restart Later
+restartLater: ᚮᛘᛌᛐᛆᚱᛐ ᛌᛂᛁᚿᛆᚱᛂ
+
+# Original: Restart Now
+restartNow: ᚮᛘᛌᛐᛆᚱᛐ ᚿᚮ
+
+# Original: It is highly recommended that you restart your computer in order for some changes to take effect.
+restartRequiredBody: >-
+  ᛑᛂᛐ ᛂᚱ ᛌᛐᛂᚱᚴᛐ ᛐᛁᛚᚱᚭᛑᛑ ᚭ ᛌᛐᛆᚱᛐᛆ ᛑᛆᛐᛆᛘᛆᛌᚴᛁᚿᛆ ᛔᚭ ᚿᛦᛐᛐ ᚠᚮᚱ ᛆᛐ ᛌᚢᛘᛂ ᛂᚿᛑᚱᛁᚿᚵᛆᚱ ᛌᚴᛆᛚ
+  ᛐᚱᛂ ᛁ ᚴᚱᛆᚠᛐ.
+
+# Original: Time to reboot!
+restartRequiredTitle: ᛐᛁᛑ ᚠᚮᚱ ᚭ ᛌᛐᛆᚱᛐᛆ ᛘᛆᛌᚴᛁᚿᛆ ᛔᚭ ᚿᛦᛐᛐ!
+
+# Original: Restart the app for language changes to take effect.
+restartTheAppForLanguageChanges: ᛌᛐᛆᚱᛐ ᛔᚱᚮᚵᚱᛆᛘᛘᛂᛐ ᛔᚭ ᚿᛦᛐᛐ ᚠᚮᚱ ᚭ ᛒᛦᛐᛆ ᛌᛔᚱᚭᚴ.
+
+# Original: Save
+save: ᛚᛆᚵᚱᛂ
+
+# Original: Select All
+selectAll: ᚡᛂᛚ ᛆᛚᛐ
+
+# Original: Services
+services: ᛐᛂᚿᛂᛌᛐᛂᚱ
+
+# Original: Settings
+settings: ᛁᚿᚿᛌᛐᛁᛚᛚᛁᚿᚵᛆᚱ
+
+# Original: Show All
+showAll: ᚡᛁᛌ ᛆᛚᛚᛂ
+
+# Original: Skip These Updates
+skipTheseUpdates: ᚼᚮᛔᛔ ᚮᚡᛂᚱ ᛑᛂᛌᛌᛂ ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛆᚿᛂ
+
+# Original: Sort by…
+sortBy: ᚮᚱᛑᚿᛆ ᛂᛐᛐᛂᚱ…
+
+# Original: Stable
+stable: ᛌᛐᛆᛒᛁᛚ
+
+# Original: Starting...
+starting: ᛌᛐᛆᚱᛐᛆᚱ...
+
+# Original: Default Language
+systemLocale: ᛌᛐᛆᚿᛑᛆᚱᛑᛌᛔᚱᚭᚴ
+
+# Original: There are {count} updates available!
+thereAreNUpdatesAvailable: 'ᛑᛂᛐ ᚠᛁᚿᛌᛐ {count} ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛆᚱ!'
+
+# Original: Undo
+undo: ᛆᚿᚵᚱᛂ
+
+# Original: Uninstall
+uninstall: ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱ
+
+# Original: Uninstall {count} Items
+uninstallNPackages: 'ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱ {count} ᛔᛆᚴᚴᛂᚱ'
+
+# Original: Uninstalling {name} {version}...
+uninstallingPackage: 'ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ {name} {version}...'
+
+# Original: Update
+update: ᚮᛔᛔᛑᛆᛐᛂᚱ
+
+# Original: Update Available
+updateAvailable: ᛑᛂᛐ ᚠᛁᚿᛌᛐ ᛂᛁ ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵ
+
+# Original: Update Channel
+updateChannel: ᚮᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛌᚴᛆᚿᛆᛚ
+
+# Original: Update Frequency
+updateFrequency: ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛌᚠᚱᛂᚴᚡᛂᚿᛌ
+
+# Original: Update (System)
+updateSystem: ᚮᛔᛔᛑᛆᛐᛂᚱ (ᚠᚮᚱ ᚼᛂᛁᛚᛂ ᛌᛦᛌᛐᛂᛘᛂᛐ)
+
+# Original: Update (User)
+updateUser: ᚮᚮᛔᛔᛑᛆᛐᛂᚱ (ᚠᚮᚱ ᛒᚱᚢᚴᛆᚱᛂᚿ)
+
+# Original: URL
+url: URL
+
+# Original: {description} (User)
+userDescription: '{description} (ᚠᚮᚱ ᛒᚱᚢᚴᛆᚱᛂᚿ)'
+
+# Original: Version Skipped
+versionSkipped: ᛁᚵᚿᚮᚱᛂᚱᛐ ᚡᛂᚱᛌᛁᚮᚿ
+
+# Original: Waiting for process to finish...
+waitingForCompletion: ᚡᛂᚿᛐᛆᚱ ᛔᚭ ᛆᛐ ᚿᚮᚴᚮ ᛌᚴᛆᛚ ᛒᛚᛁ ᚠᛂᚱᛑᛁᚵ...
+
+# Original: Weekly
+weekly: ᚴᚡᛆᚴᚱ ᚡᛂᚴᛂ
+
+# Original: Window
+window: ᚡᛁᚿᛑᛆᚢᚵᛂ
+
+# Original: Would you like to download them now?
+wouldYouLikeToDownloadThemNow: ᚡᛁᛚ ᛑᚢ ᛚᛆᛌᛐᛆ ᛑᛂᛁ ᚿᛂᛑ ᚿᚮ?
+
+# Original: Zoom
+zoom: ᛌᚮᚮᛘ
