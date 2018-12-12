@@ -57,12 +57,12 @@ class PahkatAdminService: NSObject, NSXPCListenerDelegate, PahkatAdminProtocol {
         let actions = try! JSONDecoder().decode([TransactionAction].self, from: actionsJSON)
         
         client.transaction(of: actions)
-            .subscribe(onSuccess: { event in
+            .subscribe(onSuccess: { tx in
                 self.txCount += 1
                 let txId = self.txCount
-                self.txCache[txId] = event
+                self.txCache[txId] = tx
                 
-                let payload = ["success": txId]
+                let payload = ["success": AdminTransactionResponse(txId: txId, actions: tx.actions)]
                 print(payload)
                 callback(try! JSONEncoder().encode(payload))
             }, onError: { error in

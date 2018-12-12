@@ -18,6 +18,16 @@ public struct AbsolutePackageKey : Codable, Hashable, Comparable {
     let id: String
     let channel: String
     
+    public init(from decoder: Decoder) throws {
+        let string = try decoder.singleValueContainer().decode(String.self)
+        self.init(from: URL(string: string)!)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(self.rawValue)
+    }
+    
     public static func < (lhs: AbsolutePackageKey, rhs: AbsolutePackageKey) -> Bool {
         return lhs.rawValue < rhs.rawValue
     }

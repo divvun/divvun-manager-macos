@@ -9,9 +9,64 @@
 import Foundation
 import RxSwift
 
-@objc enum InstallerTarget: Int, Codable {
+enum InstallerTarget: Codable {
     case system
     case user
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        do {
+            let v = try container.decode(Int.self)
+            if let x = InstallerTarget.from(rawValue: v) {
+                self = x
+            } else {
+                throw NSError(domain: "", code: 0, userInfo: nil)
+            }
+        } catch {
+            let v = try container.decode(String.self)
+            if let x = InstallerTarget.from(rawValue: v) {
+                self = x
+            } else {
+                throw error
+            }
+        }
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(self.intValue)
+    }
+    
+    var intValue: Int {
+        switch self {
+        case .system:
+            return 0
+        case .user:
+            return 1
+        }
+    }
+    
+    static func from(rawValue: String) -> InstallerTarget? {
+        switch rawValue {
+        case "system":
+            return InstallerTarget.system
+        case "user":
+            return InstallerTarget.user
+        default:
+            return nil
+        }
+    }
+    
+    static func from(rawValue: Int) -> InstallerTarget? {
+        switch rawValue {
+        case 0:
+            return InstallerTarget.system
+        case 1:
+            return InstallerTarget.user
+        default:
+            return nil
+        }
+    }
 }
 
 struct PackageStatusResponse : Codable {
@@ -25,7 +80,7 @@ struct PackageStatusResponse : Codable {
     private let packagesMeta: Packages
     private let virtualsMeta: Virtuals
     
-    var statuses: [String: PackageStatusResponse] = [:]
+    var statuses: [AbsolutePackageKey: PackageStatusResponse] = [:]
     
     init(repository: Repository, packages: Packages, virtuals: Virtuals, channel: Repository.Channels) {
         self.meta = repository
@@ -46,9 +101,29 @@ struct PackageStatusResponse : Codable {
 //        return packagesMeta.base.appendingPathComponent(package.id)
 //    }
     
-    func status(for package: Package) -> PackageStatusResponse? {
-        return statuses[package.id]
+    func status(for key: AbsolutePackageKey) -> PackageStatusResponse? {
+        return statuses[key]
     }
+    
+    func package(for key: AbsolutePackageKey) -> Package? {
+        if key.url != meta.base.absoluteString || key.channel != channel.rawValue {
+            return nil
+        }
+        
+        return packages[key.id]
+    }
+    
+    @available(*, deprecated, message: "use status(for:)")
+    func status(forPackage package: Package) -> PackageStatusResponse? {
+        if let key = statuses.keys.first(where: { $0.id == package.id }) {
+            return self.status(for: key)
+        }
+        return nil
+    }
+    
+//    func status(forPackage package: Package) -> PackageStatusResponse? {
+//        return statuses[package.id]
+//    }
     
     func absoluteKey(for package: Package) -> AbsolutePackageKey {
         var builder = URLComponents(url: meta.base
@@ -59,7 +134,7 @@ struct PackageStatusResponse : Codable {
         return AbsolutePackageKey(from: builder.url!)
     }
     
-    func set(statuses: [String: PackageStatusResponse]) {
+    func set(statuses: [AbsolutePackageKey: PackageStatusResponse]) {
         self.statuses = statuses
     }
     

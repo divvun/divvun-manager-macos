@@ -14,11 +14,11 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
     private let byteCountFormatter = ByteCountFormatter()
     private var delegate: DownloadProgressTableDelegate! = nil
     
-    private let packages: [AbsolutePackageKey: PackageAction]
-    internal lazy var presenter = { DownloadPresenter(view: self, packages: packages) }()
+    private let transaction: PahkatTransactionType
+    internal lazy var presenter = { DownloadPresenter(view: self, transaction: transaction) }()
     
-    init(packages: [AbsolutePackageKey: PackageAction]) {
-        self.packages = packages
+    init(transaction: PahkatTransactionType) {
+        self.transaction = transaction
         super.init()
     }
     
@@ -68,9 +68,9 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
         AppContext.windows.set(MainViewController(), for: MainWindowController.self)
     }
     
-    func startInstallation(packages: [AbsolutePackageKey: PackageAction]) {
+    func startInstallation(transaction: PahkatTransactionType) {
         DispatchQueue.main.async {
-            AppContext.windows.set(InstallViewController(packages: packages), for: MainWindowController.self)
+            AppContext.windows.set(InstallViewController(transaction: transaction), for: MainWindowController.self)
         }
     }
     
@@ -133,6 +133,7 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
     
     override func viewWillAppear() {
         super.viewWillAppear()
+        
         presenter.start().disposed(by: bag)
     }
 }

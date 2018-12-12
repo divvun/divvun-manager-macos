@@ -172,7 +172,7 @@ class MainPresenter {
                 continue
             }
             
-            if let outlinePackage = item.1.first(where: { $0.package == package }), let info = repo.repo.status(for: package) {
+            if let outlinePackage = item.1.first(where: { $0.package == package }), let info = repo.repo.status(forPackage: package) {
                 let packageKey = repo.repo.absoluteKey(for: package)
                 let packageRecord = PackageRecord.init(id: packageKey, package: package)
                 switch option {

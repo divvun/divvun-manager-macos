@@ -46,7 +46,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             fatalError("No repo found in config.")
         }
         
-        guard let package = repo.packages["pahkat-client-macos"], let status = repo.status(for: package)?.status else {
+        guard let package = repo.packages["pahkat-client-macos"], let status = repo.status(forPackage: package)?.status else {
             fatalError("No self update package found!")
         }
         
@@ -55,7 +55,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         switch status {
         case .notInstalled:
             print("Selfupdate: self not installed, likely debugging.")
-            return client
         case .versionSkipped:
             print("Selfupdate: self is blocked from updating itself")
         case .requiresUpdate:
@@ -98,13 +97,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             forEventClass: kCoreEventClass,
             andEventID: kAEReopenApplication)
         
-        if let client = checkForSelfUpdate() {
-            AppContext.windows.show(SelfUpdateWindowController.self,
-                                    viewController: SelfUpdateViewController(client: client),
-                                    sender: self)
-            // Early return
-            return
-        }
+//        if let client = checkForSelfUpdate() {
+//            AppContext.windows.show(SelfUpdateWindowController.self,
+//                                    viewController: SelfUpdateViewController(client: client),
+//                                    sender: self)
+//            // Early return
+//            return
+//        }
         
         // If triggered by agent, only show update window.
         if ProcessInfo.processInfo.arguments.contains("update") {

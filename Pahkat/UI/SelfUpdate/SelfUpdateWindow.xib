@@ -12,12 +12,12 @@
         <window title="Self-Updater" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="QvC-M9-y7g" customClass="SelfUpdateWindow" customModule="Pahkat" customModuleProvider="target">
             <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="480" height="132"/>
+            <rect key="contentRect" x="196" y="240" width="480" height="120"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1177"/>
             <value key="minSize" type="size" width="480" height="120"/>
             <value key="maxSize" type="size" width="480" height="120"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="132"/>
+                <rect key="frame" x="0.0" y="0.0" width="480" height="120"/>
                 <autoresizingMask key="autoresizingMask"/>
             </view>
             <point key="canvasLocation" x="140" y="156"/>

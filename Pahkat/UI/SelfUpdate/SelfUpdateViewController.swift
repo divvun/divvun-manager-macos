@@ -27,7 +27,7 @@ class SelfUpdateViewController: ViewController<SelfUpdateView>, SelfUpdateViewab
         self.repo = client.repos()[0]
         self.package = repo.packages["pahkat-client-macos"]!
         self.key = repo.absoluteKey(for: package)
-        self.status = repo.status(for: package)!
+        self.status = repo.status(for: self.key)!
         
         super.init()
     }

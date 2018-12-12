@@ -9,10 +9,6 @@
 import Foundation
 import RxSwift
 
-struct RPCError: Error {
-    let message: String
-}
-
 class CancelToken {
     private(set) var isCancelled: Bool = false
     var childDisposable: Disposable?
@@ -28,11 +24,11 @@ class CancelToken {
 
 class InstallPresenter {
     private unowned var view: InstallViewable
-    private let packages: [AbsolutePackageKey: PackageAction]
+    private let transaction: PahkatTransactionType
     
-    init(view: InstallViewable, packages: [AbsolutePackageKey: PackageAction]) {
+    init(view: InstallViewable, transaction: PahkatTransactionType) {
         self.view = view
-        self.packages = packages
+        self.transaction = transaction
     }
     
     func installTest() -> Single<PackageInstallStatus> {
@@ -41,42 +37,53 @@ class InstallPresenter {
             .delay(2.0, scheduler: MainScheduler.instance)
     }
     
-    private func sortPackages() -> [PackageAction] {
-        return packages.values
-            .sorted(by: { (a, b) in
-                if (a.isInstalling && b.isInstalling) || (a.isUninstalling && b.isUninstalling) {
-                    // TODO: fix when dependency management is added
-                    return a.packageRecord.id < b.packageRecord.id
-                }
-                
-                return a.isUninstalling
-            })
-    }
-    
     private func bindInstallProcess() -> CancelToken {
         let cancelToken = CancelToken()
         
-        let client = AppContext.client
-        let packages = self.sortPackages()
-        let txActions = packages.map {
-            return TransactionAction(action: $0.action, id: $0.packageRecord.id, target: $0.target)
-        }
+        let repos = AppContext.store.state.map { $0.repositories }.take(1)
         
-        cancelToken.childDisposable = client.transaction(of: txActions)
-            .asObservable()
-            .flatMapLatest { $0.process() }
+        let observable = Observable.combineLatest(repos, transaction.process())
+        
+        var requiresReboot = false
+        
+        cancelToken.childDisposable = observable
             .subscribeOn(MainScheduler.instance)
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { event in
-                guard let action = packages.first(where: { $0.packageRecord.id == event.packageId }) else {
+            .subscribe(onNext: { (repos, event) in
+                var maybePackage: Package? = nil
+                
+                for repo in repos {
+                    maybePackage = repo.packages[event.packageId.id]
+                    if maybePackage != nil {
+                        break
+                    }
+                }
+                
+                if maybePackage == nil {
                     fatalError("No package found for id: \(event.packageId)")
                 }
                 
+                let package = maybePackage!
+                
+                
+                
+                guard let action = self.transaction.actions.first(where: { $0.id == event.packageId }) else {
+                    return
+                }
+                
                 switch event.event {
-                case .installing, .uninstalling:
-                    self.view.setStarting(action: action)
+                case .installing:
+                    self.view.setStarting(action: action.action, package: package)
+                    if package.nativeInstaller?.requiresReboot ?? false {
+                        requiresReboot = true
+                    }
+                case .uninstalling:
+                    self.view.setStarting(action: action.action, package: package)
+                    if package.nativeInstaller?.requiresUninstallReboot ?? false {
+                        requiresReboot = true
+                    }
                 case .completed:
-                    self.view.setEnding(action: action)
+                    self.view.setEnding()
                 case .notStarted:
                     break
                 case .error:
@@ -90,7 +97,7 @@ class InstallPresenter {
                 if cancelToken.isCancelled {
                     self?.view.processCancelled()
                 } else {
-                    self?.view.showCompletion()
+                    self?.view.showCompletion(requiresReboot: requiresReboot)
                 }
             })
         
@@ -104,7 +111,7 @@ class InstallPresenter {
     }
     
     func start() -> Disposable {
-        self.view.set(totalPackages: packages.count)
+        self.view.set(totalPackages: transaction.actions.count)
         
         return Disposables.create { }
     }

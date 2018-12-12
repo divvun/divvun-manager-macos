@@ -14,29 +14,10 @@ class CompletionViewController: DisposableViewController<CompletionView>, Comple
     var onRestartButtonTapped: Observable<Void> = Observable.empty()
     var onFinishButtonTapped: Observable<Void> = Observable.empty()
     
-    private let packages: [AbsolutePackageKey: PackageAction]
     private let requiresReboot: Bool
     
-    init(with packages: [AbsolutePackageKey: PackageAction]) {
-        self.packages = packages
-        var requiresReboot = false
-        
-        for action in packages.values {
-            guard case let .macOsInstaller(installer) = action.packageRecord.package.installer else {
-                continue
-            }
-            
-            if case .install = action.action, installer.requiresReboot {
-                requiresReboot = true
-                break
-            } else if case .uninstall = action.action, installer.requiresUninstallReboot {
-                requiresReboot = true
-                break
-            }
-        }
-        
+    init(requiresReboot: Bool) {
         self.requiresReboot = requiresReboot
-        
         super.init()
     }
     
@@ -100,17 +81,6 @@ class CompletionViewController: DisposableViewController<CompletionView>, Comple
             contentView.rightButton.rx.tap.subscribe(onNext: { [weak self] _ in
                 self?.showMain()
             }).disposed(by: bag)
-        }
-    }
-}
-
-extension Package.Installer {
-    func isCompatible() -> Bool {
-        switch self {
-        case .macOsInstaller(_):
-            return true
-        default:
-            return false
         }
     }
 }

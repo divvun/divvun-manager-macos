@@ -63,8 +63,35 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         }
     }
     
+    private func sortPackages(packages: [AbsolutePackageKey: PackageAction]) -> [PackageAction] {
+        return packages.values
+            .sorted(by: { (a, b) in
+                if (a.isInstalling && b.isInstalling) || (a.isUninstalling && b.isUninstalling) {
+                    // TODO: fix when dependency management is added
+                    return a.packageRecord.id < b.packageRecord.id
+                }
+                
+                return a.isUninstalling
+            })
+    }
+    
     func showDownloadView(with packages: [AbsolutePackageKey: PackageAction]) {
-        AppContext.windows.set(DownloadViewController(packages: packages), for: MainWindowController.self)
+        let txActions = self.sortPackages(packages: packages).map {
+            return TransactionAction(action: $0.action, id: $0.packageRecord.id, target: $0.target)
+        }
+        
+        AppContext.client.transaction(of: txActions)
+            .subscribe(onSuccess: { tx in
+                DispatchQueue.main.async {
+                    AppContext.windows.set(
+                        DownloadViewController(transaction: tx),
+                        for: MainWindowController.self)
+                }
+            }, onError: { error in
+                DispatchQueue.main.async {
+                    self.handle(error: error)
+                }
+            }).disposed(by: bag)
     }
     
     func showSettings() {
@@ -260,7 +287,7 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
         case .repository:
             return nil
         case let .item(item, _, repo):
-            guard let outlineStatus = repo.repo.status(for: item.package) else { return nil }
+            guard let outlineStatus = repo.repo.status(forPackage: item.package) else { return nil }
             guard case let .macOsInstaller(installer) = item.package.installer else { fatalError() }
             
             let status = outlineStatus.status
@@ -497,7 +524,7 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                     
                     cell.textField?.attributedStringValue = NSAttributedString(string: msg, attributes: attrs)
                 } else {
-                    if let response = repo.repo.status(for: item.package) {
+                    if let response = repo.repo.status(forPackage: item.package) {
                         if response.status == .notInstalled {
                             cell.textField?.stringValue = response.status.description
                         } else {

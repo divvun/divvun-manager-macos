@@ -75,7 +75,8 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
     }
     
     func installPackages(packages: [AbsolutePackageKey: PackageAction]) {
-        AppContext.windows.show(MainWindowController.self, viewController: DownloadViewController(packages: packages))
+        // TODO: re-enable
+//        AppContext.windows.show(MainWindowController.self, viewController: DownloadViewController(packages: packages))
         AppDelegate.instance.requiresAppDeath = false
         closeWindow()
     }

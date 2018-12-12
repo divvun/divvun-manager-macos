@@ -69,25 +69,33 @@ func processPackageEvents(txEvents: Observable<TransactionEvent>) -> Observable<
 
 class PahkatTransaction: PahkatTransactionType {
     private let client: PahkatClient
-    private let handle: OpaquePointer
-    private let actions: [UnsafeMutablePointer<pahkat_action_t>]
+    private let handle: UnsafeMutableRawPointer
+    private let cActions: [UnsafeMutableRawPointer]
+    let actions: [TransactionAction]
     
     internal init(client: PahkatClient, actions: [TransactionAction]) throws {
         self.client = client
-        self.actions = actions.map { $0.toCType() }
+        self.cActions = actions.map { $0.toCType() }
         
         var error: UnsafeMutablePointer<pahkat_error_t>? = nil
         self.handle = pahkat_create_package_transaction(
-            client.handle, UInt32(self.actions.count), self.actions.map { $0.pointee }, &error)
+            client.handle, UInt32(self.cActions.count), self.cActions, &error)!
         
         if error != nil {
             defer { pahkat_error_free(&error) }
         }
         
         if let error = error {
-            
             throw PahkatClientError(message: String(cString: error.pointee.message))
         }
+        
+        let cStr = pahkat_package_transaction_actions(client.handle, handle, nil)!
+        defer { pahkat_str_free(cStr) }
+        let dString = String(cString: cStr)
+        let data = dString.data(using: .utf8)!
+        
+        print(dString)
+        self.actions = try! JSONDecoder().decode([TransactionAction].self, from: data)
     }
     
     func validate() -> Bool {
@@ -128,6 +136,7 @@ class PahkatTransaction: PahkatTransactionType {
             onCompleted: { callback(nil, nil) }).disposed(by: bag)
     }
     
+    
     deinit {
         // TODO: dealllocate all c actions
     }
@@ -151,7 +160,7 @@ extension PahkatTransactionType {
     }
 }
 
-func runPackageTransaction(txId: UInt32, client: PahkatClient, txHandle: OpaquePointer) -> Observable<TransactionEvent> {
+func runPackageTransaction(txId: UInt32, client: PahkatClient, txHandle: UnsafeMutableRawPointer) -> Observable<TransactionEvent> {
     return transactionSubject
         .do(onSubscribed: {
             DispatchQueue.global(qos: .background).async {
@@ -194,11 +203,13 @@ fileprivate struct PackageStatus : Codable {
 
 protocol PahkatTransactionType {
     func process(callback: @escaping (Error?, PackageEvent?) -> ())
+    var actions: [TransactionAction] { get }
 }
 
 struct PahkatTransactionProxy: PahkatTransactionType {
     let service: PahkatAdminProtocol
     let txId: UInt32
+    let actions: [TransactionAction]
     
     func process(callback: @escaping (Error?, PackageEvent?) -> ()) {
         let txId = self.txId
@@ -225,6 +236,12 @@ struct PahkatTransactionProxy: PahkatTransactionType {
                 onCompleted: { callback(nil, nil) })
     }
 }
+
+internal struct AdminTransactionResponse: Codable {
+    let txId: UInt32
+    let actions: [TransactionAction]
+}
+
 
 class PahkatConfig {
     private let handle: UnsafeMutableRawPointer
@@ -258,6 +275,8 @@ class PahkatConfig {
         let cStr = pahkat_config_repos(handle)
         defer { pahkat_str_free(cStr) }
         let data = String(cString: pahkat_config_repos(handle)).data(using: .utf8)!
+        
+        print("Decode repos")
         return try! JSONDecoder().decode([RepoConfig].self, from: data)
     }
     
@@ -307,13 +326,16 @@ class PahkatClient {
         
         let reposStr = String(cString: rawString)
         let reposJson = reposStr.data(using: .utf8)!
+        
+        print("Decode repo index")
         let repos = try! jsonDecoder.decode([RepositoryIndex].self, from: reposJson)
         
         for repo in repos {
-            var statuses: [String: PackageStatusResponse] = [:]
-            for packageId in repo.packages.keys {
+            var statuses: [AbsolutePackageKey: PackageStatusResponse] = [:]
+            for package in repo.packages.values {
+                let packageKey = repo.absoluteKey(for: package)
                 var error: UInt32 = 0
-                let status = pahkat_status(handle, packageId.cString(using: .utf8), &error)
+                let status = pahkat_status(handle, packageKey.rawValue.cString(using: .utf8), &error)
                 
                 if status == nil {
                     continue
@@ -322,7 +344,7 @@ class PahkatClient {
                 defer { pahkat_str_free(status) }
                 
                 let response = try! jsonDecoder.decode(PackageStatus.self, from: String(cString: status!).data(using: .utf8)!)
-                statuses[packageId] = PackageStatusResponse(status: response.status, target: response.target.rawValue == "system"
+                statuses[packageKey] = PackageStatusResponse(status: response.status, target: response.target.rawValue == "system"
                     ? InstallerTarget.system : InstallerTarget.user)
             }
             repo.set(statuses: statuses)
@@ -368,6 +390,11 @@ class PahkatClient {
             .takeWhile({ if case PackageDownloadStatus.notStarted = $0.status { return false } else { return true } })
     }
     
+    private struct ResponseContainer: Codable {
+        let success: AdminTransactionResponse?
+        let error: String?
+    }
+    
     private func adminTransaction(of actions: [TransactionAction]) -> Single<PahkatTransactionType> {
         return Single<PahkatTransactionType>.create(subscribe: { emitter in
             let service = self.admin.service(errorCallback: { error in
@@ -377,13 +404,12 @@ class PahkatClient {
             let actionsJSON = try! JSONEncoder().encode(actions)
             
             service.transaction(of: actionsJSON, configPath: self.configPath, withReply: { data in
-                guard let map = try! JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
-                    fatalError("Invalid JSON serialisation")
-                }
-                
-                if let x = map["success"], let txId = x as? UInt32 {
-                    emitter(.success(PahkatTransactionProxy(service: service, txId: txId)))
-                } else if let x = map["error"], let error = x as? String {
+                print("decode response container")
+                let response = try! JSONDecoder().decode(ResponseContainer.self, from: data)
+            
+                if let success = response.success {
+                    emitter(.success(PahkatTransactionProxy(service: service, txId: success.txId, actions: success.actions)))
+                } else if let error = response.error {
                     emitter(.error(PahkatClientError(message: error)))
                 } else {
                     emitter(.error(PahkatClientError(message: "The transaction was not created.")))
@@ -433,7 +459,7 @@ fileprivate extension TransactionAction {
         }
     }
     
-    func toCType() -> UnsafeMutablePointer<pahkat_action_t> {
+    func toCType() -> UnsafeMutableRawPointer {
         let cPackageKey = self.id.rawValue.cString(using: .utf8)!
         
         print("cpkgkey: \(String(cString: cPackageKey))")

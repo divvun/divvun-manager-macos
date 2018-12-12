@@ -11,15 +11,29 @@ import RxSwift
 
 class DownloadPresenter {
     private weak var view: DownloadViewable!
-    let packages: [AbsolutePackageKey: PackageAction]
+    let transaction: PahkatTransactionType
     
-    required init(view: DownloadViewable, packages: [AbsolutePackageKey: PackageAction]) {
+    required init(view: DownloadViewable, transaction: PahkatTransactionType) {
         self.view = view
-        self.packages = packages
+        self.transaction = transaction
     }
     
-    func downloadablePackages() -> [AbsolutePackageKey: PackageAction] {
-        return packages.filter { (k, v) in v.isInstalling }
+    func downloadablePackages() -> Observable<(AbsolutePackageKey, Package, InstallerTarget)> {
+        // TODO: repositories should be a hashmap with a URL key at this point.
+        let keys = transaction.actions.filter { $0.action == .install }
+        return AppContext.store.state.map { $0.repositories }.take(1).asSingle()
+            .map { (repos) -> [(AbsolutePackageKey, Package, InstallerTarget)] in
+                var packages = [(AbsolutePackageKey, Package, InstallerTarget)]()
+                for repo in repos {
+                    let nextPackages = keys.compactMap { k -> (AbsolutePackageKey, Package, InstallerTarget)? in
+                        if let p = repo.package(for: k.id) { return (k.id, p, k.target) } else { return nil }
+                    }
+                    packages.append(contentsOf: nextPackages)
+                }
+                return packages
+            }.asObservable().flatMapLatest {
+                return Observable.from($0)
+            }
     }
     
     private func bindCancel() -> Disposable {
@@ -29,15 +43,15 @@ class DownloadPresenter {
     private func bindDownload() -> Disposable {
         let client = AppContext.client
         
-        return Observable.from(downloadablePackages().values).map { action -> Observable<(Package, PackageDownloadStatus)> in
-            print("Downloading \(action.packageRecord.id)")
+        return downloadablePackages().map { (args: (AbsolutePackageKey, Package, InstallerTarget)) -> Observable<(Package, PackageDownloadStatus)> in
+            let (id, package, target) = args
+            print("Downloading \(id)")
             
-            return client.download(packageKey: action.packageRecord.id, target: action.target)
-                .do(onNext: { [weak self] args in
-                    print(args)
-                    self?.view.setStatus(package: action.packageRecord.package, status: args.status)
+            return client.download(packageKey: id, target: target)
+                .do(onNext: { [weak self] x in
+                    self?.view.setStatus(package: package, status: x.status)
                 })
-                .map { (action.packageRecord.package, $0.status) }
+                .map { (package, $0.status) }
             }
             .merge(maxConcurrent: 3)
             .toArray()
@@ -46,7 +60,7 @@ class DownloadPresenter {
             .subscribe(
                 onNext: { [weak self] _ in
                     guard let `self` = self else { return }
-                    self.view.startInstallation(packages: self.packages)
+                    self.view.startInstallation(transaction: self.transaction)
                 },
                 onError: { [weak self] in
                     self?.view.handle(error: $0)
@@ -54,9 +68,11 @@ class DownloadPresenter {
     }
         
     func start() -> Disposable {
-        self.view.initializeDownloads(packages: downloadablePackages().map { $0.1.packageRecord.package })
+        _ = downloadablePackages().map({ $0.1 }).toArray().subscribe(onNext: {
+            self.view.initializeDownloads(packages: $0)
+        })
         
-        return CompositeDisposable.init(disposables: [
+        return CompositeDisposable(disposables: [
             self.bindDownload(),
             self.bindCancel()
         ])

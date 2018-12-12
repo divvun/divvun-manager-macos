@@ -11,16 +11,16 @@ import RxSwift
 import RxCocoa
 
 class InstallViewController: DisposableViewController<InstallView>, InstallViewable, NSToolbarDelegate {
-    private let packages: [AbsolutePackageKey: PackageAction]
-    private lazy var presenter = { InstallPresenter(view: self, packages: packages) }()
+    private let transaction: PahkatTransactionType
+    private lazy var presenter = { InstallPresenter(view: self, transaction: transaction) }()
     private var cancelToken: CancelToken? = nil
     
     var onCancelTapped: Driver<Void> {
         return self.contentView.primaryButton.rx.tap.asDriver()
     }
     
-    init(packages: [AbsolutePackageKey: PackageAction]) {
-        self.packages = packages
+    init(transaction: PahkatTransactionType) {
+        self.transaction = transaction
         super.init()
     }
     
@@ -32,13 +32,11 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
         self.contentView.remainingLabel.stringValue = Strings.nItemsRemaining(count: String(max - value))
     }
     
-    func setStarting(action: PackageAction) {
+    func setStarting(action: PackageActionType, package: Package) {
         DispatchQueue.main.async {
             let label: String
             
-            let package = action.packageRecord.package
-            
-            switch action.action {
+            switch action {
             case .install:
                 label = Strings.installingPackage(name: package.nativeName, version: package.version)
             case .uninstall:
@@ -50,7 +48,7 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
         }
     }
     
-    func setEnding(action: PackageAction) {
+    func setEnding() {
         DispatchQueue.main.async {
             self.contentView.horizontalIndicator.increment(by: 1.0)
             self.setRemaining()
@@ -70,8 +68,8 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
         }
     }
     
-    func showCompletion() {
-        AppContext.windows.set(CompletionViewController(with: self.packages), for: MainWindowController.self)
+    func showCompletion(requiresReboot: Bool) {
+        AppContext.windows.set(CompletionViewController(requiresReboot: requiresReboot), for: MainWindowController.self)
     }
     
     func handle(error: Error) {

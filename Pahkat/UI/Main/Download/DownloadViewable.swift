@@ -16,6 +16,6 @@ protocol DownloadViewable: class {
     func setStatus(package: Package, status: PackageDownloadStatus)
     func cancel()
     func initializeDownloads(packages: [Package])
-    func startInstallation(packages: [AbsolutePackageKey: PackageAction])
+    func startInstallation(transaction: PahkatTransactionType)
     func handle(error: Error)
 }

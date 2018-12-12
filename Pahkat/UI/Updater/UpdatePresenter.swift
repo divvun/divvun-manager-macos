@@ -79,8 +79,7 @@ class UpdatePresenter {
                             return nil
                         }
                         
-                        
-                        let package = repo.packages[$0.0]!
+                        let package = repo.packages[$0.key.id]!
                         let key = repo.absoluteKey(for: package)
                         let record = PackageRecord(id: key, package: package)
                         

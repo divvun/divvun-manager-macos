@@ -8,9 +8,64 @@
 
 import Foundation
 
-@objc enum PackageActionType: Int, Codable {
+enum PackageActionType: Codable {
     case install
     case uninstall
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        do {
+            let v = try container.decode(Int.self)
+            if let x = PackageActionType.from(rawValue: v) {
+                self = x
+            } else {
+                throw NSError(domain: "", code: 0, userInfo: nil)
+            }
+        } catch {
+            let v = try container.decode(String.self)
+            if let x = PackageActionType.from(rawValue: v) {
+                self = x
+            } else {
+                throw error
+            }
+        }
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(self.intValue)
+    }
+    
+    var intValue: Int {
+        switch self {
+        case .install:
+            return 0
+        case .uninstall:
+            return 1
+        }
+    }
+    
+    static func from(rawValue: String) -> PackageActionType? {
+        switch rawValue {
+        case "install":
+            return .install
+        case "uninstall":
+            return .uninstall
+        default:
+            return nil
+        }
+    }
+    
+    static func from(rawValue: Int) -> PackageActionType? {
+        switch rawValue {
+        case 0:
+            return .install
+        case 1:
+            return .uninstall
+        default:
+            return nil
+        }
+    }
 }
 
 struct TransactionAction: Codable {

@@ -42,6 +42,15 @@ extension Package {
         
         return self.name["en"] ?? ""
     }
+    
+    var nativeInstaller: MacOsInstaller? {
+        switch installer {
+        case .macOsInstaller(let x):
+            return x
+        default:
+            return nil
+        }
+    }
 }
 
 extension Repository {
