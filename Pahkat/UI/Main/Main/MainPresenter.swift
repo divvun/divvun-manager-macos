@@ -215,7 +215,29 @@ class MainPresenter {
                 self.view.updateSettingsButton(isEnabled: false)
                 self.view.updateProgressIndicator(isEnabled: true)
                 self.client.refreshRepos()
-                return Observable.just(self.client.repos())
+                
+                let repos: [RepositoryIndex] = self.client.repos()
+                
+                if repos.count != configs.count {
+                    // TODO: Localizable strings
+                    
+                    var configSet = Set(configs.map { $0.url })
+                    configSet.subtract(Set(repos.map { $0.meta.base }))
+                    
+                    var failingReposString = ""
+                    
+                    for failingURL in configSet {
+                        print("Could not load URL \(failingURL)\n")
+                        failingReposString.append("Could not load URL \(failingURL)\n")
+                    }
+                    
+                    let alert = NSAlert()
+                    alert.messageText = "Could not load all repos"
+                    alert.informativeText = failingReposString
+                    alert.runModal()
+                }
+                
+                return Observable.just(repos)
             }
             .subscribe(onNext: { [weak self] repos in
                 print("Refreshed repos in main view.")
