@@ -191,6 +191,8 @@ class MainPresenter {
                     
                     if let action = outlinePackage.action {
                         self.selectedPackages[action.packageRecord.id] = action
+                    } else {
+                        self.selectedPackages[packageRecord.id] = nil
                     }
                 case let .set(action):
                     outlinePackage.action = action
