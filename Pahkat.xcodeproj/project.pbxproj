@@ -24,8 +24,8 @@
 		276391AE203DA3020096E10C /* DownloadProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 276391AD203DA3020096E10C /* DownloadProgressView.xib */; };
 		278A10B5203ADAB2007C3DC8 /* InstallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278A10B4203ADAB2007C3DC8 /* InstallView.xib */; };
 		278A10B7203ADACD007C3DC8 /* InstallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278A10B6203ADACD007C3DC8 /* InstallView.swift */; };
+		8AAAA964A21268A2ED48866D /* libPods-PahkatUpdateAgent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35149F403C5DF640ED23B5F9 /* libPods-PahkatUpdateAgent.a */; };
 		A27D1A7F3EDED5B483A7EE2D /* libPods-PahkatAdminService.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A872D0FAD644A2BE61E21C /* libPods-PahkatAdminService.a */; };
-		AD115823CA77CC0488F9881A /* libPods-agenthelper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BEFE62699B59C18720371EB7 /* libPods-agenthelper.a */; };
 		BAAC83E3B68F8D52CCDD364C /* libPods-Pahkat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A9ED0C6C5B84C9790E0681B /* libPods-Pahkat.a */; };
 		C60A13C721BEC2D4003C813D /* RepoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820CA204C530C001682E8 /* RepoConfig.swift */; };
 		C60A13C821BEC314003C813D /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CC912920291A2D00CB0B10 /* APIService.swift */; };
@@ -77,7 +77,7 @@
 		C6B742C7204BF19E00C7877D /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742C6204BF19E00C7877D /* MainMenu.swift */; };
 		C6B742C9204BF22600C7877D /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742C8204BF22600C7877D /* App.swift */; };
 		C6B742D3204C122600C7877D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742D2204C122600C7877D /* main.swift */; };
-		C6B742DA204C128D00C7877D /* PahkatUpdateAgent in Copy agenthelper Into App Bundle */ = {isa = PBXBuildFile; fileRef = C6B742D0204C122600C7877D /* PahkatUpdateAgent */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C6B742DA204C128D00C7877D /* PahkatUpdateAgent in Copy PahkatUpdateAgent Into App Bundle */ = {isa = PBXBuildFile; fileRef = C6B742D0204C122600C7877D /* PahkatUpdateAgent */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C6B742DC204C14BC00C7877D /* SettingsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742DB204C14BC00C7877D /* SettingsKey.swift */; };
 		C6B742DE204C17D100C7877D /* SettingsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742DB204C14BC00C7877D /* SettingsKey.swift */; };
 		C6B742DF204C194200C7877D /* Cocoa.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F8A81A2028B404009A016E /* Cocoa.swift */; };
@@ -150,7 +150,7 @@
 			containerPortal = C69F94822028B1EA00127A47 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = C6B742CF204C122600C7877D;
-			remoteInfo = agenthelper;
+			remoteInfo = PahkatUpdateAgent;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -164,15 +164,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
-		C6B742D9204C127100C7877D /* Copy agenthelper Into App Bundle */ = {
+		C6B742D9204C127100C7877D /* Copy PahkatUpdateAgent Into App Bundle */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
-				C6B742DA204C128D00C7877D /* PahkatUpdateAgent in Copy agenthelper Into App Bundle */,
+				C6B742DA204C128D00C7877D /* PahkatUpdateAgent in Copy PahkatUpdateAgent Into App Bundle */,
 			);
-			name = "Copy agenthelper Into App Bundle";
+			name = "Copy PahkatUpdateAgent Into App Bundle";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C6D675F221BA8AD900AF6DD7 /* CopyFiles */ = {
@@ -216,13 +216,14 @@
 		276391AD203DA3020096E10C /* DownloadProgressView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadProgressView.xib; sourceTree = "<group>"; };
 		278A10B4203ADAB2007C3DC8 /* InstallView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstallView.xib; sourceTree = "<group>"; };
 		278A10B6203ADACD007C3DC8 /* InstallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallView.swift; sourceTree = "<group>"; };
+		35149F403C5DF640ED23B5F9 /* libPods-PahkatUpdateAgent.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PahkatUpdateAgent.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		46FDA3A3B68B7FCC98753F49 /* Pods-PahkatUpdateAgent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PahkatUpdateAgent.release.xcconfig"; path = "Pods/Target Support Files/Pods-PahkatUpdateAgent/Pods-PahkatUpdateAgent.release.xcconfig"; sourceTree = "<group>"; };
 		4911F9B189408032AD636861 /* Pods-Pahkat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pahkat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pahkat/Pods-Pahkat.debug.xcconfig"; sourceTree = "<group>"; };
-		4CAEB8971AB1D8011654185D /* Pods-agenthelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-agenthelper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-agenthelper/Pods-agenthelper.debug.xcconfig"; sourceTree = "<group>"; };
 		56F306996B41415DC22AAB5C /* Pods-Pahkat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pahkat.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pahkat/Pods-Pahkat.release.xcconfig"; sourceTree = "<group>"; };
 		99A872D0FAD644A2BE61E21C /* libPods-PahkatAdminService.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PahkatAdminService.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A9ED0C6C5B84C9790E0681B /* libPods-Pahkat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Pahkat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F7B09CE0B97A89027CAF86C /* Pods-PahkatUpdateAgent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PahkatUpdateAgent.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PahkatUpdateAgent/Pods-PahkatUpdateAgent.debug.xcconfig"; sourceTree = "<group>"; };
 		B916A3ACEF413A1A6F6EF4D9 /* Pods-PahkatAdminService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PahkatAdminService.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PahkatAdminService/Pods-PahkatAdminService.debug.xcconfig"; sourceTree = "<group>"; };
-		BEFE62699B59C18720371EB7 /* libPods-agenthelper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-agenthelper.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C60A13F321BFFACF003C813D /* SelfUpdateWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelfUpdateWindow.xib; sourceTree = "<group>"; };
 		C60A13F521BFFC2C003C813D /* SelfUpdateWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfUpdateWindow.swift; sourceTree = "<group>"; };
 		C60A13F721BFFC37003C813D /* SelfUpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfUpdateViewController.swift; sourceTree = "<group>"; };
@@ -308,7 +309,6 @@
 		C6F8A81F2028BBC2009A016E /* MainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainView.xib; sourceTree = "<group>"; };
 		C6F8A8222028BC07009A016E /* WindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManager.swift; sourceTree = "<group>"; };
 		C6F8A8252028BD91009A016E /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
-		D432E834226F042DACFD2F8E /* Pods-agenthelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-agenthelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-agenthelper/Pods-agenthelper.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -326,7 +326,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C60A13F121BFEDE1003C813D /* libpahkat_client.a in Frameworks */,
-				AD115823CA77CC0488F9881A /* libPods-agenthelper.a in Frameworks */,
+				8AAAA964A21268A2ED48866D /* libPods-PahkatUpdateAgent.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,10 +347,10 @@
 			children = (
 				4911F9B189408032AD636861 /* Pods-Pahkat.debug.xcconfig */,
 				56F306996B41415DC22AAB5C /* Pods-Pahkat.release.xcconfig */,
-				4CAEB8971AB1D8011654185D /* Pods-agenthelper.debug.xcconfig */,
-				D432E834226F042DACFD2F8E /* Pods-agenthelper.release.xcconfig */,
 				B916A3ACEF413A1A6F6EF4D9 /* Pods-PahkatAdminService.debug.xcconfig */,
 				1A467EDBD9891A28A72CBA1D /* Pods-PahkatAdminService.release.xcconfig */,
+				9F7B09CE0B97A89027CAF86C /* Pods-PahkatUpdateAgent.debug.xcconfig */,
+				46FDA3A3B68B7FCC98753F49 /* Pods-PahkatUpdateAgent.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -627,7 +627,7 @@
 				C6C820C7204C5212001682E8 /* RxSwift.framework */,
 				9A9ED0C6C5B84C9790E0681B /* libPods-Pahkat.a */,
 				99A872D0FAD644A2BE61E21C /* libPods-PahkatAdminService.a */,
-				BEFE62699B59C18720371EB7 /* libPods-agenthelper.a */,
+				35149F403C5DF640ED23B5F9 /* libPods-PahkatUpdateAgent.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -660,7 +660,7 @@
 				C69F94862028B1EA00127A47 /* Sources */,
 				C69F94872028B1EA00127A47 /* Frameworks */,
 				C69F94882028B1EA00127A47 /* Resources */,
-				C6B742D9204C127100C7877D /* Copy agenthelper Into App Bundle */,
+				C6B742D9204C127100C7877D /* Copy PahkatUpdateAgent Into App Bundle */,
 				C6EA31D721B0A2460014F3B6 /* Embed XPC Services */,
 			);
 			buildRules = (
@@ -689,7 +689,7 @@
 				C60A13EE21BFED6F003C813D /* PBXTargetDependency */,
 			);
 			name = PahkatUpdateAgent;
-			productName = agenthelper;
+			productName = PahkatUpdateAgent;
 			productReference = C6B742D0204C122600C7877D /* PahkatUpdateAgent */;
 			productType = "com.apple.product-type.tool";
 		};
@@ -814,7 +814,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-agenthelper-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-PahkatUpdateAgent-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1248,7 +1248,7 @@
 		};
 		C6B742D5204C122600C7877D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4CAEB8971AB1D8011654185D /* Pods-agenthelper.debug.xcconfig */;
+			baseConfigurationReference = 9F7B09CE0B97A89027CAF86C /* Pods-PahkatUpdateAgent.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2K5J2584NX;
@@ -1276,7 +1276,7 @@
 		};
 		C6B742D6204C122600C7877D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D432E834226F042DACFD2F8E /* Pods-agenthelper.release.xcconfig */;
+			baseConfigurationReference = 46FDA3A3B68B7FCC98753F49 /* Pods-PahkatUpdateAgent.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2K5J2584NX;

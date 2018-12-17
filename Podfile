@@ -3,7 +3,7 @@ platform :osx, '10.10'
 #use_frameworks!
 use_modular_headers!
 
-target 'agenthelper' do
+target 'PahkatUpdateAgent' do
   pod 'RxSwift', '~> 4.4'
 end
 
