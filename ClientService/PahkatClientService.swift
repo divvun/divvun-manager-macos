@@ -272,9 +272,9 @@ class PahkatConfig {
     }
     
     func repos() -> [RepoConfig] {
-        let cStr = pahkat_config_repos(handle)
+        let cStr = pahkat_config_repos(handle)!
         defer { pahkat_str_free(cStr) }
-        let data = String(cString: pahkat_config_repos(handle)).data(using: .utf8)!
+        let data = String(cString: cStr).data(using: .utf8)!
         
         print("Decode repos")
         return try! JSONDecoder().decode([RepoConfig].self, from: data)
@@ -437,7 +437,7 @@ class PahkatClient {
     }
 }
 
-@objc class DownloadProgress : NSObject {
+class DownloadProgress {
     let packageId: AbsolutePackageKey
     let status: PackageDownloadStatus
     

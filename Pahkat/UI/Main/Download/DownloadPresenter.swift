@@ -19,8 +19,13 @@ class DownloadPresenter {
     }
     
     func downloadablePackages() -> Observable<(AbsolutePackageKey, Package, InstallerTarget)> {
+//        PackageActionType
         // TODO: repositories should be a hashmap with a URL key at this point.
         let keys = transaction.actions.filter { $0.action == .install }
+//        let repos = .asSingle()
+//
+//        Single.zip(repos, Single.just())
+//
         return AppContext.store.state.map { $0.repositories }.take(1).asSingle()
             .map { (repos) -> [(AbsolutePackageKey, Package, InstallerTarget)] in
                 var packages = [(AbsolutePackageKey, Package, InstallerTarget)]()

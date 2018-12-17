@@ -10,19 +10,6 @@ import Foundation
 import ServiceManagement
 import RxSwift
 
-@objc protocol XPCServiceVersionType {
-    var version: NSString { get }
-}
-
-@objc class XPCServiceVersion: NSObject, XPCServiceVersionType {
-    let version: NSString
-    
-    init(version: NSString) {
-        self.version = version
-        super.init()
-    }
-}
-
 @objc protocol PahkatAdminProtocol {
     func xpcServiceVersion(withReply: @escaping (String) -> ())
     func transaction(of actionsJSON: Data, configPath: String, withReply: @escaping (Data) -> ())
