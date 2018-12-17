@@ -44,7 +44,7 @@
                                                 <subviews>
                                                     <button horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="10i-S8-dpG" customClass="OutlineCheckbox" customModule="Pahkat" customModuleProvider="target">
                                                         <rect key="frame" x="2" y="0.0" width="22" height="18"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" refusesFirstResponder="YES" allowsMixedState="YES" inset="2" id="iDQ-gG-M71">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
@@ -67,7 +67,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="version" width="110" minWidth="110" maxWidth="1000" id="7Y1-Xu-sfX">
+                                    <tableColumn identifier="version" width="120" minWidth="120" maxWidth="1000" id="7Y1-Xu-sfX">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>

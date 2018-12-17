@@ -420,7 +420,16 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
             if let button = cell.nextKeyView as? OutlineCheckbox {
                 button.isHidden = true
             }
-            cell.textField?.stringValue = outlineRepo.repo.meta.nativeName
+
+            let bold: [NSAttributedString.Key: Any]
+            if #available(OSX 10.11, *) {
+                bold = [kCTFontAttributeName as NSAttributedString.Key: NSFont.systemFont(ofSize: 13, weight: .semibold)]
+            } else {
+                bold = [kCTFontAttributeName as NSAttributedString.Key: NSFont.boldSystemFont(ofSize: 13)]
+            }
+            
+            cell.textField?.attributedStringValue = NSAttributedString(string: outlineRepo.repo.meta.nativeName, attributes: bold)
+
             cell.textField?.toolTip = nil
         case let .group(group, outlineRepo):
             let name = group.value
@@ -540,6 +549,17 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                     }
                 }
             }
+        }
+        
+        let withCheckboxX: CGFloat = 24
+        let withoutCheckboxX: CGFloat = 8
+        let textFieldWidth: CGFloat = 205
+        
+        // Offset textfield if checkbox is visible
+        if cell.nextKeyView?.isHidden ?? false {
+            cell.textField?.frame = CGRect(x:withoutCheckboxX, y: 0, width: textFieldWidth, height: cell.frame.height)
+        } else {
+            cell.textField?.frame = CGRect(x:withCheckboxX, y: 0, width: textFieldWidth, height: cell.frame.height)
         }
         
         return cell
