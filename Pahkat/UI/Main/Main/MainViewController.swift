@@ -390,8 +390,8 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
             return OutlineItem.group(outlineGroup, repo)
         case let .group(group, repo):
             let x = repos[repo]![group]!
-            
-            return OutlineItem.item(x[index], group, repo)
+            let sorted = x.sorted()
+            return OutlineItem.item(sorted[index], group, repo)
         default: // number of repositories
             fatalError()
         }
