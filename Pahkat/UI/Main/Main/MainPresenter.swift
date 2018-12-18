@@ -219,8 +219,6 @@ class MainPresenter {
                 let repos: [RepositoryIndex] = self.client.repos()
                 
                 if repos.count != configs.count {
-                    // TODO: Localizable strings
-                    
                     var configSet = Set(configs.map { $0.url })
                     configSet.subtract(Set(repos.map { $0.meta.base }))
                     
@@ -228,11 +226,12 @@ class MainPresenter {
                     
                     for failingURL in configSet {
                         print("Could not load URL \(failingURL)\n")
-                        failingReposString.append("Could not load URL \(failingURL)\n")
+                        failingReposString.append(Strings.repositoryErrorBody(message: failingURL.absoluteString))
+                        failingReposString.append("\n\n")
                     }
                     
                     let alert = NSAlert()
-                    alert.messageText = "Could not load all repos"
+                    alert.messageText = Strings.repositoryError
                     alert.informativeText = failingReposString
                     alert.runModal()
                 }
