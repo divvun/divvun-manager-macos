@@ -1,4 +1,4 @@
-"aboutApp" = "Om Pakkehåndtereren";
+"aboutApp" = "Om Divvun Installer";
 "alpha" = "Alfa";
 "appHelp" = "Hjelp";
 "appName" = "Pakkehåndterer";
@@ -33,7 +33,7 @@
 "exit" = "Avslutt";
 "finish" = "Ferdig";
 "help" = "Pakkehåndterer-hjelp";
-"hideApp" = "Skjul Pakkehåndtereren";
+"hideApp" = "Skjul Divvun Installer";
 "hideOthers" = "Skjul andre";
 "install" = "Installer";
 "installNPackages" = "Installer %1$@ pakker";
@@ -60,14 +60,14 @@
 "notApplicable" = "—";
 "notInstalled" = "Ikke installert";
 "ok" = "OK";
-"openPackageManager" = "Åpne Pakkehåndtereren";
+"openPackageManager" = "Åpne Divvun Installer";
 "paste" = "Lim inn";
 "pasteAndMatchStyle" = "Lim inn tilpasset";
 "preferences" = "Innstillinger…";
 "processCompletedBody" = "Nå kan du lukke vinduet, eller gå tilbake til hovedvinduet.";
 "processCompletedTitle" = "Ferdig!";
 "queued" = "I kø";
-"quitApp" = "Avslutt Pakkehåndtereren";
+"quitApp" = "Avslutt Divvun Installer";
 "redo" = "Gjør på nytt";
 "remindMeLater" = "Minn meg på det senere";
 "removeRepoBody" = "Er du sikker på at du vil fjerne repositoriet?";

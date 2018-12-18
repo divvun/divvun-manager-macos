@@ -1,8 +1,5 @@
 {
     "repos": [
-        {
-            "url": "https://pahkat.org/repo/macos/",
-            "channel": "stable"
-        }
+        
     ]
 }

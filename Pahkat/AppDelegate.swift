@@ -125,6 +125,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }).disposed(by: bag)
         
+        // Make sure app always has a repo
+        AppContext.settings.state.map { $0.repositories }
+            .distinctUntilChanged()
+            .filter { $0.isEmpty }
+            .subscribe(onNext: { _ in
+                let repos = [RepoConfig(url: URL(string: "https://pahkat.uit.no/repo/macos/")!, channel: .stable)]
+                AppContext.settings.dispatch(event: SettingsEvent.setRepositoryConfigs(repos))
+                AppContext.client.config.set(repos: repos)
+                AppContext.client.refreshRepos()
+                AppContext.store.dispatch(event: AppEvent.setRepositories(AppContext.client.repos()))
+            }).disposed(by: bag)
+        
 #if DEBUG
         AppContext.settings.state.subscribe(onNext: {
             print($0)

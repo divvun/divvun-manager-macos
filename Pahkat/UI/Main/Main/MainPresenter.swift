@@ -218,7 +218,7 @@ class MainPresenter {
                 
                 let repos: [RepositoryIndex] = self.client.repos()
                 
-                if repos.count != configs.count {
+                if repos.count < configs.count {
                     var configSet = Set(configs.map { $0.url })
                     configSet.subtract(Set(repos.map { $0.meta.base }))
                     
