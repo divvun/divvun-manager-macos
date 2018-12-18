@@ -78,18 +78,19 @@ class PahkatTransaction: PahkatTransactionType {
         self.cActions = actions.map { $0.toCType() }
         
         var error: UnsafeMutablePointer<pahkat_error_t>? = nil
-        self.handle = pahkat_create_package_transaction(
-            client.handle, UInt32(self.cActions.count), self.cActions, &error)!
-        
-        if error != nil {
-            defer { pahkat_error_free(&error) }
-        }
+        let maybeHandle = pahkat_create_package_transaction(
+            client.handle, UInt32(self.cActions.count), self.cActions, &error)
         
         if let error = error {
             throw PahkatClientError(message: String(cString: error.pointee.message))
         }
         
-        let cStr = pahkat_package_transaction_actions(client.handle, handle, nil)!
+        guard let handle = maybeHandle else {
+            throw PahkatClientError(message: "Transaction handle is null")
+        }
+        self.handle = handle
+        
+        let cStr = pahkat_package_transaction_actions(client.handle, handle, nil)
         defer { pahkat_str_free(cStr) }
         let dString = String(cString: cStr)
         let data = dString.data(using: .utf8)!
@@ -98,30 +99,30 @@ class PahkatTransaction: PahkatTransactionType {
         self.actions = try! JSONDecoder().decode([TransactionAction].self, from: data)
     }
     
-    func validate() -> Bool {
-        var errors: UnsafeMutablePointer<pahkat_error_t>? = nil
-        let errorCount = pahkat_validate_package_transaction(client.handle, handle, &errors)
-        
-        defer {
-            if let errors = errors {
-//                pahkat_error_free(errors)
-            }
-        }
-        
-        var cleanErrors = [(UInt32, String)]()
-        
-        if var errors = errors, errorCount > 0 {
-            for _ in 0..<errorCount {
-                cleanErrors.append((
-                    errors.pointee.code,
-                    String(cString: errors.pointee.message)
-                ))
-                errors = errors.advanced(by: 1)
-            }
-        }
-
-        return errorCount == 0
-    }
+//    func validate() -> Bool {
+//        var errors: UnsafeMutablePointer<pahkat_error_t>? = UnsafeMutablePointer.allocate(capacity: 1)
+//        let errorCount = pahkat_validate_package_transaction(client.handle, handle, errors)
+//
+//        defer {
+//            if let errors = errors {
+////                pahkat_error_free(errors)
+//            }
+//        }
+//
+//        var cleanErrors = [(UInt32, String)]()
+//
+//        if var errors = errors, errorCount > 0 {
+//            for _ in 0..<errorCount {
+//                cleanErrors.append((
+//                    errors.pointee.code,
+//                    String(cString: errors.pointee.message)
+//                ))
+//                errors = errors.advanced(by: 1)
+//            }
+//        }
+//
+//        return errorCount == 0
+//    }
     
     let bag = DisposeBag()
     func process(callback: @escaping (Error?, PackageEvent?) -> ()) {
@@ -164,14 +165,14 @@ func runPackageTransaction(txId: UInt32, client: PahkatClient, txHandle: UnsafeM
     return transactionSubject
         .do(onSubscribed: {
             DispatchQueue.global(qos: .background).async {
-                var errors: UnsafeMutablePointer<pahkat_error_t>? = nil
+                var error: UnsafeMutablePointer<pahkat_error_t>? = nil
                 let result = pahkat_run_package_transaction(client.handle, txHandle, txId, { (txId, rawId, eventCode) in
                     guard let rawPackageId = rawId else { return }
                     let packageIdUrl = URL(string: String(cString: rawPackageId))!
                     let packageId = AbsolutePackageKey(from: packageIdUrl)
                     let event = PackageEvent(packageId: packageId, event: PackageEventType(rawValue: eventCode) ?? PackageEventType.error)
                     transactionSubject.onNext(TransactionEvent(txId: txId, event: .package, packageEvent: event))
-                }, &errors)
+                }, &error)
                 
                 if result != 0 {
                     transactionSubject.onNext(TransactionEvent(txId: txId, event: .error))
@@ -251,7 +252,7 @@ class PahkatConfig {
     }
     
     func set(uiSetting key: String, value: String?) {
-        let cKey = key.cString(using: .utf8)
+        let cKey = key.cString(using: .utf8)!
         
         if let value = value, let cValue = value.cString(using: .utf8) {
             pahkat_config_ui_set(handle, cKey, cValue)
@@ -261,7 +262,7 @@ class PahkatConfig {
     }
     
     func get(uiSetting key: String) -> String? {
-        let cKey = key.cString(using: .utf8)
+        let cKey = key.cString(using: .utf8)!
         let cValue = pahkat_config_ui_get(handle, cKey)
         defer { pahkat_str_free(cValue) }
         if let cValue = cValue {
@@ -272,7 +273,7 @@ class PahkatConfig {
     }
     
     func repos() -> [RepoConfig] {
-        let cStr = pahkat_config_repos(handle)!
+        let cStr = pahkat_config_repos(handle)
         defer { pahkat_str_free(cStr) }
         let data = String(cString: cStr).data(using: .utf8)!
         
@@ -309,7 +310,7 @@ class PahkatClient {
     }
     
     lazy var configPath: String = {
-        let cStr = pahkat_config_path(handle)!
+        let cStr = pahkat_config_path(handle)
         defer { pahkat_str_free(cStr) }
         return String(cString: cStr)
     }()
@@ -319,7 +320,7 @@ class PahkatClient {
     }
     
     func repos() -> [RepositoryIndex] {
-        let rawString = pahkat_repos_json(handle)!
+        let rawString = pahkat_repos_json(handle)
         defer { pahkat_str_free(rawString) }
         
         let jsonDecoder = JSONDecoder()
@@ -335,7 +336,7 @@ class PahkatClient {
             for package in repo.packages.values {
                 let packageKey = repo.absoluteKey(for: package)
                 var error: UInt32 = 0
-                let status = pahkat_status(handle, packageKey.rawValue.cString(using: .utf8), &error)
+                let status = pahkat_status(handle, packageKey.rawValue.cString(using: .utf8)!, &error)
                 
                 if status == nil {
                     continue
@@ -379,8 +380,8 @@ class PahkatClient {
                 downloadProgressSubject.onNext(DownloadProgress(packageId: packageKey, status: .starting))
                 
                 DispatchQueue.global(qos: .background).async {
-                    var errors: UnsafeMutablePointer<pahkat_error_t>? = nil
-                    let ret = pahkat_download_package(self.handle, &cKey, target.numberValue, cb, &errors)
+                    var error: UnsafeMutablePointer<pahkat_error_t>? = nil
+                    let ret = pahkat_download_package(self.handle, &cKey, target.numberValue, cb, &error)
                     if ret > 0 {
                         downloadProgressSubject.onNext(DownloadProgress(packageId: packageKey, status: .error(DownloadError(message: "Error code \(ret)"))))
                         downloadProgressSubject.onNext(DownloadProgress(packageId: packageKey, status: .notStarted))
