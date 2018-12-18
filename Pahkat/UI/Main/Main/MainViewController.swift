@@ -385,8 +385,13 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
         switch item {
         case let .repository(repo):
             let x = repos[repo]!
-            let keyIndex = x.keys.index(x.keys.startIndex, offsetBy: index)
-            let outlineGroup = x.keys[keyIndex]
+            let sorted = x.keys.sorted { (lhs, rhs) -> Bool in
+                if lhs.id == "zxx" { return false }
+                if rhs.id == "zxx" { return true }
+                return lhs.value < rhs.value
+            }
+            let keyIndex = sorted.index(sorted.startIndex, offsetBy: index)
+            let outlineGroup = sorted[keyIndex]
             return OutlineItem.group(outlineGroup, repo)
         case let .group(group, repo):
             let x = repos[repo]![group]!
@@ -432,8 +437,9 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
 
             cell.textField?.toolTip = nil
         case let .group(group, outlineRepo):
-            let name = group.value
             let id = group.id
+            let name = id == "zxx" ? "---" : group.value
+            
             
             guard case .name = column else {
                 cell.textField?.stringValue = ""
@@ -485,7 +491,7 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                 bold = [kCTFontAttributeName as NSAttributedString.Key: NSFont.boldSystemFont(ofSize: 13)]
             }
             
-            cell.textField?.attributedStringValue = NSAttributedString(string: group.value, attributes: bold)
+            cell.textField?.attributedStringValue = NSAttributedString(string: name, attributes: bold)
         case let .item(item, _, repo):
             switch column {
             case .name:
