@@ -55,6 +55,17 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
             .disposed(by: bag)
     }
     
+    func handle(error: Error) {
+        DispatchQueue.main.async {
+            let alert = NSAlert()
+            alert.messageText = Strings.downloadError
+            alert.informativeText = error.localizedDescription
+            
+            alert.alertStyle = .critical
+            alert.runModal()
+        }
+    }
+    
     override func viewWillAppear() {
         super.viewWillAppear()
         presenter.start().disposed(by: bag)
@@ -82,7 +93,12 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
             let vc = DownloadViewController(transaction: tx)
             AppContext.windows.show(MainWindowController.self, viewController: vc)
             AppDelegate.instance.requiresAppDeath = false
-            self.closeWindow()
+            
+            DispatchQueue.main.async {
+                self.closeWindow()
+            }
+        }, onError: { [weak self] error in
+            self?.handle(error: error)
         }).disposed(by: bag)
         
     }
