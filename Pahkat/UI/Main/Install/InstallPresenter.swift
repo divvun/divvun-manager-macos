@@ -65,8 +65,6 @@ class InstallPresenter {
                 
                 let package = maybePackage!
                 
-                
-                
                 guard let action = self.transaction.actions.first(where: { $0.id == event.packageId }) else {
                     return
                 }

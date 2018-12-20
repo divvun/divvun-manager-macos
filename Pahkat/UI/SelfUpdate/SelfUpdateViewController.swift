@@ -25,7 +25,7 @@ class SelfUpdateViewController: ViewController<SelfUpdateView>, SelfUpdateViewab
     init(client: PahkatClient) {
         self.client = client
         self.repo = client.repos()[0]
-        self.package = repo.packages["pahkat-client-macos"]!
+        self.package = repo.packages["divvun-installer-macos"]!
         self.key = repo.absoluteKey(for: package)
         self.status = repo.status(for: self.key)!
         
@@ -48,7 +48,8 @@ class SelfUpdateViewController: ViewController<SelfUpdateView>, SelfUpdateViewab
             alert.alertStyle = .critical
             alert.runModal()
             
-            fatalError("The self-updater has crashed.")
+            AppDelegate.instance.launchMain()
+            AppContext.windows.close(SelfUpdateWindowController.self)
         }
     }
     
@@ -89,14 +90,17 @@ class SelfUpdateViewController: ViewController<SelfUpdateView>, SelfUpdateViewab
             }).disposed(by: bag)
     }
     
-    private func install() {
-        let action = TransactionAction.init(action: .install, id: self.key, target: self.status.target)
-        self.contentView.subtitle.stringValue = Strings.installingPackage(name: Strings.appName, version: self.package.version)
-        
+    private func install(with action: TransactionAction) {
         client.transaction(of: [action]).asObservable()
             .subscribeOn(MainScheduler.instance)
             .observeOn(MainScheduler.instance)
             .flatMapLatest { tx in tx.process() }
+            .flatMapLatest { (event) -> Observable<PackageEvent> in
+                if event.event == .error {
+                    return Observable.error(PahkatClientError(message: "There was an error installing this update."))
+                }
+                return Observable.just(event)
+            }
             .subscribe(onError: { error in
                 DispatchQueue.main.async {
                     self.contentView.subtitle.stringValue = Strings.downloadError
@@ -110,21 +114,46 @@ class SelfUpdateViewController: ViewController<SelfUpdateView>, SelfUpdateViewab
             }).disposed(by: bag)
     }
     
-    private func reloadApp() {
-        if LaunchdService.restartApp() {
-            return
-        }
+    private func install() {
+        let action = TransactionAction.init(action: .install, id: self.key, target: self.status.target)
+        self.contentView.subtitle.stringValue = Strings.installingPackage(name: Strings.appName, version: self.package.version)
         
-        DispatchQueue.main.async {
-            let alert = NSAlert()
-            alert.messageText = Strings.downloadError
-            alert.informativeText = "\(Strings.appName) has failed to reload itself. Please relaunch the app yourself."
-            
-            alert.alertStyle = .critical
-            alert.runModal()
-            
-            fatalError("The self-updater failed to relaunch itself.")
+        if action.target == .system {
+            let recv = PahkatAdminReceiver()
+            recv.isLaunchServiceInstalled
+                .observeOn(MainScheduler.instance)
+                .timeout(1.0, scheduler: MainScheduler.instance)
+                .catchErrorJustReturn(false)
+                .subscribe(onSuccess: { isInstalled in
+                    print("Service is installed? \(isInstalled)")
+                    
+                    if isInstalled {
+                        self.install(with: action)
+                        return
+                    }
+                    
+                    do {
+                        _ = try recv.installLaunchService(errorCallback: { error in
+                            DispatchQueue.main.async {
+                                self.handle(error: error)
+                            }
+                        })
+                        self.install(with: action)
+                    } catch  {
+                        self.handle(error: error)
+                        return
+                    }
+                })
+                .disposed(by: self.bag)
         }
+    }
+    
+    private func reloadApp() {
+        let p = Process()
+        p.launchPath = "/usr/bin/nohup"
+        p.arguments = ["sh", "-c", "killall -9 'Divvun Installer' && open /Applications/Divvun\\ Installer.app --args first-run"]
+        p.launch()
+        p.waitUntilExit()
     }
     
     required init?(coder aDecoder: NSCoder) {

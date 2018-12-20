@@ -85,16 +85,18 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
     }
     
     func windowWillClose(_ notification: Notification) {
-        if tableDelegate == nil {
+        guard let tableDelegate = tableDelegate, let AppContext = AppContext else {
             return
         }
         
-        AppContext.settings.dispatch(event: .setRepositoryConfigs(tableDelegate.configs.compactMap {
-            if let url = $0.url, let channel = $0.channel {
+        let v = tableDelegate.configs.compactMap { t -> RepoConfig? in
+            if let url = t.url, let channel = t.channel {
                 return RepoConfig(url: url, channel: channel)
             }
             return nil
-        }))
+        }
+        
+        AppContext.settings.dispatch(event: .setRepositoryConfigs(v))
     }
     
     func handle(error: Error) {

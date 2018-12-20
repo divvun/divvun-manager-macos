@@ -34,7 +34,7 @@ class CompletionViewController: DisposableViewController<CompletionView>, Comple
     }
     
     func rebootSystem() {
-        let source = "tell application \"Finder\"\nshut down\nend tell"
+        let source = "tell application \"Finder\"\nrestart\nend tell"
         let script = NSAppleScript(source: source)
         script?.executeAndReturnError(nil)
     }

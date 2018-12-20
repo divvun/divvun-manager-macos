@@ -1,5 +1,8 @@
 {
     "repos": [
-        
+        {
+            "url": "https://pahkat.uit.no/repo/divvun-installer/",
+            "channel": "stable"
+        }
     ]
 }

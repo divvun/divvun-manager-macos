@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" rowHeight="19" viewBased="YES" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="eoz-CG-bZB" id="qQh-sV-PqP" customClass="PackageOutlineView" customModule="Pahkat" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="508" height="229"/>
+                                <rect key="frame" x="0.0" y="0.0" width="759" height="229"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="4"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -100,7 +100,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="state" width="280" minWidth="280" maxWidth="3.4028234663852886e+38" id="v4J-Vh-hoY">
+                                    <tableColumn identifier="state" width="400" minWidth="400" maxWidth="3.4028234663852886e+38" id="v4J-Vh-hoY">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -114,11 +114,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="l9E-YA-dEy">
-                                                <rect key="frame" x="357" y="2" width="140" height="17"/>
+                                                <rect key="frame" x="357" y="2" width="400" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nuQ-Ev-b9d">
-                                                        <rect key="frame" x="0.0" y="0.0" width="140" height="17"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="400" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="ajh-bL-B7O">
                                                             <font key="font" metaFont="system"/>
@@ -137,8 +137,8 @@
                             </outlineView>
                         </subviews>
                     </clipView>
-                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="w7I-0u-Cer">
-                        <rect key="frame" x="1" y="214" width="495" height="16"/>
+                    <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.51394422310756971" horizontal="YES" id="w7I-0u-Cer">
+                        <rect key="frame" x="1" y="214" width="508" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="LDc-fa-JW1">

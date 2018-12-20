@@ -261,7 +261,7 @@
 		C676C35B21AAEE78005CC7AF /* libpahkat_client.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpahkat_client.a; path = "../pahkat-client-core/target/release/libpahkat_client.a"; sourceTree = "<group>"; };
 		C68DCC6221AAF91000A4AA77 /* PahkatClientService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PahkatClientService.swift; sourceTree = "<group>"; };
 		C68DCC6521ACA68700A4AA77 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
-		C69F948A2028B1EA00127A47 /* Pahkat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pahkat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C69F948A2028B1EA00127A47 /* Divvun Installer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Divvun Installer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C69F948D2028B1EA00127A47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C69F948F2028B1EA00127A47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C69F94922028B1EA00127A47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -466,7 +466,7 @@
 		C69F948B2028B1EA00127A47 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C69F948A2028B1EA00127A47 /* Pahkat.app */,
+				C69F948A2028B1EA00127A47 /* Divvun Installer.app */,
 				C6B742D0204C122600C7877D /* PahkatUpdateAgent */,
 				C6D675F421BA8AD900AF6DD7 /* no.divvun.PahkatAdminService */,
 			);
@@ -671,7 +671,7 @@
 			);
 			name = Pahkat;
 			productName = Pahkat;
-			productReference = C69F948A2028B1EA00127A47 /* Pahkat.app */;
+			productReference = C69F948A2028B1EA00127A47 /* Divvun Installer.app */;
 			productType = "com.apple.product-type.application";
 		};
 		C6B742CF204C122600C7877D /* PahkatUpdateAgent */ = {
@@ -739,7 +739,7 @@
 					C6B742CF204C122600C7877D = {
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 1010;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					C6D675F321BA8AD900AF6DD7 = {
 						CreatedOnToolsVersion = 10.1;
@@ -1207,7 +1207,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = no.divvun.Pahkat;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = Pahkat;
+				PRODUCT_NAME = "Divvun Installer";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pahkat/Support/Pahkat-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1239,7 +1240,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = no.divvun.Pahkat;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = Pahkat;
+				PRODUCT_NAME = "Divvun Installer";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pahkat/Support/Pahkat-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
@@ -1250,7 +1252,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9F7B09CE0B97A89027CAF86C /* Pods-PahkatUpdateAgent.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 2K5J2584NX;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1269,6 +1272,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pahkat/Support/Pahkat-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 			};
@@ -1278,7 +1282,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 46FDA3A3B68B7FCC98753F49 /* Pods-PahkatUpdateAgent.release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 2K5J2584NX;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1297,6 +1302,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pahkat/Support/Pahkat-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 			};

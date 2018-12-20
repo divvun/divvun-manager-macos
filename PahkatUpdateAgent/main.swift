@@ -26,6 +26,7 @@ func launchConfig(eventID: PahkatAppleEvent) -> [NSWorkspace.LaunchConfiguration
 }
 
 func openAppWith(event: PahkatAppleEvent) {
+    print("Opening \(Bundle.main.bundleURL)")
     try! NSWorkspace.shared.launchApplication(at: Bundle.main.bundleURL, options: .default, configuration: launchConfig(eventID: event))
 }
 
@@ -49,17 +50,24 @@ func checkForUpdates() {
 }
 
 func restartApp() {
-    let exe = Bundle.main.bundleURL.appendingPathComponent("Contents/MacOS/Pahkat")
+    let exe = Bundle.main.bundleURL.appendingPathComponent("Contents/MacOS/Divvun Installer")
 
+    var count = 20
     if let app = NSWorkspace.shared.runningApplications.first(where: { $0.executableURL == exe }) {
         app.terminate()
         app.forceTerminate()
         
         while !app.isTerminated {
             usleep(100000)
+            count -= 1
+            if count == 0 {
+                print("Failed to terminate app.")
+                exit(1)
+            }
         }
     }
 
+//    usleep(1000000)
     openAppWith(event: .restartApp)
     exit(0)
 }

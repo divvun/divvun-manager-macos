@@ -63,19 +63,17 @@ class LaunchdService {
     }
     
     static func restartApp() -> Bool {
-        let plist = generateRestartLaunchAgent()
-        if !writeLaunchAgent(plist, path: restartPlistUserPath) {
-            return false
-        }
-        
-        try? launchctl(["unload", restartPlistUserPath.path])
-        try? launchctl(["load", restartPlistUserPath.path])
-        
-        DispatchQueue.global(qos: .background).async {
-            try! launchctl(["start", restartPlistName])
-        }
-        
-        
+//        let plist = generateRestartLaunchAgent()
+//        if !writeLaunchAgent(plist, path: restartPlistUserPath) {
+//            return false
+//        }
+//        
+//        try? launchctl(["unload", restartPlistUserPath.path])
+//        try? launchctl(["load", restartPlistUserPath.path])
+//
+//        DispatchQueue.global(qos: .background).async {
+//            try! launchctl(["start", restartPlistName])
+//        }
         
         return true
     }

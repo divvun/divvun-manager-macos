@@ -40,7 +40,7 @@ class PahkatAdminService: NSObject, NSXPCListenerDelegate, PahkatAdminProtocol {
     }
     
     // JSON on both sides.
-    func transaction(of actionsJSON: Data, configPath: String, withReply callback: @escaping (Data) -> ()) {
+    func transaction(of actionsJSON: Data, configPath: String, cachePath: String?, withReply callback: @escaping (Data) -> ()) {
         let client: PahkatAdminClient
         
         if let maybeClient = self.clientCache[configPath] {
@@ -52,6 +52,10 @@ class PahkatAdminService: NSObject, NSXPCListenerDelegate, PahkatAdminProtocol {
             let payload = ["error": "Path could not be parsed: \(configPath)"]
             callback(try! JSONEncoder().encode(payload))
             return
+        }
+        
+        if let cachePath = cachePath {
+            client.config.set(cachePath: cachePath)
         }
         
         let actions = try! JSONDecoder().decode([TransactionAction].self, from: actionsJSON)
@@ -108,7 +112,7 @@ class PahkatAdminService: NSObject, NSXPCListenerDelegate, PahkatAdminProtocol {
     
     override init() {
         do {
-            Client.shared = try Client(dsn: "https://85710416203c49ec87d9317948dad3c5@sentry.io/292199")
+            Client.shared = try Client(dsn: "https://554b508acddd44e98c5b3dc70f8641c1@sentry.io/1357390")
             try Client.shared?.startCrashHandler()
         } catch let error {
             print("\(error)")

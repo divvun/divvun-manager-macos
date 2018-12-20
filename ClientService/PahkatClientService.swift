@@ -286,6 +286,18 @@ class PahkatConfig {
         let cStr = String(data: json, encoding: .utf8)!.cString(using: .utf8)
         pahkat_config_set_repos(handle, cStr)
     }
+    
+    func set(cachePath: String) {
+        let cStr = cachePath.cString(using: .utf8)
+        pahkat_config_set_cache_path(handle, cStr)
+    }
+    
+    func cachePath() -> String {
+        let cStr = pahkat_config_cache_path(handle)
+        defer { pahkat_str_free(cStr) }
+        let path = String(cString: cStr)
+        return path
+    }
 }
 
 class PahkatClient {
@@ -293,17 +305,17 @@ class PahkatClient {
     private let admin = PahkatAdminReceiver()
     let config: PahkatConfig
     
-    init?(configPath: String? = nil) {
+    init?(configPath: String? = nil, saveChanges: Bool = true) {
         if let configPath = configPath {
             let cPath = configPath.cString(using: .utf8)
             
-            if let client = pahkat_client_new(cPath) {
+            if let client = pahkat_client_new(cPath, saveChanges ? 1 : 0) {
                 handle = client
             } else {
                 return nil
             }
         } else {
-            handle = pahkat_client_new(nil)
+            handle = pahkat_client_new(nil, saveChanges ? 1 : 0)
         }
         
         config = PahkatConfig(handle: handle)
@@ -404,7 +416,7 @@ class PahkatClient {
             
             let actionsJSON = try! JSONEncoder().encode(actions)
             
-            service.transaction(of: actionsJSON, configPath: self.configPath, withReply: { data in
+            service.transaction(of: actionsJSON, configPath: self.configPath, cachePath: self.config.cachePath(), withReply: { data in
                 print("decode response container")
                 let response = try! JSONDecoder().decode(ResponseContainer.self, from: data)
             

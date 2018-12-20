@@ -35,22 +35,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func checkForSelfUpdate() -> PahkatClient? {
         guard let selfUpdatePath = Bundle.main.url(forResource: "selfupdate", withExtension: "json")?.path else {
-            fatalError("No selfupdate.json found in bundle.")
+            print("No selfupdate.json found in bundle.")
+            return nil
         }
         
-        guard let client = PahkatClient(configPath: selfUpdatePath) else {
-            fatalError("No PahkatClient generated for given config.")
+        guard let client = PahkatClient(configPath: selfUpdatePath, saveChanges: false) else {
+            print("No PahkatClient generated for given config.")
+            return nil
         }
+        
+        client.config.set(cachePath: "/tmp/pahkat-\(NSUserName())-\(Date().timeIntervalSince1970)")
         
         guard let repo = client.repos().first else {
-            fatalError("No repo found in config.")
+            print("No repo found in config.")
+            return nil
         }
         
-        guard let package = repo.packages["pahkat-client-macos"], let status = repo.status(forPackage: package)?.status else {
-            fatalError("No self update package found!")
+        guard let package = repo.packages["divvun-installer-macos"], let status = repo.status(forPackage: package)?.status else {
+            print("No self update package found!")
+            return nil
         }
         
-        print("Found pahkat-client-macos version: \(package.version) \(status)")
+        print("Found divvun-installer-macos version: \(package.version) \(status)")
         
         switch status {
         case .notInstalled:
@@ -70,19 +76,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return requiresAppDeath
     }
     
-    func applicationDidFinishLaunching(_ notification: Notification) {
-        // Configure Sentry.io
-        do {
-            Client.shared = try Client(dsn: "https://85710416203c49ec87d9317948dad3c5@sentry.io/292199")
-            try Client.shared?.startCrashHandler()
-        } catch let error {
-            print("\(error)")
-            // Wrong DSN or KSCrash not installed
-        }
-        
-        NSApp.mainMenu = MainMenu.loadFromNib()
-        AppDelegate.instance = self
-        
+    func launchMain() {
         // Handle external requests from agent helper
         NSAppleEventManager.shared().setEventHandler(
             self,
@@ -96,22 +90,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             andSelector: #selector(handleReopenEvent(_:withReplyEvent:)),
             forEventClass: kCoreEventClass,
             andEventID: kAEReopenApplication)
-        
-//        if let client = checkForSelfUpdate() {
-//            AppContext.windows.show(SelfUpdateWindowController.self,
-//                                    viewController: SelfUpdateViewController(client: client),
-//                                    sender: self)
-//            // Early return
-//            return
-//        }
-        
-        // If triggered by agent, only show update window.
-        if ProcessInfo.processInfo.arguments.contains("update") {
-            requiresAppDeath = true
-            onUpdateRequested()
-        } else {
-            AppContext.windows.show(MainWindowController.self, viewController: MainViewController(), sender: self)
-        }
         
         // Manage the launch agents
         AppContext.settings.state.map { $0.updateCheckInterval }
@@ -137,7 +115,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 AppContext.store.dispatch(event: AppEvent.setRepositories(AppContext.client.repos()))
             }).disposed(by: bag)
         
-#if DEBUG
+        // If triggered by agent, only show update window.
+        if ProcessInfo.processInfo.arguments.contains("update") {
+            requiresAppDeath = true
+            onUpdateRequested()
+        } else {
+            AppContext.windows.show(MainWindowController.self, viewController: MainViewController(), sender: self)
+        }
+        
+        #if DEBUG
         AppContext.settings.state.subscribe(onNext: {
             print($0)
         }).disposed(by: bag)
@@ -145,7 +131,31 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         AppContext.store.state.subscribe(onNext: {
             print($0)
         }).disposed(by: bag)
-#endif
+        #endif
+    }
+    
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        // Configure Sentry.io
+        do {
+            Client.shared = try Client(dsn: "https://554b508acddd44e98c5b3dc70f8641c1@sentry.io/1357390")
+            try Client.shared?.startCrashHandler()
+        } catch let error {
+            print("\(error)")
+            // Wrong DSN or KSCrash not installed
+        }
+        
+        NSApp.mainMenu = MainMenu.loadFromNib()
+        AppDelegate.instance = self
+        
+        if !ProcessInfo.processInfo.arguments.contains("first-run"), let client = checkForSelfUpdate() {
+            AppContext.windows.show(SelfUpdateWindowController.self,
+                                    viewController: SelfUpdateViewController(client: client),
+                                    sender: self)
+            // Early return
+            return
+        }
+        
+        launchMain()
     }
 }
 

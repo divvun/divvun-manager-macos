@@ -1,9 +1,9 @@
 "aboutApp" = "Om Divvun Installer";
 "alpha" = "Alfa";
 "appHelp" = "Hjelp";
-"appName" = "Pakkehåndterer";
-"appUpdateBody" = "Pakkehåndterer v%1$@ er nå tilgjengelig. Det er sterkt anbefalt at du oppdaterer så snart som mulig. Vil du oppdatere nå?";
-"appUpdateTitle" = "Pakkehåndterer-oppdatering tilgjengelig";
+"appName" = "Divvun Installer";
+"appUpdateBody" = "Divvun Installer v%1$@ er nå tilgjengelig. Det er sterkt anbefalt at du oppdaterer så snart som mulig. Vil du oppdatere nå?";
+"appUpdateTitle" = "Divvun Installer-oppdatering tilgjengelig";
 "beta" = "Beta";
 "bringAllToFront" = "Flytt alle fremst";
 "cancel" = "Avbryt";
@@ -32,7 +32,7 @@
 "everyTwoWeeks" = "Hver annen uke";
 "exit" = "Avslutt";
 "finish" = "Ferdig";
-"help" = "Pakkehåndterer-hjelp";
+"help" = "Divvun Installer-hjelp";
 "hideApp" = "Skjul Divvun Installer";
 "hideOthers" = "Skjul andre";
 "install" = "Installer";
