@@ -1,43 +1,16 @@
 import Foundation
 import RxSwift
 
-public struct Repository: Hashable, Codable {
+public struct Repository: Equatable, Hashable, Codable {
     let _type: _Type?
     let agent: RepositoryAgent?
     let base: URL
     let name: [String: String]
     let description: [String: String]
     let primaryFilter: PrimaryFilter
+    let defaultChannel: Channels
     let channels: [Channels]
     let categories: [String: [String: String]]
-
-    public var hashValue: Int {
-        var v = 0
-        v ^= _type?.hashValue ?? 0
-        v ^= agent?.hashValue ?? 0
-        v ^= base.hashValue
-        v += name.count
-        v += description.count
-        v ^= primaryFilter.hashValue
-        v += channels.count
-        return v
-    }
-
-    public static func ==(lhs: Repository, rhs: Repository) -> Bool {
-        if lhs._type == nil && rhs._type != nil { return false }
-        if lhs._type != nil && rhs._type == nil { return false }
-        if let lv = lhs._type, let rv = rhs._type, lv != rv { return false }
-        if lhs.agent == nil && rhs.agent != nil { return false }
-        if lhs.agent != nil && rhs.agent == nil { return false }
-        if let lv = lhs.agent, let rv = rhs.agent, lv != rv { return false }
-        if lhs.base != rhs.base { return false }
-        if lhs.name != rhs.name { return false }
-        if lhs.description != rhs.description { return false }
-        if lhs.primaryFilter != rhs.primaryFilter { return false }
-        if lhs.channels != rhs.channels { return false }
-
-        return true
-    }
 
     private enum CodingKeys: String, CodingKey {
         case _type = "@type"
@@ -46,6 +19,7 @@ public struct Repository: Hashable, Codable {
         case name = "name"
         case description = "description"
         case primaryFilter = "primaryFilter"
+        case defaultChannel = "defaultChannel"
         case channels = "channels"
         case categories = "categories"
     }
@@ -72,30 +46,11 @@ public struct RepositoryAgent: Hashable, Codable {
     let version: String
     let url: URL?
 
-    public var hashValue: Int {
-        var v = 0
-        v ^= name.hashValue
-        v ^= version.hashValue
-        v ^= url?.hashValue ?? 0
-        return v
-    }
-
-    public static func ==(lhs: RepositoryAgent, rhs: RepositoryAgent) -> Bool {
-        if lhs.name != rhs.name { return false }
-        if lhs.version != rhs.version { return false }
-        if lhs.url == nil && rhs.url != nil { return false }
-        if lhs.url != nil && rhs.url == nil { return false }
-        if let lv = lhs.url, let rv = rhs.url, lv != rv { return false }
-
-        return true
-    }
-
     private enum CodingKeys: String, CodingKey {
         case name = "name"
         case version = "version"
         case url = "url"
     }
-
 }
 
 public struct Packages: Hashable, Codable {

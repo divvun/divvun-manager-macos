@@ -32,7 +32,48 @@ extension Package: Comparable {
     }
 }
 
+fileprivate let iso8601fmt: DateFormatter = {
+    let iso8601fmt = DateFormatter()
+    iso8601fmt.calendar = Calendar(identifier: .iso8601)
+    iso8601fmt.locale = Locale(identifier: "en_US_POSIX")
+    iso8601fmt.timeZone = TimeZone(secondsFromGMT: 0)
+    iso8601fmt.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX"
+    return iso8601fmt
+}()
+
+fileprivate let localeFmt: DateFormatter = {
+    let fmt = DateFormatter()
+    fmt.dateStyle = .short
+    fmt.timeStyle = .short
+    return fmt
+}()
+
+extension Date {
+    var iso8601: String {
+        return iso8601fmt.string(from: self)
+    }
+    
+    var localeString: String {
+        return localeFmt.string(from: self)
+    }
+}
+
+extension String {
+    var iso8601: Date? {
+        return iso8601fmt.date(from: self)
+    }
+}
+
 extension Package {
+    var nativeVersion: String {
+        // Try to make this at least a _bit_ efficient
+        if self.version.hasSuffix("Z") {
+            return self.version.iso8601?.localeString ?? self.version
+        }
+        
+        return self.version
+    }
+    
     var nativeName: String {
         for code in Locale(identifier: Strings.languageCode).derivedIdentifiers {
             if let name = self.name[code] {

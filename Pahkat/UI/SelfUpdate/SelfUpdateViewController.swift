@@ -116,7 +116,7 @@ class SelfUpdateViewController: ViewController<SelfUpdateView>, SelfUpdateViewab
     
     private func install() {
         let action = TransactionAction.init(action: .install, id: self.key, target: self.status.target)
-        self.contentView.subtitle.stringValue = Strings.installingPackage(name: Strings.appName, version: self.package.version)
+        self.contentView.subtitle.stringValue = Strings.installingPackage(name: Strings.appName, version: self.package.nativeVersion)
         
         if action.target == .system {
             let recv = PahkatAdminReceiver()

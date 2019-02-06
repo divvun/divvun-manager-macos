@@ -47,6 +47,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         client.config.set(cachePath: "/tmp/pahkat-\(NSUserName())-\(Date().timeIntervalSince1970)")
         
+        var overrideUpdateChannel = false
+        if let selfUpdateChannelString = AppContext.client.config.get(uiSetting: "selfUpdateChannel") {
+            if let selfUpdateChannel = Repository.Channels.init(rawValue: selfUpdateChannelString) {
+                client.config.set(repos: [RepoConfig(url: client.config.repos()[0].url, channel: selfUpdateChannel)])
+                client.refreshRepos()
+                overrideUpdateChannel = true
+            }
+        }
+        
         guard let repo = client.repos().first else {
             log.debug("No repo found in config.")
             return nil
@@ -65,6 +74,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         case .versionSkipped:
             log.debug("Selfupdate: self is blocked from updating itself")
         case .requiresUpdate:
+            if overrideUpdateChannel {
+                let alert = NSAlert()
+                alert.messageText = "Beta Update Available"
+                alert.informativeText = "You are using a developer mode channel override. Would you like to update to the latest beta?"
+                
+                alert.alertStyle = .warning
+                alert.addButton(withTitle: "Don't Install")
+                alert.addButton(withTitle: "Install")
+                
+                if alert.runModal() != NSApplication.ModalResponse.alertSecondButtonReturn {
+                    return nil
+                }
+            }
             return client
         default:
             break
@@ -78,6 +100,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func launchMain() {
+        log.debug("Setting event handler for Apple events")
+        
         // Handle external requests from agent helper
         NSAppleEventManager.shared().setEventHandler(
             self,
@@ -85,12 +109,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             forEventClass: PahkatAppleEvent.classID,
             andEventID: PahkatAppleEvent.update.rawValue)
         
+        log.debug("Setting event handler for core open event")
+        
         // Handle event for reopen window because AppDelegate one is never called…
         NSAppleEventManager.shared().setEventHandler(
             self,
             andSelector: #selector(handleReopenEvent(_:withReplyEvent:)),
             forEventClass: kCoreEventClass,
             andEventID: kAEReopenApplication)
+        
+        log.debug("Managing launch agents")
         
         // Manage the launch agents
         AppContext.settings.state.map { $0.updateCheckInterval }
@@ -103,6 +131,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     _ = try? LaunchdService.saveNewLaunchAgent(startInterval: interval.asSeconds)
                 }
             }).disposed(by: bag)
+        
+        log.debug("Ensure always has a repo")
         
         // Make sure app always has a repo
         AppContext.settings.state.map { $0.repositories }
@@ -118,9 +148,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // If triggered by agent, only show update window.
         if ProcessInfo.processInfo.arguments.contains("update") {
+            log.debug("Update requested")
+            
             requiresAppDeath = true
             onUpdateRequested()
         } else {
+            log.debug("Show main window controller")
             AppContext.windows.show(MainWindowController.self, viewController: MainViewController(), sender: self)
         }
         
@@ -154,6 +187,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         AppDelegate.instance = self
         
         if !ProcessInfo.processInfo.arguments.contains("first-run"), let client = checkForSelfUpdate() {
+            log.debug("Loading self update view controller")
             AppContext.windows.show(SelfUpdateWindowController.self,
                                     viewController: SelfUpdateViewController(client: client),
                                     sender: self)

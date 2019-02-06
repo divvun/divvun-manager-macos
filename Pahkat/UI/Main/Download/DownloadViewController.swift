@@ -148,7 +148,7 @@ class DownloadProgressTableDelegate: NSObject, NSTableViewDataSource, NSTableVie
         for package in packages {
             let view = DownloadProgressView.loadFromNib()
             let name = package.nativeName
-            view.nameLabel.stringValue = "\(name) \(package.version)"
+            view.nameLabel.stringValue = "\(name) \(package.nativeVersion)"
             self.views.append(view)
         }
     }
