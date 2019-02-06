@@ -23,7 +23,7 @@ class SettingsStore: RxStore<SettingsState, SettingsEvent> {
         client = AppContext.client
         let s = SettingsState(client: client)
         super.init(initialState: s, reducers: [SettingsStore.reducer(client: client)])
-        print(s)
+        log.debug(s)
     }
     
     static func reducer(client: PahkatClient) -> (SettingsState, SettingsEvent) -> SettingsState {

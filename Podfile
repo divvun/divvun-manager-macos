@@ -10,6 +10,7 @@ end
 target 'PahkatAdminService' do
   pod 'RxSwift', '~> 4.4'
   pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '4.1.1'
+  pod 'XCGLogger'
 end
 
 target 'Pahkat' do
@@ -19,6 +20,7 @@ target 'Pahkat' do
   pod 'RxFeedback', '~> 1.1'
   pod 'BTree', '~> 4.1'
   pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '4.1.1'
+  pod 'XCGLogger'
 end
 
 post_install do |installer|

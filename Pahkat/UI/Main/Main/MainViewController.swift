@@ -98,22 +98,22 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         AppContext.windows.show(SettingsWindowController.self)
     }
     
-    override func keyUp(with event: NSEvent) {
+    override func keyDown(with event: NSEvent) {
         if let character = event.characters?.first, character == " " && contentView.outlineView.selectedRow > -1 {
-            guard let item = contentView.outlineView.item(atRow: contentView.outlineView.selectedRow) as? OutlineItem else {
-                fatalError("Item must always be of type OutlineItem")
+            guard let item = contentView.outlineView.item(atRow: contentView.outlineView.selectedRow) else {
+                return
             }
             
             switch item {
-            case .repository:
+            case let item as OutlineGroup:
+                onPackageEventSubject.onNext(OutlineEvent.toggleGroup(item))
+            case let item as OutlinePackage:
+                onPackageEventSubject.onNext(OutlineEvent.togglePackage(item))
+            default:
                 break
-            case let .group(group, repo):
-                onPackageEventSubject.onNext(OutlineEvent.toggleGroup(repo, group))
-            case let .item(package, _, repo):
-                onPackageEventSubject.onNext(OutlineEvent.togglePackage(repo, package.package))
             }
         } else {
-            super.keyUp(with: event)
+            super.keyDown(with: event)
         }
     }
     
@@ -278,22 +278,21 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
     }
     
     func outlineView(_ outlineView: NSOutlineView, menuFor item: Any) -> NSMenu? {
-        guard let item = item as? OutlineItem else { return nil }
         let menu = NSMenu()
         
         let selectedRepo: OutlineRepository
         
         switch item {
-        case .repository:
+        case is OutlineRepository:
             return nil
-        case let .item(item, _, repo):
-            guard let outlineStatus = repo.repo.status(forPackage: item.package) else { return nil }
+        case let item as OutlinePackage:
+            guard let outlineStatus = item.repo.repo.status(forPackage: item.package) else { return nil }
             guard case let .macOsInstaller(installer) = item.package.installer else { fatalError() }
             
             let status = outlineStatus.status
             let target = outlineStatus.target
             
-            let packageRecord = PackageRecord(id: repo.repo.absoluteKey(for: item.package), package: item.package)
+            let packageRecord = PackageRecord(id: item.repo.repo.absoluteKey(for: item.package), package: item.package)
             
             switch status {
             case .notInstalled:
@@ -322,9 +321,11 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
             
             menu.addItem(NSMenuItem.separator())
             
-            selectedRepo = repo
-        case let .group(_, repo):
-            selectedRepo = repo
+            selectedRepo = item.repo
+        case let item as OutlineGroup:
+            selectedRepo = item.repo
+        default:
+            return nil
         }
         
         let sortMenu = NSMenu()
@@ -344,9 +345,8 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
     }
     
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
-        guard let item = item as? OutlineItem else { return false }
         switch item {
-        case .group(_), .repository(_):
+        case is OutlineGroup, is OutlineRepository:
             return true
         default:
             return false
@@ -354,17 +354,15 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
     }
     
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
-        guard let item = item as? OutlineItem else {
+        switch item {
+        case nil:
             // If only one repo, we want to hide the repo from the outline.
             return repos.count == 1 ? repos[repos.keys.first!]!.count : repos.count
-        }
-        
-        switch item {
-        case let .repository(repo):
-            return repos[repo]!.count
-        case let .group(group, repo):
-            return repos[repo]![group]!.count
-        case .item:
+        case let item as OutlineRepository:
+            return repos[item]!.count
+        case let item as OutlineGroup:
+            return repos[item.repo]![item]!.count
+        default:
             return 0
         }
     }
@@ -374,29 +372,26 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
     }
     
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
-        if !(item is OutlineItem) && repos.count > 1 {
-            // Return repo pile if > 1 repo, else start with repo's groups
-            let keyIndex = repos.keys.index(repos.keys.startIndex, offsetBy: index)
-            return OutlineItem.repository(repos.keys[keyIndex])
-        }
-        
-        let item = (item as? OutlineItem) ?? OutlineItem.repository(repos.keys.first!)
-        
         switch item {
-        case let .repository(repo):
-            let x = repos[repo]!
-            let sorted = x.keys.sorted { (lhs, rhs) -> Bool in
-                if lhs.id == "zxx" { return false }
-                if rhs.id == "zxx" { return true }
-                return lhs.value < rhs.value
+        case nil:
+            // If only one repo, we want to hide the repo from the outline.
+            if repos.count > 1 {
+                let keyIndex = repos.keys.index(repos.keys.startIndex, offsetBy: index)
+                return repos.keys[keyIndex]
+            } else {
+                let repo = repos.first!
+                let group = repo.1[repo.1.index(repo.1.startIndex, offsetBy: index)]
+                return group.0
             }
-            let keyIndex = sorted.index(sorted.startIndex, offsetBy: index)
-            let outlineGroup = sorted[keyIndex]
-            return OutlineItem.group(outlineGroup, repo)
-        case let .group(group, repo):
-            let x = repos[repo]![group]!
-            let sorted = x.sorted()
-            return OutlineItem.item(sorted[index], group, repo)
+        case let item as OutlineRepository:
+            log.debug(item.repo.meta.base)
+            let x = repos[item]!
+            let keyIndex = x.index(x.startIndex, offsetBy: index)
+            let outlineGroup = x[keyIndex]
+            return outlineGroup.0
+        case let item as OutlineGroup:
+            let x = repos[item.repo]![item]!
+            return x[index]
         default: // number of repositories
             fatalError()
         }
@@ -411,13 +406,12 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
     }
     
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
-        guard let item = item as? OutlineItem else { return nil }
         guard let tableColumn = tableColumn else { return nil }
         guard let column = MainViewOutlineColumns(identifier: tableColumn.identifier) else { return nil }
-        let cell = outlineView.makeView(withIdentifier: tableColumn.identifier, owner: self) as! NSTableCellView
+        let cell = outlineView.makeView(withIdentifier: tableColumn.identifier, owner: outlineView) as! NSTableCellView
         
         switch item {
-        case let .repository(outlineRepo):
+        case let item as OutlineRepository:
             guard case .name = column else {
                 cell.textField?.stringValue = ""
                 return cell
@@ -432,28 +426,30 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
             } else {
                 bold = [kCTFontAttributeName as NSAttributedString.Key: NSFont.boldSystemFont(ofSize: 13)]
             }
-            
-            cell.textField?.attributedStringValue = NSAttributedString(string: outlineRepo.repo.meta.nativeName, attributes: bold)
+
+            cell.textField?.attributedStringValue = NSAttributedString(string: item.repo.meta.nativeName, attributes: bold)
 
             cell.textField?.toolTip = nil
-        case let .group(group, outlineRepo):
+            break
+        case let item as OutlineGroup:
+            let group = item
+            let outlineRepo = item.repo
             let id = group.id
-            let name = id == "zxx" ? "---" : group.value
-            
-            
+            let name = group.value
+
             guard case .name = column else {
                 cell.textField?.stringValue = ""
                 return cell
             }
-            
+
             cell.textField?.stringValue = name
-            
+
             let packages = repos[outlineRepo]![group]!
-            
+
             if let button = cell.nextKeyView as? OutlineCheckbox {
                 button.target = self
                 button.action = #selector(MainViewControllerDataSource.onCheckboxChanged(_:))
-                button.event = OutlineEvent.toggleGroup(outlineRepo, group)
+                button.event = OutlineEvent.toggleGroup(item)
                 if outlineRepo.filter == .category {
                     button.toolTip = name
                     cell.textField?.toolTip = name
@@ -492,15 +488,18 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
             }
             
             cell.textField?.attributedStringValue = NSAttributedString(string: name, attributes: bold)
-        case let .item(item, _, repo):
+            break
+        case let item as OutlinePackage:
             switch column {
             case .name:
                 let package = item.package
-                let button = cell.nextKeyView as! OutlineCheckbox
-                
+                guard let button = cell.nextKeyView as? OutlineCheckbox else {
+                    return nil
+                }
+
                 button.target = self
                 button.action = #selector(MainViewControllerDataSource.onCheckboxChanged(_:))
-                button.event = OutlineEvent.togglePackage(repo, item.package)
+                button.event = OutlineEvent.togglePackage(item)
                 button.allowsMixedState = false
                 button.isHidden = false
                 
@@ -539,7 +538,7 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                     
                     cell.textField?.attributedStringValue = NSAttributedString(string: msg, attributes: attrs)
                 } else {
-                    if let response = repo.repo.status(forPackage: item.package) {
+                    if let response = item.repo.repo.status(forPackage: item.package) {
                         if response.status == .notInstalled {
                             cell.textField?.stringValue = response.status.description
                         } else {
@@ -555,6 +554,8 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                     }
                 }
             }
+        default:
+            return cell
         }
         
         let withCheckboxX: CGFloat = 24
@@ -563,9 +564,9 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
         
         // Offset textfield if checkbox is visible
         if cell.nextKeyView?.isHidden ?? false {
-            cell.textField?.frame = CGRect(x:withoutCheckboxX, y: 0, width: textFieldWidth, height: cell.frame.height)
+            cell.textField?.frame = CGRect(x: withoutCheckboxX, y: 0, width: textFieldWidth, height: cell.frame.height)
         } else {
-            cell.textField?.frame = CGRect(x:withCheckboxX, y: 0, width: textFieldWidth, height: cell.frame.height)
+            cell.textField?.frame = CGRect(x: withCheckboxX, y: 0, width: textFieldWidth, height: cell.frame.height)
         }
         
         return cell

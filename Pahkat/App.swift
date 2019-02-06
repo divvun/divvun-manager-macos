@@ -8,6 +8,9 @@
 
 import Foundation
 import Cocoa
+import XCGLogger
+
+let log = XCGLogger.default
 
 class AppContextImpl {
     lazy var client = { PahkatClient()! }()

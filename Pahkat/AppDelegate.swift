@@ -9,6 +9,7 @@
 import Cocoa
 import RxSwift
 import Sentry
+import XCGLogger
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -35,34 +36,34 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func checkForSelfUpdate() -> PahkatClient? {
         guard let selfUpdatePath = Bundle.main.url(forResource: "selfupdate", withExtension: "json")?.path else {
-            print("No selfupdate.json found in bundle.")
+            log.debug("No selfupdate.json found in bundle.")
             return nil
         }
         
         guard let client = PahkatClient(configPath: selfUpdatePath, saveChanges: false) else {
-            print("No PahkatClient generated for given config.")
+            log.debug("No PahkatClient generated for given config.")
             return nil
         }
         
         client.config.set(cachePath: "/tmp/pahkat-\(NSUserName())-\(Date().timeIntervalSince1970)")
         
         guard let repo = client.repos().first else {
-            print("No repo found in config.")
+            log.debug("No repo found in config.")
             return nil
         }
         
         guard let package = repo.packages["divvun-installer-macos"], let status = repo.status(forPackage: package)?.status else {
-            print("No self update package found!")
+            log.debug("No self update package found!")
             return nil
         }
         
-        print("Found divvun-installer-macos version: \(package.version) \(status)")
+        log.debug("Found divvun-installer-macos version: \(package.version) \(status)")
         
         switch status {
         case .notInstalled:
-            print("Selfupdate: self not installed, likely debugging.")
+            log.debug("Selfupdate: self not installed, likely debugging.")
         case .versionSkipped:
-            print("Selfupdate: self is blocked from updating itself")
+            log.debug("Selfupdate: self is blocked from updating itself")
         case .requiresUpdate:
             return client
         default:
@@ -125,26 +126,31 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         #if DEBUG
         AppContext.settings.state.subscribe(onNext: {
-            print($0)
+            log.debug($0)
         }).disposed(by: bag)
         
         AppContext.store.state.subscribe(onNext: {
-            print($0)
+            log.debug($0)
         }).disposed(by: bag)
         #endif
     }
     
+    private func configureLogging() {
+        log.setup(level: .debug, showThreadName: true, showLevel: true, showFileNames: true, showLineNumbers: true, writeToFile: "/tmp/divvun-installer.log", fileLevel: .debug)
+    }
+    
     func applicationDidFinishLaunching(_ notification: Notification) {
+        configureLogging()
+        
         // Configure Sentry.io
         do {
             Client.shared = try Client(dsn: "https://554b508acddd44e98c5b3dc70f8641c1@sentry.io/1357390")
             try Client.shared?.startCrashHandler()
         } catch let error {
-            print("\(error)")
+            log.severe(error)
             // Wrong DSN or KSCrash not installed
         }
         
-        NSApp.mainMenu = MainMenu.loadFromNib()
         AppDelegate.instance = self
         
         if !ProcessInfo.processInfo.arguments.contains("first-run"), let client = checkForSelfUpdate() {

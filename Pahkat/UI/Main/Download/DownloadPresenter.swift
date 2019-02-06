@@ -50,7 +50,7 @@ class DownloadPresenter {
         
         return downloadablePackages().map { (args: (AbsolutePackageKey, Package, InstallerTarget)) -> Observable<(Package, PackageDownloadStatus)> in
             let (id, package, target) = args
-            print("Downloading \(id)")
+            log.debug("Downloading \(id)")
             
             return client.download(packageKey: id, target: target)
                 .do(onNext: { [weak self] x in

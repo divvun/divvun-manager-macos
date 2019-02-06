@@ -1,5 +1,8 @@
 PODS:
   - BTree (4.1.0)
+  - ObjcExceptionBridging (1.0.1):
+    - ObjcExceptionBridging/ObjcExceptionBridging (= 1.0.1)
+  - ObjcExceptionBridging/ObjcExceptionBridging (1.0.1)
   - RxAtomic (4.4.0)
   - RxCocoa (4.4.0):
     - RxSwift (~> 4.0)
@@ -11,6 +14,10 @@ PODS:
   - Sentry (4.1.1):
     - Sentry/Core (= 4.1.1)
   - Sentry/Core (4.1.1)
+  - XCGLogger (6.1.0):
+    - XCGLogger/Core (= 6.1.0)
+  - XCGLogger/Core (6.1.0):
+    - ObjcExceptionBridging
 
 DEPENDENCIES:
   - BTree (~> 4.1)
@@ -18,14 +25,17 @@ DEPENDENCIES:
   - RxFeedback (~> 1.1)
   - RxSwift (~> 4.4)
   - Sentry (from `https://github.com/getsentry/sentry-cocoa.git`, tag `4.1.1`)
+  - XCGLogger
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - BTree
+    - ObjcExceptionBridging
     - RxAtomic
     - RxCocoa
     - RxFeedback
     - RxSwift
+    - XCGLogger
 
 EXTERNAL SOURCES:
   Sentry:
@@ -39,12 +49,14 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   BTree: 99b99930790b88dc5e8bafbf666a5dfb8d7808b4
+  ObjcExceptionBridging: c30e00eb3700467e695faeea30e26e18bd445001
   RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
   RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
   RxFeedback: 640e317bc7f6c4914c39a2063c6d5c0e6c1aa65d
   RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
   Sentry: c9d0543c7223ddec036027f4c7391ea057ba9856
+  XCGLogger: 7f7f43f15dfe3a305fa1342b7dc29af656289abd
 
-PODFILE CHECKSUM: 6ed4c7a8b99b7d5edb4d10142b82c649ad7e5016
+PODFILE CHECKSUM: 914ef1c8bd9e86a4cfad79d58c2d7631c4e86f4c
 
 COCOAPODS: 1.6.0.beta.2

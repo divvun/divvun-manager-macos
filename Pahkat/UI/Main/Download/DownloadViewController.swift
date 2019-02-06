@@ -31,8 +31,8 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
     }
     
     func setStatus(package: Package, status: PackageDownloadStatus) {
-        //print(package)
-        print(status)
+        //log.debug(package)
+        log.debug(status)
         // TODO make this main thread and also have good strings (localise).
         DispatchQueue.main.async {
             if let view = self.delegate.tableView(self.contentView.tableView, viewFor: package) as? DownloadProgressView {

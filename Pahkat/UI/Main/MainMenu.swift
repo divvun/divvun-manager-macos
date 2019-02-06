@@ -17,10 +17,17 @@ class MainMenu: NSMenu {
     }
     
     override func awakeFromNib() {
+//        log.debug("Awakening menu item from nib")
+        
         for item in self.allItems() {
-            let id = item.accessibilityIdentifier()
-            if id != "" {
-                item.title = Strings.string(for: id)
+//            log.debug(item)
+            
+            if let item = item as? CompatNSMenuItem {
+                let id = item.stringKey
+//                log.debug(id)
+                if id != "" {
+                    item.title = Strings.string(for: id)
+                }
             }
         }
         

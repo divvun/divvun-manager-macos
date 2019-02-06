@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="App" customModule="Pahkat" customModuleProvider="target">
@@ -16,51 +16,65 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6" customClass="MainMenu" customModule="Pahkat" customModuleProvider="target">
             <items>
-                <menuItem title="Package Manager" id="1Xt-HY-uBw" userLabel="Package Manager">
+                <menuItem title="Divvun Installer" id="1Xt-HY-uBw" userLabel="Package Manager" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Package Manager" systemMenu="apple" id="uQy-DD-JDr">
+                    <menu key="submenu" title="Divvun Installer" systemMenu="apple" id="uQy-DD-JDr">
                         <items>
-                            <menuItem title="About Package Manager" id="5kV-Vb-QxS">
+                            <menuItem title="About Divvun Installer" id="5kV-Vb-QxS" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <accessibility identifier="aboutApp"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="aboutApp"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="orderFrontStandardAboutPanel:" target="-1" id="Exp-CZ-Vem"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                            <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
-                                <accessibility identifier="preferences"/>
+                            <menuItem isSeparatorItem="YES" id="VOq-y0-SEH" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target"/>
+                            <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="preferences"/>
+                                </userDefinedRuntimeAttributes>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
-                            <menuItem title="Services" id="NMo-om-nkz">
+                            <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target"/>
+                            <menuItem title="Services" id="NMo-om-nkz" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
-                                <accessibility identifier="services"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="services"/>
+                                </userDefinedRuntimeAttributes>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
-                            <menuItem title="Hide Package Manager" keyEquivalent="h" id="Olw-nP-bQN">
-                                <accessibility identifier="hideApp"/>
+                            <menuItem isSeparatorItem="YES" id="4je-JR-u6R" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target"/>
+                            <menuItem title="Hide Divvun Installer" keyEquivalent="h" id="Olw-nP-bQN" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="hideApp"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="hide:" target="-1" id="PnN-Uc-m68"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Hide Others" keyEquivalent="h" id="Vdr-fp-XzO">
+                            <menuItem title="Hide Others" keyEquivalent="h" id="Vdr-fp-XzO" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                <accessibility identifier="hideOthers"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="hideOthers"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="hideOtherApplications:" target="-1" id="VT4-aY-XCT"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Show All" id="Kd2-mp-pUS">
+                            <menuItem title="Show All" id="Kd2-mp-pUS" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <accessibility identifier="showAll"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="showAll"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="unhideAllApplications:" target="-1" id="Dhg-Le-xox"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
-                            <menuItem title="Quit Package Manager" keyEquivalent="q" id="4sb-4s-VLi">
-                                <accessibility identifier="quitApp"/>
+                            <menuItem isSeparatorItem="YES" id="kCx-OE-vgT" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target"/>
+                            <menuItem title="Quit Divvun Installer" keyEquivalent="q" id="4sb-4s-VLi" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="quitApp"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="terminate:" target="-1" id="Te7-pn-YzF"/>
                                 </connections>
@@ -68,116 +82,154 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="Edit" id="5QF-Oa-p0T">
+                <menuItem title="Edit" id="5QF-Oa-p0T" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Edit" id="W48-6f-4Dl">
+                    <menu key="submenu" title="Edit" id="W48-6f-4Dl" customClass="CompatNSMenu" customModule="Pahkat" customModuleProvider="target">
                         <items>
-                            <menuItem title="Undo" keyEquivalent="z" id="dRJ-4n-Yzg">
-                                <accessibility identifier="undo"/>
+                            <menuItem title="Undo" keyEquivalent="z" id="dRJ-4n-Yzg" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="undo"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="undo:" target="-1" id="M6e-cu-g7V"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Redo" keyEquivalent="Z" id="6dh-zS-Vam">
-                                <accessibility identifier="redo"/>
+                            <menuItem title="Redo" keyEquivalent="Z" id="6dh-zS-Vam" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="redo"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="redo:" target="-1" id="oIA-Rs-6OD"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="WRV-NI-Exz"/>
-                            <menuItem title="Cut" keyEquivalent="x" id="uRl-iY-unG">
-                                <accessibility identifier="cut"/>
+                            <menuItem isSeparatorItem="YES" id="WRV-NI-Exz" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target"/>
+                            <menuItem title="Cut" keyEquivalent="x" id="uRl-iY-unG" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="cut"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="cut:" target="-1" id="YJe-68-I9s"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Copy" keyEquivalent="c" id="x3v-GG-iWU">
-                                <accessibility identifier="copy"/>
+                            <menuItem title="Copy" keyEquivalent="c" id="x3v-GG-iWU" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="copy"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="copy:" target="-1" id="G1f-GL-Joy"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Paste" keyEquivalent="v" id="gVA-U4-sdL">
-                                <accessibility identifier="paste"/>
+                            <menuItem title="Paste" keyEquivalent="v" id="gVA-U4-sdL" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="paste"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="paste:" target="-1" id="UvS-8e-Qdg"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Paste and Match Style" keyEquivalent="V" id="WeT-3V-zwk">
+                            <menuItem title="Paste and Match Style" keyEquivalent="V" id="WeT-3V-zwk" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                <accessibility identifier="pasteAndMatchStyle"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="pasteAndMatchStyle"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="pasteAsPlainText:" target="-1" id="cEh-KX-wJQ"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Delete" id="pa3-QI-u2k">
+                            <menuItem title="Delete" id="pa3-QI-u2k" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <accessibility identifier="delete"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="delete"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="delete:" target="-1" id="0Mk-Ml-PaM"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Select All" keyEquivalent="a" id="Ruw-6m-B2m">
-                                <accessibility identifier="selectAll"/>
+                            <menuItem title="Select All" keyEquivalent="a" id="Ruw-6m-B2m" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="selectAll"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="selectAll:" target="-1" id="VNm-Mi-diN"/>
                                 </connections>
                             </menuItem>
                         </items>
-                        <accessibility identifier="edit"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="edit"/>
+                        </userDefinedRuntimeAttributes>
                     </menu>
-                    <accessibility identifier="edit"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="edit"/>
+                    </userDefinedRuntimeAttributes>
                 </menuItem>
-                <menuItem title="Window" id="aUF-d1-5bR">
+                <menuItem title="Window" id="aUF-d1-5bR" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
+                    <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo" customClass="CompatNSMenu" customModule="Pahkat" customModuleProvider="target">
                         <items>
-                            <menuItem title="Close" keyEquivalent="w" id="att-dC-lxr" userLabel="Close">
-                                <accessibility identifier="close"/>
+                            <menuItem title="Close" keyEquivalent="w" id="att-dC-lxr" userLabel="Close" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="close"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="performClose:" target="-1" id="FnF-no-nFY"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Minimize" keyEquivalent="m" id="OY7-WF-poV">
-                                <accessibility identifier="minimize"/>
+                            <menuItem title="Minimize" keyEquivalent="m" id="OY7-WF-poV" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="minimize"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="performMiniaturize:" target="-1" id="VwT-WD-YPe"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Zoom" id="R4o-n2-Eq4">
+                            <menuItem title="Zoom" id="R4o-n2-Eq4" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <accessibility identifier="zoom"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="zoom"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="performZoom:" target="-1" id="DIl-cC-cCs"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="eu3-7i-yIM"/>
-                            <menuItem title="Bring All to Front" id="LE2-aR-0XJ">
+                            <menuItem isSeparatorItem="YES" id="eu3-7i-yIM" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target"/>
+                            <menuItem title="Bring All to Front" id="LE2-aR-0XJ" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <accessibility identifier="bringAllToFront"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="bringAllToFront"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="arrangeInFront:" target="-1" id="DRN-fu-gQh"/>
                                 </connections>
                             </menuItem>
                         </items>
-                        <accessibility identifier="window"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="window"/>
+                        </userDefinedRuntimeAttributes>
                     </menu>
-                    <accessibility identifier="window"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="window"/>
+                    </userDefinedRuntimeAttributes>
                 </menuItem>
-                <menuItem title="Help" id="wpr-3q-Mcd">
+                <menuItem title="Help" id="wpr-3q-Mcd" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
+                    <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ" customClass="CompatNSMenu" customModule="Pahkat" customModuleProvider="target">
                         <items>
-                            <menuItem title="Package Manager Help" keyEquivalent="?" id="FKE-Sm-Kum">
-                                <accessibility identifier="appHelp"/>
+                            <menuItem title="Package Manager Help" keyEquivalent="?" id="FKE-Sm-Kum" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="appHelp"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="showHelp:" target="-1" id="y7X-2Q-9no"/>
                                 </connections>
                             </menuItem>
                         </items>
-                        <accessibility identifier="help"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="help"/>
+                        </userDefinedRuntimeAttributes>
                     </menu>
-                    <accessibility identifier="help"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="help"/>
+                    </userDefinedRuntimeAttributes>
                 </menuItem>
             </items>
             <connections>

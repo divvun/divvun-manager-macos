@@ -63,6 +63,7 @@
 		C62270672039E9CD00DBCD65 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62270662039E9CD00DBCD65 /* AppStore.swift */; };
 		C6227069203A243700DBCD65 /* iso639-autonyms.tsv in Resources */ = {isa = PBXBuildFile; fileRef = C6227068203A243700DBCD65 /* iso639-autonyms.tsv */; };
 		C622706B203A247300DBCD65 /* ISO639.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622706A203A247300DBCD65 /* ISO639.swift */; };
+		C62462392201226300BE484B /* CompatNSMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62462382201226300BE484B /* CompatNSMenuItem.swift */; };
 		C656A693203ECAF80004E7F1 /* CompletionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C656A692203ECAF80004E7F1 /* CompletionView.xib */; };
 		C656A696203EE5190004E7F1 /* base.yaml in Resources */ = {isa = PBXBuildFile; fileRef = C656A695203EE5190004E7F1 /* base.yaml */; };
 		C676C35C21AAEE79005CC7AF /* libpahkat_client.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C676C35B21AAEE78005CC7AF /* libpahkat_client.a */; };
@@ -91,7 +92,6 @@
 		C6C820D7204C5420001682E8 /* PackageInstallStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820D5204C540A001682E8 /* PackageInstallStatus.swift */; };
 		C6C820D8204C5432001682E8 /* APIService+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F2676C203B96E8006EC59C /* APIService+Extensions.swift */; };
 		C6C820DA204C5450001682E8 /* SettingsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820D9204C5450001682E8 /* SettingsState.swift */; };
-		C6C820DC204C5496001682E8 /* UpdateFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271249C4204055EC009EE80B /* UpdateFrequency.swift */; };
 		C6C820DD204C54A6001682E8 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622705E2039DEC800DBCD65 /* Strings.swift */; };
 		C6CC91272028E69300CB0B10 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6CC91262028E69300CB0B10 /* MainWindow.xib */; };
 		C6CC912A20291A2D00CB0B10 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CC912920291A2D00CB0B10 /* APIService.swift */; };
@@ -248,6 +248,7 @@
 		C62270662039E9CD00DBCD65 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		C6227068203A243700DBCD65 /* iso639-autonyms.tsv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "iso639-autonyms.tsv"; sourceTree = SOURCE_ROOT; };
 		C622706A203A247300DBCD65 /* ISO639.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISO639.swift; sourceTree = "<group>"; };
+		C62462382201226300BE484B /* CompatNSMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompatNSMenuItem.swift; sourceTree = "<group>"; };
 		C645168021BD85190019AD1D /* PahkatAdminService-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PahkatAdminService-Bridging-Header.h"; sourceTree = "<group>"; };
 		C656A692203ECAF80004E7F1 /* CompletionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompletionView.xib; sourceTree = "<group>"; };
 		C656A695203EE5190004E7F1 /* base.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = base.yaml; path = Pahkat/Support/LocalisationResources/base.yaml; sourceTree = SOURCE_ROOT; };
@@ -413,6 +414,7 @@
 			children = (
 				C6F4BC5E202A43BC002EE523 /* RxStore.swift */,
 				C622706A203A247300DBCD65 /* ISO639.swift */,
+				C62462382201226300BE484B /* CompatNSMenuItem.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -662,6 +664,7 @@
 				C69F94882028B1EA00127A47 /* Resources */,
 				C6B742D9204C127100C7877D /* Copy PahkatUpdateAgent Into App Bundle */,
 				C6EA31D721B0A2460014F3B6 /* Embed XPC Services */,
+				94C8AEFCC1FD7BA7372D4E6E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -701,6 +704,7 @@
 				C6D675F021BA8AD900AF6DD7 /* Sources */,
 				C6D675F121BA8AD900AF6DD7 /* Frameworks */,
 				C6D675F221BA8AD900AF6DD7 /* CopyFiles */,
+				B2274F42B47778942D26A296 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -839,6 +843,50 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		94C8AEFCC1FD7BA7372D4E6E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pahkat/Pods-Pahkat-resources.sh",
+				"${PODS_ROOT}/XCGLogger/.swift-version",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/.swift-version",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pahkat/Pods-Pahkat-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B2274F42B47778942D26A296 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PahkatAdminService/Pods-PahkatAdminService-resources.sh",
+				"${PODS_ROOT}/XCGLogger/.swift-version",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/.swift-version",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PahkatAdminService/Pods-PahkatAdminService-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B3E6DE210E20982C9D068CF2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -882,6 +930,7 @@
 				271249C12040449E009EE80B /* SettingsViewController.swift in Sources */,
 				C6F8A8182028B3C1009A016E /* Cocoa+Nibbable.swift in Sources */,
 				C60A13F621BFFC2C003C813D /* SelfUpdateWindow.swift in Sources */,
+				C62462392201226300BE484B /* CompatNSMenuItem.swift in Sources */,
 				C6C820D6204C540A001682E8 /* PackageInstallStatus.swift in Sources */,
 				C6D675EF21BA7FFA00AF6DD7 /* Auth.swift in Sources */,
 				C6F4BC5D202A410A002EE523 /* SettingsStore.swift in Sources */,
@@ -949,7 +998,6 @@
 				C6C820D7204C5420001682E8 /* PackageInstallStatus.swift in Sources */,
 				C68DCC6721ACA68700A4AA77 /* Client.swift in Sources */,
 				C60A13C821BEC314003C813D /* APIService.swift in Sources */,
-				C6C820DC204C5496001682E8 /* UpdateFrequency.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

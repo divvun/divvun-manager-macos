@@ -11,37 +11,46 @@ import RxSwift
 import RxCocoa
 import BTree
 
-typealias PackageOutlineMap = Map<OutlineGroup, [OutlinePackage]>
+typealias PackageOutlineMap = Map<OutlineGroup, SortedSet<OutlinePackage>>
 typealias MainOutlineMap = Map<OutlineRepository, PackageOutlineMap>
 
-fileprivate func categoryFilter(repo: RepositoryIndex) -> PackageOutlineMap {
+fileprivate func categoryFilter(outlineRepo: OutlineRepository) -> PackageOutlineMap {
     var data = PackageOutlineMap()
+    let repo = outlineRepo.repo
     
     repo.packages.values.forEach { package in
         let value = repo.meta.nativeCategory(for: package.category)
-        let key = OutlineGroup(id: package.category, value: value)
+        let key = OutlineGroup(id: package.category, value: value, repo: outlineRepo)
         
         if !data.keys.contains(key) {
             data[key] = []
         }
         
-        data[key]!.append(OutlinePackage(package: package, action: nil))
+        data[key]!.insert(OutlinePackage(package: package, group: key, repo: outlineRepo, action: nil))
     }
     
     return data
 }
 
-fileprivate func languageFilter(repo: RepositoryIndex) -> PackageOutlineMap {
+fileprivate func languageFilter(outlineRepo: OutlineRepository) -> PackageOutlineMap {
     var data = PackageOutlineMap()
+    let repo = outlineRepo.repo
     
     repo.packages.values.forEach { package in
         package.languages.forEach { language in
-            let key = OutlineGroup(id: language, value: ISO639.get(tag: language)?.autonymOrName ?? language)
+            let value: String
+            if language == "zxx" {
+                value = "—"
+            } else {
+                value = ISO639.get(tag: language)?.autonymOrName ?? language
+            }
+            
+            let key = OutlineGroup(id: language, value: value, repo: outlineRepo)
             if !data.keys.contains(key) {
                 data[key] = []
             }
             
-            data[key]!.append(OutlinePackage(package: package, action: nil))
+            data[key]!.insert(OutlinePackage(package: package, group: key, repo: outlineRepo, action: nil))
         }
     }
     
@@ -60,13 +69,11 @@ class MainPresenter {
     }
     
     private func updateFilters(key: OutlineRepository) {
-        let repo = key.repo
-        
         switch key.filter {
         case .category:
-            data[key] = categoryFilter(repo: repo)
+            data[key] = categoryFilter(outlineRepo: key)
         case .language:
-            data[key] = languageFilter(repo: repo)
+            data[key] = languageFilter(outlineRepo: key)
         }
     }
     
@@ -133,7 +140,7 @@ class MainPresenter {
                     .timeout(1.0, scheduler: MainScheduler.instance)
                     .catchErrorJustReturn(false)
                     .subscribe(onSuccess: { isInstalled in
-                        print("Service is installed? \(isInstalled)")
+                        log.debug("Service is installed? \(isInstalled)")
                         
                         if isInstalled {
                             self.view.showDownloadView(with: self.selectedPackages)
@@ -225,7 +232,7 @@ class MainPresenter {
                     var failingReposString = ""
                     
                     for failingURL in configSet {
-                        print("Could not load URL \(failingURL)\n")
+                        log.debug("Could not load URL \(failingURL)\n")
                         failingReposString.append(Strings.repositoryErrorBody(message: failingURL.absoluteString))
                         failingReposString.append("\n\n")
                     }
@@ -239,7 +246,7 @@ class MainPresenter {
                 return Observable.just(repos)
             }
             .subscribe(onNext: { [weak self] repos in
-                print("Refreshed repos in main view.")
+                log.debug("Refreshed repos in main view.")
                 self?.view.updateSettingsButton(isEnabled: true)
                 AppContext.store.dispatch(event: AppEvent.setRepositories(repos))
                 self?.view.updateProgressIndicator(isEnabled: false)
@@ -251,7 +258,11 @@ class MainPresenter {
     }
     
     private func bindContextMenuEvents() -> Disposable {
-        return view.onPackageEvent.subscribe(onNext: { [weak self] event in
+        return view.onPackageEvent
+            .observeOn(MainScheduler.instance)
+            .subscribeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] event in
+            log.debug("onPackageEvent!")
             guard let `self` = self else { return }
             
             switch event {
@@ -278,19 +289,21 @@ class MainPresenter {
     
     private func bindPackageToggleEvent() -> Disposable {
         return view.onPackageEvent
+            .observeOn(MainScheduler.instance)
+            .subscribeOn(MainScheduler.instance)
             .flatMapLatest { [weak self] (event: OutlineEvent) -> Observable<(OutlineRepository, [Package])> in
                 guard let `self` = self else { return Observable.empty() }
                 
                 switch event {
-                case let .togglePackage(repo, package):
-                    return Observable.just((repo, [package]))
-                case let .toggleGroup(repo, group):
-                    let packages = self.data[repo]![group]!
-                    let toggleIds = Set(self.selectedPackages.keys).intersection(packages.map { repo.repo.absoluteKey(for: $0.package) })
+                case let .togglePackage(item):
+                    return Observable.just((item.repo, [item.package]))
+                case let .toggleGroup(item):
+                    let packages = self.data[item.repo]![item]!
+                    let toggleIds = Set(self.selectedPackages.keys).intersection(packages.map { item.repo.repo.absoluteKey(for: $0.package) })
                     let x = toggleIds.count > 0
-                        ? toggleIds.map { url in packages.first(where: { url == repo.repo.absoluteKey(for: $0.package) })!.package }
+                        ? toggleIds.map { url in packages.first(where: { url == item.repo.repo.absoluteKey(for: $0.package) })!.package }
                         : packages.map { $0.package }
-                    return Observable.just((repo, x))
+                    return Observable.just((item.repo, x))
                 default:
                     return Observable.empty()
                 }

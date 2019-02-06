@@ -125,7 +125,7 @@ class SelfUpdateViewController: ViewController<SelfUpdateView>, SelfUpdateViewab
                 .timeout(1.0, scheduler: MainScheduler.instance)
                 .catchErrorJustReturn(false)
                 .subscribe(onSuccess: { isInstalled in
-                    print("Service is installed? \(isInstalled)")
+                    log.debug("Service is installed? \(isInstalled)")
                     
                     if isInstalled {
                         self.install(with: action)

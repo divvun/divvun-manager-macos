@@ -47,7 +47,7 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
                 return Observable.just(AppContext.client.repos())
             }
             .subscribe(onNext: { repos in
-                print("Refreshed repos in main view.")
+                log.debug("Refreshed repos in main view.")
                 AppContext.store.dispatch(event: AppEvent.setRepositories(repos))
             }, onError: { _ in
                 // Do nothing.

@@ -40,13 +40,17 @@ enum MainViewOutlineColumns: String {
     }
 }
 
+private let ISO639_3_NO_LANGUAGE = "zxx"
+
 class OutlineGroup: Equatable, Comparable {
     let id: String
     let value: String
+    let repo: OutlineRepository
     
-    init(id: String, value: String) {
+    init(id: String, value: String, repo: OutlineRepository) {
         self.id = id
         self.value = value
+        self.repo = repo
     }
     
     static func ==(lhs: OutlineGroup, rhs: OutlineGroup) -> Bool {
@@ -54,6 +58,10 @@ class OutlineGroup: Equatable, Comparable {
     }
     
     static func <(lhs: OutlineGroup, rhs: OutlineGroup) -> Bool {
+        // Handle "zxx" case, and move to bottom always
+        if lhs.id == ISO639_3_NO_LANGUAGE { return false }
+        if rhs.id == ISO639_3_NO_LANGUAGE { return true }
+        
         switch lhs.value.localizedCaseInsensitiveCompare(rhs.value) {
         case .orderedAscending:
             return true
@@ -65,10 +73,14 @@ class OutlineGroup: Equatable, Comparable {
 
 class OutlinePackage: Equatable, Comparable {
     let package: Package
+    let group: OutlineGroup
+    let repo: OutlineRepository
     var action: PackageAction?
     
-    init(package: Package, action: PackageAction?) {
+    init(package: Package, group: OutlineGroup, repo: OutlineRepository, action: PackageAction?) {
         self.package = package
+        self.group = group
+        self.repo = repo
         self.action = action
     }
     
@@ -85,29 +97,29 @@ class OutlinePackage: Equatable, Comparable {
     }
 }
 
-enum OutlineItem: Equatable {
-    case repository(OutlineRepository)
-    case group(OutlineGroup, OutlineRepository)
-    case item(OutlinePackage, OutlineGroup, OutlineRepository)
-    
-    static func ==(lhs: OutlineItem, rhs: OutlineItem) -> Bool {
-        switch (lhs, rhs) {
-        case let (.repository(a), .repository(b)):
-            return a == b
-        case let (.group(a, ar), .group(b, br)):
-            return a == b && ar == br
-        case let (.item(a, ag, ar), .item(b, bg, br)):
-            return a == b && ag == bg && ar == br
-        default:
-            return false
-        }
-    }
-}
+//enum OutlineItem: Equatable {
+//    case repository(OutlineRepository)
+//    case group(OutlineGroup, OutlineRepository)
+//    case item(OutlinePackage, OutlineGroup, OutlineRepository)
+//    
+//    static func ==(lhs: OutlineItem, rhs: OutlineItem) -> Bool {
+//        switch (lhs, rhs) {
+//        case let (.repository(a), .repository(b)):
+//            return a == b
+//        case let (.group(a, ar), .group(b, br)):
+//            return a == b && ar == br
+//        case let (.item(a, ag, ar), .item(b, bg, br)):
+//            return a == b && ag == bg && ar == br
+//        default:
+//            return false
+//        }
+//    }
+//}
 
 enum OutlineEvent {
     case setPackageAction(PackageAction)
-    case togglePackage(OutlineRepository, Package)
-    case toggleGroup(OutlineRepository, OutlineGroup)
+    case togglePackage(OutlinePackage)
+    case toggleGroup(OutlineGroup)
     case changeFilter(OutlineRepository, Repository.PrimaryFilter)
 }
 
