@@ -95,7 +95,6 @@ class PahkatTransaction: PahkatTransactionType {
         let dString = String(cString: cStr)
         let data = dString.data(using: .utf8)!
         
-        print(dString)
         self.actions = try! JSONDecoder().decode([TransactionAction].self, from: data)
     }
     
@@ -165,10 +164,10 @@ func runPackageTransaction(txId: UInt32, client: PahkatClient, txHandle: UnsafeM
     return transactionSubject
         .do(onSubscribed: {
             DispatchQueue.global(qos: .background).async {
-                var error: UnsafeMutablePointer<pahkat_error_t>? = nil
+                var error: pahkat_error_t! = nil
                 let result = pahkat_run_package_transaction(client.handle, txHandle, txId, { (txId, rawId, eventCode) in
-                    guard let rawPackageId = rawId else { return }
-                    let packageIdUrl = URL(string: String(cString: rawPackageId))!
+//                    guard let rawPackageId = rawId else { return }
+                    let packageIdUrl = URL(string: String(cString: rawId))!
                     let packageId = AbsolutePackageKey(from: packageIdUrl)
                     let event = PackageEvent(packageId: packageId, event: PackageEventType(rawValue: eventCode) ?? PackageEventType.error)
                     transactionSubject.onNext(TransactionEvent(txId: txId, event: .package, packageEvent: event))
@@ -183,9 +182,9 @@ func runPackageTransaction(txId: UInt32, client: PahkatClient, txHandle: UnsafeM
                 transactionSubject.onNext(TransactionEvent(txId: txId, event: .dispose))
             }
         })
-        .do(onNext: { thing in
-            print(thing)
-        })
+//        .do(onNext: { thing in
+//            print(thing)
+//        })
         .filter { $0.txId == txId }
         .takeWhile {
             switch $0.event {
@@ -217,7 +216,7 @@ struct PahkatTransactionProxy: PahkatTransactionType {
         
         let observable = transactionSubject
             .do(onNext: { thing in
-                print(thing)
+//                log.debug(thing)
             }, onSubscribe: {
                 self.service.processTransaction(txId: txId)
             })
@@ -264,8 +263,8 @@ class PahkatConfig {
     func get(uiSetting key: String) -> String? {
         let cKey = key.cString(using: .utf8)!
         let cValue = pahkat_config_ui_get(handle, cKey)
-        defer { pahkat_str_free(cValue) }
         if let cValue = cValue {
+            defer { pahkat_str_free(cValue) }
             return String(cString: cValue)
         } else {
             return nil
@@ -277,18 +276,18 @@ class PahkatConfig {
         defer { pahkat_str_free(cStr) }
         let data = String(cString: cStr).data(using: .utf8)!
         
-        print("Decode repos")
+//        log.debug("Decode repos")
         return try! JSONDecoder().decode([RepoConfig].self, from: data)
     }
     
     func set(repos: [RepoConfig]) {
         let json = try! JSONEncoder().encode(repos)
-        let cStr = String(data: json, encoding: .utf8)!.cString(using: .utf8)
+        let cStr = String(data: json, encoding: .utf8)!.cString(using: .utf8)!
         pahkat_config_set_repos(handle, cStr)
     }
     
     func set(cachePath: String) {
-        let cStr = cachePath.cString(using: .utf8)
+        let cStr = cachePath.cString(using: .utf8)!
         pahkat_config_set_cache_path(handle, cStr)
     }
     
@@ -306,16 +305,10 @@ class PahkatClient {
     let config: PahkatConfig
     
     init?(configPath: String? = nil, saveChanges: Bool = true) {
-        if let configPath = configPath {
-            let cPath = configPath.cString(using: .utf8)
-            
-            if let client = pahkat_client_new(cPath, saveChanges ? 1 : 0) {
-                handle = client
-            } else {
-                return nil
-            }
+        if let client = pahkat_client_new(configPath.map({ $0.cString(using: .utf8)! }), saveChanges ? 1 : 0) {
+            handle = client
         } else {
-            handle = pahkat_client_new(nil, saveChanges ? 1 : 0)
+            return nil
         }
         
         config = PahkatConfig(handle: handle)
@@ -340,7 +333,7 @@ class PahkatClient {
         let reposStr = String(cString: rawString)
         let reposJson = reposStr.data(using: .utf8)!
         
-        print("Decode repo index")
+//        log.debug("Decode repo index")
         let repos = try! jsonDecoder.decode([RepositoryIndex].self, from: reposJson)
         
         for repo in repos {
@@ -348,15 +341,14 @@ class PahkatClient {
             for package in repo.packages.values {
                 let packageKey = repo.absoluteKey(for: package)
                 var error: UInt32 = 0
-                let status = pahkat_status(handle, packageKey.rawValue.cString(using: .utf8)!, &error)
                 
-                if status == nil {
+                guard let status = pahkat_status(handle, packageKey.rawValue.cString(using: .utf8)!, &error) else {
                     continue
                 }
                 
                 defer { pahkat_str_free(status) }
                 
-                let response = try! jsonDecoder.decode(PackageStatus.self, from: String(cString: status!).data(using: .utf8)!)
+                let response = try! jsonDecoder.decode(PackageStatus.self, from: String(cString: status).data(using: .utf8)!)
                 statuses[packageKey] = PackageStatusResponse(status: response.status, target: response.target.rawValue == "system"
                     ? InstallerTarget.system : InstallerTarget.user)
             }
@@ -366,12 +358,11 @@ class PahkatClient {
         return repos
     }
     
-    public typealias DownloadPackageCallback = @convention(c) (_ rawPackageId: UnsafePointer<Int8>?, _ cur: UInt64, _ max: UInt64) -> Void
+    public typealias DownloadPackageCallback = @convention(c) (_ rawPackageId: UnsafePointer<Int8>, _ cur: UInt64, _ max: UInt64) -> Void
     
     func download(packageKey: AbsolutePackageKey, target: InstallerTarget) -> Observable<DownloadProgress> {
         var cKey = packageKey.rawValue.cString(using: .utf8)!
         let cb: DownloadPackageCallback = { (rawPackageId, cur, max) in
-            guard let rawPackageId = rawPackageId else { return }
             let packageIdUrl = URL(string: String(cString: rawPackageId))!
             let packageId = AbsolutePackageKey(from: packageIdUrl)
             
@@ -392,8 +383,11 @@ class PahkatClient {
                 downloadProgressSubject.onNext(DownloadProgress(packageId: packageKey, status: .starting))
                 
                 DispatchQueue.global(qos: .background).async {
-                    var error: UnsafeMutablePointer<pahkat_error_t>? = nil
-                    let ret = pahkat_download_package(self.handle, &cKey, target.numberValue, cb, &error)
+                    let error: UnsafeMutablePointer<UnsafeMutablePointer<pahkat_error_t>?> = UnsafeMutablePointer<UnsafeMutablePointer<pahkat_error_t>?>.allocate(capacity: 1)
+                    defer {
+                        error.deallocate()
+                    }
+                    let ret = pahkat_download_package(self.handle, &cKey, target.numberValue, cb, error)
                     if ret > 0 {
                         downloadProgressSubject.onNext(DownloadProgress(packageId: packageKey, status: .error(DownloadError(message: "Error code \(ret)"))))
                         downloadProgressSubject.onNext(DownloadProgress(packageId: packageKey, status: .notStarted))
@@ -417,7 +411,7 @@ class PahkatClient {
             let actionsJSON = try! JSONEncoder().encode(actions)
             
             service.transaction(of: actionsJSON, configPath: self.configPath, cachePath: self.config.cachePath(), withReply: { data in
-                print("decode response container")
+//                log.debug("decode response container")
                 let response = try! JSONDecoder().decode(ResponseContainer.self, from: data)
             
                 if let success = response.success {
@@ -475,7 +469,7 @@ fileprivate extension TransactionAction {
     func toCType() -> UnsafeMutableRawPointer {
         let cPackageKey = self.id.rawValue.cString(using: .utf8)!
         
-        print("cpkgkey: \(String(cString: cPackageKey))")
+//        log.debug("cpkgkey: \(String(cString: cPackageKey))")
         return pahkat_create_action(self.numberValue, self.target.numberValue, cPackageKey)!
     }
 }
