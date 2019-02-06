@@ -90,7 +90,7 @@ class PahkatTransaction: PahkatTransactionType {
         }
         self.handle = handle
         
-        let cStr = pahkat_package_transaction_actions(client.handle, handle, nil)
+        let cStr = pahkat_package_transaction_actions(client.handle, handle, &error)
         defer { pahkat_str_free(cStr) }
         let dString = String(cString: cStr)
         let data = dString.data(using: .utf8)!
@@ -164,7 +164,7 @@ func runPackageTransaction(txId: UInt32, client: PahkatClient, txHandle: UnsafeM
     return transactionSubject
         .do(onSubscribed: {
             DispatchQueue.global(qos: .background).async {
-                var error: pahkat_error_t! = nil
+                var error: UnsafeMutablePointer<pahkat_error_t>? = nil
                 let result = pahkat_run_package_transaction(client.handle, txHandle, txId, { (txId, rawId, eventCode) in
 //                    guard let rawPackageId = rawId else { return }
                     let packageIdUrl = URL(string: String(cString: rawId))!
