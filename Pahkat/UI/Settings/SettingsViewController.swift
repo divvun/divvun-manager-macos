@@ -280,6 +280,7 @@ class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSou
 enum InterfaceLanguage: String, Comparable {
     case systemLocale = ""
     case en = "en"
+    case nb = "nb"
     case nn = "nn"
     case nnRunic = "nn-Runr"
     case se = "se"
@@ -307,6 +308,7 @@ enum InterfaceLanguage: String, Comparable {
     static func asMenuItems() -> [NSMenuItem] {
         var x = [
             InterfaceLanguage.en,
+            InterfaceLanguage.nb,
             InterfaceLanguage.nn,
             InterfaceLanguage.nnRunic,
             InterfaceLanguage.se

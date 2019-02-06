@@ -15,6 +15,7 @@
 "checkForUpdates" = "Check For Updates...";
 "completed" = "Completed";
 "copy" = "Copy";
+"close" = "Close";
 "crashReportBody" = "Do you wish to send a crash report to the developers? No personal or private information is sent. (Recommended)";
 "cut" = "Cut";
 "daily" = "Daily";

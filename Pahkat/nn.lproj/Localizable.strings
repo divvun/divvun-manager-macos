@@ -43,7 +43,7 @@
 "installed" = "Installert";
 "installingPackage" = "Installerer %1$@ %2$@...";
 "installingUninstalling" = "Installerer/avinstallerer";
-"interfaceLanguage" = "Vis programmet på:";
+"interfaceLanguage" = "Vis programmet på";
 "invalidUrlBody" = "Ver greid og sjekk at URL-en byrjar med \"https\" og prøv på nytt.";
 "invalidUrlTitle" = "URL-en er ugyldig.";
 "language" = "Språk";

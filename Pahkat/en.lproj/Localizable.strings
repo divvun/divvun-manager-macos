@@ -17,6 +17,7 @@
 "copy" = "Copy";
 "crashReportBody" = "Do you wish to send a crash report to the developers? No personal or private information is sent. (Recommended)";
 "cut" = "Cut";
+"close" = "Close";
 "daily" = "Daily";
 "delete" = "Delete";
 "downloadError" = "Error 😞";

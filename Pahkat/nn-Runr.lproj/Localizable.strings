@@ -43,7 +43,7 @@
 "installed" = "ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛐ";
 "installingPackage" = "ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ %1$@ %2$@...";
 "installingUninstalling" = "ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ/ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ";
-"interfaceLanguage" = "ᚡᛁᛌ ᛔᚱᚮᚵᚱᛆᛘᛘᛂᛐ ᛔᚭ:";
+"interfaceLanguage" = "ᚡᛁᛌ ᛔᚱᚮᚵᚱᛆᛘᛘᛂᛐ ᛔᚭ";
 "invalidUrlBody" = "ᚡᛂᚱ ᚵᚱᛂᛁᛑ ᚮᚵ ᛌᛁᛂᚴᚴᛐ ᛆᛐ URL-ᛂᚿ ᛒᛦᚱᛁᛆᚱ ᛘᛂᛑ \"https\" ᚮᚵ ᛔᚱᚯᚡ ᛔᚭ ᚿᛦᛐᛐ.";
 "invalidUrlTitle" = "URL-ᛂᚿ ᛂᚱ ᚢᚵᛦᛚᛑᛁᚵ.";
 "language" = "ᛌᛔᚱᚭᚴ";
