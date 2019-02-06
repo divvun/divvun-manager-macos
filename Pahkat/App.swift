@@ -27,11 +27,20 @@ class App: NSApplication {
     override init() {
         super.init()
         
+        if UserDefaults.standard.object(forKey: "AppleLanguages") != nil {
+            if UserDefaults.standard.string(forKey: "AppleLanguages") == nil {
+                UserDefaults.standard.removeObject(forKey: "AppleLanguages")
+                UserDefaults.standard.synchronize()
+            }
+        }
+        
         self.delegate = appDelegate
         
-        PahkatAdminReceiver().service(errorCallback: { print($0) }).xpcServiceVersion(withReply: {
-            print("XPC service version: \($0)")
-        })
+        PahkatAdminReceiver()
+            .service(errorCallback: { log.debug($0) })
+            .xpcServiceVersion(withReply: {
+                log.debug("XPC service version: \($0)")
+            })
         
         AppContext = AppContextImpl()
     }
