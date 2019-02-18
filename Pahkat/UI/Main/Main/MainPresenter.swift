@@ -262,7 +262,6 @@ class MainPresenter {
             .observeOn(MainScheduler.instance)
             .subscribeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] event in
-            log.debug("onPackageEvent!")
             guard let `self` = self else { return }
             
             switch event {

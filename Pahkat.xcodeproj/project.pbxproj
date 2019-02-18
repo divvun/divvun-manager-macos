@@ -70,6 +70,7 @@
 		C68DCC6321AAF91000A4AA77 /* PahkatClientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68DCC6221AAF91000A4AA77 /* PahkatClientService.swift */; };
 		C68DCC6621ACA68700A4AA77 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68DCC6521ACA68700A4AA77 /* Client.swift */; };
 		C68DCC6721ACA68700A4AA77 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68DCC6521ACA68700A4AA77 /* Client.swift */; };
+		C699ACE4221ADF69007ACDFC /* SelfUpdateClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C699ACE3221ADF69007ACDFC /* SelfUpdateClient.swift */; };
 		C69F948E2028B1EA00127A47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69F948D2028B1EA00127A47 /* AppDelegate.swift */; };
 		C69F94902028B1EA00127A47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C69F948F2028B1EA00127A47 /* Assets.xcassets */; };
 		C69F94932028B1EA00127A47 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C69F94912028B1EA00127A47 /* MainMenu.xib */; };
@@ -262,6 +263,7 @@
 		C676C35B21AAEE78005CC7AF /* libpahkat_client.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpahkat_client.a; path = "../pahkat-client-core/target/release/libpahkat_client.a"; sourceTree = "<group>"; };
 		C68DCC6221AAF91000A4AA77 /* PahkatClientService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PahkatClientService.swift; sourceTree = "<group>"; };
 		C68DCC6521ACA68700A4AA77 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		C699ACE3221ADF69007ACDFC /* SelfUpdateClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfUpdateClient.swift; sourceTree = "<group>"; };
 		C69F948A2028B1EA00127A47 /* Divvun Installer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Divvun Installer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C69F948D2028B1EA00127A47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C69F948F2028B1EA00127A47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -506,6 +508,7 @@
 			isa = PBXGroup;
 			children = (
 				C6CC912920291A2D00CB0B10 /* APIService.swift */,
+				C699ACE3221ADF69007ACDFC /* SelfUpdateClient.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -917,6 +920,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C62270482035C5D700DBCD65 /* UpdateWindow.swift in Sources */,
+				C699ACE4221ADF69007ACDFC /* SelfUpdateClient.swift in Sources */,
 				278A10B7203ADACD007C3DC8 /* InstallView.swift in Sources */,
 				C6B742C7204BF19E00C7877D /* MainMenu.swift in Sources */,
 				C622704C2035C60500DBCD65 /* UpdateViewable.swift in Sources */,

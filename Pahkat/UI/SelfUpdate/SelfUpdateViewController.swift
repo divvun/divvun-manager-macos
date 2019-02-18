@@ -15,19 +15,17 @@ protocol SelfUpdateViewable: class {
 
 class SelfUpdateViewController: ViewController<SelfUpdateView>, SelfUpdateViewable, NSWindowDelegate {
     private let client: PahkatClient
-    private let repo: RepositoryIndex
     private let package: Package
     private let key: AbsolutePackageKey
     private let status: PackageStatusResponse
     
     private let bag = DisposeBag()
     
-    init(client: PahkatClient) {
-        self.client = client
-        self.repo = client.repos()[0]
-        self.package = repo.packages["divvun-installer-macos"]!
-        self.key = repo.absoluteKey(for: package)
-        self.status = repo.status(for: self.key)!
+    init(client: SelfUpdateClient) {
+        self.client = client.client
+        self.package = client.package
+        self.key = self.client.repos()[0].absoluteKey(for: package)
+        self.status = client.status
         
         super.init()
     }
@@ -73,6 +71,8 @@ class SelfUpdateViewController: ViewController<SelfUpdateView>, SelfUpdateViewab
     }
     
     private func download() {
+        AppContext.client.config.set(uiSetting: "", value: package.version)
+        
         let byteCountFormatter = ByteCountFormatter()
         client.download(packageKey: key, target: status.target)
             .subscribeOn(MainScheduler.instance)
@@ -170,7 +170,7 @@ class SelfUpdateViewController: ViewController<SelfUpdateView>, SelfUpdateViewab
     private func reloadApp() {
         let p = Process()
         p.launchPath = "/usr/bin/nohup"
-        p.arguments = ["sh", "-c", "killall -9 'Divvun Installer' && open /Applications/Divvun\\ Installer.app --args first-run"]
+        p.arguments = ["sh", "-c", "killall -9 'Divvun Installer'; open /Applications/Divvun\\ Installer.app --args first-run"]
         p.launch()
         p.waitUntilExit()
     }
