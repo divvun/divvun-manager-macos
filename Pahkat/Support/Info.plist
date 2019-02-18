@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0.1</string>
 	<key>CFBundleVersion</key>
-	<string>11</string>
+	<string>12</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
 	<key>LSMinimumSystemVersion</key>
@@ -30,7 +30,7 @@
 		<true/>
 	</dict>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2018 Divvun. All rights reserved.</string>
+	<string>Copyright © 2019 Divvun. All rights reserved.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
@@ -38,7 +38,7 @@
 	<key>SMPrivilegedExecutables</key>
 	<dict>
 		<key>no.divvun.PahkatAdminService</key>
-		<string>anchor apple generic and identifier "no.divvun.PahkatAdminService" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "2K5J2584NX")</string>
+		<string>anchor apple generic and identifier &quot;no.divvun.PahkatAdminService&quot; and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = &quot;2K5J2584NX&quot;)</string>
 	</dict>
 </dict>
 </plist>
