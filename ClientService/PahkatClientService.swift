@@ -46,8 +46,9 @@ enum TransactionEventType: UInt32, Codable {
 fileprivate var transactionIdCount = UInt32(0)
 let transactionSubject = PublishSubject<TransactionEvent>()
 
-struct PahkatClientError: Error {
+struct PahkatClientError: Error, CustomDebugStringConvertible {
     let message: String
+    var debugDescription: String { return "PahkatClientError(\(self.message))" }
 }
 
 func processPackageEvents(txEvents: Observable<TransactionEvent>) -> Observable<PackageEvent> {
@@ -410,7 +411,7 @@ class PahkatClient {
             
             let actionsJSON = try! JSONEncoder().encode(actions)
             
-            service.transaction(of: actionsJSON, configPath: self.configPath, cachePath: self.config.cachePath(), withReply: { data in
+            service.transaction(of: actionsJSON, configPath: self.configPath, withReply: { data in
 //                log.debug("decode response container")
                 let response = try! JSONDecoder().decode(ResponseContainer.self, from: data)
             

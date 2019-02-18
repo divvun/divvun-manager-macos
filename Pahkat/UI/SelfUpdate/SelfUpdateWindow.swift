@@ -11,4 +11,11 @@ import Cocoa
 class SelfUpdateWindow: Window {}
 
 class SelfUpdateWindowController: WindowController<SelfUpdateWindow> {
+    override func windowDidLoad() {
+        super.windowDidLoad()
+        
+        self.window?.titlebarAppearsTransparent = true
+        self.window?.titleVisibility = .hidden
+        self.window?.styleMask = .borderless
+    }
 }

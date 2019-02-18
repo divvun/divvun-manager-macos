@@ -35,17 +35,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func checkForSelfUpdate() -> PahkatClient? {
-        guard let selfUpdatePath = Bundle.main.url(forResource: "selfupdate", withExtension: "json")?.path else {
+        guard let tmplSelfUpdatePath = Bundle.main.url(forResource: "selfupdate", withExtension: "json") else {
             log.debug("No selfupdate.json found in bundle.")
             return nil
         }
         
-        guard let client = PahkatClient(configPath: selfUpdatePath, saveChanges: false) else {
+        let tmpDir = URL(string: "file:///tmp/pahkat-\(NSUserName())-\(Date().timeIntervalSince1970)/")!
+        let selfUpdatePath = tmpDir.appendingPathComponent("selfupdate.json")
+        
+        do {
+            try FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: false, attributes: nil)
+            try FileManager.default.copyItem(at: tmplSelfUpdatePath, to: selfUpdatePath)
+        } catch {
+            log.severe(error)
+            return nil
+        }
+        
+        guard let client = PahkatClient(configPath: selfUpdatePath.path) else {
             log.debug("No PahkatClient generated for given config.")
             return nil
         }
         
-        client.config.set(cachePath: "/tmp/pahkat-\(NSUserName())-\(Date().timeIntervalSince1970)")
+        client.config.set(cachePath: tmpDir.path)
         
         var overrideUpdateChannel = false
         if let selfUpdateChannelString = AppContext.client.config.get(uiSetting: "selfUpdateChannel") {

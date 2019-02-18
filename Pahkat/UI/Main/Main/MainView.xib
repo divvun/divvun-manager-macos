@@ -178,7 +178,7 @@
             <point key="canvasLocation" x="-699" y="278"/>
         </textField>
         <button verticalHuggingPriority="750" id="R6u-Ct-oD5">
-            <rect key="frame" x="0.0" y="0.0" width="120" height="25"/>
+            <rect key="frame" x="0.5" y="0.0" width="120" height="25"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
             <buttonCell key="cell" type="roundTextured" title="--" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cDS-P5-ZeA">
                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -187,7 +187,7 @@
             <point key="canvasLocation" x="-712" y="394"/>
         </button>
         <button verticalHuggingPriority="750" id="jxA-Vr-T8K">
-            <rect key="frame" x="0.0" y="0.0" width="48" height="25"/>
+            <rect key="frame" x="0.5" y="0.0" width="48" height="25"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Settings" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sWp-cK-7gv">
                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

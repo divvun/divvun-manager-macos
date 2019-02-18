@@ -12,7 +12,9 @@ import RxSwift
 
 @objc protocol PahkatAdminProtocol {
     func xpcServiceVersion(withReply: @escaping (String) -> ())
-    func transaction(of actionsJSON: Data, configPath: String, cachePath: String?, withReply: @escaping (Data) -> ())
+    func set(cachePath: String, for configPath: String)
+    func set(channel: String, for configPath: String)
+    func transaction(of actionsJSON: Data, configPath: String, withReply: @escaping (Data) -> ())
     func processTransaction(txId: UInt32)
 }
 

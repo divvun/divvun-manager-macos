@@ -39,14 +39,33 @@ class SelfUpdateViewController: ViewController<SelfUpdateView>, SelfUpdateViewab
         self.download()
     }
     
+    func showMoreInfo(error: Error) {
+        let alert = NSAlert()
+        alert.messageText = Strings.downloadError
+        alert.informativeText = String(describing: error)
+        
+        alert.runModal()
+    }
+    
     func handle(error: Error) {
+        log.severe(error)
+        
         DispatchQueue.main.async {
             let alert = NSAlert()
             alert.messageText = Strings.downloadError
             alert.informativeText = error.localizedDescription
             
             alert.alertStyle = .critical
-            alert.runModal()
+            alert.addButton(withTitle: Strings.ok)
+            alert.addButton(withTitle: "More Info")
+            switch alert.runModal() {
+            case NSApplication.ModalResponse.alertFirstButtonReturn:
+                break
+            case NSApplication.ModalResponse.alertSecondButtonReturn:
+                self.showMoreInfo(error: error)
+            default:
+                break
+            }
             
             AppDelegate.instance.launchMain()
             AppContext.windows.close(SelfUpdateWindowController.self)

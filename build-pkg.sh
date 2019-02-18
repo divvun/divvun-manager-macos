@@ -1,5 +1,15 @@
-#!/bin/sh
+ #!/bin/sh
+export DEVELOPMENT_TEAM="2K5J2584NX"
+export CODE_SIGN_IDENTITY="Developer ID Application: The University of Tromso (2K5J2584NX)"
 
-xcodebuild -scheme Pahkat -configuration Release -workspace Pahkat.xcworkspace SYMROOT="$PWD/build"
-VER=`/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" $PWD/build/Release/Pahkat.app/Contents/Info.plist`
-pkgbuild --component build/Release/Pahkat.app --scripts scripts --ownership recommended --install-location /Applications --version $VER $PWD/build/pahkat_$VER.pkg
+VER=`/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" Pahkat/Support/Info.plist`
+
+xcodebuild -scheme Pahkat -configuration Release -workspace Pahkat.xcworkspace archive -archivePath build/pahkat.xcarchive -quiet || exit 1
+	
+rm -rf Divvun\ Installer.app
+mv build/pahkat.xcarchive/Products/Applications/Divvun\ Installer.app .
+
+pkgbuild --component Divvun\ Installer.app --scripts scripts --ownership recommended --install-location /Applications --version $VER divvun-installer-$VER.unsigned.pkg
+
+productsign --sign "Developer ID Installer: The University of Tromso (2K5J2584NX)" divvun-installer-$VER.unsigned.pkg divvun-installer-$VER.pkg
+pkgutil --check-signature divvun-installer-$VER.pkg

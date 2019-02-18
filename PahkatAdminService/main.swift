@@ -39,8 +39,35 @@ class PahkatAdminService: NSObject, NSXPCListenerDelegate, PahkatAdminProtocol {
         callback(v)
     }
     
+    private func client(for configPath: String) -> PahkatAdminClient? {
+        var client: PahkatAdminClient? = nil
+        
+        if let maybeClient = self.clientCache[configPath] {
+            client = maybeClient
+        } else if let maybeClient = PahkatAdminClient(configPath: configPath) {
+            self.clientCache[configPath] = maybeClient
+            client = maybeClient
+        }
+        
+        return client
+    }
+    
+    func set(cachePath: String, for configPath: String) {
+        guard let client = self.client(for: configPath) else { return }
+        client.config.set(cachePath: cachePath)
+    }
+    
+    func set(channel: String, for configPath: String) {
+        guard let client = self.client(for: configPath) else { return }
+        if let channel = Repository.Channels.init(rawValue: channel) {
+            // HACK: this only exists for selfupdate, should be cleaned up.
+            client.config.set(repos: [RepoConfig(url: client.config.repos()[0].url, channel: channel)])
+            client.refreshRepos()
+        }
+    }
+    
     // JSON on both sides.
-    func transaction(of actionsJSON: Data, configPath: String, cachePath: String?, withReply callback: @escaping (Data) -> ()) {
+    func transaction(of actionsJSON: Data, configPath: String, withReply callback: @escaping (Data) -> ()) {
         let client: PahkatAdminClient
         
         if let maybeClient = self.clientCache[configPath] {
@@ -53,10 +80,10 @@ class PahkatAdminService: NSObject, NSXPCListenerDelegate, PahkatAdminProtocol {
             callback(try! JSONEncoder().encode(payload))
             return
         }
-        
-        if let cachePath = cachePath {
-            client.config.set(cachePath: cachePath)
-        }
+//
+//        if let cachePath = cachePath {
+//            client.config.set(cachePath: cachePath)
+//        }
         
         let actions = try! JSONDecoder().decode([TransactionAction].self, from: actionsJSON)
         
@@ -88,7 +115,10 @@ class PahkatAdminService: NSObject, NSXPCListenerDelegate, PahkatAdminProtocol {
         
         let enc = JSONEncoder()
         tx.process(callback: { (error, event) in
-            if let error = error {
+            if let error = error as? PahkatClientError {
+                let payload = TransactionEvent(txId: txId, event: .error, error: error.message)
+                receiver.transactionEvent(data: try! enc.encode(payload))
+            } else if let error = error {
                 let payload = TransactionEvent(txId: txId, event: .error, error: String(describing: error))
                 receiver.transactionEvent(data: try! enc.encode(payload))
             } else if let event = event {
