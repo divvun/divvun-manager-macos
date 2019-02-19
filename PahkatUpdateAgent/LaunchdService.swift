@@ -13,13 +13,16 @@ class LaunchdService {
     static let restartPlistName = "\(Bundle.main.bundleIdentifier!).PahkatRestartAgent"
     static let agentHelper = Bundle.main.bundleURL.appendingPathComponent("Contents/MacOS/PahkatUpdateAgent").path
     
-    static let plistUserPath: URL = {
+    static let userLaunchAgentsPath: URL = {
         let libraryDirectory = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)[0]
-        return URL(string: "file://\(libraryDirectory)/LaunchAgents/\(plistName).plist")!
+        return URL(string: "file://\(libraryDirectory)/LaunchAgents/")!
+    }()
+    
+    static let plistUserPath: URL = {
+        return LaunchdService.userLaunchAgentsPath.appendingPathComponent("\(plistName).plist")
     }()
     static let restartPlistUserPath: URL = {
-        let libraryDirectory = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)[0]
-        return URL(string: "file://\(libraryDirectory)/LaunchAgents/\(restartPlistName).plist")!
+        return LaunchdService.userLaunchAgentsPath.appendingPathComponent("\(restartPlistName).plist")
     }()
     
     static func generateLaunchAgent(startInterval: Int) -> NSDictionary {
@@ -43,6 +46,7 @@ class LaunchdService {
     }
     
     static func writeLaunchAgent(_ agent: NSDictionary, path: URL) -> Bool {
+        try? FileManager.default.createDirectory(at: LaunchdService.userLaunchAgentsPath, withIntermediateDirectories: true, attributes: nil)
         return agent.write(to: path, atomically: true)
     }
     

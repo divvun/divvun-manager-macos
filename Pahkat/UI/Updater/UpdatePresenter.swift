@@ -26,21 +26,29 @@ class UpdatePresenter {
     }
     
     private func bindInstallButton() -> Disposable {
-        return view.onInstallButtonPressed.drive(onNext: { [weak self] in
-            guard let `self` = self else { return }
-            
-            var map = [AbsolutePackageKey: PackageAction]()
-            
-            for item in self.packages {
-                if !item.isEnabled {
-                    continue
+        return view.onInstallButtonPressed
+            .observeOn(MainScheduler.instance)
+            .subscribeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] in
+                log.debug("On install button event")
+                guard let `self` = self else {
+                    log.debug("Got no self")
+                    return
                 }
                 
-                map[item.action.packageRecord.id] = item.action
-            }
-            
-            self.view.installPackages(packages: map)
-        })
+                var map = [AbsolutePackageKey: PackageAction]()
+                
+                for item in self.packages {
+                    if !item.isEnabled {
+                        continue
+                    }
+                    
+                    map[item.action.packageRecord.id] = item.action
+                }
+                
+                log.debug("Going to isntall")
+                self.view.installPackages(packages: map)
+            })
     }
     
     private func bindLaterButton() -> Disposable {

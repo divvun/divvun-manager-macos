@@ -134,32 +134,11 @@ class MainPresenter {
         return view.onPrimaryButtonPressed.drive(onNext: { [weak self] in
             guard let `self` = self else { return }
             if self.selectedPackages.values.contains(where: { $0.target == .system }) {
-                let recv = PahkatAdminReceiver()
-                recv.isLaunchServiceInstalled
-                    .observeOn(MainScheduler.instance)
-                    .timeout(1.0, scheduler: MainScheduler.instance)
-                    .catchErrorJustReturn(false)
-                    .subscribe(onSuccess: { isInstalled in
-                        log.debug("Service is installed? \(isInstalled)")
-                        
-                        if isInstalled {
-                            self.view.showDownloadView(with: self.selectedPackages)
-                            return
-                        }
-                        
-                        do {
-                            _ = try recv.installLaunchService(errorCallback: { error in
-                                DispatchQueue.main.async {
-                                    self.view.handle(error: error)
-                                }
-                            })
-                            self.view.showDownloadView(with: self.selectedPackages)
-                        } catch  {
-                            self.view.handle(error: error)
-                            return
-                        }
-                    })
-                    .disposed(by: self.bag)
+                PahkatClient.checkForAdminService().subscribe(onCompleted: {
+                    self.view.showDownloadView(with: self.selectedPackages)
+                }, onError: { error in
+                    self.view.handle(error: error)
+                }).disposed(by: self.bag)
             } else {
                 self.view.showDownloadView(with: self.selectedPackages)
             }

@@ -18,9 +18,9 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
         return self.contentView.skipButton.rx.tap.asDriver()
     }()
     
-    lazy var onInstallButtonPressed: Driver<Void> = {
-        return self.contentView.installButton.rx.tap.asDriver()
-    }()
+    var onInstallButtonPressed: Observable<Void> {
+        return self.contentView.installButton.rx.tap.asObservable()
+    }
     
     lazy var onRemindButtonPressed: Driver<Void> = {
         return self.contentView.remindButton.rx.tap.asDriver()
@@ -47,7 +47,7 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
                 return Observable.just(AppContext.client.repos())
             }
             .subscribe(onNext: { repos in
-                log.debug("Refreshed repos in main view.")
+                log.debug("Refreshed repos in update view.")
                 AppContext.store.dispatch(event: AppEvent.setRepositories(repos))
             }, onError: { _ in
                 // Do nothing.
@@ -56,6 +56,7 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
     }
     
     func handle(error: Error) {
+        log.error(error)
         DispatchQueue.main.async {
             let alert = NSAlert()
             alert.messageText = Strings.downloadError
@@ -87,20 +88,34 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
     }
     
     func installPackages(packages: [AbsolutePackageKey: PackageAction]) {
+        log.debug("install packages")
         let actions = packages.map { (k, v) in TransactionAction(action: v.action, id: k, target: v.target) }
-        AppContext.client.transaction(of: actions).subscribe(onSuccess: { [weak self] tx in
-            guard let `self` = self else { return }
-            let vc = DownloadViewController(transaction: tx)
-            AppContext.windows.show(MainWindowController.self, viewController: vc)
-            AppDelegate.instance.requiresAppDeath = false
-            
-            DispatchQueue.main.async {
-                self.closeWindow()
-            }
-        }, onError: { [weak self] error in
-            self?.handle(error: error)
-        }).disposed(by: bag)
         
+        log.debug(actions)
+        
+        DispatchQueue.main.async {
+            log.debug("Do a transaction")
+            AppContext.client.transaction(of: actions)
+                .do(onDispose: { log.debug("DISPOSE") })
+                .subscribeOn(MainScheduler.instance)
+                .observeOn(MainScheduler.instance)
+                .subscribe(onSuccess: { tx in
+                    log.debug("Showing main window")
+                    DispatchQueue.main.async {
+                        AppDelegate.instance.requiresAppDeath = false
+                        
+                        let vc = DownloadViewController(transaction: tx)
+                        AppContext.windows.show(MainWindowController.self, viewController: vc)
+                    
+                        self.closeWindow()
+                    }
+                }, onError: { error in
+                    log.error(error)
+                    DispatchQueue.main.async {
+                        self.handle(error: error)
+                    }
+                }).disposed(by: self.bag)
+        }
     }
     
     func setPackages(packages: [UpdateTablePackage]) {

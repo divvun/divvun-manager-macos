@@ -9,7 +9,16 @@ xcodebuild -scheme Pahkat -configuration Release -workspace Pahkat.xcworkspace a
 rm -rf Divvun\ Installer.app
 mv build/pahkat.xcarchive/Products/Applications/Divvun\ Installer.app .
 
-pkgbuild --component Divvun\ Installer.app --scripts scripts --ownership recommended --install-location /Applications --version $VER divvun-installer-$VER.unsigned.pkg
+pkgbuild --component Divvun\ Installer.app \
+    --ownership recommended \
+    --install-location /Applications \
+    --version $VER \
+    no.divvun.Pahkat.pkg
+
+productbuild --distribution scripts/dist.xml \
+    --version $VER \
+    --package-path . \
+    divvun-installer-$VER.unsigned.pkg
 
 productsign --sign "Developer ID Installer: The University of Tromso (2K5J2584NX)" divvun-installer-$VER.unsigned.pkg divvun-installer-$VER.pkg
 pkgutil --check-signature divvun-installer-$VER.pkg

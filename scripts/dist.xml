@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<installer-gui-script minSpecVersion="2">
+  <title>Divvun Installer</title>
+  <options customize="never" rootVolumeOnly="true" />
+  <choices-outline>
+    <line choice="default">
+      <line choice="no.divvun.Pahkat"/>
+    </line>
+  </choices-outline>
+  <choice id="default"/>
+  <choice id="no.divvun.Pahkat" visible="false">
+    <pkg-ref id="no.divvun.Pahkat"/>
+  </choice>
+  <pkg-ref auth="root" id="no.divvun.Pahkat" version="0">no.divvun.Pahkat.pkg</pkg-ref>
+</installer-gui-script>

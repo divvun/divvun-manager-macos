@@ -12,7 +12,7 @@ import RxCocoa
 
 protocol UpdateViewable: class {
     func setPackages(packages: [UpdateTablePackage])
-    var onInstallButtonPressed: Driver<Void> { get }
+    var onInstallButtonPressed: Observable<Void> { get }
     var onSkipButtonPressed: Driver<Void> { get }
     var onRemindButtonPressed: Driver<Void> { get }
     var onPackageToggled: Observable<UpdateTablePackage> { get }

@@ -138,32 +138,12 @@ class SelfUpdateViewController: ViewController<SelfUpdateView>, SelfUpdateViewab
         self.contentView.subtitle.stringValue = Strings.installingPackage(name: Strings.appName, version: self.package.nativeVersion)
         
         if action.target == .system {
-            let recv = PahkatAdminReceiver()
-            recv.isLaunchServiceInstalled
-                .observeOn(MainScheduler.instance)
-                .timeout(1.0, scheduler: MainScheduler.instance)
-                .catchErrorJustReturn(false)
-                .subscribe(onSuccess: { isInstalled in
-                    log.debug("Service is installed? \(isInstalled)")
-                    
-                    if isInstalled {
-                        self.install(with: action)
-                        return
-                    }
-                    
-                    do {
-                        _ = try recv.installLaunchService(errorCallback: { error in
-                            DispatchQueue.main.async {
-                                self.handle(error: error)
-                            }
-                        })
-                        self.install(with: action)
-                    } catch  {
-                        self.handle(error: error)
-                        return
-                    }
-                })
-                .disposed(by: self.bag)
+            
+            PahkatClient.checkForAdminService().subscribe(onCompleted: {
+                self.install(with: action)
+            }, onError: { error in
+                self.handle(error: error)
+            }).disposed(by: self.bag)
         }
     }
     

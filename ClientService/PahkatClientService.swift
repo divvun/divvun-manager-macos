@@ -403,8 +403,35 @@ class PahkatClient {
         let error: String?
     }
     
+    static func checkForAdminService() -> Completable {
+        return Completable.create(subscribe: { emitter in
+            let recv = PahkatAdminReceiver()
+            
+            return recv.isLaunchServiceInstalled
+                .observeOn(MainScheduler.instance)
+                .timeout(1.0, scheduler: MainScheduler.instance)
+                .catchErrorJustReturn(false)
+                .subscribe(onSuccess: { isInstalled in
+                    if !isInstalled {
+                        do {
+                            _ = try recv.installLaunchService(errorCallback: { error in
+                                emitter(.error(error))
+                            })
+                            
+                            emitter(.completed)
+                        } catch  {
+                            emitter(.error(error))
+                            return
+                        }
+                    } else {
+                        emitter(.completed)
+                    }
+                })
+        })
+    }
+    
     private func adminTransaction(of actions: [TransactionAction]) -> Single<PahkatTransactionType> {
-        return Single<PahkatTransactionType>.create(subscribe: { emitter in
+        let tx = Single<PahkatTransactionType>.create(subscribe: { emitter in
             let service = self.admin.service(errorCallback: { error in
                 emitter(.error(error))
             })
@@ -426,6 +453,8 @@ class PahkatClient {
             
             return Disposables.create()
         })
+        
+        return PahkatClient.checkForAdminService().andThen(tx)
     }
     
     func transaction(of actions: [TransactionAction]) -> Single<PahkatTransactionType> {
