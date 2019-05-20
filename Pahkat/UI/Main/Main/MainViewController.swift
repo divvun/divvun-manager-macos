@@ -37,7 +37,10 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         dataSource.repos = data
         
         contentView.outlineView.reloadData()
-        contentView.outlineView.expandItem(nil, expandChildren: true)
+        self.contentView.outlineView.expandItem(nil, expandChildren: true)
+        
+        // This forces resizing to work correctly.
+        self.refreshRepositories()
     }
     
     func refreshRepositories() {
@@ -46,6 +49,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
             forRowIndexes: IndexSet(integersIn: 0..<self.dataSource.rowCount()),
             columnIndexes: IndexSet(integersIn: 0..<contentView.outlineView.tableColumns.count))
         contentView.outlineView.endUpdates()
+        contentView.outlineView.sizeLastColumnToFit()
     }
     
     func update(title: String) {
@@ -219,6 +223,8 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         
         contentView.outlineView.delegate = self.dataSource
         contentView.outlineView.dataSource = self.dataSource
+        
+        contentView.outlineView.columnAutoresizingStyle = .lastColumnOnlyAutoresizingStyle
     }
     
     override func viewWillAppear() {
@@ -229,6 +235,11 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         updatePrimaryButton(isEnabled: false, label: Strings.noPackagesSelected)
         
         presenter.start().disposed(by: bag)
+    }
+    
+    override func viewWillLayout() {
+        super.viewWillLayout()
+        contentView.outlineView.sizeLastColumnToFit()
     }
 }
 
@@ -512,8 +523,13 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                     button.state = .off
                 }
                 cell.textField?.stringValue = package.nativeName
+                let baseWidth = cell.textField?.attributedStringValue.size().width ?? CGFloat(0.0)
+                let repoAdjustedWidth = CGFloat(repos.count == 1 ? 64.0 : 96.0)
+                tableColumn.width = max(tableColumn.width, baseWidth + repoAdjustedWidth)
             case .version:
                 cell.textField?.stringValue = "\(item.package.version) (\(byteCountFormatter.string(fromByteCount: item.package.installer.size)))"
+                let a = cell.textField?.attributedStringValue.size().width ?? CGFloat(0.0)
+                tableColumn.width = max(tableColumn.width, a)
             case .state:
                 if let selectedPackage = item.action {
                     let paraStyle = NSMutableParagraphStyle()
@@ -537,6 +553,9 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                     }
                     
                     cell.textField?.attributedStringValue = NSAttributedString(string: msg, attributes: attrs)
+                    
+                    let a = cell.textField?.attributedStringValue.size().width ?? CGFloat(0.0)
+                    tableColumn.width = max(tableColumn.width, a)
                 } else {
                     if let response = item.repo.repo.status(forPackage: item.package) {
                         if response.status == .notInstalled {
