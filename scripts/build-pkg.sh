@@ -1,4 +1,7 @@
- #!/bin/sh
+#!/bin/sh
+security default-keychain -s build.keychain
+security unlock-keychain -p travis build.keychain
+
 export DEVELOPMENT_TEAM="2K5J2584NX"
 export CODE_SIGN_IDENTITY="Developer ID Application: The University of Tromso (2K5J2584NX)"
 
@@ -22,3 +25,4 @@ productbuild --distribution scripts/dist.xml \
 
 productsign --sign "Developer ID Installer: The University of Tromso (2K5J2584NX)" divvun-installer-$VER.unsigned.pkg divvun-installer-$VER.pkg
 pkgutil --check-signature divvun-installer-$VER.pkg
+mv divvun-installer-$VER.pkg divvun-installer.pkg
