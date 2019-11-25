@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import PahkatClient
 
 class SettingsPresenter {
     private unowned let view: SettingsViewable
@@ -18,9 +19,9 @@ class SettingsPresenter {
     
     private func bindRepositoryTable() -> Disposable {
         return AppContext.settings.state.map { $0.repositories }
-            .flatMapLatest { [weak self] (configs: [RepoConfig]) -> Observable<[RepositoryTableRowData]> in
+            .flatMapLatest { [weak self] (configs: [RepoRecord]) -> Observable<[RepositoryTableRowData]> in
                 self?.view.updateProgressIndicator(isEnabled: true)
-                return Observable.merge(try configs.map { (config: RepoConfig) -> Observable<RepositoryTableRowData> in
+                return Observable.merge(try configs.map { (config: RepoRecord) -> Observable<RepositoryTableRowData> in
                     Observable.just(RepositoryTableRowData(name: "❓", url: config.url, channel: config.channel))
 //                    return try AppContext.rpc.repository(with: config).asObservable().map { repo in
 //                        return RepositoryTableRowData(name: repo.meta.nativeName, url: config.url, channel: config.channel)

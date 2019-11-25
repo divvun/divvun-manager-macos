@@ -9,9 +9,11 @@
 import Cocoa
 import RxSwift
 import RxCocoa
+import PahkatClient
 
 class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable {
     internal lazy var presenter = { UpdatePresenter(view: self) }()
+    private var repos = try! AppContext.client.repoIndexesWithStatuses()
     private var tableDelegate: UpdateTableDelegate! = nil
     
     lazy var onSkipButtonPressed: Driver<Void> = {
@@ -42,12 +44,13 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
         AppContext.settings.state.map { $0.repositories }
             .observeOn(MainScheduler.instance)
             .subscribeOn(MainScheduler.instance)
-            .flatMapLatest { [weak self] (configs: [RepoConfig]) -> Observable<[RepositoryIndex]> in
-                AppContext.client.refreshRepos()
-                return Observable.just(AppContext.client.repos())
+            .flatMapLatest { (configs: [RepoRecord]) -> Observable<[RepositoryIndex]> in
+                try AppContext.client.refreshRepos()
+                return Observable.just(try AppContext.client.repoIndexesWithStatuses())
             }
             .subscribe(onNext: { repos in
                 log.debug("Refreshed repos in update view.")
+                self.repos = repos
                 AppContext.store.dispatch(event: AppEvent.setRepositories(repos))
             }, onError: { _ in
                 // Do nothing.
@@ -60,9 +63,10 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
         DispatchQueue.main.async {
             let alert = NSAlert()
             alert.messageText = Strings.downloadError
-            alert.informativeText = error.localizedDescription
+            alert.informativeText = String(describing: error)
             
             alert.alertStyle = .critical
+            log.error(error)
             alert.runModal()
         }
     }
@@ -87,15 +91,23 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
         AppContext.windows.close(UpdateWindowController.self)
     }
     
-    func installPackages(packages: [AbsolutePackageKey: PackageAction]) {
+    func installPackages(packages: [PackageKey: SelectedPackage]) {
         log.debug("install packages")
-        let actions = packages.map { (k, v) in TransactionAction(action: v.action, id: k, target: v.target) }
+        let actions = packages.map { (arg) -> TransactionAction<InstallerTarget> in
+            let (k, v) = arg
+            switch v.action {
+            case .install:
+                return TransactionAction.install(k, target: v.target)
+            case .uninstall:
+                return TransactionAction.uninstall(k, target: v.target)
+            }
+        }
         
         log.debug(actions)
         
         DispatchQueue.main.async {
             log.debug("Do a transaction")
-            AppContext.client.transaction(of: actions)
+            PackageStoreProxy.instance.transaction(actions: actions)
                 .do(onDispose: { log.debug("DISPOSE") })
                 .subscribeOn(MainScheduler.instance)
                 .observeOn(MainScheduler.instance)
@@ -104,7 +116,7 @@ class UpdateViewController: DisposableViewController<UpdateView>, UpdateViewable
                     DispatchQueue.main.async {
                         AppDelegate.instance.requiresAppDeath = false
                         
-                        let vc = DownloadViewController(transaction: tx)
+                        let vc = DownloadViewController(transaction: tx, repos: self.repos)
                         AppContext.windows.show(MainWindowController.self, viewController: vc)
                     
                         self.closeWindow()
@@ -157,7 +169,7 @@ class UpdateTableCheckbox: NSButton {
 
 struct UpdateTablePackage: Equatable, Comparable {
     let package: Package
-    let action: PackageAction
+    let action: SelectedPackage
     var isEnabled: Bool
     
     static func ==(lhs: UpdateTablePackage, rhs: UpdateTablePackage) -> Bool {

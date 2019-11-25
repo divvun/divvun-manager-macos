@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import PahkatClient
 
 protocol MainViewable: class {
     var onPackageEvent: Observable<OutlineEvent> { get }
@@ -16,7 +17,7 @@ protocol MainViewable: class {
     var onSettingsTapped: Driver<Void> { get }
     func update(title: String)
     func updateProgressIndicator(isEnabled: Bool)
-    func showDownloadView(with packages: [AbsolutePackageKey: PackageAction])
+    func showDownloadView(with packages: [PackageKey: SelectedPackage])
     func updateSettingsButton(isEnabled: Bool)
     func updatePrimaryButton(isEnabled: Bool, label: String)
     func handle(error: Error)

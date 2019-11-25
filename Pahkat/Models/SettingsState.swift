@@ -7,34 +7,35 @@
 //
 
 import Foundation
+import PahkatClient
 
 class SettingsState {
-    private let client: PahkatClient
+    private let client: MacOSPackageStore
     
-    init(client: PahkatClient) {
+    init(client: MacOSPackageStore) {
         self.client = client
     }
     
-    internal(set) lazy var repositories: [RepoConfig] = {
-        return self.client.config.repos()
+    lazy var repositories: [RepoRecord] = {
+        return try! self.client.config().repos()
     }()
     
-    internal(set) lazy var updateCheckInterval: UpdateFrequency = {
-        if let v = self.client.config.get(uiSetting: SettingsKey.updateCheckInterval.rawValue) {
+    lazy var updateCheckInterval: UpdateFrequency = {
+        if let v = try! self.client.config().get(uiSetting: SettingsKey.updateCheckInterval.rawValue) {
             return UpdateFrequency(rawValue: v) ?? .daily
         }
         return .daily
     }()
     
-    internal(set) lazy var nextUpdateCheck: Date = {
-        if let rawDate = self.client.config.get(uiSetting: SettingsKey.nextUpdateCheck.rawValue),
+    lazy var nextUpdateCheck: Date = {
+        if let rawDate = try! self.client.config().get(uiSetting: SettingsKey.nextUpdateCheck.rawValue),
             let date = rawDate.iso8601 {
             return date
         }
         return Date.distantPast
     }()
     
-    internal(set) lazy var interfaceLanguage: String = {
-        return self.client.config.get(uiSetting: SettingsKey.interfaceLanguage.rawValue) ?? "en"
+    lazy var interfaceLanguage: String = {
+        return (try? self.client.config().get(uiSetting: SettingsKey.interfaceLanguage.rawValue)) ?? "en"
     }()
 }

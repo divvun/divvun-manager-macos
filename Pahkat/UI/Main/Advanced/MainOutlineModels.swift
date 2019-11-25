@@ -9,6 +9,7 @@
 import Foundation
 import Cocoa
 import RxSwift
+import PahkatClient
 
 protocol NSOutlineViewMenu: NSOutlineViewDelegate {
     func outlineView(_ outlineView: NSOutlineView, menuFor item: Any) -> NSMenu?
@@ -75,17 +76,17 @@ class OutlinePackage: Equatable, Comparable {
     let package: Package
     let group: OutlineGroup
     let repo: OutlineRepository
-    var action: PackageAction?
+    var selection: SelectedPackage?
     
-    init(package: Package, group: OutlineGroup, repo: OutlineRepository, action: PackageAction?) {
+    init(package: Package, group: OutlineGroup, repo: OutlineRepository, selection: SelectedPackage?) {
         self.package = package
         self.group = group
         self.repo = repo
-        self.action = action
+        self.selection = selection
     }
     
     static func ==(lhs: OutlinePackage, rhs: OutlinePackage) -> Bool {
-        return lhs.package == rhs.package && lhs.action == rhs.action
+        return lhs.package == rhs.package && lhs.selection == rhs.selection
     }
     
     static func <(lhs: OutlinePackage, rhs: OutlinePackage) -> Bool {
@@ -97,27 +98,8 @@ class OutlinePackage: Equatable, Comparable {
     }
 }
 
-//enum OutlineItem: Equatable {
-//    case repository(OutlineRepository)
-//    case group(OutlineGroup, OutlineRepository)
-//    case item(OutlinePackage, OutlineGroup, OutlineRepository)
-//    
-//    static func ==(lhs: OutlineItem, rhs: OutlineItem) -> Bool {
-//        switch (lhs, rhs) {
-//        case let (.repository(a), .repository(b)):
-//            return a == b
-//        case let (.group(a, ar), .group(b, br)):
-//            return a == b && ar == br
-//        case let (.item(a, ag, ar), .item(b, bg, br)):
-//            return a == b && ag == bg && ar == br
-//        default:
-//            return false
-//        }
-//    }
-//}
-
 enum OutlineEvent {
-    case setPackageAction(PackageAction)
+    case setPackageSelection(SelectedPackage)
     case togglePackage(OutlinePackage)
     case toggleGroup(OutlineGroup)
     case changeFilter(OutlineRepository, Repository.PrimaryFilter)

@@ -8,113 +8,87 @@
 
 import Foundation
 import RxSwift
-
-class CancelToken {
-    private(set) var isCancelled: Bool = false
-    var childDisposable: Disposable?
-    
-    func cancel() {
-        isCancelled = true
-    }
-    
-    deinit {
-        self.childDisposable?.dispose()
-    }
-}
+import PahkatClient
 
 class InstallPresenter {
     private unowned var view: InstallViewable
-    private let transaction: PahkatTransactionType
+    private let transaction: TransactionType
+    private let repos: [RepositoryIndex]
     
-    init(view: InstallViewable, transaction: PahkatTransactionType) {
+    private var isCancelled = false
+    private var cancelCallback: CancelCallback? = nil
+    private var requiresReboot = false
+    
+    init(view: InstallViewable, transaction: TransactionType, repos: [RepositoryIndex]) {
         self.view = view
         self.transaction = transaction
-    }
-    
-    func installTest() -> Single<PackageInstallStatus> {
-        // TODO: subprocess
-        return Single.just(PackageInstallStatus.notInstalled)
-            .delay(2.0, scheduler: MainScheduler.instance)
-    }
-    
-    private func bindInstallProcess() -> CancelToken {
-        let cancelToken = CancelToken()
-        
-        let repos = AppContext.store.state.map { $0.repositories }.take(1)
-        
-        let observable = Observable.combineLatest(repos, transaction.process())
-        
-        var requiresReboot = false
-        
-        cancelToken.childDisposable = observable
-            .subscribeOn(MainScheduler.instance)
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { (repos, event) in
-                var maybePackage: Package? = nil
-                
-                for repo in repos {
-                    maybePackage = repo.packages[event.packageId.id]
-                    if maybePackage != nil {
-                        break
-                    }
-                }
-                
-                if maybePackage == nil {
-                    fatalError("No package found for id: \(event.packageId)")
-                }
-                
-                let package = maybePackage!
-                
-                guard let action = self.transaction.actions.first(where: { $0.id == event.packageId }) else {
-                    return
-                }
-                
-                switch event.event {
-                case .installing:
-                    self.view.setStarting(action: action.action, package: package)
-                    if package.nativeInstaller?.requiresReboot ?? false {
-                        requiresReboot = true
-                    }
-                case .uninstalling:
-                    self.view.setStarting(action: action.action, package: package)
-                    if package.nativeInstaller?.requiresUninstallReboot ?? false {
-                        requiresReboot = true
-                    }
-                case .completed:
-                    self.view.setEnding()
-                case .notStarted:
-                    break
-                case .error:
-                    break // TODO
-                }
-            },
-            onError: { [weak self] error in
-                self?.view.handle(error: error)
-            },
-            onCompleted: { [weak self] in
-                if cancelToken.isCancelled {
-                    self?.view.processCancelled()
-                } else {
-                    self?.view.showCompletion(requiresReboot: requiresReboot)
-                }
-            })
-        
-        return cancelToken
+        self.repos = repos
     }
     
     private func bindCancelButton() -> Disposable {
         return view.onCancelTapped.drive(onNext: { [weak self] in
+            self?.isCancelled = true
+            self?.cancelCallback?()
             self?.view.beginCancellation()
         })
+    }
+    
+    private func package(for key: PackageKey) -> Package {
+        for repo in repos {
+            if let pkg = repo.package(for: key) {
+                return pkg
+            }
+        }
+        fatalError("No package found during installation with key: \(key.rawValue)")
     }
     
     func start() -> Disposable {
         self.view.set(totalPackages: transaction.actions.count)
         
-        return Disposables.create { }
+        cancelCallback = transaction.processWithCallback(delegate: self)
+        
+        return bindCancelButton()
+    }
+}
+
+extension InstallPresenter: PackageTransactionDelegate {
+    func isTransactionCancelled(_ id: UInt32) -> Bool {
+        return self.isCancelled
     }
     
-    func install() -> CancelToken {
-        return bindInstallProcess()
+    func transactionWillInstall(_ id: UInt32, packageKey: PackageKey) {
+        let package = self.package(for: packageKey)
+        if package.macOSInstaller?.requiresReboot ?? false {
+            requiresReboot = true
+        }
+        self.view.set(nextPackage: package, action: .install)
+    }
+    
+    func transactionWillUninstall(_ id: UInt32, packageKey: PackageKey) {
+        let package = self.package(for: packageKey)
+        if package.macOSInstaller?.requiresUninstallReboot ?? false {
+            requiresReboot = true
+        }
+        self.view.set(nextPackage: package, action: .uninstall)
+    }
+    
+    func transactionDidCancel(_ id: UInt32) {
+        self.view.processCancelled()
+    }
+    
+    func transactionDidComplete(_ id: UInt32) {
+        self.view.showCompletion(requiresReboot: requiresReboot)
+    }
+    
+    func transactionDidError(_ id: UInt32, packageKey: PackageKey?, error: Error?) {
+        if let error = error {
+            self.view.handle(error: error)
+        } else {
+            self.view.handle(error: XPCError(message: Strings.error))
+        }
+    }
+    
+    func transactionDidUnknownEvent(_ id: UInt32, packageKey: PackageKey, event: UInt32) {
+        // Do nothing.
     }
 }

@@ -3,24 +3,24 @@ PODS:
   - ObjcExceptionBridging (1.0.1):
     - ObjcExceptionBridging/ObjcExceptionBridging (= 1.0.1)
   - ObjcExceptionBridging/ObjcExceptionBridging (1.0.1)
-  - RxAtomic (4.4.0)
-  - RxCocoa (4.4.0):
-    - RxSwift (~> 4.0)
+  - PahkatClient (0.1.0)
+  - RxCocoa (4.5.0):
+    - RxSwift (>= 4.4.2, ~> 4.4)
   - RxFeedback (1.1.1):
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
-  - RxSwift (4.4.0):
-    - RxAtomic (~> 4.4)
+  - RxSwift (4.5.0)
   - Sentry (4.1.1):
     - Sentry/Core (= 4.1.1)
   - Sentry/Core (4.1.1)
-  - XCGLogger (6.1.0):
-    - XCGLogger/Core (= 6.1.0)
-  - XCGLogger/Core (6.1.0):
+  - XCGLogger (7.0.0):
+    - XCGLogger/Core (= 7.0.0)
+  - XCGLogger/Core (7.0.0):
     - ObjcExceptionBridging
 
 DEPENDENCIES:
   - BTree (~> 4.1)
+  - PahkatClient (from `https://github.com/divvun/pahkat-client-sdk-swift`)
   - RxCocoa (~> 4.4)
   - RxFeedback (~> 1.1)
   - RxSwift (~> 4.4)
@@ -28,21 +28,27 @@ DEPENDENCIES:
   - XCGLogger
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - BTree
     - ObjcExceptionBridging
-    - RxAtomic
     - RxCocoa
     - RxFeedback
     - RxSwift
     - XCGLogger
 
 EXTERNAL SOURCES:
+  PahkatClient:
+    :git: https://github.com/divvun/pahkat-client-sdk-swift
+    :submodules: true
   Sentry:
     :git: https://github.com/getsentry/sentry-cocoa.git
     :tag: 4.1.1
 
 CHECKOUT OPTIONS:
+  PahkatClient:
+    :commit: 6ef1c55b74fe8646852e855c84104996efe9b661
+    :git: https://github.com/divvun/pahkat-client-sdk-swift
+    :submodules: true
   Sentry:
     :git: https://github.com/getsentry/sentry-cocoa.git
     :tag: 4.1.1
@@ -50,13 +56,13 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   BTree: 99b99930790b88dc5e8bafbf666a5dfb8d7808b4
   ObjcExceptionBridging: c30e00eb3700467e695faeea30e26e18bd445001
-  RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
-  RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
+  PahkatClient: 455efc285bc37574fbc79f5ccfe47de2736e06c6
+  RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
   RxFeedback: 640e317bc7f6c4914c39a2063c6d5c0e6c1aa65d
-  RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
+  RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
   Sentry: c9d0543c7223ddec036027f4c7391ea057ba9856
-  XCGLogger: 7f7f43f15dfe3a305fa1342b7dc29af656289abd
+  XCGLogger: 0434f15e3909cdc450bb63faf638b8792ab782ab
 
-PODFILE CHECKSUM: 914ef1c8bd9e86a4cfad79d58c2d7631c4e86f4c
+PODFILE CHECKSUM: eb6dd0a468c3845c2465407d0e0c8f482aa9d466
 
-COCOAPODS: 1.6.0.beta.2
+COCOAPODS: 1.8.4

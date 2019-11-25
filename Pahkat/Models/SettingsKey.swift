@@ -8,11 +8,6 @@
 
 import Foundation
 
-protocol UserSettingsJSON {
-    var requiresJSON: Bool { get }
-    var rawValue: String { get }
-}
-
 enum SettingsKey: String, UserSettingsJSON {
     static let suiteName = "no.divvun.Pahkat"
     

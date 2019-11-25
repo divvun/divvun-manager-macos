@@ -8,78 +8,139 @@
 
 import Foundation
 import RxSwift
+import PahkatClient
 
 class DownloadPresenter {
     private weak var view: DownloadViewable!
-    let transaction: PahkatTransactionType
+    let transaction: TransactionType
     
-    required init(view: DownloadViewable, transaction: PahkatTransactionType) {
+    required init(view: DownloadViewable, transaction: TransactionType) {
         self.view = view
         self.transaction = transaction
     }
     
-    func downloadablePackages() -> Observable<(AbsolutePackageKey, Package, InstallerTarget)> {
-//        PackageActionType
-        // TODO: repositories should be a hashmap with a URL key at this point.
-        let keys = transaction.actions.filter { $0.action == .install }
-//        let repos = .asSingle()
-//
-//        Single.zip(repos, Single.just())
-//
-        return AppContext.store.state.map { $0.repositories }.take(1).asSingle()
-            .map { (repos) -> [(AbsolutePackageKey, Package, InstallerTarget)] in
-                var packages = [(AbsolutePackageKey, Package, InstallerTarget)]()
-                for repo in repos {
-                    let nextPackages = keys.compactMap { k -> (AbsolutePackageKey, Package, InstallerTarget)? in
-                        if let p = repo.package(for: k.id) { return (k.id, p, k.target) } else { return nil }
-                    }
-                    packages.append(contentsOf: nextPackages)
+    func downloadablePackages() -> [(PackageKey, Package)] {
+        let actions = transaction.actions.filter { $0.action == .install }
+        
+        let repos = try! AppContext.client.repoIndexesWithStatuses()
+        return actions.compactMap { (action) -> (PackageKey, Package)? in
+            for repo in repos {
+                if let package = repo.package(for: action.id) {
+                    return (action.id, package)
                 }
-                return packages
-            }.asObservable().flatMapLatest {
-                return Observable.from($0)
             }
+            return nil
+        }
     }
     
+    private var isCancelled = false
+    private var packages = [PackageKey: Package]()
+    
     private func bindCancel() -> Disposable {
-        return view.onCancelTapped.drive(onNext: { [weak self] in self?.view.cancel() })
+        return view.onCancelTapped.drive(onNext: { [weak self] in
+            self?.isCancelled = true
+            self?.view.cancel()
+        })
     }
+    
+    private enum DownloadState {
+        case completed(PackageKey)
+        case error(Error)
+        case cancelled
+    }
+    
+    private let downloadedSubject = PublishSubject<DownloadState>()
     
     private func bindDownload() -> Disposable {
         let client = AppContext.client
         
-        return downloadablePackages().map { (args: (AbsolutePackageKey, Package, InstallerTarget)) -> Observable<(Package, PackageDownloadStatus)> in
-            let (id, package, target) = args
-            log.debug("Downloading \(id)")
-            
-            return client.download(packageKey: id, target: target)
-                .do(onNext: { [weak self] x in
-                    self?.view.setStatus(package: package, status: x.status)
-                })
-                .map { (package, $0.status) }
+        let downloadables = downloadablePackages()
+        downloadables.forEach { (k, v) in packages[k] = v }
+        
+        let downloadableObservable = Observable.from(downloadables)
+        return downloadableObservable.map { (key, package) -> Completable in
+            if self.isCancelled {
+                return Completable.empty()
             }
-            .merge(maxConcurrent: 3)
-            .toArray()
-            .observeOn(MainScheduler.instance)
-            .subscribeOn(MainScheduler.instance)
-            .subscribe(
-                onNext: { [weak self] _ in
-                    guard let `self` = self else { return }
+            
+            client.download(packageKey: key, delegate: self)
+                
+            return self.downloadedSubject.map { (event) -> Completable? in
+                switch event {
+                case let .error(error):
+                    return Completable.error(error)
+                case .cancelled:
+                    return Completable.empty()
+                case let .completed(k):
+                    return key == k ? Completable.empty() : nil
+                }
+            }
+            .filter { $0 != nil }
+            .map { $0! }
+            .take(1)
+            .switchLatest()
+            .asCompletable()
+        }
+        .merge(maxConcurrent: 3)
+        .toArray()
+        .observeOn(MainScheduler.instance)
+        .subscribeOn(MainScheduler.instance)
+        .subscribe(
+            onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                if !self.isCancelled {
                     self.view.startInstallation(transaction: self.transaction)
-                },
-                onError: { [weak self] in
-                    self?.view.handle(error: $0)
-                })
+                }
+            },
+            onError: { [weak self] in
+                self?.view.handle(error: $0)
+            }
+        )
     }
         
     func start() -> Disposable {
-        _ = downloadablePackages().map({ $0.1 }).toArray().subscribe(onNext: {
-            self.view.initializeDownloads(packages: $0)
-        })
+        self.view.initializeDownloads(packages: downloadablePackages().map { $0.1 })
         
         return CompositeDisposable(disposables: [
             self.bindDownload(),
             self.bindCancel()
         ])
+    }
+}
+
+extension DownloadPresenter: PackageDownloadDelegate {
+    var isDownloadCancelled: Bool {
+        return self.isCancelled
+    }
+    
+    func downloadDidProgress(_ packageKey: PackageKey, current: UInt64, maximum: UInt64) {
+        guard let package = self.packages[packageKey] else { return }
+        self.view.setStatus(
+            package: package,
+            status: .progress(downloaded: current, total: maximum))
+    }
+    
+    func downloadDidComplete(_ packageKey: PackageKey, path: String) {
+        guard let package = self.packages[packageKey] else { return }
+        self.view.setStatus(
+            package: package,
+            status: .completed)
+        downloadedSubject.onNext(.completed(packageKey))
+    }
+    
+    func downloadDidCancel(_ packageKey: PackageKey) {
+        guard let package = self.packages[packageKey] else { return }
+        self.view.setStatus(
+            package: package,
+            status: .notStarted)
+        downloadedSubject.onNext(.cancelled)
+    }
+    
+    func downloadDidError(_ packageKey: PackageKey, error: Error) {
+        guard let package = self.packages[packageKey] else { return }
+        self.view.setStatus(
+            package: package,
+            status: .error(DownloadError(message: error.localizedDescription)))
+        downloadedSubject.onNext(.error(error))
     }
 }

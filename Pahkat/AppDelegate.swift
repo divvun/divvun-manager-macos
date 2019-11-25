@@ -10,6 +10,7 @@ import Cocoa
 import RxSwift
 import Sentry
 import XCGLogger
+import PahkatClient
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -78,11 +79,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .distinctUntilChanged()
             .filter { $0.isEmpty }
             .subscribe(onNext: { _ in
-                let repos = [RepoConfig(url: URL(string: "https://pahkat.uit.no/repo/macos/")!, channel: .stable)]
+                let repos = [RepoRecord(url: URL(string: "https://pahkat.uit.no/repo/macos/")!, channel: .stable)]
                 AppContext.settings.dispatch(event: SettingsEvent.setRepositoryConfigs(repos))
-                AppContext.client.config.set(repos: repos)
-                AppContext.client.refreshRepos()
-                AppContext.store.dispatch(event: AppEvent.setRepositories(AppContext.client.repos()))
+                do {
+                    try AppContext.client.config().set(repos: repos)
+                    try AppContext.client.refreshRepos()
+                    AppContext.store.dispatch(event: AppEvent.setRepositories(try AppContext.client.repoIndexesWithStatuses()))
+                } catch {
+                    fatalError(String(describing: error))
+                }
             }).disposed(by: bag)
         
         // If triggered by agent, only show update window.

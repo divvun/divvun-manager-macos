@@ -8,7 +8,7 @@
 
 import Foundation
 import RxSwift
-
+import PahkatClient
 
 class UpdatePresenter {
     private unowned let view: UpdateViewable
@@ -36,14 +36,14 @@ class UpdatePresenter {
                     return
                 }
                 
-                var map = [AbsolutePackageKey: PackageAction]()
+                var map = [PackageKey: SelectedPackage]()
                 
                 for item in self.packages {
                     if !item.isEnabled {
                         continue
                     }
                     
-                    map[item.action.packageRecord.id] = item.action
+                    map[item.action.key] = item.action
                 }
                 
                 log.debug("Going to isntall")
@@ -60,7 +60,7 @@ class UpdatePresenter {
     private func bindPackageToggled() -> Disposable {
         return self.view.onPackageToggled.subscribe(onNext: { [weak self] package in
             guard let `self` = self else { return }
-            guard let index = self.packages.index(where: { $0 == package }) else {
+            guard let index = self.packages.firstIndex(where: { $0 == package }) else {
                 return
             }
             
@@ -89,9 +89,8 @@ class UpdatePresenter {
                         
                         let package = repo.packages[$0.key.id]!
                         let key = repo.absoluteKey(for: package)
-                        let record = PackageRecord(id: key, package: package)
                         
-                        let action = PackageAction(action: .install, packageRecord: record, target: $0.1.target)
+                        let action = SelectedPackage(key: key, package: package, action: .install, target: $0.1.target)
                         return UpdateTablePackage(package: package, action: action, isEnabled: true)
                     }
                     

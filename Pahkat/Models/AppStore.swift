@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import PahkatClient
 
 enum AppEvent {
     case setRepositories([RepositoryIndex])

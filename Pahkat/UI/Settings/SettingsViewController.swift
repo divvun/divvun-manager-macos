@@ -9,6 +9,7 @@
 import Cocoa
 import RxSwift
 import RxCocoa
+import PahkatClient
 
 extension Repository.Channels {
     var description: String {
@@ -89,9 +90,9 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
             return
         }
         
-        let v = tableDelegate.configs.compactMap { t -> RepoConfig? in
+        let v = tableDelegate.configs.compactMap { t -> RepoRecord? in
             if let url = t.url, let channel = t.channel {
-                return RepoConfig(url: url, channel: channel)
+                return RepoRecord(url: url, channel: channel)
             }
             return nil
         }
@@ -106,6 +107,7 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
             alert.informativeText = error.localizedDescription
             
             alert.alertStyle = .critical
+            log.error(error)
             alert.runModal()
         }
     }
@@ -228,7 +230,11 @@ class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSou
             return config.name
         case .channel:
             guard let cell = tableColumn.dataCell as? NSPopUpButtonCell else { return nil }
-            guard let index = cell.menu?.items.index(where: { $0.representedObject as? Repository.Channels == config.channel }) else { return nil }
+            guard let index = cell.menu?.items.firstIndex(where: {
+                $0.representedObject as? Repository.Channels == config.channel
+            }) else {
+                return nil
+            }
             return index
         }
     }

@@ -10,6 +10,7 @@ import Cocoa
 import RxSwift
 import RxCocoa
 import BTree
+import PahkatClient
 
 class MainViewController: DisposableViewController<MainView>, MainViewable, NSToolbarDelegate {
     private lazy var presenter = { MainPresenter(view: self) }()
@@ -67,28 +68,42 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         }
     }
     
-    private func sortPackages(packages: [AbsolutePackageKey: PackageAction]) -> [PackageAction] {
+    private func sortPackages(packages: [PackageKey: SelectedPackage]) -> [SelectedPackage] {
         return packages.values
             .sorted(by: { (a, b) in
                 if (a.isInstalling && b.isInstalling) || (a.isUninstalling && b.isUninstalling) {
                     // TODO: fix when dependency management is added
-                    return a.packageRecord.id < b.packageRecord.id
+                    return a.key < b.key
                 }
                 
                 return a.isUninstalling
             })
     }
     
-    func showDownloadView(with packages: [AbsolutePackageKey: PackageAction]) {
-        let txActions = self.sortPackages(packages: packages).map {
-            return TransactionAction(action: $0.action, id: $0.packageRecord.id, target: $0.target)
+    func showDownloadView(with packages: [PackageKey: SelectedPackage]) {
+        let txActions = self.sortPackages(packages: packages).map { (x) -> TransactionAction<InstallerTarget> in
+            switch x.action {
+            case .install:
+                return TransactionAction<InstallerTarget>.install(x.key, target: x.target)
+            case .uninstall:
+                return TransactionAction<InstallerTarget>.uninstall(x.key, target: x.target)
+            }
         }
         
-        AppContext.client.transaction(of: txActions)
-            .subscribe(onSuccess: { tx in
+        let reposSingle: Single<[RepositoryIndex]> = AppContext.store.state
+            .map { $0.repositories }
+            .take(1)
+            .asSingle()
+        
+        Single
+            .zip(
+                PackageStoreProxy.instance.transaction(actions: txActions),
+                reposSingle
+            )
+            .subscribe(onSuccess: { (tx, repos) in
                 DispatchQueue.main.async {
                     AppContext.windows.set(
-                        DownloadViewController(transaction: tx),
+                        DownloadViewController(transaction: tx, repos: repos),
                         for: MainWindowController.self)
                 }
             }, onError: { error in
@@ -139,12 +154,14 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     }
     
     func handle(error: Error) {
+        print(Thread.callStackSymbols.joined(separator: "\n"))
         DispatchQueue.main.async {
             let alert = NSAlert()
             alert.messageText = Strings.downloadError
-            alert.informativeText = error.localizedDescription
+            alert.informativeText = String(describing: error)
             
             alert.alertStyle = .critical
+            log.error(error)
             alert.runModal()
             
             self.contentView.settingsButton.isEnabled = true
@@ -244,7 +261,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
 }
 
 enum OutlineContextMenuItem {
-    case packageAction(PackageAction)
+    case SelectedPackage(SelectedPackage)
     case filter(OutlineRepository, Repository.PrimaryFilter)
 }
 
@@ -276,8 +293,8 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
         
         if let value = item.representedObject as? OutlineContextMenuItem {
             switch value {
-            case let .packageAction(action):
-                events.onNext(OutlineEvent.setPackageAction(action))
+            case let .SelectedPackage(action):
+                events.onNext(OutlineEvent.setPackageSelection(action))
             case let .filter(repo, filter):
                 events.onNext(OutlineEvent.changeFilter(repo, filter))
             }
@@ -303,29 +320,30 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
             let status = outlineStatus.status
             let target = outlineStatus.target
             
-            let packageRecord = PackageRecord(id: item.repo.repo.absoluteKey(for: item.package), package: item.package)
+            let key = item.repo.repo.absoluteKey(for: item.package)
+            let package = item.package
             
             switch status {
             case .notInstalled:
                 if installer.targets.contains(.system) {
-                    let v = PackageAction(action: .install, packageRecord: packageRecord, target: .system)
-                    menu.addItem(makeMenuItem(Strings.installSystem, value: OutlineContextMenuItem.packageAction(v)))
+                    let v = SelectedPackage(key: key, package: package, action: .install, target: .system)
+                    menu.addItem(makeMenuItem(Strings.installSystem, value: OutlineContextMenuItem.SelectedPackage(v)))
                 }
                 if installer.targets.contains(.user) {
-                    let v = PackageAction(action: .install, packageRecord: packageRecord, target: .user)
-                    menu.addItem(makeMenuItem(Strings.installUser, value: OutlineContextMenuItem.packageAction(v)))
+                    let v = SelectedPackage(key: key, package: package, action: .install, target: .user)
+                    menu.addItem(makeMenuItem(Strings.installUser, value: OutlineContextMenuItem.SelectedPackage(v)))
                 }
             case .requiresUpdate, .versionSkipped:
-                let v = PackageAction(action: .install, packageRecord: packageRecord, target: target)
-                menu.addItem(makeMenuItem(Strings.update, value: OutlineContextMenuItem.packageAction(v)))
+                let v = SelectedPackage(key: key, package: package, action: .install, target: target)
+                menu.addItem(makeMenuItem(Strings.update, value: OutlineContextMenuItem.SelectedPackage(v)))
             default:
                 break
             }
             
             switch status {
             case .upToDate, .requiresUpdate, .versionSkipped:
-                let v = PackageAction(action: .uninstall, packageRecord: packageRecord, target: target)
-                menu.addItem(makeMenuItem(Strings.uninstall, value: OutlineContextMenuItem.packageAction(v)))
+                let v = SelectedPackage(key: key, package: package, action: .uninstall, target: target)
+                menu.addItem(makeMenuItem(Strings.uninstall, value: OutlineContextMenuItem.SelectedPackage(v)))
             default:
                 break
             }
@@ -473,7 +491,7 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                 button.isHidden = false
                 
                 let groupState: NSControl.StateValue = {
-                    let i = packages.reduce(0, { (acc, cur) in return acc + (cur.action == nil ? 0 : 1) })
+                    let i = packages.reduce(0, { (acc, cur) in return acc + (cur.selection == nil ? 0 : 1) })
                     
                     if i == 0 {
                         return .off
@@ -517,7 +535,7 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                 button.toolTip = package.nativeName
                 cell.textField?.toolTip = package.nativeName
                 
-                if item.action != nil {
+                if item.selection != nil {
                     button.state = .on
                 } else {
                     button.state = .off
@@ -531,7 +549,7 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                 let a = cell.textField?.attributedStringValue.size().width ?? CGFloat(0.0)
                 tableColumn.width = max(tableColumn.width, a)
             case .state:
-                if let selectedPackage = item.action {
+                if let selectedPackage = item.selection {
                     let paraStyle = NSMutableParagraphStyle()
                     paraStyle.alignment = .left
                     
@@ -565,7 +583,7 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                             case .system:
                                 cell.textField?.stringValue = response.status.description
                             case .user:
-                                cell.textField?.stringValue = Strings.userDescription(description: response.status.description.description)
+                                cell.textField?.stringValue = Strings.userDescription(description: response.status.description)
                             }
                         }
                     } else {

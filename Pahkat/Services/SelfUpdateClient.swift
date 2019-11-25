@@ -7,9 +7,10 @@
 //
 
 import Cocoa
+import PahkatClient
 
 class SelfUpdateClient {
-    let client: PahkatClient
+    let client: MacOSPackageStore
     let overrideUpdateChannel: Bool
     let package: Package
     let status: PackageStatusResponse
@@ -31,23 +32,25 @@ class SelfUpdateClient {
             return nil
         }
         
-        guard let client = PahkatClient(configPath: selfUpdatePath.path) else {
+        guard let client = try? MacOSPackageStore.load(path: selfUpdatePath.path) else {
             log.debug("No PahkatClient generated for given config.")
             return nil
         }
         
-        guard let repo = client.repos().first else {
+        guard let repo = try? client.repoIndexesWithStatuses().first else {
             log.debug("No repo found in config.")
             return nil
         }
         
-        client.config.set(cachePath: tmpDir.path)
+        try! client.config().setCacheBase(path: tmpDir.path)
         
         var overrideUpdateChannel = false
-        if let selfUpdateChannelString = AppContext.client.config.get(uiSetting: "selfUpdateChannel") {
-            if let selfUpdateChannel = Repository.Channels.init(rawValue: selfUpdateChannelString) {
-                client.config.set(repos: [RepoConfig(url: client.config.repos()[0].url, channel: selfUpdateChannel)])
-                client.refreshRepos()
+        if let selfUpdateChannelString = try? AppContext.client.config().get(uiSetting: "selfUpdateChannel") {
+            if let selfUpdateChannel = Repository.Channels(rawValue: selfUpdateChannelString) {
+                try! client.config().set(repos: [
+                    RepoRecord(url: client.config().repos()[0].url, channel: selfUpdateChannel)
+                ])
+                try! client.refreshRepos()
                 overrideUpdateChannel = true
             }
         }
@@ -64,7 +67,7 @@ class SelfUpdateClient {
     }
     
     func assertSuccessfulUpdate() -> Bool {
-        guard let v = AppContext.client.config.get(uiSetting: "no.divvun.Pahkat.updatingTo") else { return true }
+        guard let v = try! AppContext.client.config().get(uiSetting: "no.divvun.Pahkat.updatingTo") else { return true }
         
         if v != package.version {
             let alert = NSAlert()
@@ -81,7 +84,7 @@ class SelfUpdateClient {
             }
         }
         
-        AppContext.client.config.set(uiSetting: "no.divvun.Pahkat.updatingTo", value: nil)
+        try! AppContext.client.config().set(uiSetting: "no.divvun.Pahkat.updatingTo", value: nil)
         return true
     }
     

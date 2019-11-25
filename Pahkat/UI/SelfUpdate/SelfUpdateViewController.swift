@@ -8,15 +8,16 @@
 
 import Cocoa
 import RxSwift
+import PahkatClient
 
 protocol SelfUpdateViewable: class {
     
 }
 
 class SelfUpdateViewController: ViewController<SelfUpdateView>, SelfUpdateViewable, NSWindowDelegate {
-    private let client: PahkatClient
+    private let client: MacOSPackageStore
     private let package: Package
-    private let key: AbsolutePackageKey
+    private let key: PackageKey
     private let status: PackageStatusResponse
     
     private let bag = DisposeBag()
@@ -24,7 +25,7 @@ class SelfUpdateViewController: ViewController<SelfUpdateView>, SelfUpdateViewab
     init(client: SelfUpdateClient) {
         self.client = client.client
         self.package = client.package
-        self.key = self.client.repos()[0].absoluteKey(for: package)
+        self.key = try! self.client.repoIndexesWithStatuses()[0].absoluteKey(for: package)
         self.status = client.status
         
         super.init()
@@ -70,77 +71,26 @@ class SelfUpdateViewController: ViewController<SelfUpdateView>, SelfUpdateViewab
         }
     }
     
+    private let byteCountFormatter = ByteCountFormatter()
+    
     private func download() {
-        AppContext.client.config.set(uiSetting: "", value: package.version)
+        try! AppContext.client.config()
+            .set(uiSetting: "no.divvun.Pahkat.updatingTo", value: package.version)
         
-        let byteCountFormatter = ByteCountFormatter()
-        client.download(packageKey: key, target: status.target)
-            .subscribeOn(MainScheduler.instance)
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { progress in
-                switch progress.status {
-                case let .progress(downloaded, total):
-                    self.contentView.progress.isIndeterminate = false
-                    self.contentView.progress.minValue = 0.0
-                    self.contentView.progress.maxValue = Double(total)
-                    self.contentView.progress.doubleValue = Double(downloaded)
-                    
-                    let downloadStr = byteCountFormatter.string(fromByteCount: Int64(downloaded))
-                    let totalStr = byteCountFormatter.string(fromByteCount: Int64(total))
-                    
-                    self.contentView.subtitle.stringValue = "\(Strings.downloading) \(downloadStr) / \(totalStr)"
-                case let .error(error):
-                    self.contentView.subtitle.stringValue = Strings.downloadError
-                    self.handle(error: error)
-                case .starting:
-                    self.contentView.subtitle.stringValue = Strings.starting
-                default:
-                    break
-                }
-            }, onError: { error in
-                DispatchQueue.main.async {
-                    self.contentView.subtitle.stringValue = Strings.downloadError
-                    self.handle(error: error)
-                }
-            }, onCompleted: {
-                DispatchQueue.main.async {
-                    self.install()
-                }
-            }).disposed(by: bag)
+        client.download(packageKey: key, delegate: self)
     }
     
-    private func install(with action: TransactionAction) {
-        client.transaction(of: [action]).asObservable()
-            .subscribeOn(MainScheduler.instance)
-            .observeOn(MainScheduler.instance)
-            .flatMapLatest { tx in tx.process() }
-            .flatMapLatest { (event) -> Observable<PackageEvent> in
-                if event.event == .error {
-                    return Observable.error(PahkatClientError(message: "There was an error installing this update."))
-                }
-                return Observable.just(event)
-            }
-            .subscribe(onError: { error in
-                DispatchQueue.main.async {
-                    self.contentView.subtitle.stringValue = Strings.downloadError
-                    self.handle(error: error)
-                }
-            }, onCompleted: {
-                DispatchQueue.main.async {
-                    self.contentView.subtitle.stringValue = Strings.waitingForCompletion
-                    self.reloadApp()
-                }
-            }).disposed(by: bag)
+    private func install(with action: TransactionAction<InstallerTarget>) {
+        
     }
     
     private func install() {
-        let action = TransactionAction.init(action: .install, id: self.key, target: self.status.target)
+        let action = TransactionAction.install(self.key, target: self.status.target)
         self.contentView.subtitle.stringValue = Strings.installingPackage(name: Strings.appName, version: self.package.nativeVersion)
         
         if action.target == .system {
-            
-            PahkatClient.checkForAdminService().subscribe(onCompleted: {
-                self.install(with: action)
+            PahkatAdminReceiver.checkForAdminService().subscribe(onCompleted: {
+                try! self.client.transaction(actions: [action]).process(delegate: self)
             }, onError: { error in
                 self.handle(error: error)
             }).disposed(by: self.bag)
@@ -150,6 +100,9 @@ class SelfUpdateViewController: ViewController<SelfUpdateView>, SelfUpdateViewab
     private func reloadApp() {
         let p = Process()
         p.launchPath = "/usr/bin/nohup"
+        p.standardOutput = FileHandle.nullDevice
+        p.standardError = FileHandle.nullDevice
+        p.standardInput = FileHandle.nullDevice
         p.arguments = ["sh", "-c", "killall -9 'Divvun Installer'; open /Applications/Divvun\\ Installer.app --args first-run"]
         p.launch()
         p.waitUntilExit()
@@ -157,5 +110,71 @@ class SelfUpdateViewController: ViewController<SelfUpdateView>, SelfUpdateViewab
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension SelfUpdateViewController: PackageDownloadDelegate {
+    var isDownloadCancelled: Bool {
+        return false
+    }
+    
+    func downloadDidProgress(_ packageKey: PackageKey, current: UInt64, maximum: UInt64) {
+        self.contentView.progress.isIndeterminate = false
+        self.contentView.progress.minValue = 0.0
+        self.contentView.progress.maxValue = Double(current)
+        self.contentView.progress.doubleValue = Double(maximum)
+
+        let downloadStr = byteCountFormatter.string(fromByteCount: Int64(current))
+        let totalStr = byteCountFormatter.string(fromByteCount: Int64(maximum))
+
+        self.contentView.subtitle.stringValue = "\(Strings.downloading) \(downloadStr) / \(totalStr)"
+    }
+    
+    func downloadDidComplete(_ packageKey: PackageKey, path: String) {
+        DispatchQueue.main.async {
+            self.install()
+        }
+    }
+    
+    func downloadDidCancel(_ packageKey: PackageKey) {
+        // TODO: should be unreachable
+        self.handle(error: XPCError(message: "Cancelled"))
+    }
+    
+    func downloadDidError(_ packageKey: PackageKey, error: Error) {
+        self.contentView.subtitle.stringValue = Strings.downloadError
+        self.handle(error: error)
+    }
+}
+
+extension SelfUpdateViewController: PackageTransactionDelegate {
+    func transactionDidComplete(_ id: UInt32) {
+        DispatchQueue.main.async {
+            self.contentView.subtitle.stringValue = Strings.waitingForCompletion
+            self.reloadApp()
+        }
+    }
+    
+    func transactionDidCancel(_ id: UInt32) {
+        self.contentView.subtitle.stringValue = Strings.downloadError
+        self.handle(error: XPCError(message: "There was an error installing this update."))
+    }
+    
+    func transactionDidError(_ id: UInt32, packageKey: PackageKey?, error: Error?) {
+        self.contentView.subtitle.stringValue = Strings.downloadError
+        self.handle(error: XPCError(message: "There was an error installing this update."))
+    }
+    
+    func isTransactionCancelled(_ id: UInt32) -> Bool {
+        return false
+    }
+    
+    func transactionWillInstall(_ id: UInt32, packageKey: PackageKey) {
+    }
+    
+    func transactionWillUninstall(_ id: UInt32, packageKey: PackageKey) {
+    }
+    
+    func transactionDidUnknownEvent(_ id: UInt32, packageKey: PackageKey, event: UInt32) {
     }
 }

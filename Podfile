@@ -5,11 +5,13 @@ use_modular_headers!
 
 target 'PahkatUpdateAgent' do
   pod 'RxSwift', '~> 4.4'
+  pod "PahkatClient", :git => "https://github.com/divvun/pahkat-client-sdk-swift", :submodules => true
 end
 
 target 'PahkatAdminService' do
   pod 'RxSwift', '~> 4.4'
   pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '4.1.1'
+  pod "PahkatClient", :git => "https://github.com/divvun/pahkat-client-sdk-swift", :submodules => true
   pod 'XCGLogger'
 end
 
@@ -21,6 +23,7 @@ target 'Pahkat' do
   pod 'BTree', '~> 4.1'
   pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '4.1.1'
   pod 'XCGLogger'
+  pod "PahkatClient", :git => "https://github.com/divvun/pahkat-client-sdk-swift", :submodules => true
 end
 
 post_install do |installer|

@@ -1,35 +1,78 @@
 //
-//  Auth.swift
-//  PahkatAdminService
+//  PahkatAdminReceiver.swift
+//  Pahkat
 //
-//  Created by Brendan Molloy on 2018-12-06.
-//  Copyright © 2018 Divvun. All rights reserved.
+//  Created by Brendan Molloy on 2019-11-18.
+//  Copyright © 2019 Divvun. All rights reserved.
 //
 
 import Foundation
 import ServiceManagement
 import RxSwift
-
-@objc protocol PahkatAdminProtocol {
-    func xpcServiceVersion(withReply: @escaping (String) -> ())
-    func set(cachePath: String, for configPath: String)
-    func set(channel: String, for configPath: String)
-    func transaction(of actionsJSON: Data, configPath: String, withReply: @escaping (Data) -> ())
-    func processTransaction(txId: UInt32)
-}
+import PahkatClient
 
 @objc protocol PahkatAdminReceiverProtocol {
-    func transactionEvent(data: Data)
+    func transactionDidProgress(id: UInt32, state: Data)
 }
 
 struct LaunchServiceError: Error {
     let message: String
 }
 
+// This is the receiver object that is used by the non-privileged app to access admin functionality
 class PahkatAdminReceiver: PahkatAdminReceiverProtocol {
-    func transactionEvent(data: Data) {
-        let event = try! JSONDecoder().decode(TransactionEvent.self, from: data)
-        transactionSubject.onNext(event)
+    static public let instance = PahkatAdminReceiver()
+    static private let subject: PublishSubject<XPCTransactionState> = {
+        let x = PublishSubject<XPCTransactionState>()
+        x.subscribe(onNext: { event in
+            print(String(describing: event))
+        })
+        return x
+    }()
+    
+    static func registerProxy(txId: UInt32) -> Observable<XPCTransactionState> {
+        Self.subject.filter { $0.id == txId }
+            .takeUntil(.inclusive, predicate: { $0.isComplete })
+    }
+    
+    static func checkForAdminService() -> Completable {
+        return Completable.create(subscribe: { emitter in
+            let recv = PahkatAdminReceiver()
+
+            return recv.isLaunchServiceInstalled
+                .observeOn(MainScheduler.instance)
+                .timeout(1.0, scheduler: MainScheduler.instance)
+                .catchErrorJustReturn(false)
+                .subscribe(onSuccess: { isInstalled in
+                    if !isInstalled {
+                        do {
+                            _ = try recv.installLaunchService(errorCallback: { error in
+                                emitter(.error(error))
+                            })
+
+                            emitter(.completed)
+                        } catch  {
+                            emitter(.error(error))
+                            return
+                        }
+                    } else {
+                        emitter(.completed)
+                    }
+                })
+        })
+    }
+    
+    func transactionDidProgress(id: UInt32, state: Data) {
+        let xpcState: XPCTransactionState
+        do {
+            xpcState = try JSONDecoder().decode(XPCTransactionState.self, from: state)
+        } catch {
+            xpcState = .error(id: id, error: XPCError.from(error: error))
+        }
+        
+        // This propagates the received admin-triggered event to the app
+//        transactionSubject.onNext(xpcState)
+        Self.subject.onNext(xpcState)
     }
     
     private let machServiceName: String = "no.divvun.PahkatAdminService"
@@ -119,4 +162,6 @@ class PahkatAdminReceiver: PahkatAdminReceiverProtocol {
         
         return self.service(errorCallback: errorCallback)
     }
+    
+    private init() {}
 }

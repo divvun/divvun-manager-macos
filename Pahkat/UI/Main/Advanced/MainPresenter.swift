@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 import BTree
+import PahkatClient
 
 typealias PackageOutlineMap = Map<OutlineGroup, SortedSet<OutlinePackage>>
 typealias MainOutlineMap = Map<OutlineRepository, PackageOutlineMap>
@@ -26,7 +27,7 @@ fileprivate func categoryFilter(outlineRepo: OutlineRepository) -> PackageOutlin
             data[key] = []
         }
         
-        data[key]!.insert(OutlinePackage(package: package, group: key, repo: outlineRepo, action: nil))
+        data[key]!.insert(OutlinePackage(package: package, group: key, repo: outlineRepo, selection: nil))
     }
     
     return data
@@ -50,7 +51,7 @@ fileprivate func languageFilter(outlineRepo: OutlineRepository) -> PackageOutlin
                 data[key] = []
             }
             
-            data[key]!.insert(OutlinePackage(package: package, group: key, repo: outlineRepo, action: nil))
+            data[key]!.insert(OutlinePackage(package: package, group: key, repo: outlineRepo, selection: nil))
         }
     }
     
@@ -62,7 +63,7 @@ class MainPresenter {
     private unowned let view: MainViewable
     private var data: MainOutlineMap = Map()
     private let client = AppContext.client
-    private var selectedPackages = [AbsolutePackageKey: PackageAction]()
+    private var selectedPackages = [PackageKey: SelectedPackage]()
     
     init(view: MainViewable) {
         self.view = view
@@ -134,7 +135,7 @@ class MainPresenter {
         return view.onPrimaryButtonPressed.drive(onNext: { [weak self] in
             guard let `self` = self else { return }
             if self.selectedPackages.values.contains(where: { $0.target == .system }) {
-                PahkatClient.checkForAdminService().subscribe(onCompleted: {
+                PahkatAdminReceiver.checkForAdminService().subscribe(onCompleted: {
                     self.view.showDownloadView(with: self.selectedPackages)
                 }, onError: { error in
                     self.view.handle(error: error)
@@ -147,7 +148,7 @@ class MainPresenter {
     
     enum PackageStateOption {
         case toggle
-        case set(PackageAction?)
+        case set(SelectedPackage?)
     }
     
     private func setPackageState(to option: PackageStateOption, package: Package, repo: OutlineRepository) {
@@ -160,30 +161,37 @@ class MainPresenter {
             
             if let outlinePackage = item.1.first(where: { $0.package == package }), let info = repo.repo.status(forPackage: package) {
                 let packageKey = repo.repo.absoluteKey(for: package)
-                let packageRecord = PackageRecord.init(id: packageKey, package: package)
                 switch option {
                 case .toggle:
-                    if outlinePackage.action == nil {
+                    if outlinePackage.selection == nil {
                         switch info.status {
                         case .upToDate:
-                            outlinePackage.action = PackageAction(action: .uninstall, packageRecord: packageRecord, target: info.target)
+                            outlinePackage.selection = SelectedPackage(
+                                key: packageKey,
+                                package: package,
+                                action: .uninstall,
+                                target: info.target)
                         default:
                             let target = installer.targets[0].rawValue == "system" ? InstallerTarget.system : InstallerTarget.user
-                            outlinePackage.action = PackageAction(action: .install, packageRecord: packageRecord, target: target)
+                            outlinePackage.selection = SelectedPackage(
+                                key: packageKey,
+                                package: package,
+                                action: .install,
+                                target: target)
                         }
                     } else {
-                        outlinePackage.action = nil
+                        outlinePackage.selection = nil
                     }
                     
-                    if let action = outlinePackage.action {
-                        self.selectedPackages[action.packageRecord.id] = action
+                    if let action = outlinePackage.selection {
+                        self.selectedPackages[action.key] = action
                     } else {
-                        self.selectedPackages[packageRecord.id] = nil
+                        self.selectedPackages[packageKey] = nil
                     }
                 case let .set(action):
-                    outlinePackage.action = action
+                    outlinePackage.selection = action
                     if let action = action {
-                        self.selectedPackages[action.packageRecord.id] = action
+                        self.selectedPackages[action.key] = action
                     }
                 }
             }
@@ -195,14 +203,14 @@ class MainPresenter {
         return AppContext.settings.state.map { $0.repositories }
             .observeOn(MainScheduler.instance)
             .subscribeOn(MainScheduler.instance)
-            .flatMapLatest { [weak self] (configs: [RepoConfig]) -> Observable<[RepositoryIndex]> in
+            .flatMapLatest { [weak self] (configs: [RepoRecord]) -> Observable<[RepositoryIndex]> in
                 guard let `self` = self else { return Observable.empty() }
                 
                 self.view.updateSettingsButton(isEnabled: false)
                 self.view.updateProgressIndicator(isEnabled: true)
-                self.client.refreshRepos()
+                try self.client.refreshRepos()
                 
-                let repos: [RepositoryIndex] = self.client.repos()
+                let repos: [RepositoryIndex] = try self.client.repoIndexesWithStatuses()
                 
                 if repos.count < configs.count {
                     var configSet = Set(configs.map { $0.url })
@@ -244,19 +252,19 @@ class MainPresenter {
             guard let `self` = self else { return }
             
             switch event {
-            case let .setPackageAction(action):
+            case let .setPackageSelection(action):
                 
-                guard let outlineRepo = self.data.keys.first(where: { $0.repo.packages.values.contains(action.packageRecord.package) }) else {
+                guard let outlineRepo = self.data.keys.first(where: { $0.repo.packages.values.contains(action.package) }) else {
                     return
                 }
-                self.setPackageState(to: .set(action), package: action.packageRecord.package, repo: outlineRepo)
+                self.setPackageState(to: .set(action), package: action.package, repo: outlineRepo)
                 self.updatePrimaryButton()
                 self.view.refreshRepositories()
             case let .changeFilter(repo, filter):
                 repo.filter = filter
                 self.updateFilters(key: repo)
                 for action in self.selectedPackages.values {
-                    self.setPackageState(to: .set(action), package: action.packageRecord.package, repo: repo)
+                    self.setPackageState(to: .set(action), package: action.package, repo: repo)
                 }
                 self.view.setRepositories(data: self.data)
             default:

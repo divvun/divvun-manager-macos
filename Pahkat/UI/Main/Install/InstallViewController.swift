@@ -9,18 +9,23 @@
 import Cocoa
 import RxSwift
 import RxCocoa
+import PahkatClient
 
 class InstallViewController: DisposableViewController<InstallView>, InstallViewable, NSToolbarDelegate {
-    private let transaction: PahkatTransactionType
-    private lazy var presenter = { InstallPresenter(view: self, transaction: transaction) }()
-    private var cancelToken: CancelToken? = nil
+    private let transaction: TransactionType
+    private let repos: [RepositoryIndex]
+    
+    private lazy var presenter = {
+        return InstallPresenter(view: self, transaction: transaction, repos: repos)
+    }()
     
     var onCancelTapped: Driver<Void> {
         return self.contentView.primaryButton.rx.tap.asDriver()
     }
     
-    init(transaction: PahkatTransactionType) {
+    init(transaction: TransactionType, repos: [RepositoryIndex]) {
         self.transaction = transaction
+        self.repos = repos
         super.init()
     }
     
@@ -32,7 +37,7 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
         self.contentView.remainingLabel.stringValue = Strings.nItemsRemaining(count: String(max - value))
     }
     
-    func setStarting(action: PackageActionType, package: Package) {
+    func set(nextPackage package: Package, action: PackageActionType) {
         DispatchQueue.main.async {
             let label: String
             
@@ -43,14 +48,8 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
                 label = Strings.uninstallingPackage(name: package.nativeName, version: package.version)
             }
             
-            self.contentView.nameLabel.stringValue = label
-            self.setRemaining()
-        }
-    }
-    
-    func setEnding() {
-        DispatchQueue.main.async {
             self.contentView.horizontalIndicator.increment(by: 1.0)
+            self.contentView.nameLabel.stringValue = label
             self.setRemaining()
         }
     }
@@ -69,7 +68,9 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
     }
     
     func showCompletion(requiresReboot: Bool) {
-        AppContext.windows.set(CompletionViewController(requiresReboot: requiresReboot), for: MainWindowController.self)
+        AppContext.windows.set(
+            CompletionViewController(requiresReboot: requiresReboot),
+            for: MainWindowController.self)
     }
     
     func handle(error: Error) {
@@ -77,8 +78,9 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
         alert.alertStyle = .critical
         alert.addButton(withTitle: Strings.ok)
         alert.messageText = Strings.errorDuringInstallation
-        alert.informativeText = error.localizedDescription
+        alert.informativeText = String(describing: error)
         
+        log.error(error)
         alert.runModal()
         
         AppContext.windows.set(MainViewController(), for: MainWindowController.self)
@@ -87,7 +89,6 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
     func beginCancellation() {
         contentView.primaryButton.isEnabled = false
         contentView.primaryButton.title = Strings.cancelling
-        cancelToken?.cancel()
     }
     
     func processCancelled() {
@@ -128,17 +129,12 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureToolbar()
     }
     
     override func viewWillAppear() {
         super.viewWillAppear()
+        
         self.presenter.start().disposed(by: bag)
-    }
-    
-    override func viewDidAppear() {
-        super.viewDidAppear()
-        cancelToken = self.presenter.install()
     }
 }

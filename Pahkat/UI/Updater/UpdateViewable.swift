@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import PahkatClient
 
 protocol UpdateViewable: class {
     func setPackages(packages: [UpdateTablePackage])
@@ -17,5 +18,5 @@ protocol UpdateViewable: class {
     var onRemindButtonPressed: Driver<Void> { get }
     var onPackageToggled: Observable<UpdateTablePackage> { get }
     func closeWindow()
-    func installPackages(packages: [AbsolutePackageKey: PackageAction])
+    func installPackages(packages: [PackageKey: SelectedPackage])
 }

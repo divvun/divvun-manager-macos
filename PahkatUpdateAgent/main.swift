@@ -9,6 +9,7 @@
 import Foundation
 import Cocoa
 import RxSwift
+import PahkatClient
 
 func pahkatEvent(eventID: PahkatAppleEvent) -> NSAppleEventDescriptor {
     return NSAppleEventDescriptor.appleEvent(withEventClass: PahkatAppleEvent.classID,
@@ -31,9 +32,10 @@ func openAppWith(event: PahkatAppleEvent) {
 }
 
 func checkForUpdates() {
-    let client = PahkatClient()!
+    let client = MacOSPackageStore.default()
+    let repos = try! client.repoIndexesWithStatuses()
     
-    let hasUpdates = client.repos().contains(where: {
+    let hasUpdates = repos.contains(where: {
         return $0.statuses.contains(where: {
             return $0.1.status == .requiresUpdate
         })

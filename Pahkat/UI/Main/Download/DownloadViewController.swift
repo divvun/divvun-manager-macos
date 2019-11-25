@@ -9,16 +9,20 @@
 import Cocoa
 import RxSwift
 import RxCocoa
+import PahkatClient
 
 class DownloadViewController: DisposableViewController<DownloadView>, DownloadViewable, NSToolbarDelegate {
     private let byteCountFormatter = ByteCountFormatter()
     private var delegate: DownloadProgressTableDelegate! = nil
     
-    private let transaction: PahkatTransactionType
+    private let transaction: TransactionType
+    private let repos: [RepositoryIndex]
+    
     internal lazy var presenter = { DownloadPresenter(view: self, transaction: transaction) }()
     
-    init(transaction: PahkatTransactionType) {
+    init(transaction: TransactionType, repos: [RepositoryIndex]) {
         self.transaction = transaction
+        self.repos = repos
         super.init()
     }
     
@@ -31,9 +35,6 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
     }
     
     func setStatus(package: Package, status: PackageDownloadStatus) {
-        //log.debug(package)
-        log.debug(status)
-        // TODO make this main thread and also have good strings (localise).
         DispatchQueue.main.async {
             if let view = self.delegate.tableView(self.contentView.tableView, viewFor: package) as? DownloadProgressView {
                 switch(status) {
@@ -68,9 +69,11 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
         AppContext.windows.set(MainViewController(), for: MainWindowController.self)
     }
     
-    func startInstallation(transaction: PahkatTransactionType) {
+    func startInstallation(transaction: TransactionType) {
         DispatchQueue.main.async {
-            AppContext.windows.set(InstallViewController(transaction: transaction), for: MainWindowController.self)
+            AppContext.windows.set(
+                InstallViewController(transaction: transaction, repos: self.repos),
+                for: MainWindowController.self)
         }
     }
     
@@ -78,9 +81,10 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
         DispatchQueue.main.async {
             let alert = NSAlert()
             alert.messageText = Strings.downloadError
-            alert.informativeText = error.localizedDescription
-            
+            alert.informativeText = String(describing: error)
             alert.alertStyle = .critical
+            
+            log.error(error)
             alert.runModal()
             
             self.cancel()
@@ -154,7 +158,7 @@ class DownloadProgressTableDelegate: NSObject, NSTableViewDataSource, NSTableVie
     }
     
     func tableView(_ tableView: NSTableView, viewFor package: Package) -> NSView? {
-        if let row = packages.index(of: package) {
+        if let row = packages.firstIndex(of: package) {
             return self.tableView(tableView, viewFor: nil, row: row)
         } else {
             return nil

@@ -8,16 +8,17 @@
 
 import Foundation
 import RxSwift
+import PahkatClient
 
 enum SettingsEvent {
-    case setRepositoryConfigs([RepoConfig])
+    case setRepositoryConfigs([RepoRecord])
     case setUpdateCheckInterval(UpdateFrequency)
     case setNextUpdateCheck(Date)
     case setInterfaceLanguage(String)
 }
 
 class SettingsStore: RxStore<SettingsState, SettingsEvent> {
-    private let client: PahkatClient
+    private let client: MacOSPackageStore
     
     init() {
         client = AppContext.client
@@ -26,28 +27,28 @@ class SettingsStore: RxStore<SettingsState, SettingsEvent> {
         log.debug(s)
     }
     
-    static func reducer(client: PahkatClient) -> (SettingsState, SettingsEvent) -> SettingsState {
+    static func reducer(client: MacOSPackageStore) -> (SettingsState, SettingsEvent) -> SettingsState {
         return { (state: SettingsState, event: SettingsEvent) -> SettingsState in
             let newState = state
 
             switch (event) {
             case let .setInterfaceLanguage(language):
                 if language == "" {
-                    client.config.set(uiSetting: SettingsKey.interfaceLanguage.rawValue, value: nil)
+                    try! client.config().set(uiSetting: SettingsKey.interfaceLanguage.rawValue, value: nil)
                     UserDefaults.standard.set(nil, forKey: "AppleLanguages")
                 } else {
-                    client.config.set(uiSetting: SettingsKey.interfaceLanguage.rawValue, value: language)
+                    try! client.config().set(uiSetting: SettingsKey.interfaceLanguage.rawValue, value: language)
                     UserDefaults.standard.set([language], forKey: "AppleLanguages")
                 }
                 newState.interfaceLanguage = language
             case let .setNextUpdateCheck(date):
-                client.config.set(uiSetting: SettingsKey.nextUpdateCheck.rawValue, value: date.iso8601)
+                try! client.config().set(uiSetting: SettingsKey.nextUpdateCheck.rawValue, value: date.iso8601)
                 newState.nextUpdateCheck = date
             case let .setUpdateCheckInterval(period):
-                client.config.set(uiSetting: SettingsKey.updateCheckInterval.rawValue, value: period.rawValue)
+                try! client.config().set(uiSetting: SettingsKey.updateCheckInterval.rawValue, value: period.rawValue)
                 newState.updateCheckInterval = period
             case let .setRepositoryConfigs(configs):
-                client.config.set(repos: configs)
+                try! client.config().set(repos: configs)
                 newState.repositories = configs
             }
 

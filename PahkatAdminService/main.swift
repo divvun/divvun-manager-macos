@@ -9,6 +9,7 @@
 import Foundation
 import Sentry
 import RxSwift
+import PahkatClient
 
 let kAuthorizationRightKeyClass = "class"
 let kAuthorizationRightKeyGroup = "group"
@@ -17,34 +18,39 @@ let kAuthorizationRightKeyTimeout = "timeout"
 let kAuthorizationRightKeyVersion = "version"
 let kAuthorizationFailedExitCode = NSNumber(value: 503340)
 
-final class PahkatAdminClient : PahkatClient {
-    override func transaction(of actions: [TransactionAction]) -> Single<PahkatTransactionType> {
-        do {
-            return Single.just(try PahkatTransaction(client: self, actions: actions))
-        } catch {
-            return Single.error(error)
-        }
+struct TransactionContainer {
+    let transaction: PackageTransaction<InstallerTarget>
+    var isCancelled: Bool
+    
+    init(_ transaction: PackageTransaction<InstallerTarget>) {
+        self.transaction = transaction
+        isCancelled = false
+    }
+    
+    mutating func cancel() {
+        self.isCancelled = true
     }
 }
 
 class PahkatAdminService: NSObject, NSXPCListenerDelegate, PahkatAdminProtocol {
-    let bag = DisposeBag()
+    private let bag = DisposeBag()
     
-    private var clientCache = [String: PahkatAdminClient]()
+    private var clientCache = [String: MacOSPackageStore]()
     private var txCount: UInt32 = 0
-    private var txCache = [UInt32: PahkatTransactionType]()
+    private var txCache = [UInt32: TransactionContainer]()
+    private let jsonEncoder = JSONEncoder()
     
     func xpcServiceVersion(withReply callback: @escaping (String) -> ()) {
         let v = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
         callback(v)
     }
     
-    private func client(for configPath: String) -> PahkatAdminClient? {
-        var client: PahkatAdminClient? = nil
+    private func client(for configPath: String) -> MacOSPackageStore? {
+        var client: MacOSPackageStore? = nil
         
         if let maybeClient = self.clientCache[configPath] {
             client = maybeClient
-        } else if let maybeClient = PahkatAdminClient(configPath: configPath) {
+        } else if let maybeClient = try? MacOSPackageStore.load(path: configPath) {
             self.clientCache[configPath] = maybeClient
             client = maybeClient
         }
@@ -54,84 +60,79 @@ class PahkatAdminService: NSObject, NSXPCListenerDelegate, PahkatAdminProtocol {
     
     func set(cachePath: String, for configPath: String) {
         guard let client = self.client(for: configPath) else { return }
-        client.config.set(cachePath: cachePath)
+        try! client.config().setCacheBase(path: cachePath)
     }
     
     func set(channel: String, for configPath: String) {
         guard let client = self.client(for: configPath) else { return }
         if let channel = Repository.Channels.init(rawValue: channel) {
             // HACK: this only exists for selfupdate, should be cleaned up.
-            client.config.set(repos: [RepoConfig(url: client.config.repos()[0].url, channel: channel)])
-            client.refreshRepos()
+            do {
+                try client.config().set(repos: [RepoRecord(url: client.config().repos()[0].url, channel: channel)])
+                try client.refreshRepos()
+            } catch {
+                fatalError(error.localizedDescription)
+            }
         }
     }
     
-    // JSON on both sides.
-    func transaction(of actionsJSON: Data, configPath: String, withReply callback: @escaping (Data) -> ()) {
-        let client: PahkatAdminClient
-        
-        if let maybeClient = self.clientCache[configPath] {
-            client = maybeClient
-        } else if let maybeClient = PahkatAdminClient(configPath: configPath) {
-            self.clientCache[configPath] = maybeClient
-            client = maybeClient
-        } else {
-            let payload = ["error": "Path could not be parsed: \(configPath)"]
-            callback(try! JSONEncoder().encode(payload))
+    func createAdminTransaction(
+        actionsData: /* [TransactionAction] as JSON */ Data,
+        storeConfigPath configPath: String,
+        txIdCallback callback: @escaping (/* XPCCallbackResponse as JSON */ Data) -> ()
+    ) {
+        guard let client = self.client(for: configPath) else {
+            let payload = XPCCallbackResponse<Empty>.error(XPCError(message: "Path could not be parsed: \(configPath)"))
+            callback(try! jsonEncoder.encode(payload))
             return
         }
 //
 //        if let cachePath = cachePath {
-//            client.config.set(cachePath: cachePath)
+//            client.config().set(cachePath: cachePath)
 //        }
         
-        let actions = try! JSONDecoder().decode([TransactionAction].self, from: actionsJSON)
+        let actions = try! JSONDecoder().decode(
+            [TransactionAction<InstallerTarget>].self,
+            from: actionsData)
         
-        client.transaction(of: actions)
-            .subscribe(onSuccess: { tx in
-                self.txCount += 1
-                let txId = self.txCount
-                self.txCache[txId] = tx
-                
-                let payload = ["success": AdminTransactionResponse(txId: txId, actions: tx.actions)]
-                print(payload)
-                callback(try! JSONEncoder().encode(payload))
-            }, onError: { error in
-                let payload = ["error": String(describing: error)]
-                print(payload)
-                callback(try! JSONEncoder().encode(payload))
-            }).disposed(by: bag)
+        let tx: PackageTransaction<InstallerTarget>
+        do {
+             tx = try client.transaction(actions: actions)
+        } catch {
+            let payload = XPCCallbackResponse<UInt32>.error(XPCError.from(error: error))
+            print(payload)
+            callback(try! jsonEncoder.encode(payload))
+            return
+        }
+        
+        // This txCount is separate to the internal tx count of the transaction
+        self.txCount += 1
+        let txId = self.txCount
+        self.txCache[txId] = TransactionContainer(tx)
+
+        let payload = XPCCallbackResponse.success(txId)
+        print(payload)
+        
+        callback(try! jsonEncoder.encode(payload))
     }
     
+    private lazy var receiver: PahkatAdminReceiverProtocol = {
+        return self.connections.last!.remoteObjectProxyWithErrorHandler({
+            print($0)
+        }) as! PahkatAdminReceiverProtocol
+    }()
+    
     func processTransaction(txId: UInt32) {
-        guard let tx = self.txCache[txId] else {
+        guard let container = self.txCache[txId] else {
             print("No tx found with id \(txId)")
             return
         }
         
-        let receiver = self.connections.last!.remoteObjectProxyWithErrorHandler({
-            print($0)
-        }) as! PahkatAdminReceiverProtocol
-        
-        let enc = JSONEncoder()
-        tx.process(callback: { (error, event) in
-            if let error = error as? PahkatClientError {
-                let payload = TransactionEvent(txId: txId, event: .error, error: error.message)
-                receiver.transactionEvent(data: try! enc.encode(payload))
-            } else if let error = error {
-                let payload = TransactionEvent(txId: txId, event: .error, error: String(describing: error))
-                receiver.transactionEvent(data: try! enc.encode(payload))
-            } else if let event = event {
-                let payload = TransactionEvent(txId: txId, event: .package, packageEvent: event)
-                let data = try! enc.encode(payload)
-                receiver.transactionEvent(data: data)
-            } else {
-                let payload1 = TransactionEvent(txId: txId, event: .completed)
-                let payload2 = TransactionEvent(txId: txId, event: .dispose)
-                receiver.transactionEvent(data: try! enc.encode(payload1))
-                receiver.transactionEvent(data: try! enc.encode(payload2))
-            }
-        })
+        container.transaction.process(delegate: self)
+    }
+    
+    func cancelTransaction(txId: UInt32) {
+        self.txCache[txId]?.cancel()
     }
     
     private let listener: NSXPCListener
@@ -174,6 +175,7 @@ class PahkatAdminService: NSObject, NSXPCListenerDelegate, PahkatAdminProtocol {
     
     func listener(_ listener: NSXPCListener, shouldAcceptNewConnection connection: NSXPCConnection) -> Bool {
         // Verify that the calling application is signed using the same code signing certificate as the helper
+        // TODO: add this back in, from: https://github.com/erikberglund/SwiftPrivilegedHelper/
 //        guard self.isValid(connection: connection) else {
 //            return false
 //        }
@@ -201,6 +203,46 @@ class PahkatAdminService: NSObject, NSXPCListenerDelegate, PahkatAdminProtocol {
         connection.resume()
         
         return true
+    }
+}
+
+extension PahkatAdminService: PackageTransactionDelegate {
+    func isTransactionCancelled(_ id: UInt32) -> Bool {
+        return self.txCache[id]?.isCancelled ?? false
+    }
+    
+    func transactionWillInstall(_ id: UInt32, packageKey: PackageKey) {
+        let state = XPCTransactionState.installing(id: id, packageKey: packageKey)
+        receiver.transactionDidProgress(id: id, state: try! jsonEncoder.encode(state))
+    }
+    
+    func transactionWillUninstall(_ id: UInt32, packageKey: PackageKey) {
+        let state = XPCTransactionState.uninstalling(id: id, packageKey: packageKey)
+        receiver.transactionDidProgress(id: id, state: try! jsonEncoder.encode(state))
+    }
+    
+    func transactionDidError(_ id: UInt32, packageKey: PackageKey?, error: Error?) {
+        let state: XPCTransactionState
+        if let error = error {
+            state = XPCTransactionState.error(id: id, error: XPCError.from(error: error))
+        } else {
+            state = XPCTransactionState.error(id: id, error: XPCError(message: Strings.errorDuringInstallation))
+        }
+        receiver.transactionDidProgress(id: id, state: try! jsonEncoder.encode(state))
+    }
+
+    func transactionDidUnknownEvent(_ id: UInt32, packageKey: PackageKey, event: UInt32) {
+        // Cannot happen :)
+    }
+
+    func transactionDidComplete(_ id: UInt32) {
+        let state = XPCTransactionState.complete(id: id)
+        receiver.transactionDidProgress(id: id, state: try! jsonEncoder.encode(state))
+    }
+    
+    func transactionDidCancel(_ id: UInt32) {
+        let state = XPCTransactionState.cancel(id: id)
+        receiver.transactionDidProgress(id: id, state: try! jsonEncoder.encode(state))
     }
 }
 

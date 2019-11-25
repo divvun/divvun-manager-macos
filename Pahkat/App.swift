@@ -9,11 +9,12 @@
 import Foundation
 import Cocoa
 import XCGLogger
+import PahkatClient
 
 let log = XCGLogger.default
 
 class AppContextImpl {
-    lazy var client = { PahkatClient()! }()
+    lazy var client = { MacOSPackageStore.default() }()
     lazy var settings = { SettingsStore() }()
     let store = { AppStore() }()
     let windows = { WindowManager() }()
@@ -27,6 +28,9 @@ class App: NSApplication {
     override init() {
         super.init()
         
+        pahkat_enable_logging()
+        
+        // TODO: fix this shit becoming corrupted over and over again
         if UserDefaults.standard.object(forKey: "AppleLanguages") != nil {
             if UserDefaults.standard.string(forKey: "AppleLanguages") == nil {
                 UserDefaults.standard.removeObject(forKey: "AppleLanguages")
@@ -36,7 +40,7 @@ class App: NSApplication {
         
         self.delegate = appDelegate
         
-        PahkatAdminReceiver()
+        PahkatAdminReceiver.instance
             .service(errorCallback: { log.debug($0) })
             .xpcServiceVersion(withReply: {
                 log.debug("XPC service version: \($0)")
