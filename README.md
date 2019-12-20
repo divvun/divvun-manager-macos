@@ -1,5 +1,7 @@
 # Páhkat Client for macOS
 
+[![Build Status](https://dev.azure.com/divvun/divvun-installer/_apis/build/status/divvun.pahkat-client-macos?branchName=master)](https://dev.azure.com/divvun/divvun-installer/_build/latest?definitionId=8&branchName=master)
+
 ## Building
 
 Ensure you have cloned this repository into the same directory as the [`divvun/pahkat-client-core`](https://github.com/divvun/pahkat-client-core) repository.
