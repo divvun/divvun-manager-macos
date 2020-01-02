@@ -46,7 +46,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   PahkatClient:
-    :commit: 6ef1c55b74fe8646852e855c84104996efe9b661
+    :commit: 769c4567378bd7a0b712b2ed89c446d73a5a7d8a
     :git: https://github.com/divvun/pahkat-client-sdk-swift
     :submodules: true
   Sentry:
@@ -56,7 +56,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   BTree: 99b99930790b88dc5e8bafbf666a5dfb8d7808b4
   ObjcExceptionBridging: c30e00eb3700467e695faeea30e26e18bd445001
-  PahkatClient: 455efc285bc37574fbc79f5ccfe47de2736e06c6
+  PahkatClient: 0fa3211cd94a869ea3b32779fbfa2c20b575f4ac
   RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
   RxFeedback: 640e317bc7f6c4914c39a2063c6d5c0e6c1aa65d
   RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
