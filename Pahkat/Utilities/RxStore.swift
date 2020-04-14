@@ -30,7 +30,7 @@ class RxStore<State, Event> {
                 reducers.reduce(i, { (state: State, next: Reducer) in next(state, e) })
             },
             scheduler: MainScheduler.instance,
-            scheduledFeedback: { _ in dispatcher })
+            feedback: { _ in dispatcher })
             .replay(1)
         
         state.connect().disposed(by: bag)
