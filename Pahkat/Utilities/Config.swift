@@ -34,17 +34,15 @@ class Config<File> where File: ConfigFile {
             data = try Data(contentsOf: path)
         } catch {
             // The file musn't exist then, because data only cares about bytes
-            fm.createFile(atPath: path.path, contents: nil, attributes: nil)
-            data = Data()
-            state = File()
-            return
+            data = "{}".data(using: .utf8)! // empty json file
+            fm.createFile(atPath: path.path, contents: data, attributes: nil)
         }
         
         // Try to parse that
         state = try JSONDecoder().decode(File.self, from: data)
     }
     
-    private var state = File()
+    private var state: File
     private lazy var changeSubject = { BehaviorSubject<File>(value: state) }()
     
     func save() throws {
