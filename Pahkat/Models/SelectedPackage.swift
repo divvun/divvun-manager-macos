@@ -7,13 +7,13 @@
 //
 
 import Foundation
-import PahkatClient
 
-struct SelectedPackage: Codable, Equatable, Hashable {
+
+struct SelectedPackage: Equatable, Hashable {
     let key: PackageKey
-    let package: Package
+    let package: Descriptor
     let action: PackageActionType
-    let target: InstallerTarget
+    let target: SystemTarget
     
     var isInstalling: Bool {
         switch action {

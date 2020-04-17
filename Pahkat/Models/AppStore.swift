@@ -8,27 +8,18 @@
 
 import Foundation
 import RxSwift
-import PahkatClient
 
 enum AppEvent {
-    case setRepositories([RepositoryIndex])
+    case dontWorryAboutIt
 }
 
 struct AppState {
-    var repositories = [RepositoryIndex]()
 }
 
 class AppStore: RxStore<AppState, AppEvent> {
     static func reducer() -> (AppState, AppEvent) -> AppState {
         return { (state: AppState, event: AppEvent) -> AppState in
-            var newState = state
-            
-            switch (event) {
-            case let .setRepositories(repos):
-                newState.repositories = repos
-            }
-            
-            return newState
+            return state
         }
     }
     

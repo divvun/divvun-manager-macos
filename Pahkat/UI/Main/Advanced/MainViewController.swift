@@ -9,8 +9,7 @@
 import Cocoa
 import RxSwift
 import RxCocoa
-import BTree
-import PahkatClient
+//import BTree
 
 class MainViewController: DisposableViewController<MainView>, MainViewable, NSToolbarDelegate {
     private lazy var presenter = { MainPresenter(view: self) }()
@@ -73,7 +72,8 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
             .sorted(by: { (a, b) in
                 if (a.isInstalling && b.isInstalling) || (a.isUninstalling && b.isUninstalling) {
                     // TODO: fix when dependency management is added
-                    return a.key < b.key
+//                    return a.key < b.key
+                    todo()
                 }
                 
                 return a.isUninstalling
@@ -81,40 +81,42 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     }
     
     func showDownloadView(with packages: [PackageKey: SelectedPackage]) {
-        let txActions = self.sortPackages(packages: packages).map { (x) -> TransactionAction<InstallerTarget> in
-            switch x.action {
-            case .install:
-                return TransactionAction<InstallerTarget>.install(x.key, target: x.target)
-            case .uninstall:
-                return TransactionAction<InstallerTarget>.uninstall(x.key, target: x.target)
-            }
-        }
-        
-        let reposSingle: Single<[RepositoryIndex]> = AppContext.store.state
-            .map { $0.repositories }
-            .take(1)
-            .asSingle()
-        
-        Single
-            .zip(
-                PackageStoreProxy.instance.transaction(actions: txActions),
-                reposSingle
-            )
-            .subscribe(onSuccess: { (tx, repos) in
-                DispatchQueue.main.async {
-                    AppContext.windows.set(
-                        DownloadViewController(transaction: tx, repos: repos),
-                        for: MainWindowController.self)
-                }
-            }, onError: { error in
-                DispatchQueue.main.async {
-                    self.handle(error: error)
-                }
-            }).disposed(by: bag)
+//        let txActions = self.sortPackages(packages: packages).map { (x) -> TransactionAction<InstallerTarget> in
+//            switch x.action {
+//            case .install:
+//                return TransactionAction<InstallerTarget>.install(x.key, target: x.target)
+//            case .uninstall:
+//                return TransactionAction<InstallerTarget>.uninstall(x.key, target: x.target)
+//            }
+//        }
+//
+//        let reposSingle: Single<[LoadedRepository]> = AppContext.store.state
+//            .map { $0.repositories }
+//            .take(1)
+//            .asSingle()
+//
+//        Single
+//            .zip(
+//                PackageStoreProxy.instance.transaction(actions: txActions),
+//                reposSingle
+//            )
+//            .subscribe(onSuccess: { (tx, repos) in
+//                DispatchQueue.main.async {
+//                    AppContext.windows.set(
+//                        DownloadViewController(transaction: tx, repos: repos),
+//                        for: MainWindowController.self)
+//                }
+//            }, onError: { error in
+//                DispatchQueue.main.async {
+//                    self.handle(error: error)
+//                }
+//            }).disposed(by: bag)
+        todo()
     }
     
     func showSettings() {
-        AppContext.windows.show(SettingsWindowController.self)
+//        AppContext.windows.show(SettingsWindowController.self)
+        todo()
     }
     
     override func keyDown(with event: NSEvent) {
@@ -149,8 +151,9 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         contentView.primaryButton.sizeToFit()
         contentView.primaryLabel.sizeToFit()
         
-        let window = AppContext.windows.get(MainWindowController.self).contentWindow
-        window.toolbar!.redraw()
+//        let window = AppContext.windows.get(MainWindowController.self).contentWindow
+        todo()
+//        window.toolbar!.redraw()
     }
     
     func handle(error: Error) {
@@ -214,11 +217,13 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     }
     
     private func configureToolbar() {
-        let window = AppContext.windows.get(MainWindowController.self).contentWindow
+//        let window = AppContext.windows.get(MainWindowController.self).contentWindow
+        todo()
         
-        window.titleVisibility = .hidden
-        window.toolbar!.isVisible = true
-        window.toolbar!.delegate = self
+//        window.titleVisibility = .hidden
+//        window.toolbar!.isVisible = true
+//        window.toolbar!.delegate = self
+        todo()
         
         let toolbarItems = ["settings",
                             NSToolbarItem.Identifier.flexibleSpace.rawValue,
@@ -228,7 +233,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
                             NSToolbarItem.Identifier.flexibleSpace.rawValue,
                             "button"]
         
-        window.toolbar!.setItems(toolbarItems)
+//        window.toolbar!.setItems(toolbarItems)
     }
     
     override func viewDidLoad() {
@@ -262,12 +267,12 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
 
 enum OutlineContextMenuItem {
     case SelectedPackage(SelectedPackage)
-    case filter(OutlineRepository, Repository.PrimaryFilter)
+    case filter(OutlineRepository, OutlineFilter)
 }
 
 class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutlineViewDelegate, NSOutlineViewMenu {
     fileprivate let events = PublishSubject<OutlineEvent>()
-    fileprivate var repos: MainOutlineMap = Map()
+    fileprivate var repos: MainOutlineMap = MainOutlineMap()
     
     private let byteCountFormatter = ByteCountFormatter()
     
@@ -314,13 +319,11 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
         case is OutlineRepository:
             return nil
         case let item as OutlinePackage:
-            guard let outlineStatus = item.repo.repo.status(forPackage: item.package) else { return nil }
-            guard case let .macOsInstaller(installer) = item.package.installer else { fatalError() }
+            guard let installer = item.target.macOSPackage() else { return nil }
             
-            let status = outlineStatus.status
-            let target = outlineStatus.target
+            let (status, target) = item.status
             
-            let key = item.repo.repo.absoluteKey(for: item.package)
+            let key = item.repo.repo.packageKey(for: item.package)
             let package = item.package
             
             switch status {
@@ -333,7 +336,7 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                     let v = SelectedPackage(key: key, package: package, action: .install, target: .user)
                     menu.addItem(makeMenuItem(Strings.installUser, value: OutlineContextMenuItem.SelectedPackage(v)))
                 }
-            case .requiresUpdate, .versionSkipped:
+            case .requiresUpdate:
                 let v = SelectedPackage(key: key, package: package, action: .install, target: target)
                 menu.addItem(makeMenuItem(Strings.update, value: OutlineContextMenuItem.SelectedPackage(v)))
             default:
@@ -341,7 +344,7 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
             }
             
             switch status {
-            case .upToDate, .requiresUpdate, .versionSkipped:
+            case .upToDate, .requiresUpdate:
                 let v = SelectedPackage(key: key, package: package, action: .uninstall, target: target)
                 menu.addItem(makeMenuItem(Strings.uninstall, value: OutlineContextMenuItem.SelectedPackage(v)))
             default:
@@ -413,7 +416,7 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                 return group.0
             }
         case let item as OutlineRepository:
-            log.debug(item.repo.meta.base)
+            log.debug(item.repo.index.url.absoluteString)
             let x = repos[item]!
             let keyIndex = x.index(x.startIndex, offsetBy: index)
             let outlineGroup = x[keyIndex]
@@ -440,7 +443,7 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
         let cell = outlineView.makeView(withIdentifier: tableColumn.identifier, owner: outlineView) as! NSTableCellView
         
         switch item {
-        case let item as OutlineRepository:
+        case let outlineRepo as OutlineRepository:
             guard case .name = column else {
                 cell.textField?.stringValue = ""
                 return cell
@@ -456,7 +459,7 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                 bold = [kCTFontAttributeName as NSAttributedString.Key: NSFont.boldSystemFont(ofSize: 13)]
             }
 
-            cell.textField?.attributedStringValue = NSAttributedString(string: item.repo.meta.nativeName, attributes: bold)
+            cell.textField?.attributedStringValue = NSAttributedString(string: outlineRepo.repo.index.nativeName, attributes: bold)
 
             cell.textField?.toolTip = nil
             break
@@ -545,7 +548,8 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                 let repoAdjustedWidth = CGFloat(repos.count == 1 ? 64.0 : 96.0)
                 tableColumn.width = max(tableColumn.width, baseWidth + repoAdjustedWidth)
             case .version:
-                cell.textField?.stringValue = "\(item.package.version) (\(byteCountFormatter.string(fromByteCount: item.package.installer.size)))"
+                let size = Int64(item.target.macOSPackage()?.size ?? 0)
+                cell.textField?.stringValue = "\(item.release.version ?? "<unknown>") (\(byteCountFormatter.string(fromByteCount: size)))"
                 let a = cell.textField?.attributedStringValue.size().width ?? CGFloat(0.0)
                 tableColumn.width = max(tableColumn.width, a)
             case .state:
@@ -575,19 +579,16 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                     let a = cell.textField?.attributedStringValue.size().width ?? CGFloat(0.0)
                     tableColumn.width = max(tableColumn.width, a)
                 } else {
-                    if let response = item.repo.repo.status(forPackage: item.package) {
-                        if response.status == .notInstalled {
-                            cell.textField?.stringValue = response.status.description
-                        } else {
-                            switch response.target {
-                            case .system:
-                                cell.textField?.stringValue = response.status.description
-                            case .user:
-                                cell.textField?.stringValue = Strings.userDescription(description: response.status.description)
-                            }
-                        }
+                    let (status, target) = item.status
+                    if status == .notInstalled {
+                        cell.textField?.stringValue = status.description
                     } else {
-                        cell.textField?.stringValue = Strings.downloadError
+                        switch target {
+                        case .system:
+                            cell.textField?.stringValue = status.description
+                        case .user:
+                            cell.textField?.stringValue = Strings.userDescription(description: status.description)
+                        }
                     }
                 }
             }

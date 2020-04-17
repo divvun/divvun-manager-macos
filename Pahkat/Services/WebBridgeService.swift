@@ -7,9 +7,8 @@
 //
 
 import Foundation
-import PahkatClient
 import WebKit
-import BTree
+//import BTree
 
 indirect enum Value: Codable {
     init(from decoder: Decoder) throws {
@@ -73,8 +72,8 @@ struct WebBridgeRequest: Codable {
 }
 
 struct LanguageResponse: Codable {
-    let languageName: String
-    let packages: [PackageKey: Package]
+//    let languageName: String
+//    let packages: [PackageKey: Package]
 }
 
 struct ErrorResponse: Codable {
@@ -149,12 +148,13 @@ class WebBridgeService: NSObject, WKScriptMessageHandler {
             return try jsonEncoder.encode(ErrorResponse(error: "No query provided"))
         }
         
-        let repos = try AppContext.client.repoIndexes()
+//        let repos = AppContext.packageStore.repoIndexes()
         
         // TODO search
         
-        let response = LanguageResponse(languageName: "", packages: [:])
-        return try jsonEncoder.encode(response)
+//        let response = LanguageResponse(languageName: "", packages: [:])
+//        return try jsonEncoder.encode(response)
+        todo()
     }
     
     func install(packageKeys: [PackageKey]) {
@@ -170,7 +170,7 @@ class WebBridgeService: NSObject, WKScriptMessageHandler {
     }
     
     func packages(packageKeys: [PackageKey]) -> [Package] {
-        let repos = try! AppContext.client.repoIndexes()
+//        let repos = try! AppContext.client.repoIndexes()
 //        packageKeys.map { $0. }
         return []
     }

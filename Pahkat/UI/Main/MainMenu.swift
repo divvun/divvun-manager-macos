@@ -12,9 +12,10 @@ import Cocoa
 class MainMenu: NSMenu {
     @IBOutlet weak var prefsMenuItem: NSMenuItem!
     
-    @objc func onClickMainMenuPreferences(_ sender: NSObject) {
-        AppContext.windows.show(SettingsWindowController.self)
-    }
+    // FIXME: I enjoy segfaulting
+//    @objc func onClickMainMenuPreferences(_ sender: NSObject) {
+//        AppContext.windows.show(SettingsWindowController.self)
+//    }
     
     override func awakeFromNib() {
 //        log.debug("Awakening menu item from nib")
@@ -32,7 +33,7 @@ class MainMenu: NSMenu {
         }
         
         prefsMenuItem.target = self
-        prefsMenuItem.action = #selector(MainMenu.onClickMainMenuPreferences(_:))
+//        prefsMenuItem.action = #selector(MainMenu.onClickMainMenuPreferences(_:))
     }
 }
 

@@ -7,7 +7,10 @@
 //
 
 import Foundation
-import PahkatClient
+
+public func todo() -> Never {
+    fatalError("Function not implemented")
+}
 
 class SettingsState {
     private let client: MacOSPackageStore
@@ -17,25 +20,26 @@ class SettingsState {
     }
     
     lazy var repositories: [RepoRecord] = {
-        return try! self.client.config().repos()
+        todo()
     }()
     
-    lazy var updateCheckInterval: UpdateFrequency = {
-        if let v = try! self.client.config().get(uiSetting: SettingsKey.updateCheckInterval.rawValue) {
-            return UpdateFrequency(rawValue: v) ?? .daily
-        }
-        return .daily
-    }()
+//    lazy var updateCheckInterval: UpdateFrequency = {
+//        if let v = try! self.client.config().get(uiSetting: SettingsKey.updateCheckInterval.rawValue) {
+//            return UpdateFrequency(rawValue: v) ?? .daily
+//        }
+//        return .daily
+//    }()
     
-    lazy var nextUpdateCheck: Date = {
-        if let rawDate = try! self.client.config().get(uiSetting: SettingsKey.nextUpdateCheck.rawValue),
-            let date = rawDate.iso8601 {
-            return date
-        }
-        return Date.distantPast
-    }()
+//    lazy var nextUpdateCheck: Date = {
+//        if let rawDate = try! self.client.config().get(uiSetting: SettingsKey.nextUpdateCheck.rawValue),
+//            let date = rawDate.iso8601 {
+//            return date
+//        }
+//        return Date.distantPast
+//    }()
     
     lazy var interfaceLanguage: String = {
-        return (try? self.client.config().get(uiSetting: SettingsKey.interfaceLanguage.rawValue)) ?? "en"
+        todo()
+        // return (try? self.client.config().get(uiSetting: SettingsKey.interfaceLanguage.rawValue)) ?? "en"
     }()
 }

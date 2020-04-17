@@ -54,6 +54,8 @@ extension Locale {
 class Strings {
     static var bundle: Bundle = Bundle.main
     
+    
+    // TODO: make this not as garbage fire like
     static var languageCode: String = UserDefaults.standard.appleLanguages[0] {
         didSet {
             var bundle: Bundle? = nil

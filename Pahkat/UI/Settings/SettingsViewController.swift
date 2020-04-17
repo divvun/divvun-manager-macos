@@ -9,27 +9,10 @@
 import Cocoa
 import RxSwift
 import RxCocoa
-import PahkatClient
-
-extension Repository.Channels {
-    var description: String {
-        switch self {
-        case .alpha:
-            return Strings.alpha
-        case .beta:
-            return Strings.beta
-        case .nightly:
-            return Strings.nightly
-        case .stable:
-            return Strings.stable
-        }
-    }
-}
 
 struct RepositoryTableRowData {
-    let name: String?
     let url: URL?
-    let channel: Repository.Channels?
+    let channel: String?
 }
 
 class SettingsViewController: DisposableViewController<SettingsView>, SettingsViewable, NSWindowDelegate {
@@ -47,7 +30,8 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
     func addBlankRepositoryRow() {
         let rows = self.contentView.repoTableView.numberOfRows
         self.contentView.repoTableView.beginUpdates()
-        self.tableDelegate.configs.append(RepositoryTableRowData(name: nil, url: nil, channel: .stable))
+        todo()
+//        self.tableDelegate.configs.append(RepositoryTableRowData(name: nil, url: nil, channel: .stable))
         self.contentView.repoTableView.insertRows(at: IndexSet(integer: rows), withAnimation: .effectFade)
         self.contentView.repoTableView.endUpdates()
         self.contentView.repoTableView.editColumn(0, row: rows, with: nil, select: true)
@@ -91,13 +75,14 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
         }
         
         let v = tableDelegate.configs.compactMap { t -> RepoRecord? in
-            if let url = t.url, let channel = t.channel {
-                return RepoRecord(url: url, channel: channel)
-            }
+//            if let url = t.url, let channel = t.channel {
+//                return RepoRecord(url: url, channel: channel)
+//            }
+            todo()
             return nil
         }
         
-        AppContext.settings.dispatch(event: .setRepositoryConfigs(v))
+//        AppContext.settings.dispatch(event: .setRepositoryConfigs(v))
     }
     
     func handle(error: Error) {
@@ -120,8 +105,8 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
         title = Strings.settings
         
         InterfaceLanguage.bind(to: contentView.languageDropdown.menu!)
-        UpdateFrequency.bind(to: contentView.frequencyPopUp.menu!)
-        Repository.Channels.bind(to: contentView.repoChannelColumn.menu!)
+//        UpdateFrequency.bind(to: contentView.frequencyPopUp.menu!)
+//        Repository.Channels.bind(to: contentView.repoChannelColumn.menu!)
     }
 
     override func viewWillAppear() {
@@ -138,41 +123,41 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
             self.promptRemoveRepositoryRow()
         }).disposed(by: bag)
         
-        AppContext.settings.state.map { $0.interfaceLanguage }
-            .subscribe(onNext: { [weak self] language in
-                guard let `self` = self else { return }
-                
-                guard let item = self.contentView.languageDropdown.menu!.items
-                    .first(where: { ($0.representedObject as! InterfaceLanguage).rawValue == language }) else {
-                    return
-                }
-                
-                self.contentView.languageDropdown.select(item)
-            }).disposed(by: bag)
+//        AppContext.settings.state.map { $0.interfaceLanguage }
+//            .subscribe(onNext: { [weak self] language in
+//                guard let `self` = self else { return }
+//
+//                guard let item = self.contentView.languageDropdown.menu!.items
+//                    .first(where: { ($0.representedObject as! InterfaceLanguage).rawValue == language }) else {
+//                    return
+//                }
+//
+//                self.contentView.languageDropdown.select(item)
+//            }).disposed(by: bag)
         
-        AppContext.settings.state.map { $0.updateCheckInterval }
-            .subscribe(onNext: { [weak self] frequency in
-                guard let `self` = self else { return }
-                
-                guard let item = self.contentView.frequencyPopUp.menu!.items
-                    .first(where: { ($0.representedObject as! UpdateFrequency) == frequency }) else {
-                        return
-                }
-                
-                self.contentView.frequencyPopUp.select(item)
-            }).disposed(by: bag)
+//        AppContext.settings.state.map { $0.updateCheckInterval }
+//            .subscribe(onNext: { [weak self] frequency in
+//                guard let `self` = self else { return }
+//
+//                guard let item = self.contentView.frequencyPopUp.menu!.items
+//                    .first(where: { ($0.representedObject as! UpdateFrequency) == frequency }) else {
+//                        return
+//                }
+//
+//                self.contentView.frequencyPopUp.select(item)
+//            }).disposed(by: bag)
         
-        contentView.languageDropdown.rx.tap
-            .map { self.contentView.languageDropdown.selectedItem!.representedObject as! InterfaceLanguage }
-            .subscribe(onNext: {
-                AppContext.settings.dispatch(event: .setInterfaceLanguage($0.rawValue))
-            }).disposed(by: bag)
+//        contentView.languageDropdown.rx.tap
+//            .map { self.contentView.languageDropdown.selectedItem!.representedObject as! InterfaceLanguage }
+//            .subscribe(onNext: {
+//                AppContext.settings.dispatch(event: .setInterfaceLanguage($0.rawValue))
+//            }).disposed(by: bag)
         
-        contentView.frequencyPopUp.rx.tap
-            .map { self.contentView.frequencyPopUp.selectedItem!.representedObject as! UpdateFrequency }
-            .subscribe(onNext: {
-                AppContext.settings.dispatch(event: .setUpdateCheckInterval($0))
-            }).disposed(by: bag)
+//        contentView.frequencyPopUp.rx.tap
+//            .map { self.contentView.frequencyPopUp.selectedItem!.representedObject as! UpdateFrequency }
+//            .subscribe(onNext: {
+//                AppContext.settings.dispatch(event: .setUpdateCheckInterval($0))
+//            }).disposed(by: bag)
         
         presenter.start().disposed(by: bag)
     }
@@ -186,7 +171,6 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
 
 enum RepositoryTableColumns: String {
     case url
-    case name
     case channel
     
     init?(identifier: NSUserInterfaceItemIdentifier) {
@@ -199,7 +183,7 @@ enum RepositoryTableColumns: String {
 }
 
 enum RepositoryTableEvent {
-    case setChannel(Int, Repository.Channels)
+    case setChannel(Int, String?)
     case setURL(Int, URL)
     case remove(Int)
 }
@@ -226,15 +210,14 @@ class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSou
         switch column {
         case .url:
             return config.url?.absoluteString
-        case .name:
-            return config.name
         case .channel:
-            guard let cell = tableColumn.dataCell as? NSPopUpButtonCell else { return nil }
-            guard let index = cell.menu?.items.firstIndex(where: {
-                $0.representedObject as? Repository.Channels == config.channel
-            }) else {
-                return nil
-            }
+//            guard let cell = tableColumn.dataCell as? NSPopUpButtonCell else { return nil }
+//            guard let index = cell.menu?.items.firstIndex(where: {
+//                $0.representedObject as? Repository.Channels == config.channel
+//            }) else {
+//                return nil
+//            }
+            todo()
             return index
         }
     }
@@ -256,7 +239,8 @@ class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSou
             }
             
             if let url = URL(string: string), url.scheme?.starts(with: "http") ?? false {
-                self.configs[row] = RepositoryTableRowData(name: Strings.loading, url: url, channel: configs[row].channel)
+                self.configs[row] = RepositoryTableRowData(url: url, channel: configs[row].channel)
+                todo()
                 events.onNext(.setURL(row, url))
             } else {
                 let alert = NSAlert()
@@ -264,16 +248,14 @@ class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSou
                 alert.informativeText = Strings.invalidUrlBody
                 alert.runModal()
             }
-        case .name:
-            break
         case .channel:
             guard let cell = tableColumn.dataCell as? NSPopUpButtonCell else { return }
             guard let index = object as? Int else { return }
             guard let menuItem = cell.menu?.item(at: index) else { return }
-            guard let channel = menuItem.representedObject as? Repository.Channels else { return }
+            guard let channel = menuItem.representedObject as? String else { return }
             
             // Required or UI does a weird blinking thing.
-            self.configs[row] = RepositoryTableRowData(name: configs[row].name, url: configs[row].url, channel: channel)
+            self.configs[row] = RepositoryTableRowData(url: configs[row].url, channel: channel)
             events.onNext(.setChannel(row, channel))
         }
     }
@@ -330,43 +312,43 @@ enum InterfaceLanguage: String, Comparable {
     }
 }
 
-fileprivate extension UpdateFrequency {
-    private static func createMenuItem(_ thingo: UpdateFrequency) -> NSMenuItem {
-        return NSMenuItem(title: thingo.description, value: thingo)
-    }
-    
-    static func asMenuItems() -> [NSMenuItem] {
-        return [
-            UpdateFrequency.createMenuItem(.daily),
-            UpdateFrequency.createMenuItem(.weekly),
-            UpdateFrequency.createMenuItem(.fortnightly),
-            UpdateFrequency.createMenuItem(.monthly),
-            UpdateFrequency.createMenuItem(.never)
-        ]
-    }
-    
-    static func bind(to menu: NSMenu) {
-        self.asMenuItems().forEach(menu.addItem(_:))
-    }
-}
-
-fileprivate extension Repository.Channels {
-    private static func createMenuItem(_ thingo: Repository.Channels) -> NSMenuItem {
-        return NSMenuItem(title: thingo.description, value: thingo)
-    }
-    
-    static func asMenuItems() -> [NSMenuItem] {
-        return [
-            createMenuItem(.stable),
-            createMenuItem(.alpha),
-            createMenuItem(.beta),
-            createMenuItem(.nightly),
-        ]
-    }
-    
-    static func bind(to menu: NSMenu) {
-        self.asMenuItems().forEach(menu.addItem(_:))
-    }
-}
+//fileprivate extension UpdateFrequency {
+//    private static func createMenuItem(_ thingo: UpdateFrequency) -> NSMenuItem {
+//        return NSMenuItem(title: thingo.description, value: thingo)
+//    }
+//
+//    static func asMenuItems() -> [NSMenuItem] {
+//        return [
+//            UpdateFrequency.createMenuItem(.daily),
+//            UpdateFrequency.createMenuItem(.weekly),
+//            UpdateFrequency.createMenuItem(.fortnightly),
+//            UpdateFrequency.createMenuItem(.monthly),
+//            UpdateFrequency.createMenuItem(.never)
+//        ]
+//    }
+//
+//    static func bind(to menu: NSMenu) {
+//        self.asMenuItems().forEach(menu.addItem(_:))
+//    }
+//}
+//
+//fileprivate extension Repository.Channels {
+//    private static func createMenuItem(_ thingo: Repository.Channels) -> NSMenuItem {
+//        return NSMenuItem(title: thingo.description, value: thingo)
+//    }
+//
+//    static func asMenuItems() -> [NSMenuItem] {
+//        return [
+//            createMenuItem(.stable),
+//            createMenuItem(.alpha),
+//            createMenuItem(.beta),
+//            createMenuItem(.nightly),
+//        ]
+//    }
+//
+//    static func bind(to menu: NSMenu) {
+//        self.asMenuItems().forEach(menu.addItem(_:))
+//    }
+//}
 
 

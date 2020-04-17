@@ -9,18 +9,17 @@
 import Cocoa
 import RxSwift
 import RxCocoa
-import PahkatClient
 
 class DownloadViewController: DisposableViewController<DownloadView>, DownloadViewable, NSToolbarDelegate {
     private let byteCountFormatter = ByteCountFormatter()
     private var delegate: DownloadProgressTableDelegate! = nil
     
     private let transaction: TransactionType
-    private let repos: [RepositoryIndex]
+    private let repos: [LoadedRepository]
     
     internal lazy var presenter = { DownloadPresenter(view: self, transaction: transaction) }()
     
-    init(transaction: TransactionType, repos: [RepositoryIndex]) {
+    init(transaction: TransactionType, repos: [LoadedRepository]) {
         self.transaction = transaction
         self.repos = repos
         super.init()
@@ -34,7 +33,8 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
         return self.contentView.primaryButton.rx.tap.asDriver()
     }
     
-    func setStatus(package: Package, status: PackageDownloadStatus) {
+    // TODO: maybe get rid of PackageDownloadStatus and use the new RPC one?
+    func setStatus(package: Descriptor, status: PackageDownloadStatus) {
         DispatchQueue.main.async {
             if let view = self.delegate.tableView(self.contentView.tableView, viewFor: package) as? DownloadProgressView {
                 switch(status) {
@@ -129,7 +129,7 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
         configureToolbar()
     }
     
-    func initializeDownloads(packages: [Package]) {
+    func initializeDownloads(packages: [(Descriptor, Release)]) {
         self.delegate = DownloadProgressTableDelegate(with: packages)
         contentView.tableView.delegate = self.delegate
         contentView.tableView.dataSource = self.delegate
@@ -144,21 +144,21 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
 
 class DownloadProgressTableDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegate {
     private var views = [View]()
-    private let packages: [Package]
+    private let packages: [(Descriptor, Release)]
     
-    init(with packages: [Package]) {
+    init(with packages: [(Descriptor, Release)]) {
         self.packages = packages
         
-        for package in packages {
+        for (package, release) in packages {
             let view = DownloadProgressView.loadFromNib()
             let name = package.nativeName
-            view.nameLabel.stringValue = "\(name) \(package.nativeVersion)"
+            view.nameLabel.stringValue = "\(name) \(release.nativeVersion)"
             self.views.append(view)
         }
     }
     
-    func tableView(_ tableView: NSTableView, viewFor package: Package) -> NSView? {
-        if let row = packages.firstIndex(of: package) {
+    func tableView(_ tableView: NSTableView, viewFor package: Descriptor) -> NSView? {
+        if let row = packages.map { $0.0 }.firstIndex(of: package) {
             return self.tableView(tableView, viewFor: nil, row: row)
         } else {
             return nil

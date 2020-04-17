@@ -17,13 +17,13 @@ class WindowManager: NSObject, NSWindowDelegate {
         let name = closingWindow.frameAutosaveName
         closingWindow.saveFrame(usingName: name)
         
-        if let (key, window) = instances.first(where: { $0.1.window === closingWindow }) {
+        if let (key, _) = instances.first(where: { $0.1.window === closingWindow }) {
             instances.removeValue(forKey: key)
         }
         
         // We handle app termination requirements here
         if instances.isEmpty && AppDelegate.instance.applicationShouldTerminateAfterLastWindowClosed(NSApp) {
-            defer {
+            DispatchQueue.main.async {
                 NSApp.terminate(NSApp)
             }
         }

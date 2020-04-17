@@ -9,11 +9,10 @@
 import Cocoa
 import RxSwift
 import RxCocoa
-import PahkatClient
 
 class InstallViewController: DisposableViewController<InstallView>, InstallViewable, NSToolbarDelegate {
     private let transaction: TransactionType
-    private let repos: [RepositoryIndex]
+    private let repos: [LoadedRepository]
     
     private lazy var presenter = {
         return InstallPresenter(view: self, transaction: transaction, repos: repos)
@@ -23,7 +22,7 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
         return self.contentView.primaryButton.rx.tap.asDriver()
     }
     
-    init(transaction: TransactionType, repos: [RepositoryIndex]) {
+    init(transaction: TransactionType, repos: [LoadedRepository]) {
         self.transaction = transaction
         self.repos = repos
         super.init()
@@ -37,15 +36,17 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
         self.contentView.remainingLabel.stringValue = Strings.nItemsRemaining(count: String(max - value))
     }
     
-    func set(nextPackage package: Package, action: PackageActionType) {
+    func set(nextPackage package: Descriptor, action: PackageActionType) {
         DispatchQueue.main.async {
             let label: String
             
+            let version = package.release.compactMap { $0.version }.first ?? "<no package!>"
+            
             switch action {
             case .install:
-                label = Strings.installingPackage(name: package.nativeName, version: package.version)
+                label = Strings.installingPackage(name: package.nativeName, version: version)
             case .uninstall:
-                label = Strings.uninstallingPackage(name: package.nativeName, version: package.version)
+                label = Strings.uninstallingPackage(name: package.nativeName, version: version)
             }
             
             self.contentView.horizontalIndicator.increment(by: 1.0)

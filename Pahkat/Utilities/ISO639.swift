@@ -8,9 +8,10 @@
 
 import Foundation
 
+// Language tags
 struct ISO639Data {
-    let tag3: String
-    let tag1: String
+    let tag3: String // 3 chars eg "smj"
+    let tag1: String // 2 chars eg "se"
     let name: String
     let autonym: String?
     let source: String

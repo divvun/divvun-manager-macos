@@ -9,12 +9,11 @@
 import Foundation
 import RxSwift
 import RxCocoa
-import PahkatClient
 
 protocol InstallViewable: class {
     var onCancelTapped: Driver<Void> { get }
     func set(totalPackages total: Int)
-    func set(nextPackage: Package, action: PackageActionType)
+    func set(nextPackage: Descriptor, action: PackageActionType)
     func showCompletion(requiresReboot: Bool)
     func handle(error: Error)
     func beginCancellation()

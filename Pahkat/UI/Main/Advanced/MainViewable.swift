@@ -9,7 +9,6 @@
 import Foundation
 import RxSwift
 import RxCocoa
-import PahkatClient
 
 protocol MainViewable: class {
     var onPackageEvent: Observable<OutlineEvent> { get }

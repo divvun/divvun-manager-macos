@@ -9,15 +9,19 @@
 import Foundation
 import Cocoa
 import XCGLogger
-import PahkatClient
 
 let log = XCGLogger.default
 
 class AppContextImpl {
-    lazy var client = { MacOSPackageStore.default() }()
-    lazy var settings = { SettingsStore() }()
-    let store = { AppStore() }()
+    let settings: Settings
+//    let store = { AppStore() }()
     let windows = { WindowManager() }()
+    let packageStore: PahkatClient
+    
+    init() throws {
+        settings = try Settings()
+        packageStore = PahkatClient(unixSocketPath: URL(fileURLWithPath: "/tmp/pahkat"))
+    }
 }
 
 var AppContext: AppContextImpl!
@@ -28,25 +32,24 @@ class App: NSApplication {
     override init() {
         super.init()
         
-        pahkat_enable_logging()
-        
-        // TODO: fix this shit becoming corrupted over and over again
-        if UserDefaults.standard.object(forKey: "AppleLanguages") != nil {
-            if UserDefaults.standard.string(forKey: "AppleLanguages") == nil {
-                UserDefaults.standard.removeObject(forKey: "AppleLanguages")
-                UserDefaults.standard.synchronize()
-            }
-        }
-        
         self.delegate = appDelegate
         
-        PahkatAdminReceiver.instance
-            .service(errorCallback: { log.debug($0) })
-            .xpcServiceVersion(withReply: {
-                log.debug("XPC service version: \($0)")
-            })
+        do {
+            AppContext = try AppContextImpl()
+        } catch let error {
+            // TODO: show an NSAlert to the user indicating the actual problem and how to fix it
+            todo()
+        }
         
-        AppContext = AppContextImpl()
+        let language: String? = AppContext.settings.read(key: .language)
+        
+        if let language = language {
+            UserDefaults.standard.set(language, forKey: "AppleLanguages")
+        } else {
+            UserDefaults.standard.removeObject(forKey: "AppleLanguages")
+        }
+        
+        UserDefaults.standard.synchronize()
     }
     
     override func terminate(_ sender: Any?) {

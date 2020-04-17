@@ -9,7 +9,6 @@
 import Foundation
 import Cocoa
 import RxSwift
-import PahkatClient
 
 protocol NSOutlineViewMenu: NSOutlineViewDelegate {
     func outlineView(_ outlineView: NSOutlineView, menuFor item: Any) -> NSMenu?
@@ -73,13 +72,20 @@ class OutlineGroup: Equatable, Comparable {
 }
 
 class OutlinePackage: Equatable, Comparable {
-    let package: Package
+    let package: Descriptor
+    let release: Release
+    let target: Target
+    let status: (PackageStatus, SystemTarget)
+    
     let group: OutlineGroup
     let repo: OutlineRepository
     var selection: SelectedPackage?
     
-    init(package: Package, group: OutlineGroup, repo: OutlineRepository, selection: SelectedPackage?) {
+    init(package: Descriptor, release: Release, target: Target, status: (PackageStatus, SystemTarget), group: OutlineGroup, repo: OutlineRepository, selection: SelectedPackage?) {
         self.package = package
+        self.release = release
+        self.target = target
+        self.status = status
         self.group = group
         self.repo = repo
         self.selection = selection
@@ -98,11 +104,17 @@ class OutlinePackage: Equatable, Comparable {
     }
 }
 
+
+enum OutlineFilter {
+    case category
+    case language
+}
+
 enum OutlineEvent {
     case setPackageSelection(SelectedPackage)
     case togglePackage(OutlinePackage)
     case toggleGroup(OutlineGroup)
-    case changeFilter(OutlineRepository, Repository.PrimaryFilter)
+    case changeFilter(OutlineRepository, OutlineFilter)
 }
 
 class OutlineCheckbox: NSButton {
@@ -110,10 +122,10 @@ class OutlineCheckbox: NSButton {
 }
 
 class OutlineRepository: Equatable, Comparable {
-    let repo: RepositoryIndex
-    var filter: Repository.PrimaryFilter
+    let repo: LoadedRepository
+    var filter: OutlineFilter
     
-    init(filter: Repository.PrimaryFilter, repo: RepositoryIndex) {
+    init(filter: OutlineFilter, repo: LoadedRepository) {
         self.filter = filter
         self.repo = repo
     }
