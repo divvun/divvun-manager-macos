@@ -50,14 +50,14 @@
 		C6227069203A243700DBCD65 /* iso639-autonyms.tsv in Resources */ = {isa = PBXBuildFile; fileRef = C6227068203A243700DBCD65 /* iso639-autonyms.tsv */; };
 		C622706B203A247300DBCD65 /* ISO639.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622706A203A247300DBCD65 /* ISO639.swift */; };
 		C62462392201226300BE484B /* CompatNSMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62462382201226300BE484B /* CompatNSMenuItem.swift */; };
-		C63191C8244723760055DA03 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C63191C7244723760055DA03 /* RxSwift */; };
-		C63191CA244723760055DA03 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = C63191C9244723760055DA03 /* RxCocoa */; };
-		C63191CD24472C9E0055DA03 /* RxFeedback in Frameworks */ = {isa = PBXBuildFile; productRef = C63191CC24472C9E0055DA03 /* RxFeedback */; };
-		C63191D524472D910055DA03 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = C63191D424472D910055DA03 /* Sentry */; };
-		C63191D824472DE50055DA03 /* ObjcExceptionBridging in Frameworks */ = {isa = PBXBuildFile; productRef = C63191D724472DE50055DA03 /* ObjcExceptionBridging */; };
-		C63191DA24472DE50055DA03 /* XCGLogger in Frameworks */ = {isa = PBXBuildFile; productRef = C63191D924472DE50055DA03 /* XCGLogger */; };
-		C63191DD24472EF60055DA03 /* GRPC in Frameworks */ = {isa = PBXBuildFile; productRef = C63191DC24472EF60055DA03 /* GRPC */; };
-		C63191E0244730340055DA03 /* FlatBuffers in Frameworks */ = {isa = PBXBuildFile; productRef = C63191DF244730340055DA03 /* FlatBuffers */; };
+		C63191C8244723760055DA03 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = C63191C7244723760055DA03 /* SwiftPackageProductDependency */; };
+		C63191CA244723760055DA03 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = C63191C9244723760055DA03 /* SwiftPackageProductDependency */; };
+		C63191CD24472C9E0055DA03 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = C63191CC24472C9E0055DA03 /* SwiftPackageProductDependency */; };
+		C63191D524472D910055DA03 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = C63191D424472D910055DA03 /* SwiftPackageProductDependency */; };
+		C63191D824472DE50055DA03 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = C63191D724472DE50055DA03 /* SwiftPackageProductDependency */; };
+		C63191DA24472DE50055DA03 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = C63191D924472DE50055DA03 /* SwiftPackageProductDependency */; };
+		C63191DD24472EF60055DA03 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = C63191DC24472EF60055DA03 /* SwiftPackageProductDependency */; };
+		C63191E0244730340055DA03 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = C63191DF244730340055DA03 /* SwiftPackageProductDependency */; };
 		C656A693203ECAF80004E7F1 /* CompletionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C656A692203ECAF80004E7F1 /* CompletionView.xib */; };
 		C656A696203EE5190004E7F1 /* base.yaml in Resources */ = {isa = PBXBuildFile; fileRef = C656A695203EE5190004E7F1 /* base.yaml */; };
 		C68E9F842384C2700083ACF4 /* WebBridgeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68E9F832384C2700083ACF4 /* WebBridgeService.swift */; };
@@ -243,14 +243,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C63191CA244723760055DA03 /* RxCocoa in Frameworks */,
-				C63191DD24472EF60055DA03 /* GRPC in Frameworks */,
-				C63191E0244730340055DA03 /* FlatBuffers in Frameworks */,
-				C63191CD24472C9E0055DA03 /* RxFeedback in Frameworks */,
-				C63191DA24472DE50055DA03 /* XCGLogger in Frameworks */,
-				C63191C8244723760055DA03 /* RxSwift in Frameworks */,
-				C63191D524472D910055DA03 /* Sentry in Frameworks */,
-				C63191D824472DE50055DA03 /* ObjcExceptionBridging in Frameworks */,
+				C63191CA244723760055DA03 /* BuildFile in Frameworks */,
+				C63191DD24472EF60055DA03 /* BuildFile in Frameworks */,
+				C63191E0244730340055DA03 /* BuildFile in Frameworks */,
+				C63191CD24472C9E0055DA03 /* BuildFile in Frameworks */,
+				C63191DA24472DE50055DA03 /* BuildFile in Frameworks */,
+				C63191C8244723760055DA03 /* BuildFile in Frameworks */,
+				C63191D524472D910055DA03 /* BuildFile in Frameworks */,
+				C63191D824472DE50055DA03 /* BuildFile in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,7 +346,6 @@
 				C69F948C2028B1EA00127A47 /* Pahkat */,
 				C6EA31C921B0A2460014F3B6 /* PahkatAdminService */,
 				C6C3FA512382C1EA0006E81B /* Shared */,
-				FA0E3526D5964C9EC14FAF12 /* Frameworks */,
 				C69F948B2028B1EA00127A47 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -514,13 +513,6 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
-		FA0E3526D5964C9EC14FAF12 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -541,14 +533,14 @@
 			);
 			name = Pahkat;
 			packageProductDependencies = (
-				C63191C7244723760055DA03 /* RxSwift */,
-				C63191C9244723760055DA03 /* RxCocoa */,
-				C63191CC24472C9E0055DA03 /* RxFeedback */,
-				C63191D424472D910055DA03 /* Sentry */,
-				C63191D724472DE50055DA03 /* ObjcExceptionBridging */,
-				C63191D924472DE50055DA03 /* XCGLogger */,
-				C63191DC24472EF60055DA03 /* GRPC */,
-				C63191DF244730340055DA03 /* FlatBuffers */,
+				C63191C7244723760055DA03 /* SwiftPackageProductDependency */,
+				C63191C9244723760055DA03 /* SwiftPackageProductDependency */,
+				C63191CC24472C9E0055DA03 /* SwiftPackageProductDependency */,
+				C63191D424472D910055DA03 /* SwiftPackageProductDependency */,
+				C63191D724472DE50055DA03 /* SwiftPackageProductDependency */,
+				C63191D924472DE50055DA03 /* SwiftPackageProductDependency */,
+				C63191DC24472EF60055DA03 /* SwiftPackageProductDependency */,
+				C63191DF244730340055DA03 /* SwiftPackageProductDependency */,
 			);
 			productName = Pahkat;
 			productReference = C69F948A2028B1EA00127A47 /* Divvun Installer.app */;
@@ -590,12 +582,12 @@
 			);
 			mainGroup = C69F94812028B1EA00127A47;
 			packageReferences = (
-				C63191C6244723760055DA03 /* XCRemoteSwiftPackageReference "RxSwift" */,
-				C63191CB24472C9D0055DA03 /* XCRemoteSwiftPackageReference "RxFeedback" */,
-				C63191D324472D910055DA03 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
-				C63191D624472DE50055DA03 /* XCRemoteSwiftPackageReference "XCGLogger" */,
-				C63191DB24472EF60055DA03 /* XCRemoteSwiftPackageReference "grpc-swift" */,
-				C63191DE244730340055DA03 /* XCRemoteSwiftPackageReference "flatbuffers" */,
+				C63191C6244723760055DA03 /* RemoteSwiftPackageReference */,
+				C63191CB24472C9D0055DA03 /* RemoteSwiftPackageReference */,
+				C63191D324472D910055DA03 /* RemoteSwiftPackageReference */,
+				C63191D624472DE50055DA03 /* RemoteSwiftPackageReference */,
+				C63191DB24472EF60055DA03 /* RemoteSwiftPackageReference */,
+				C63191DE244730340055DA03 /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = C69F948B2028B1EA00127A47 /* Products */;
 			projectDirPath = "";
@@ -951,7 +943,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		C63191C6244723760055DA03 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+		C63191C6244723760055DA03 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift";
 			requirement = {
@@ -959,7 +951,7 @@
 				minimumVersion = 5.1.1;
 			};
 		};
-		C63191CB24472C9D0055DA03 /* XCRemoteSwiftPackageReference "RxFeedback" */ = {
+		C63191CB24472C9D0055DA03 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/NoTests/RxFeedback.swift";
 			requirement = {
@@ -967,7 +959,7 @@
 				minimumVersion = 3.0.0;
 			};
 		};
-		C63191D324472D910055DA03 /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
+		C63191D324472D910055DA03 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/getsentry/sentry-cocoa";
 			requirement = {
@@ -975,7 +967,7 @@
 				minimumVersion = 4.5.0;
 			};
 		};
-		C63191D624472DE50055DA03 /* XCRemoteSwiftPackageReference "XCGLogger" */ = {
+		C63191D624472DE50055DA03 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/DaveWoodCom/XCGLogger";
 			requirement = {
@@ -983,7 +975,7 @@
 				minimumVersion = 7.0.1;
 			};
 		};
-		C63191DB24472EF60055DA03 /* XCRemoteSwiftPackageReference "grpc-swift" */ = {
+		C63191DB24472EF60055DA03 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/grpc/grpc-swift";
 			requirement = {
@@ -991,7 +983,7 @@
 				kind = branch;
 			};
 		};
-		C63191DE244730340055DA03 /* XCRemoteSwiftPackageReference "flatbuffers" */ = {
+		C63191DE244730340055DA03 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mustiikhalil/flatbuffers";
 			requirement = {
@@ -1002,44 +994,44 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		C63191C7244723760055DA03 /* RxSwift */ = {
+		C63191C7244723760055DA03 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C63191C6244723760055DA03 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = C63191C6244723760055DA03 /* RemoteSwiftPackageReference */;
 			productName = RxSwift;
 		};
-		C63191C9244723760055DA03 /* RxCocoa */ = {
+		C63191C9244723760055DA03 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C63191C6244723760055DA03 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = C63191C6244723760055DA03 /* RemoteSwiftPackageReference */;
 			productName = RxCocoa;
 		};
-		C63191CC24472C9E0055DA03 /* RxFeedback */ = {
+		C63191CC24472C9E0055DA03 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C63191CB24472C9D0055DA03 /* XCRemoteSwiftPackageReference "RxFeedback" */;
+			package = C63191CB24472C9D0055DA03 /* RemoteSwiftPackageReference */;
 			productName = RxFeedback;
 		};
-		C63191D424472D910055DA03 /* Sentry */ = {
+		C63191D424472D910055DA03 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C63191D324472D910055DA03 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			package = C63191D324472D910055DA03 /* RemoteSwiftPackageReference */;
 			productName = Sentry;
 		};
-		C63191D724472DE50055DA03 /* ObjcExceptionBridging */ = {
+		C63191D724472DE50055DA03 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C63191D624472DE50055DA03 /* XCRemoteSwiftPackageReference "XCGLogger" */;
+			package = C63191D624472DE50055DA03 /* RemoteSwiftPackageReference */;
 			productName = ObjcExceptionBridging;
 		};
-		C63191D924472DE50055DA03 /* XCGLogger */ = {
+		C63191D924472DE50055DA03 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C63191D624472DE50055DA03 /* XCRemoteSwiftPackageReference "XCGLogger" */;
+			package = C63191D624472DE50055DA03 /* RemoteSwiftPackageReference */;
 			productName = XCGLogger;
 		};
-		C63191DC24472EF60055DA03 /* GRPC */ = {
+		C63191DC24472EF60055DA03 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C63191DB24472EF60055DA03 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			package = C63191DB24472EF60055DA03 /* RemoteSwiftPackageReference */;
 			productName = GRPC;
 		};
-		C63191DF244730340055DA03 /* FlatBuffers */ = {
+		C63191DF244730340055DA03 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C63191DE244730340055DA03 /* XCRemoteSwiftPackageReference "flatbuffers" */;
+			package = C63191DE244730340055DA03 /* RemoteSwiftPackageReference */;
 			productName = FlatBuffers;
 		};
 /* End XCSwiftPackageProductDependency section */
