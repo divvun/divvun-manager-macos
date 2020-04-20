@@ -40,7 +40,7 @@ struct SettingsFile: Codable, ConfigFile {
     }
 }
 
-class Settings : Config<SettingsFile> {
+class Settings: Config<SettingsFile> {
     var language: Observable<String?> {
         self.observe(key: .language)
     }
