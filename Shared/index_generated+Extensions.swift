@@ -50,7 +50,7 @@ struct RefMap<K: Hashable, V: Hashable>: Equatable, Hashable {
         return nil
     }
     
-    fileprivate init(ptr: UnsafeMutableRawPointer, count: Int32, keyGetter: @escaping (Int32) -> K?, valueGetter: @escaping (Int32) throws -> V?) {
+    public init(ptr: UnsafeMutableRawPointer, count: Int32, keyGetter: @escaping (Int32) -> K?, valueGetter: @escaping (Int32) throws -> V?) {
         self.ptr = ptr
         self.count = count
         self.keyGetter = keyGetter
@@ -300,7 +300,7 @@ extension pahkat.Packages {
     }
 }
 
-struct Packages: Equatable, Hashable {
+struct Packages: Equatable, Hashable, PackagesProto {
     static func == (lhs: Self, rhs: Self) -> Bool {
         todo()
         return true
@@ -318,3 +318,8 @@ struct Packages: Equatable, Hashable {
         self.inner = packages
     }
 }
+
+protocol PackagesProto {
+    var packages: RefMap<String, Package> { get }
+}
+

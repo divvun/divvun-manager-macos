@@ -104,7 +104,6 @@ class OutlinePackage: Equatable, Comparable {
     }
 }
 
-
 enum OutlineFilter {
     case category
     case language

@@ -14,7 +14,7 @@ let log = XCGLogger.default
 
 class AppContextImpl {
     let settings: Settings
-//    let store = { AppStore() }()
+    let store = { AppStore() }()
     let windows = { WindowManager() }()
     let packageStore: PahkatClient
     

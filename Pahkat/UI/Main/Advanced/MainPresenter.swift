@@ -15,22 +15,36 @@ typealias PackageOutlineMap = Map<OutlineGroup, SortedSet<OutlinePackage>>
 typealias MainOutlineMap = Map<OutlineRepository, PackageOutlineMap>
 
 fileprivate func categoryFilter(outlineRepo: OutlineRepository) -> PackageOutlineMap {
-//    var data = PackageOutlineMap()
-//    let repo = outlineRepo.repo
-//
-//    repo.descriptor.values.forEach { package in
-//        let value =  //repo.meta.nativeCategory(for: package.category)
+    var data = PackageOutlineMap()
+    let repo = outlineRepo.repo
+
+    repo.packages.values.forEach { (package: Package) in
+        let value = "WTF" //repo.meta.nativeCategory(for: package.category)
 //        let key = OutlineGroup(id: package.category, value: value, repo: outlineRepo)
-//
-//        if !data.keys.contains(key) {
-//            data[key] = []
-//        }
-//
-//        data[key]!.insert(OutlinePackage(package: package, group: key, repo: outlineRepo, selection: nil))
-//    }
-//
-//    return data
-    todo()
+        let key = OutlineGroup(id: "NO IDEA", value: value, repo: outlineRepo)
+
+        if !data.keys.contains(key) {
+            data[key] = []
+        }
+
+        guard case let Package.concrete(descriptor) = package else {
+            fatalError("Something bad")
+        }
+        let release = descriptor.release[0]! // TODO: this is probably wrong
+        let target = release.target[0]! // TODO: also probably wrong
+
+        let outlinePackage = OutlinePackage(package: descriptor,
+                                            release: release,
+                                            target: target,
+                                            status: (PackageStatus.notInstalled, SystemTarget.user), // TODO: get this from reality
+                                            group: key,
+                                            repo: outlineRepo,
+                                            selection: nil)
+        data[key]!.insert(outlinePackage)
+    }
+
+    return data
+//    todo()
 }
 
 fileprivate func languageFilter(outlineRepo: OutlineRepository) -> PackageOutlineMap {
@@ -81,27 +95,27 @@ class MainPresenter {
     private func updateData(with repositories: [LoadedRepository]) {
         data = MainOutlineMap()
         
-//        repositories.forEach { repo in
-//            let key = OutlineRepository(filter: repo.meta.primaryFilter, repo: repo)
-//            self.updateFilters(key: key)
-//        }
-        todo()
+        repositories.forEach { repo in
+            print(repo)
+            let filter = OutlineFilter.category // TODO: get this from the repo?
+            let key = OutlineRepository(filter: filter, repo: repo)
+            self.updateFilters(key: key)
+        }
     }
     
     private func bindUpdatePackageList() -> Disposable {
-//        return AppContext.store.state
-//            .map { $0.repositories }
-////            .distinctUntilChanged({ (a, b) in a == b })
-//            .observeOn(MainScheduler.instance)
-//            .subscribeOn(MainScheduler.instance)
-//            .subscribe(onNext: { [weak self] repos in
-//                guard let `self` = self else { return }
-//                self.updateData(with: repos)
-//                self.view.updateProgressIndicator(isEnabled: false)
-//                self.view.setRepositories(data: self.data)
-//
-//            }, onError: { [weak self] in self?.view.handle(error: $0) })
-        todo()
+        return AppContext.store.state
+            .map { $0.repositories }
+            .distinctUntilChanged({ (a, b) in a == b })
+            .observeOn(MainScheduler.instance)
+            .subscribeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] repos in
+                guard let `self` = self else { return }
+                self.updateData(with: repos)
+                self.view.updateProgressIndicator(isEnabled: false)
+                self.view.setRepositories(data: self.data)
+
+            }, onError: { [weak self] in self?.view.handle(error: $0) })
     }
     
     private func updatePrimaryButton() {
@@ -134,19 +148,19 @@ class MainPresenter {
     }
     
     private func bindPrimaryButton() -> Disposable {
-        todo()
-//        return view.onPrimaryButtonPressed.drive(onNext: { [weak self] in
-//            guard let `self` = self else { return }
-//            if self.selectedPackages.values.contains(where: { $0.target == .system }) {
+        return view.onPrimaryButtonPressed.drive(onNext: { [weak self] in
+            guard let `self` = self else { return }
+            if self.selectedPackages.values.contains(where: { $0.target == .system }) {
+                // TODO: something reasonable
 //                PahkatAdminReceiver.checkForAdminService().subscribe(onCompleted: {
 //                    self.view.showDownloadView(with: self.selectedPackages)
 //                }, onError: { error in
 //                    self.view.handle(error: error)
 //                }).disposed(by: self.bag)
-//            } else {
-//                self.view.showDownloadView(with: self.selectedPackages)
-//            }
-//        })
+            } else {
+                self.view.showDownloadView(with: self.selectedPackages)
+            }
+        })
     }
     
     enum PackageStateOption {
@@ -321,10 +335,10 @@ class MainPresenter {
         return CompositeDisposable(disposables: [
             bindSettingsButton(),
             bindUpdatePackageList(),
-            bindPackageToggleEvent(),
-            bindPrimaryButton(),
-            bindContextMenuEvents(),
-            bindUpdatePackagesOnLoad()
+//            bindPackageToggleEvent(),
+//            bindPrimaryButton(),
+//            bindContextMenuEvents(),
+//            bindUpdatePackagesOnLoad()
         ])
     }
 }

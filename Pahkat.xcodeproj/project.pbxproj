@@ -22,6 +22,7 @@
 		276391AE203DA3020096E10C /* DownloadProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 276391AD203DA3020096E10C /* DownloadProgressView.xib */; };
 		278A10B5203ADAB2007C3DC8 /* InstallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278A10B4203ADAB2007C3DC8 /* InstallView.xib */; };
 		278A10B7203ADACD007C3DC8 /* InstallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278A10B6203ADACD007C3DC8 /* InstallView.swift */; };
+		99C6A536244E079800AF4247 /* LoadedRepository+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C6A535244E079800AF4247 /* LoadedRepository+mock.swift */; };
 		C60B22F220432AF400A2027A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C60B22F020432AF400A2027A /* InfoPlist.strings */; };
 		C612CFAB2448605700EFEA98 /* BTreeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C612CF9B2448605400EFEA98 /* BTreeBuilder.swift */; };
 		C612CFAC2448605700EFEA98 /* BTreeCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C612CF9C2448605500EFEA98 /* BTreeCursor.swift */; };
@@ -50,14 +51,14 @@
 		C6227069203A243700DBCD65 /* iso639-autonyms.tsv in Resources */ = {isa = PBXBuildFile; fileRef = C6227068203A243700DBCD65 /* iso639-autonyms.tsv */; };
 		C622706B203A247300DBCD65 /* ISO639.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622706A203A247300DBCD65 /* ISO639.swift */; };
 		C62462392201226300BE484B /* CompatNSMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62462382201226300BE484B /* CompatNSMenuItem.swift */; };
-		C63191C8244723760055DA03 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = C63191C7244723760055DA03 /* SwiftPackageProductDependency */; };
-		C63191CA244723760055DA03 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = C63191C9244723760055DA03 /* SwiftPackageProductDependency */; };
-		C63191CD24472C9E0055DA03 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = C63191CC24472C9E0055DA03 /* SwiftPackageProductDependency */; };
-		C63191D524472D910055DA03 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = C63191D424472D910055DA03 /* SwiftPackageProductDependency */; };
-		C63191D824472DE50055DA03 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = C63191D724472DE50055DA03 /* SwiftPackageProductDependency */; };
-		C63191DA24472DE50055DA03 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = C63191D924472DE50055DA03 /* SwiftPackageProductDependency */; };
-		C63191DD24472EF60055DA03 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = C63191DC24472EF60055DA03 /* SwiftPackageProductDependency */; };
-		C63191E0244730340055DA03 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = C63191DF244730340055DA03 /* SwiftPackageProductDependency */; };
+		C63191C8244723760055DA03 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C63191C7244723760055DA03 /* RxSwift */; };
+		C63191CA244723760055DA03 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = C63191C9244723760055DA03 /* RxCocoa */; };
+		C63191CD24472C9E0055DA03 /* RxFeedback in Frameworks */ = {isa = PBXBuildFile; productRef = C63191CC24472C9E0055DA03 /* RxFeedback */; };
+		C63191D524472D910055DA03 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = C63191D424472D910055DA03 /* Sentry */; };
+		C63191D824472DE50055DA03 /* ObjcExceptionBridging in Frameworks */ = {isa = PBXBuildFile; productRef = C63191D724472DE50055DA03 /* ObjcExceptionBridging */; };
+		C63191DA24472DE50055DA03 /* XCGLogger in Frameworks */ = {isa = PBXBuildFile; productRef = C63191D924472DE50055DA03 /* XCGLogger */; };
+		C63191DD24472EF60055DA03 /* GRPC in Frameworks */ = {isa = PBXBuildFile; productRef = C63191DC24472EF60055DA03 /* GRPC */; };
+		C63191E0244730340055DA03 /* FlatBuffers in Frameworks */ = {isa = PBXBuildFile; productRef = C63191DF244730340055DA03 /* FlatBuffers */; };
 		C656A693203ECAF80004E7F1 /* CompletionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C656A692203ECAF80004E7F1 /* CompletionView.xib */; };
 		C656A696203EE5190004E7F1 /* base.yaml in Resources */ = {isa = PBXBuildFile; fileRef = C656A695203EE5190004E7F1 /* base.yaml */; };
 		C68E9F842384C2700083ACF4 /* WebBridgeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68E9F832384C2700083ACF4 /* WebBridgeService.swift */; };
@@ -150,6 +151,7 @@
 		276391AD203DA3020096E10C /* DownloadProgressView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadProgressView.xib; sourceTree = "<group>"; };
 		278A10B4203ADAB2007C3DC8 /* InstallView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstallView.xib; sourceTree = "<group>"; };
 		278A10B6203ADACD007C3DC8 /* InstallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallView.swift; sourceTree = "<group>"; };
+		99C6A535244E079800AF4247 /* LoadedRepository+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoadedRepository+mock.swift"; sourceTree = "<group>"; };
 		C60B22ED2043217300A2027A /* nn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nn; path = ../nn.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C60B22F120432AF400A2027A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Pahkat/Base.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		C60B22F320432AF800A2027A /* nn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nn; path = ../nn.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -243,14 +245,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C63191CA244723760055DA03 /* BuildFile in Frameworks */,
-				C63191DD24472EF60055DA03 /* BuildFile in Frameworks */,
-				C63191E0244730340055DA03 /* BuildFile in Frameworks */,
-				C63191CD24472C9E0055DA03 /* BuildFile in Frameworks */,
-				C63191DA24472DE50055DA03 /* BuildFile in Frameworks */,
-				C63191C8244723760055DA03 /* BuildFile in Frameworks */,
-				C63191D524472D910055DA03 /* BuildFile in Frameworks */,
-				C63191D824472DE50055DA03 /* BuildFile in Frameworks */,
+				C63191CA244723760055DA03 /* RxCocoa in Frameworks */,
+				C63191DD24472EF60055DA03 /* GRPC in Frameworks */,
+				C63191E0244730340055DA03 /* FlatBuffers in Frameworks */,
+				C63191CD24472C9E0055DA03 /* RxFeedback in Frameworks */,
+				C63191DA24472DE50055DA03 /* XCGLogger in Frameworks */,
+				C63191C8244723760055DA03 /* RxSwift in Frameworks */,
+				C63191D524472D910055DA03 /* Sentry in Frameworks */,
+				C63191D824472DE50055DA03 /* ObjcExceptionBridging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,6 +493,7 @@
 				C6E392A02447489900560023 /* PackageKey.swift */,
 				C612CFBF2448AA8700EFEA98 /* PackageAction.swift */,
 				C612CFC12448AC0700EFEA98 /* LoadedRepository.swift */,
+				99C6A535244E079800AF4247 /* LoadedRepository+mock.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -533,14 +536,14 @@
 			);
 			name = Pahkat;
 			packageProductDependencies = (
-				C63191C7244723760055DA03 /* SwiftPackageProductDependency */,
-				C63191C9244723760055DA03 /* SwiftPackageProductDependency */,
-				C63191CC24472C9E0055DA03 /* SwiftPackageProductDependency */,
-				C63191D424472D910055DA03 /* SwiftPackageProductDependency */,
-				C63191D724472DE50055DA03 /* SwiftPackageProductDependency */,
-				C63191D924472DE50055DA03 /* SwiftPackageProductDependency */,
-				C63191DC24472EF60055DA03 /* SwiftPackageProductDependency */,
-				C63191DF244730340055DA03 /* SwiftPackageProductDependency */,
+				C63191C7244723760055DA03 /* RxSwift */,
+				C63191C9244723760055DA03 /* RxCocoa */,
+				C63191CC24472C9E0055DA03 /* RxFeedback */,
+				C63191D424472D910055DA03 /* Sentry */,
+				C63191D724472DE50055DA03 /* ObjcExceptionBridging */,
+				C63191D924472DE50055DA03 /* XCGLogger */,
+				C63191DC24472EF60055DA03 /* GRPC */,
+				C63191DF244730340055DA03 /* FlatBuffers */,
 			);
 			productName = Pahkat;
 			productReference = C69F948A2028B1EA00127A47 /* Divvun Installer.app */;
@@ -582,12 +585,12 @@
 			);
 			mainGroup = C69F94812028B1EA00127A47;
 			packageReferences = (
-				C63191C6244723760055DA03 /* RemoteSwiftPackageReference */,
-				C63191CB24472C9D0055DA03 /* RemoteSwiftPackageReference */,
-				C63191D324472D910055DA03 /* RemoteSwiftPackageReference */,
-				C63191D624472DE50055DA03 /* RemoteSwiftPackageReference */,
-				C63191DB24472EF60055DA03 /* RemoteSwiftPackageReference */,
-				C63191DE244730340055DA03 /* RemoteSwiftPackageReference */,
+				C63191C6244723760055DA03 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				C63191CB24472C9D0055DA03 /* XCRemoteSwiftPackageReference "RxFeedback" */,
+				C63191D324472D910055DA03 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+				C63191D624472DE50055DA03 /* XCRemoteSwiftPackageReference "XCGLogger" */,
+				C63191DB24472EF60055DA03 /* XCRemoteSwiftPackageReference "grpc-swift" */,
+				C63191DE244730340055DA03 /* XCRemoteSwiftPackageReference "flatbuffers" */,
 			);
 			productRefGroup = C69F948B2028B1EA00127A47 /* Products */;
 			projectDirPath = "";
@@ -629,6 +632,7 @@
 			files = (
 				278A10B7203ADACD007C3DC8 /* InstallView.swift in Sources */,
 				C612CFAF2448605700EFEA98 /* SortedSet.swift in Sources */,
+				99C6A536244E079800AF4247 /* LoadedRepository+mock.swift in Sources */,
 				C6E392A7244755AF00560023 /* index_generated.swift in Sources */,
 				C6B742C7204BF19E00C7877D /* MainMenu.swift in Sources */,
 				C6C3FA642382C3870006E81B /* UserDefaults.swift in Sources */,
@@ -943,7 +947,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		C63191C6244723760055DA03 /* RemoteSwiftPackageReference */ = {
+		C63191C6244723760055DA03 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift";
 			requirement = {
@@ -951,7 +955,7 @@
 				minimumVersion = 5.1.1;
 			};
 		};
-		C63191CB24472C9D0055DA03 /* RemoteSwiftPackageReference */ = {
+		C63191CB24472C9D0055DA03 /* XCRemoteSwiftPackageReference "RxFeedback" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/NoTests/RxFeedback.swift";
 			requirement = {
@@ -959,7 +963,7 @@
 				minimumVersion = 3.0.0;
 			};
 		};
-		C63191D324472D910055DA03 /* RemoteSwiftPackageReference */ = {
+		C63191D324472D910055DA03 /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/getsentry/sentry-cocoa";
 			requirement = {
@@ -967,7 +971,7 @@
 				minimumVersion = 4.5.0;
 			};
 		};
-		C63191D624472DE50055DA03 /* RemoteSwiftPackageReference */ = {
+		C63191D624472DE50055DA03 /* XCRemoteSwiftPackageReference "XCGLogger" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/DaveWoodCom/XCGLogger";
 			requirement = {
@@ -975,7 +979,7 @@
 				minimumVersion = 7.0.1;
 			};
 		};
-		C63191DB24472EF60055DA03 /* RemoteSwiftPackageReference */ = {
+		C63191DB24472EF60055DA03 /* XCRemoteSwiftPackageReference "grpc-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/grpc/grpc-swift";
 			requirement = {
@@ -983,7 +987,7 @@
 				kind = branch;
 			};
 		};
-		C63191DE244730340055DA03 /* RemoteSwiftPackageReference */ = {
+		C63191DE244730340055DA03 /* XCRemoteSwiftPackageReference "flatbuffers" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mustiikhalil/flatbuffers";
 			requirement = {
@@ -994,44 +998,44 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		C63191C7244723760055DA03 /* SwiftPackageProductDependency */ = {
+		C63191C7244723760055DA03 /* RxSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C63191C6244723760055DA03 /* RemoteSwiftPackageReference */;
+			package = C63191C6244723760055DA03 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
 		};
-		C63191C9244723760055DA03 /* SwiftPackageProductDependency */ = {
+		C63191C9244723760055DA03 /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C63191C6244723760055DA03 /* RemoteSwiftPackageReference */;
+			package = C63191C6244723760055DA03 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxCocoa;
 		};
-		C63191CC24472C9E0055DA03 /* SwiftPackageProductDependency */ = {
+		C63191CC24472C9E0055DA03 /* RxFeedback */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C63191CB24472C9D0055DA03 /* RemoteSwiftPackageReference */;
+			package = C63191CB24472C9D0055DA03 /* XCRemoteSwiftPackageReference "RxFeedback" */;
 			productName = RxFeedback;
 		};
-		C63191D424472D910055DA03 /* SwiftPackageProductDependency */ = {
+		C63191D424472D910055DA03 /* Sentry */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C63191D324472D910055DA03 /* RemoteSwiftPackageReference */;
+			package = C63191D324472D910055DA03 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
 			productName = Sentry;
 		};
-		C63191D724472DE50055DA03 /* SwiftPackageProductDependency */ = {
+		C63191D724472DE50055DA03 /* ObjcExceptionBridging */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C63191D624472DE50055DA03 /* RemoteSwiftPackageReference */;
+			package = C63191D624472DE50055DA03 /* XCRemoteSwiftPackageReference "XCGLogger" */;
 			productName = ObjcExceptionBridging;
 		};
-		C63191D924472DE50055DA03 /* SwiftPackageProductDependency */ = {
+		C63191D924472DE50055DA03 /* XCGLogger */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C63191D624472DE50055DA03 /* RemoteSwiftPackageReference */;
+			package = C63191D624472DE50055DA03 /* XCRemoteSwiftPackageReference "XCGLogger" */;
 			productName = XCGLogger;
 		};
-		C63191DC24472EF60055DA03 /* SwiftPackageProductDependency */ = {
+		C63191DC24472EF60055DA03 /* GRPC */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C63191DB24472EF60055DA03 /* RemoteSwiftPackageReference */;
+			package = C63191DB24472EF60055DA03 /* XCRemoteSwiftPackageReference "grpc-swift" */;
 			productName = GRPC;
 		};
-		C63191DF244730340055DA03 /* SwiftPackageProductDependency */ = {
+		C63191DF244730340055DA03 /* FlatBuffers */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C63191DE244730340055DA03 /* RemoteSwiftPackageReference */;
+			package = C63191DE244730340055DA03 /* XCRemoteSwiftPackageReference "flatbuffers" */;
 			productName = FlatBuffers;
 		};
 /* End XCSwiftPackageProductDependency section */

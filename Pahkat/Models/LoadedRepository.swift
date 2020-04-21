@@ -20,8 +20,16 @@ enum LoadedRepositoryError: Error {
 }
 
 struct LoadedRepository: Hashable, Equatable {
+    static func == (lhs: LoadedRepository, rhs: LoadedRepository) -> Bool {
+        lhs.index.url.absoluteString == rhs.index.url.absoluteString
+    }
+
     static func <(lhs: LoadedRepository, rhs: LoadedRepository) -> Bool {
         return lhs.index.url.absoluteString < rhs.index.url.absoluteString
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.index.url)
     }
     
     struct Index: Hashable, Equatable {
@@ -46,7 +54,7 @@ struct LoadedRepository: Hashable, Equatable {
         let channel: String?
     }
     
-    private let rawPackages: Packages
+    private let rawPackages: PackagesProto
     
     let index: Index
     let meta: Meta
@@ -112,7 +120,7 @@ struct LoadedRepository: Hashable, Equatable {
             packages: rawPackages)
     }
     
-    private init(index: Index, meta: Meta, packages: Packages) {
+    public init<T: PackagesProto>(index: Index, meta: Meta, packages: T) {
         self.index = index
         self.meta = meta
         self.rawPackages = packages

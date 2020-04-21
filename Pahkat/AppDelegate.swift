@@ -98,7 +98,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 ////            onUpdateRequested()
 //        } else {
 //            log.debug("Show main window controller")
-////            AppContext.windows.show(MainWindowController.self, viewController: MainViewController(), sender: self)
+            AppContext.windows.show(MainWindowController.self, viewController: MainViewController(), sender: self)
 //        }
 //        
 //        #if DEBUG

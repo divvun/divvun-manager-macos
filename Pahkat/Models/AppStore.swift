@@ -14,6 +14,11 @@ enum AppEvent {
 }
 
 struct AppState {
+    var repositories = [
+        LoadedRepository.mock(id: "1"),
+        LoadedRepository.mock(id: "2"),
+        LoadedRepository.mock(id: "3")
+    ]
 }
 
 class AppStore: RxStore<AppState, AppEvent> {

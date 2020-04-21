@@ -151,9 +151,8 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         contentView.primaryButton.sizeToFit()
         contentView.primaryLabel.sizeToFit()
         
-//        let window = AppContext.windows.get(MainWindowController.self).contentWindow
-        todo()
-//        window.toolbar!.redraw()
+        let window = AppContext.windows.get(MainWindowController.self).contentWindow
+        window.toolbar!.redraw()
     }
     
     func handle(error: Error) {
@@ -217,14 +216,12 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     }
     
     private func configureToolbar() {
-//        let window = AppContext.windows.get(MainWindowController.self).contentWindow
-        todo()
-        
-//        window.titleVisibility = .hidden
-//        window.toolbar!.isVisible = true
-//        window.toolbar!.delegate = self
-        todo()
-        
+        let window = AppContext.windows.get(MainWindowController.self).contentWindow
+
+        window.titleVisibility = .hidden
+        window.toolbar!.isVisible = true
+        window.toolbar!.delegate = self
+
         let toolbarItems = ["settings",
                             NSToolbarItem.Identifier.flexibleSpace.rawValue,
                             NSToolbarItem.Identifier.flexibleSpace.rawValue,
@@ -233,7 +230,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
                             NSToolbarItem.Identifier.flexibleSpace.rawValue,
                             "button"]
         
-//        window.toolbar!.setItems(toolbarItems)
+        window.toolbar!.setItems(toolbarItems)
     }
     
     override func viewDidLoad() {
