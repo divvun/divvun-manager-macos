@@ -111,7 +111,6 @@ extension pahkat.Descriptor {
         RefList(ptr: self.__buffer.memory, count: self.releaseCount) { (i) in
             return try self.release(at: i).map { try Release($0, descriptor: Descriptor(self)) }
         }
-//        todo()
     }
     
     var tags: RefList<String> {
@@ -119,7 +118,6 @@ extension pahkat.Descriptor {
             return self.tags(at: i)
         }
     }
-//        todo()
 
     var name: RefMap<String, String> {
         RefMap(ptr: self.__buffer.memory, count: self.nameKeysCount, keyGetter: { (i) in

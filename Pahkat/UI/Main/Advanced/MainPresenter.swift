@@ -170,51 +170,54 @@ class MainPresenter {
     }
     
     private func setPackageState(to option: PackageStateOption, package: Package, repo: OutlineRepository) {
-//        guard let packageMap = self.data[repo] else { return }
-//
-//        for item in packageMap {
-//            guard case let .macOsInstaller(installer) = package.installer else {
-//                continue
-//            }
-//
-//            if let outlinePackage = item.1.first(where: { $0.package == package }), let info = repo.repo.status(forPackage: package) {
-//                let packageKey = repo.repo.absoluteKey(for: package)
-//                switch option {
-//                case .toggle:
-//                    if outlinePackage.selection == nil {
-//                        switch info.status {
-//                        case .upToDate:
-//                            outlinePackage.selection = SelectedPackage(
-//                                key: packageKey,
-//                                package: package,
-//                                action: .uninstall,
-//                                target: info.target)
-//                        default:
+        guard let packageMap: PackageOutlineMap = self.data[repo] else { return }
+
+        for item in packageMap {
+            // TODO: firstRelease may not be what we want
+            // TODO: handle non-concrete cases
+            guard case let .concrete(descriptor) = package, let installer = descriptor.firstRelease()?.macosTarget else {
+                continue
+            }
+
+            if let outlinePackage: OutlinePackage = item.1.first(where: { $0.package == descriptor }) /*, let info = repo.repo.status(forPackage: package) */{
+                let packageKey = repo.repo.packageKey(for: descriptor)
+                switch option {
+                case .toggle:
+                    if outlinePackage.selection == nil {
+                        let (status, target) = outlinePackage.status
+                        switch status {
+                        case .upToDate:
+                            outlinePackage.selection = SelectedPackage(
+                                key: packageKey,
+                                package: descriptor,
+                                action: .uninstall,
+                                target: target)
+                        default:
 //                            let target = installer.targets[0].rawValue == "system" ? InstallerTarget.system : InstallerTarget.user
-//                            outlinePackage.selection = SelectedPackage(
-//                                key: packageKey,
-//                                package: package,
-//                                action: .install,
-//                                target: target)
-//                        }
-//                    } else {
-//                        outlinePackage.selection = nil
-//                    }
-//
-//                    if let action = outlinePackage.selection {
-//                        self.selectedPackages[action.key] = action
-//                    } else {
-//                        self.selectedPackages[packageKey] = nil
-//                    }
-//                case let .set(action):
-//                    outlinePackage.selection = action
-//                    if let action = action {
-//                        self.selectedPackages[action.key] = action
-//                    }
-//                }
-//            }
-//        }
-        todo()
+                            outlinePackage.selection = SelectedPackage(
+                                key: packageKey,
+                                package: descriptor,
+                                action: .install,
+                                target: target)
+                        }
+                    } else {
+                        outlinePackage.selection = nil
+                    }
+
+                    if let action = outlinePackage.selection {
+                        self.selectedPackages[action.key] = action
+                    } else {
+                        self.selectedPackages[packageKey] = nil
+                    }
+                case let .set(action):
+                    outlinePackage.selection = action
+                    if let action = action {
+
+                        self.selectedPackages[action.key] = action
+                    }
+                }
+            }
+        }
     }
     
     private func bindUpdatePackagesOnLoad() -> Disposable {
