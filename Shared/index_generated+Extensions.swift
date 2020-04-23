@@ -355,7 +355,7 @@ extension pahkat.Packages {
 
 }
 
-struct Packages: Equatable, Hashable, PackagesProto {
+struct Packages: Equatable, Hashable, Packageable {
     static func == (lhs: Self, rhs: Self) -> Bool {
         todo()
         return true
@@ -375,7 +375,7 @@ struct Packages: Equatable, Hashable, PackagesProto {
     }
 }
 
-protocol PackagesProto {
+protocol Packageable {
     var packages: RefMap<String, Package> { get }
     var descriptors: RefMap<String, Descriptor> { get }
 }

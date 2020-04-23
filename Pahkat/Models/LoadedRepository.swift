@@ -54,7 +54,7 @@ struct LoadedRepository: Hashable, Equatable {
         let channel: String?
     }
     
-    private let rawPackages: PackagesProto
+    private let rawPackages: Packageable
     
     let index: Index
     let meta: Meta
@@ -118,7 +118,7 @@ struct LoadedRepository: Hashable, Equatable {
             packages: rawPackages)
     }
     
-    public init<T: PackagesProto>(index: Index, meta: Meta, packages: T) {
+    public init<T: Packageable>(index: Index, meta: Meta, packages: T) {
         self.index = index
         self.meta = meta
         self.rawPackages = packages
