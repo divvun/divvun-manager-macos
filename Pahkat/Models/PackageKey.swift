@@ -28,16 +28,15 @@ class PackageKey: Equatable, Hashable {
     }
     
     static func == (lhs: PackageKey, rhs: PackageKey) -> Bool {
-        todo()
-        true
+        lhs.repositoryURL == rhs.repositoryURL
     }
     
     func hash(into hasher: inout Hasher) {
-        todo()
+        hasher.combine(repositoryURL)
     }
     
     func toString() -> String {
-        return "TODO"
+        todo()
     }
 }
 

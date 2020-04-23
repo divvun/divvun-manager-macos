@@ -169,18 +169,12 @@ class MainPresenter {
         case set(SelectedPackage?)
     }
     
-    private func setPackageState(to option: PackageStateOption, package: Package, repo: OutlineRepository) {
+    private func setPackageState(to option: PackageStateOption, package: Descriptor, repo: OutlineRepository) {
         guard let packageMap: PackageOutlineMap = self.data[repo] else { return }
 
         for item in packageMap {
-            // TODO: firstRelease may not be what we want
-            // TODO: handle non-concrete cases
-            guard case let .concrete(descriptor) = package, let installer = descriptor.firstRelease()?.macosTarget else {
-                continue
-            }
-
-            if let outlinePackage: OutlinePackage = item.1.first(where: { $0.package == descriptor }) /*, let info = repo.repo.status(forPackage: package) */{
-                let packageKey = repo.repo.packageKey(for: descriptor)
+            if let outlinePackage: OutlinePackage = item.1.first(where: { $0.package == package }) {
+                let packageKey = repo.repo.packageKey(for: package)
                 switch option {
                 case .toggle:
                     if outlinePackage.selection == nil {
@@ -189,14 +183,13 @@ class MainPresenter {
                         case .upToDate:
                             outlinePackage.selection = SelectedPackage(
                                 key: packageKey,
-                                package: descriptor,
+                                package: package,
                                 action: .uninstall,
                                 target: target)
                         default:
-//                            let target = installer.targets[0].rawValue == "system" ? InstallerTarget.system : InstallerTarget.user
                             outlinePackage.selection = SelectedPackage(
                                 key: packageKey,
-                                package: descriptor,
+                                package: package,
                                 action: .install,
                                 target: target)
                         }
@@ -298,48 +291,46 @@ class MainPresenter {
     }
     
     private func bindPackageToggleEvent() -> Disposable {
-//        return view.onPackageEvent
-//            .observeOn(MainScheduler.instance)
-//            .subscribeOn(MainScheduler.instance)
-//            .flatMapLatest { [weak self] (event: OutlineEvent) -> Observable<(OutlineRepository, [Package])> in
-//                guard let `self` = self else { return Observable.empty() }
-//
-//                switch event {
-//                case let .togglePackage(item):
-//                    return Observable.just((item.repo, [item.package]))
-//                case let .toggleGroup(item):
-//                    let packages = self.data[item.repo]![item]!
-//                    let toggleIds = Set(self.selectedPackages.keys).intersection(packages.map { item.repo.repo.absoluteKey(for: $0.package) })
-//                    let x = toggleIds.count > 0
-//                        ? toggleIds.map { url in packages.first(where: { url == item.repo.repo.absoluteKey(for: $0.package) })!.package }
-//                        : packages.map { $0.package }
-//                    return Observable.just((item.repo, x))
-//                default:
-//                    return Observable.empty()
-//                }
-//            }
-//            .subscribe(onNext: { [weak self] tuple in
-//                guard let `self` = self else { return }
-//
-//                let repo = tuple.0
-//                let packages = tuple.1
-//
-//                for package in packages {
-//                    self.setPackageState(to: .toggle, package: package, repo: repo)
-//                }
-//
-//                self.updatePrimaryButton()
-//                self.view.refreshRepositories()
-//            })
-//
-        todo()
+        return view.onPackageEvent
+            .observeOn(MainScheduler.instance)
+            .subscribeOn(MainScheduler.instance)
+            .flatMapLatest { [weak self] (event: OutlineEvent) -> Observable<(OutlineRepository, [Descriptor])> in
+                guard let `self` = self else { return Observable.empty() }
+
+                switch event {
+                case let .togglePackage(item):
+                    return Observable.just((item.repo, [item.package]))
+                case let .toggleGroup(item):
+                    let packages = self.data[item.repo]![item]!
+                    let toggleIds = Set(self.selectedPackages.keys).intersection(packages.map { item.repo.repo.packageKey(for: $0.package) })
+                    let x = toggleIds.count > 0
+                        ? toggleIds.map { url in packages.first(where: { url == item.repo.repo.packageKey(for: $0.package) })!.package }
+                        : packages.map { $0.package }
+                    return Observable.just((item.repo, x))
+                default:
+                    return Observable.empty()
+                }
+            }
+            .subscribe(onNext: { [weak self] tuple in
+                guard let `self` = self else { return }
+
+                let repo = tuple.0
+                let packages = tuple.1
+
+                for package in packages {
+                    self.setPackageState(to: .toggle, package: package, repo: repo)
+                }
+
+                self.updatePrimaryButton()
+                self.view.refreshRepositories()
+            })
     }
     
     func start() -> Disposable {
         return CompositeDisposable(disposables: [
             bindSettingsButton(),
             bindUpdatePackageList(),
-//            bindPackageToggleEvent(),
+            bindPackageToggleEvent(),
 //            bindPrimaryButton(),
 //            bindContextMenuEvents(),
 //            bindUpdatePackagesOnLoad()
