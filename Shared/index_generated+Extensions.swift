@@ -204,7 +204,11 @@ enum Payload: Equatable, Hashable {
 
 extension pahkat.Target {
     var dependencies: RefMap<String, String> {
-        todo()
+        RefMap(ptr: self.__buffer.memory, count: self.dependenciesKeysCount, keyGetter: { (i) in
+            self.dependenciesKeys(at: i)
+        }) { (i) in
+            self.dependenciesValues(at: i)
+        }
     }
 }
 
