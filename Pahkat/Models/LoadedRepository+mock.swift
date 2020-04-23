@@ -1,4 +1,5 @@
 import Foundation
+import FlatBuffers
 
 extension LoadedRepository {
     static func mock(id: String) -> LoadedRepository {
@@ -6,24 +7,42 @@ extension LoadedRepository {
                                            landingURL: nil,
                                            channels: ["wildly-unstable"],
                                            defaultChannel: nil,
-                                           name: ["uhh": "not sure"],
+                                           name: ["en": "Mock\(id)"],
                                            description: ["greetings": "have a milkshake"],
                                            linkedRepositories: [],
                                            acceptedRedirections: [],
                                            agent: Index.Agent(name: "mOcK", version: "0.0", url: nil))
         let meta = LoadedRepository.Meta(channel: "MTV")
-        return LoadedRepository(index: index, meta: meta, packages: PackagesMock())
+
+        let data = try! Data(contentsOf: URL(fileURLWithPath: "/Users/dylanhand/Projects/divvun/pahkat-client-macos/Pahkat/TestData/index.bin"))
+        let packagesFbs = pahkat.Packages.getRootAsPackages(bb: ByteBuffer(data: data))
+        let rawPackages = Packages(packagesFbs)
+
+        return LoadedRepository(index: index, meta: meta, packages: rawPackages)
     }
 
-    class PackagesMock: PackagesProto {
-        var packages: RefMap<String, Package> {
-            return RefMap(ptr: UnsafeMutableRawPointer(bitPattern: 1)!,
-                          count: 0,
-                          keyGetter: { (_) -> String in
-                            "key"
-            }, valueGetter: { (_) -> Package? in
-                nil
-            })
-        }
-    }
+//    class PackagesMock: PackagesProto {
+//        let descriptors: [Descriptor] = [
+//            Descriptor(
+//        ]
+//
+//        var packages: RefMap<String, Package> {
+//            return RefMap(ptr: UnsafeMutableRawPointer.allocate(byteCount: 0, alignment: 0),
+//                          count: 0,
+//                          keyGetter: { (i) -> String in
+//                            "key"
+//            }, valueGetter: { (_) -> Package? in
+//                nil
+//            })
+//        }
+//        var descriptors: RefMap<String, Descriptor> {
+//            return RefMap(ptr: UnsafeMutableRawPointer.allocate(byteCount: 0, alignment: 0),
+//                          count: 0,
+//                          keyGetter: { (i) -> String in
+//                            "key"
+//            }, valueGetter: { (i) -> Descriptor? in
+//                nil
+//            })
+//        }
+//    }
 }

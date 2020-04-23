@@ -23,6 +23,7 @@
 		278A10B5203ADAB2007C3DC8 /* InstallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278A10B4203ADAB2007C3DC8 /* InstallView.xib */; };
 		278A10B7203ADACD007C3DC8 /* InstallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278A10B6203ADACD007C3DC8 /* InstallView.swift */; };
 		99C6A536244E079800AF4247 /* LoadedRepository+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C6A535244E079800AF4247 /* LoadedRepository+mock.swift */; };
+		99C6A53924509D0700AF4247 /* index.bin in Resources */ = {isa = PBXBuildFile; fileRef = 99C6A53824509D0700AF4247 /* index.bin */; };
 		C60B22F220432AF400A2027A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C60B22F020432AF400A2027A /* InfoPlist.strings */; };
 		C612CFAB2448605700EFEA98 /* BTreeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C612CF9B2448605400EFEA98 /* BTreeBuilder.swift */; };
 		C612CFAC2448605700EFEA98 /* BTreeCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C612CF9C2448605500EFEA98 /* BTreeCursor.swift */; };
@@ -152,6 +153,7 @@
 		278A10B4203ADAB2007C3DC8 /* InstallView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstallView.xib; sourceTree = "<group>"; };
 		278A10B6203ADACD007C3DC8 /* InstallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallView.swift; sourceTree = "<group>"; };
 		99C6A535244E079800AF4247 /* LoadedRepository+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoadedRepository+mock.swift"; sourceTree = "<group>"; };
+		99C6A53824509D0700AF4247 /* index.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = index.bin; sourceTree = "<group>"; };
 		C60B22ED2043217300A2027A /* nn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nn; path = ../nn.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C60B22F120432AF400A2027A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Pahkat/Base.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		C60B22F320432AF800A2027A /* nn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nn; path = ../nn.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -273,6 +275,14 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		99C6A53724509CE700AF4247 /* TestData */ = {
+			isa = PBXGroup;
+			children = (
+				99C6A53824509D0700AF4247 /* index.bin */,
+			);
+			path = TestData;
+			sourceTree = "<group>";
+		};
 		C62270432035C1BE00DBCD65 /* Advanced */ = {
 			isa = PBXGroup;
 			children = (
@@ -363,6 +373,7 @@
 		C69F948C2028B1EA00127A47 /* Pahkat */ = {
 			isa = PBXGroup;
 			children = (
+				99C6A53724509CE700AF4247 /* TestData */,
 				C6B742C8204BF22600C7877D /* App.swift */,
 				C69F948D2028B1EA00127A47 /* AppDelegate.swift */,
 				C6F8A8192028B3F3009A016E /* Extensions */,
@@ -620,6 +631,7 @@
 				C656A693203ECAF80004E7F1 /* CompletionView.xib in Resources */,
 				C62270642039E08B00DBCD65 /* Localizable.strings in Resources */,
 				C6F4BC702031DBD3002EE523 /* DownloadView.xib in Resources */,
+				99C6A53924509D0700AF4247 /* index.bin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

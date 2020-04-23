@@ -18,18 +18,20 @@ fileprivate func categoryFilter(outlineRepo: OutlineRepository) -> PackageOutlin
     var data = PackageOutlineMap()
     let repo = outlineRepo.repo
 
-    repo.packages.values.forEach { (package: Package) in
+    var id = 0
+    repo.descriptors.values.forEach { (descriptor: Descriptor) in
+        // TODO: get real native category from tags somehow
+
+        let categoryId = descriptor.tags.first(where: { $0.starts(with: "cat:") }) ?? "cat:unknown"
+        let category = categoryId // TODO: make native
         let value = "WTF" //repo.meta.nativeCategory(for: package.category)
 //        let key = OutlineGroup(id: package.category, value: value, repo: outlineRepo)
-        let key = OutlineGroup(id: "NO IDEA", value: value, repo: outlineRepo)
+        let key = OutlineGroup(id: "\(id)", value: value, repo: outlineRepo)
 
         if !data.keys.contains(key) {
             data[key] = []
         }
 
-        guard case let Package.concrete(descriptor) = package else {
-            fatalError("Something bad")
-        }
         let release = descriptor.release[0]! // TODO: this is probably wrong
         let target = release.target[0]! // TODO: also probably wrong
 
@@ -41,6 +43,7 @@ fileprivate func categoryFilter(outlineRepo: OutlineRepository) -> PackageOutlin
                                             repo: outlineRepo,
                                             selection: nil)
         data[key]!.insert(outlinePackage)
+        id += 1
     }
 
     return data

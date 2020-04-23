@@ -21,6 +21,12 @@ struct RefMap<K: Hashable, V: Hashable>: Equatable, Hashable {
     private let count: Int32
     private let keyGetter: (Int32) -> K?
     private let valueGetter: (Int32) throws -> V?
+
+//    @inlinable public func forEach(_ body: (K) throws -> Void) rethrows {
+//        try (0..<self.count).forEach { (i) in
+//            try body(self.keyGetter(i)!)
+//        }
+//    }
     
     struct Values {
         private let map: RefMap<K, V>
@@ -63,22 +69,22 @@ struct RefList<T: Hashable>: Sequence, Equatable {
     
     private let ptr: UnsafeMutableRawPointer
     private let count: Int32
-    private let getter: (Int32) -> T?
+    private let getter: (Int32) throws -> T?
     
     var underestimatedCount: Int { Int(count) }
     
     struct Iterator : IteratorProtocol {
         var count: Int32 = -1
-        private let getter: (Int32) -> T?
+        private let getter: (Int32) throws -> T?
         
         typealias Element = T
         
         mutating func next() -> T? {
             count += 1
-            return self.getter(count)
+            return try? self.getter(count)
         }
         
-        fileprivate init(_ getter: @escaping (Int32) -> T?) {
+        fileprivate init(_ getter: @escaping (Int32) throws -> T?) {
             self.getter = getter
         }
     }
@@ -88,39 +94,63 @@ struct RefList<T: Hashable>: Sequence, Equatable {
     }
     
     subscript(_ index: Int) -> T? {
-        return self.getter(Int32(index))
+        return try? self.getter(Int32(index))
     }
     
     static func == (lhs: RefList<T>, rhs: RefList<T>) -> Bool {
         return lhs.ptr == rhs.ptr
     }
+
+    public init(ptr: UnsafeMutableRawPointer, count: Int32, getter: @escaping (Int32) throws -> T?) {
+        self.ptr = ptr
+        self.count = count
+        self.getter = getter
+    }
 }
 
 extension pahkat.Descriptor {
     var release: RefList<Release> {
-        todo()
+        RefList(ptr: self.__buffer.memory, count: self.releaseCount) { (i) in
+            return try self.release(at: i).map { try Release($0, descriptor: Descriptor(self)) }
+        }
+//        todo()
     }
     
     var tags: RefList<String> {
-        todo()
+        RefList(ptr: self.__buffer.memory, count: self.tagsCount) { (i) in
+            return self.tags(at: i)
+        }
     }
-    
+//        todo()
+
     var name: RefMap<String, String> {
-        todo()
+        RefMap(ptr: self.__buffer.memory, count: self.nameKeysCount, keyGetter: { (i) in
+            self.nameKeys(at: i)
+        }) { (i) in
+            self.nameValues(at: i)
+        }
     }
     
     var description: RefMap<String, String> {
-        todo()
+        RefMap(ptr: self.__buffer.memory, count: self.descriptionKeysCount, keyGetter: { (i) in
+            self.descriptionKeys(at: i)
+        }) { (i) in
+            self.descriptionValues(at: i)
+        }
     }
 }
 
 extension pahkat.Release {
     var authors: RefList<String> {
-        todo()
+        RefList(ptr: self.__buffer.memory, count: self.authorsCount) { (i) in
+            return self.authors(at: i)
+        }
     }
     
     var target: RefList<Target> {
-        todo()
+        RefList(ptr: self.__buffer.memory, count: self.targetCount) { (i) in
+            return self.target(at: i).map { Target($0) }
+        }
     }
 }
 
@@ -298,6 +328,23 @@ extension pahkat.Packages {
             keyGetter: self.packagesKeys,
             valueGetter: descriptorCallback)
     }
+
+    var descriptors: RefMap<String, Descriptor> {
+        assert(self.packagesValuesCount == self.packagesKeysCount, "Packages must have same number of keys and values")
+
+        let descriptorCallback = { (index: Int32) in
+            try self.packagesValues(at: index).map {
+                try Descriptor($0)
+            }
+        }
+
+        return RefMap<String, Descriptor>(
+            ptr: self.__buffer.memory,
+            count: self.packagesKeysCount,
+            keyGetter: self.packagesKeys,
+            valueGetter: descriptorCallback)
+    }
+
 }
 
 struct Packages: Equatable, Hashable, PackagesProto {
@@ -313,7 +360,8 @@ struct Packages: Equatable, Hashable, PackagesProto {
     private let inner: pahkat.Packages
     
     var packages: RefMap<String, Package> { inner.packages }
-    
+    var descriptors: RefMap<String, Descriptor> { inner.descriptors }
+
     internal init(_ packages: pahkat.Packages) {
         self.inner = packages
     }
@@ -321,5 +369,6 @@ struct Packages: Equatable, Hashable, PackagesProto {
 
 protocol PackagesProto {
     var packages: RefMap<String, Package> { get }
+    var descriptors: RefMap<String, Descriptor> { get }
 }
 

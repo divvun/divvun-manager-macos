@@ -59,9 +59,7 @@ struct LoadedRepository: Hashable, Equatable {
     let index: Index
     let meta: Meta
     var packages: RefMap<String, Package> { rawPackages.packages }
-    var descriptors: RefMap<String, Descriptor> {
-        todo()
-    }
+    var descriptors: RefMap<String, Descriptor> { rawPackages.descriptors }
     
     static func from(protobuf: Pahkat_LoadedRepository) throws -> LoadedRepository {
         let packagesFbs = pahkat.Packages.getRootAsPackages(bb: ByteBuffer(data: protobuf.packagesFbs))
