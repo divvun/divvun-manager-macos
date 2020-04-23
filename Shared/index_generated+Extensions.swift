@@ -30,6 +30,16 @@ struct RefMap<K: Hashable, V: Hashable>: Equatable, Hashable {
                 try body(self.map.valueGetter($0)!)
             }
         }
+
+        func contains(_ value: V) -> Bool {
+            for i in 0 ..< self.map.count {
+                if let contains = try? self.map.valueGetter(i) == value,
+                    contains == true {
+                    return true
+                }
+            }
+            return false
+        }
         
         fileprivate init(_ map: RefMap<K, V>) {
             self.map = map

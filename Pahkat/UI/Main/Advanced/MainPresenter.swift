@@ -261,33 +261,31 @@ class MainPresenter {
     }
     
     private func bindContextMenuEvents() -> Disposable {
-//        return view.onPackageEvent
-//            .observeOn(MainScheduler.instance)
-//            .subscribeOn(MainScheduler.instance)
-//            .subscribe(onNext: { [weak self] event in
-//            guard let `self` = self else { return }
-//
-//            switch event {
-//            case let .setPackageSelection(action):
-//
-//                guard let outlineRepo = self.data.keys.first(where: { $0.repo.packages.values.contains(action.package) }) else {
-//                    return
-//                }
-//                self.setPackageState(to: .set(action), package: action.package, repo: outlineRepo)
-//                self.updatePrimaryButton()
-//                self.view.refreshRepositories()
-//            case let .changeFilter(repo, filter):
-//                repo.filter = filter
-//                self.updateFilters(key: repo)
-//                for action in self.selectedPackages.values {
-//                    self.setPackageState(to: .set(action), package: action.package, repo: repo)
-//                }
-//                self.view.setRepositories(data: self.data)
-//            default:
-//                return
-//            }
-//        })
-        todo()
+        return view.onPackageEvent
+            .observeOn(MainScheduler.instance)
+            .subscribeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] event in
+            guard let `self` = self else { return }
+
+            switch event {
+            case let .setPackageSelection(action):
+                guard let outlineRepo = self.data.keys.first(where: { $0.repo.descriptors.values.contains(action.package) }) else {
+                    return
+                }
+                self.setPackageState(to: .set(action), package: action.package, repo: outlineRepo)
+                self.updatePrimaryButton()
+                self.view.refreshRepositories()
+            case let .changeFilter(repo, filter):
+                repo.filter = filter
+                self.updateFilters(key: repo)
+                for action in self.selectedPackages.values {
+                    self.setPackageState(to: .set(action), package: action.package, repo: repo)
+                }
+                self.view.setRepositories(data: self.data)
+            default:
+                return
+            }
+        })
     }
     
     private func bindPackageToggleEvent() -> Disposable {
@@ -332,7 +330,7 @@ class MainPresenter {
             bindUpdatePackageList(),
             bindPackageToggleEvent(),
 //            bindPrimaryButton(),
-//            bindContextMenuEvents(),
+            bindContextMenuEvents(),
 //            bindUpdatePackagesOnLoad()
         ])
     }
