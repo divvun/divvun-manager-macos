@@ -391,6 +391,7 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
             return repos[item]!.count
         case let item as OutlineGroup:
             return repos[item.repo]![item]!.count
+//            return repos[item.repo]![item]?.count ?? 0
         default:
             return 0
         }
@@ -474,6 +475,9 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
             cell.textField?.stringValue = name
 
             let packages = repos[outlineRepo]![group]!
+//            guard let packages = repos[outlineRepo]![group] else {
+//                return nil
+//            }
 
             if let button = cell.nextKeyView as? OutlineCheckbox {
                 button.target = self

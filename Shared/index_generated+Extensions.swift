@@ -22,12 +22,6 @@ struct RefMap<K: Hashable, V: Hashable>: Equatable, Hashable {
     private let keyGetter: (Int32) -> K?
     private let valueGetter: (Int32) throws -> V?
 
-//    @inlinable public func forEach(_ body: (K) throws -> Void) rethrows {
-//        try (0..<self.count).forEach { (i) in
-//            try body(self.keyGetter(i)!)
-//        }
-//    }
-    
     struct Values {
         private let map: RefMap<K, V>
         
@@ -213,8 +207,9 @@ extension pahkat.Target {
 
 struct Target: Equatable, Hashable {
     static func == (lhs: Self, rhs: Self) -> Bool {
-        todo()
-        return true
+        return lhs.platform == rhs.platform
+            && lhs.arch == rhs.arch
+            && lhs.dependencies == rhs.dependencies
     }
     
     func hash(into hasher: inout Hasher) {
@@ -249,8 +244,9 @@ struct Target: Equatable, Hashable {
 
 struct Release: Equatable, Hashable {
     static func == (lhs: Self, rhs: Self) -> Bool {
-        todo()
-        return true
+        return lhs.version == rhs.version
+            && lhs.channel == rhs.channel
+            && lhs.target == rhs.target
     }
     
     func hash(into hasher: inout Hasher) {
@@ -278,8 +274,7 @@ struct Release: Equatable, Hashable {
 
 struct Descriptor: Equatable, Hashable {
     static func == (lhs: Self, rhs: Self) -> Bool {
-        todo()
-        return true
+        return lhs.id == rhs.id
     }
     
     func hash(into hasher: inout Hasher) {
