@@ -69,3 +69,4 @@ fastlane/test_output
 
 *.pkg
 Divvun Installer.app
+*.DS_Store
