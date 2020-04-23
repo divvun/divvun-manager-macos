@@ -19,6 +19,13 @@ fileprivate func categoryFilter(outlineRepo: OutlineRepository) -> PackageOutlin
     let repo = outlineRepo.repo
 
     repo.descriptors.values.forEach { (descriptor: Descriptor) in
+        let release = descriptor.release.lastItem // TODO: ensure this is actually the latest release
+//        let target = release.target[0]! // TODO: also probably wrong
+        guard let target = release.macosTarget else {
+            // this package doesn't have a macos target
+            return
+        }
+
         let categoryId = descriptor.tags.first(where: { $0.starts(with: "cat:") }) ?? "cat:unknown"
         let category = categoryId // TODO: make native, human readable
         let key = OutlineGroup(id: categoryId, value: category, repo: outlineRepo)
@@ -26,9 +33,6 @@ fileprivate func categoryFilter(outlineRepo: OutlineRepository) -> PackageOutlin
         if !data.keys.contains(key) {
             data[key] = []
         }
-
-        let release = descriptor.release[0]! // TODO: this is probably wrong
-        let target = release.target[0]! // TODO: also probably wrong
 
         let outlinePackage = OutlinePackage(package: descriptor,
                                             release: release,

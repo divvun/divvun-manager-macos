@@ -66,6 +66,10 @@ struct RefList<T: Hashable>: Sequence, Equatable {
     private let getter: (Int32) throws -> T?
     
     var underestimatedCount: Int { Int(count) }
+
+    var lastItem: T {
+        try! self.getter(count-1)!
+    }
     
     struct Iterator : IteratorProtocol {
         var count: Int32 = -1
@@ -206,6 +210,12 @@ extension pahkat.Target {
 
 
 struct Target: Equatable, Hashable {
+    private let inner: pahkat.Target
+
+    internal init(_ target: pahkat.Target) {
+        self.inner = target
+    }
+
     static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.platform == rhs.platform
             && lhs.arch == rhs.arch
@@ -216,9 +226,6 @@ struct Target: Equatable, Hashable {
         todo()
     }
     
-    private let inner: pahkat.Target
-    
-    var platform: String? { inner.platform }
     var arch: String? { inner.arch }
     var dependencies: RefMap<String, String> { inner.dependencies }
     var payload: Payload? {
@@ -236,9 +243,8 @@ struct Target: Equatable, Hashable {
             return nil
         }
     }
-    
-    internal init(_ target: pahkat.Target) {
-        self.inner = target
+    var platform: String? {
+        return "macos" // FIXME: using inner.platform causes a crash
     }
 }
 
@@ -248,7 +254,7 @@ struct Release: Equatable, Hashable {
             && lhs.channel == rhs.channel
             && lhs.target == rhs.target
     }
-    
+
     func hash(into hasher: inout Hasher) {
         todo()
     }
@@ -261,6 +267,9 @@ struct Release: Equatable, Hashable {
     var license: String? { inner.license }
     var licenseUrl: String? { inner.licenseUrl }
     var target: RefList<Target> { inner.target }
+    var macosTarget: Target? {
+        return self.target.first(where: { $0.platform == "macos" })
+    }
     
     internal init(_ release: pahkat.Release, descriptor: Descriptor) throws {
         self.inner = release
