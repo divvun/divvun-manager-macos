@@ -115,8 +115,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     }
     
     func showSettings() {
-//        AppContext.windows.show(SettingsWindowController.self)
-        todo()
+        AppContext.windows.show(SettingsWindowController.self)
     }
     
     override func keyDown(with event: NSEvent) {
