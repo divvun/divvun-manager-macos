@@ -175,12 +175,11 @@ enum RebootRequirement: Equatable, Hashable {
 
 struct MacOSPackage: Equatable, Hashable {
     static func == (lhs: Self, rhs: Self) -> Bool {
-        todo()
-        return true
+        lhs.url == rhs.url
     }
     
     func hash(into hasher: inout Hasher) {
-        todo()
+        hasher.combine(url)
     }
     
     let inner: pahkat.MacOSPackage
