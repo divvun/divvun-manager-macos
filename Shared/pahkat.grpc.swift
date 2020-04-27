@@ -18,6 +18,10 @@ public protocol Pahkat_PahkatClientProtocol {
   func status(_ request: Pahkat_StatusRequest, callOptions: CallOptions?) -> UnaryCall<Pahkat_StatusRequest, Pahkat_StatusResponse>
   func repositoryIndexes(_ request: Pahkat_RepositoryIndexesRequest, callOptions: CallOptions?) -> UnaryCall<Pahkat_RepositoryIndexesRequest, Pahkat_RepositoryIndexesResponse>
   func processTransaction(callOptions: CallOptions?, handler: @escaping (Pahkat_TransactionResponse) -> Void) -> BidirectionalStreamingCall<Pahkat_TransactionRequest, Pahkat_TransactionResponse>
+  func strings(_ request: Pahkat_StringsRequest, callOptions: CallOptions?) -> UnaryCall<Pahkat_StringsRequest, Pahkat_StringsResponse>
+  func setRepo(_ request: Pahkat_SetRepoRequest, callOptions: CallOptions?) -> UnaryCall<Pahkat_SetRepoRequest, Pahkat_SetRepoResponse>
+  func getRepoRecord(_ request: Pahkat_GetRepoRecordRequest, callOptions: CallOptions?) -> UnaryCall<Pahkat_GetRepoRecordRequest, Pahkat_GetRepoRecordResponse>
+  func removeRepo(_ request: Pahkat_RemoveRepoRequest, callOptions: CallOptions?) -> UnaryCall<Pahkat_RemoveRepoRequest, Pahkat_RemoveRepoResponse>
 }
 
 public final class Pahkat_PahkatClient: GRPCClient, Pahkat_PahkatClientProtocol {
@@ -87,6 +91,54 @@ public final class Pahkat_PahkatClient: GRPCClient, Pahkat_PahkatClientProtocol 
                                                handler: handler)
   }
 
+  /// Unary call to Strings
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to Strings.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  public func strings(_ request: Pahkat_StringsRequest, callOptions: CallOptions? = nil) -> UnaryCall<Pahkat_StringsRequest, Pahkat_StringsResponse> {
+    return self.makeUnaryCall(path: "/pahkat.Pahkat/Strings",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+  /// CRUD for repositories
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRepo.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  public func setRepo(_ request: Pahkat_SetRepoRequest, callOptions: CallOptions? = nil) -> UnaryCall<Pahkat_SetRepoRequest, Pahkat_SetRepoResponse> {
+    return self.makeUnaryCall(path: "/pahkat.Pahkat/SetRepo",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+  /// Unary call to GetRepoRecord
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetRepoRecord.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  public func getRepoRecord(_ request: Pahkat_GetRepoRecordRequest, callOptions: CallOptions? = nil) -> UnaryCall<Pahkat_GetRepoRecordRequest, Pahkat_GetRepoRecordResponse> {
+    return self.makeUnaryCall(path: "/pahkat.Pahkat/GetRepoRecord",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+  /// Unary call to RemoveRepo
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to RemoveRepo.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  public func removeRepo(_ request: Pahkat_RemoveRepoRequest, callOptions: CallOptions? = nil) -> UnaryCall<Pahkat_RemoveRepoRequest, Pahkat_RemoveRepoResponse> {
+    return self.makeUnaryCall(path: "/pahkat.Pahkat/RemoveRepo",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
 }
 
 /// To build a server, implement a class that conforms to this protocol.
@@ -96,6 +148,11 @@ public protocol Pahkat_PahkatProvider: CallHandlerProvider {
   func status(request: Pahkat_StatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Pahkat_StatusResponse>
   func repositoryIndexes(request: Pahkat_RepositoryIndexesRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Pahkat_RepositoryIndexesResponse>
   func processTransaction(context: StreamingResponseCallContext<Pahkat_TransactionResponse>) -> EventLoopFuture<(StreamEvent<Pahkat_TransactionRequest>) -> Void>
+  func strings(request: Pahkat_StringsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Pahkat_StringsResponse>
+  /// CRUD for repositories
+  func setRepo(request: Pahkat_SetRepoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Pahkat_SetRepoResponse>
+  func getRepoRecord(request: Pahkat_GetRepoRecordRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Pahkat_GetRepoRecordResponse>
+  func removeRepo(request: Pahkat_RemoveRepoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Pahkat_RemoveRepoResponse>
 }
 
 extension Pahkat_PahkatProvider {
@@ -131,6 +188,34 @@ extension Pahkat_PahkatProvider {
         return self.processTransaction(context: context)
       }
 
+    case "Strings":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.strings(request: request, context: context)
+        }
+      }
+
+    case "SetRepo":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setRepo(request: request, context: context)
+        }
+      }
+
+    case "GetRepoRecord":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.getRepoRecord(request: request, context: context)
+        }
+      }
+
+    case "RemoveRepo":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.removeRepo(request: request, context: context)
+        }
+      }
+
     default: return nil
     }
   }
@@ -146,4 +231,12 @@ extension Pahkat_RepositoryIndexesRequest: GRPCProtobufPayload {}
 extension Pahkat_RepositoryIndexesResponse: GRPCProtobufPayload {}
 extension Pahkat_TransactionRequest: GRPCProtobufPayload {}
 extension Pahkat_TransactionResponse: GRPCProtobufPayload {}
+extension Pahkat_StringsRequest: GRPCProtobufPayload {}
+extension Pahkat_StringsResponse: GRPCProtobufPayload {}
+extension Pahkat_SetRepoRequest: GRPCProtobufPayload {}
+extension Pahkat_SetRepoResponse: GRPCProtobufPayload {}
+extension Pahkat_GetRepoRecordRequest: GRPCProtobufPayload {}
+extension Pahkat_GetRepoRecordResponse: GRPCProtobufPayload {}
+extension Pahkat_RemoveRepoRequest: GRPCProtobufPayload {}
+extension Pahkat_RemoveRepoResponse: GRPCProtobufPayload {}
 
