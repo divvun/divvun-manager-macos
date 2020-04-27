@@ -30,7 +30,6 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
     func addBlankRepositoryRow() {
         let rows = self.contentView.repoTableView.numberOfRows
         self.contentView.repoTableView.beginUpdates()
-        todo()
 //        self.tableDelegate.configs.append(RepositoryTableRowData(name: nil, url: nil, channel: .stable))
         self.contentView.repoTableView.insertRows(at: IndexSet(integer: rows), withAnimation: .effectFade)
         self.contentView.repoTableView.endUpdates()
@@ -240,7 +239,6 @@ class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSou
             
             if let url = URL(string: string), url.scheme?.starts(with: "http") ?? false {
                 self.configs[row] = RepositoryTableRowData(url: url, channel: configs[row].channel)
-                todo()
                 events.onNext(.setURL(row, url))
             } else {
                 let alert = NSAlert()

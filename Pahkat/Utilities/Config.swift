@@ -16,6 +16,8 @@ protocol ConfigFile: Codable {
     init() // Default initialiser is required
 }
 
+fileprivate struct Instathrow : Error {}
+
 class Config<File> where File: ConfigFile {
     let filePath: URL
     
@@ -29,9 +31,12 @@ class Config<File> where File: ConfigFile {
         try fm.createDirectory(at: path.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
         
         // Assume the file itself may not exist
-        let data: Data
+        var data: Data
         do {
             data = try Data(contentsOf: path)
+            if data.count == 0 {
+                throw Instathrow()
+            }
         } catch {
             // The file musn't exist then, because data only cares about bytes
             data = "{}".data(using: .utf8)! // empty json file

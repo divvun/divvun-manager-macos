@@ -9,22 +9,31 @@
 import Foundation
 import Cocoa
 import XCGLogger
-
-let log = XCGLogger.default
+import RxSwift
 
 class AppContextImpl {
     let settings: Settings
-    let store = { AppStore() }()
     let windows = { WindowManager() }()
     let packageStore: PahkatClient
     
+    var dontTouchThis: (() -> Completable, Disposable, [PackageAction])? = nil
+    let currentTransaction = BehaviorSubject<TransactionEvent>(value: .none)
+    
     init() throws {
         settings = try Settings()
-        packageStore = PahkatClient(unixSocketPath: URL(fileURLWithPath: "/tmp/pahkat"))
+        packageStore = MockPahkatClient()
+//        packageStore = PahkatClient(unixSocketPath: URL(fileURLWithPath: "/tmp/pahkat"))
     }
 }
 
+
+public func todo() -> Never {
+    fatalError("Function not implemented")
+}
+
 var AppContext: AppContextImpl!
+
+let log = XCGLogger.default
 
 class App: NSApplication {
     private lazy var appDelegate = AppDelegate()
@@ -38,7 +47,7 @@ class App: NSApplication {
             AppContext = try AppContextImpl()
         } catch let error {
             // TODO: show an NSAlert to the user indicating the actual problem and how to fix it
-            todo()
+            fatalError("\(error)")
         }
         
         let language: String? = AppContext.settings.read(key: .language)

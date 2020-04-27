@@ -11,48 +11,114 @@ import RxSwift
 
 class DownloadPresenter {
     private weak var view: DownloadViewable!
-    let transaction: TransactionType
+    let actions: [PackageAction]
     
-    required init(view: DownloadViewable, transaction: TransactionType) {
+    required init(view: DownloadViewable, actions: [PackageAction]) {
         self.view = view
-        self.transaction = transaction
-    }
-    
-    func downloadablePackages() -> [(PackageKey, Package)] {
-//        let actions = transaction.actions // .filter { $0.action == .install }
-//
-//        let repos = try! AppContext.client.repoIndexesWithStatuses()
-//        return actions.compactMap { (action) -> (PackageKey, Package)? in
-//            for repo in repos {
-//                if let package = repo.package(for: action.id) {
-//                    return (action.id, package)
-//                }
-//            }
-//            return nil
-//        }
-        todo()
+        self.actions = actions
     }
     
     private var isCancelled = false
     private var packages: [(Descriptor, Release)] = []
     
     private func bindCancel() -> Disposable {
-        return view.onCancelTapped.drive(onNext: { [weak self] in
-            self?.isCancelled = true
-            self?.view.cancel()
-        })
+//        return view.onCancelTapped.drive(onNext: { [weak self] in
+//            self?.isCancelled = true
+//            self?.view.cancel()
+//        })
+        Disposables.create()
     }
     
     private enum DownloadState {
-        case completed(PackageKey)
-        case error(Error)
+        case remainingDownloads(Int)
+        case error(PackageKey?, String?)
         case cancelled
+        case done
+        
+        var hasCompleted: Bool {
+            switch self {
+            case .remainingDownloads(_):
+                return false
+            default: return true
+            }
+        }
     }
     
-    private let downloadedSubject = PublishSubject<DownloadState>()
-    
     private func bindDownload() -> Disposable {
-        todo()
+//        let (cancelable, stream) = AppContext.packageStore.processTransaction(actions: actions)
+//        let downloadCount = actions.filter { $0.action == .install }.count
+//        let start = DownloadState.remainingDownloads(downloadCount)
+        
+//        let actions = AppContext.dontTouchThis!.2
+        
+        return AppContext.currentTransaction.subscribe(onNext: { event in
+            switch event {
+            case let .transactionStarted:
+                self.view.initializeDownloads(packages: [])
+            case let .downloadProgress(key, progress, total):
+                // UI update goes here
+                self.view.setStatus(key: key, status: .progress(downloaded: progress, total: total))
+            case let .downloadError(key, error):
+                // UI update goes here
+                self.view.setStatus(key: key, status: .error(DownloadError(message: Strings.downloadError)))
+                self.view.handle(error: DownloadError(message: error ?? "Unknown error"))
+            case let .transactionError(key, error):
+                self.view.handle(error: DownloadError(message: error ?? "Unknown error"))
+            case let .downloadComplete(key):
+                self.view.setStatus(key: key, status: .completed)
+            default:
+                break
+            }
+        })
+//        let stfu = stream
+//            .scan(start, accumulator: { (cur, event) in
+//                switch event {
+//                case let .transactionStarted:
+//                    // UI update might go here
+//                    return cur
+//                case let .downloadProgress(key, progress, total):
+//                    // UI update goes here
+//                    return cur
+//                case let .downloadError(key, error):
+//                    // UI update goes here
+//                    return .error(key, error)
+//                case let .transactionError(key, error):
+//                    return .error(key, error)
+//                case let .downloadComplete(key):
+//                    if case let .remainingDownloads(x) = cur {
+//                        if x == 0 {
+//                            return .done
+//                        }
+//                        return .remainingDownloads(x - 1)
+//                    } else {
+//                        return .error(key, "Invalid state: \(cur)")
+//                    }
+//                default:
+//                    break
+//                }
+//
+//                return cur
+//            })
+//            .filter { $0.hasCompleted }
+//            .take(1)
+//            .map { state in
+//                switch state {
+//                case let .error(key, error):
+//                    break
+//                case let .done:
+//                    break
+//                case let .cancelled:
+//                    break
+//                default:
+//                    break
+//                }
+//            }
+        
+//        onNext: { event in
+//
+//        }, onError: { [weak self] in
+//            self?.view.handle(error: $0)
+//        })
 //        let client = AppContext.client
 //
 //        let downloadables = downloadablePackages()
@@ -102,11 +168,10 @@ class DownloadPresenter {
     func start() -> Disposable {
 //        self.view.initializeDownloads(packages: downloadablePackages().map { $0.1 })
 //
-//        return CompositeDisposable(disposables: [
-//            self.bindDownload(),
-//            self.bindCancel()
-//        ])
-        todo()
+        return CompositeDisposable(disposables: [
+            self.bindDownload(),
+            self.bindCancel()
+        ])
     }
 }
 

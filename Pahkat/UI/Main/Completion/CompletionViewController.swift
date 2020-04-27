@@ -14,10 +14,9 @@ class CompletionViewController: DisposableViewController<CompletionView>, Comple
     var onRestartButtonTapped: Observable<Void> = Observable.empty()
     var onFinishButtonTapped: Observable<Void> = Observable.empty()
     
-    private let requiresReboot: Bool
+    private var requiresReboot: Bool = true
     
-    init(requiresReboot: Bool) {
-        self.requiresReboot = requiresReboot
+    required init() {
         super.init()
     }
     
@@ -30,7 +29,7 @@ class CompletionViewController: DisposableViewController<CompletionView>, Comple
     }
     
     func showMain() {
-        AppContext.windows.set(MainViewController(), for: MainWindowController.self)
+        AppContext.currentTransaction.onNext(.none)
     }
     
     func rebootSystem() {
@@ -42,15 +41,16 @@ class CompletionViewController: DisposableViewController<CompletionView>, Comple
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+    
+    override func viewWillAppear() {
+        super.viewWillAppear()
+
         let window = AppContext.windows.get(MainWindowController.self).contentWindow
         window.titleVisibility = .visible
         window.toolbar!.isVisible = false
         
         title = Strings.processCompletedTitle
-    }
-    
-    override func viewWillAppear() {
-        super.viewWillAppear()
         
         if (self.requiresReboot) {
             contentView.headerLabel.stringValue = Strings.restartRequiredTitle
@@ -67,7 +67,7 @@ class CompletionViewController: DisposableViewController<CompletionView>, Comple
             }).disposed(by: bag)
             
             contentView.rightButton.rx.tap.subscribe(onNext: { [weak self] _ in
-                self?.rebootSystem()
+//                self?.rebootSystem()
             }).disposed(by: bag)
             
         } else {

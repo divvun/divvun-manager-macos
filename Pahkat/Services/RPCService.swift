@@ -12,6 +12,7 @@ import NIO
 import RxSwift
 
 enum TransactionEvent {
+    case none
     case transactionStarted
     case transactionComplete
     case transactionProgress(packageKey: PackageKey?, message: String?, current: UInt64, total: UInt64)
@@ -42,7 +43,61 @@ enum PackageStatus: Int32 {
     }
 }
 
-class PahkatClient {
+protocol PahkatClient: class {
+    func repoIndexes() -> Single<[LoadedRepository]>
+    func status(packageKey: PackageKey) -> Single<(PackageStatus, SystemTarget)>
+    func processTransaction(actions: [PackageAction]) -> (() -> Completable, Observable<TransactionEvent>)
+}
+
+class MockPahkatClient: PahkatClient {
+    func repoIndexes() -> Single<[LoadedRepository]> {
+        return Single.just([
+            LoadedRepository.mock(id: "1"),
+            LoadedRepository.mock(id: "2"),
+            LoadedRepository.mock(id: "3")
+        ])
+    }
+
+    func status(packageKey: PackageKey) -> Single<(PackageStatus, SystemTarget)> {
+        return Single.just((.notInstalled, .system))
+    }
+    
+    func processTransaction(actions: [PackageAction]) -> (() -> Completable, Observable<TransactionEvent>) {
+        let completable = { Completable.empty() }
+        
+        var fakeEvents = [TransactionEvent]()
+        
+        fakeEvents.append(TransactionEvent.transactionStarted)
+        
+        actions.forEach { action in
+            if action.action == .install {
+                fakeEvents.append(.downloadProgress(packageKey: action.key, current: 0, total: 0))
+            }
+        }
+        
+        actions.forEach { action in
+            if action.action == .install {
+                fakeEvents.append(.downloadComplete(packageKey: action.key))
+            }
+        }
+        
+        actions.forEach { action in
+            if action.action == .install {
+                fakeEvents.append(.installStarted(packageKey: action.key))
+            } else {
+                fakeEvents.append(.uninstallStarted(packageKey: action.key))
+            }
+        }
+
+        fakeEvents.append(.transactionComplete)
+        
+        let observable = Observable.from(fakeEvents)
+        
+        return (completable, observable)
+    }
+}
+
+class PahkatClientImpl: PahkatClient {
     private let inner: Pahkat_PahkatClient
     
     public func repoIndexes() -> Single<[LoadedRepository]> {

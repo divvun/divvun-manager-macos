@@ -18,7 +18,7 @@ class ViewController<T: View>: NSViewController {
         view = contentView
     }
     
-    init() {
+    required init() {
         super.init(nibName: nil, bundle: nil)
     }
     

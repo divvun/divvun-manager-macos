@@ -13,5 +13,4 @@ class CompletionView: View {
     @IBOutlet weak var contentLabel: NSTextField!
     @IBOutlet weak var rightButton: NSButton!
     @IBOutlet weak var leftButton: NSButton!
-    
 }

@@ -11,20 +11,11 @@ import RxSwift
 import RxCocoa
 
 class InstallViewController: DisposableViewController<InstallView>, InstallViewable, NSToolbarDelegate {
-    private let transaction: TransactionType
-    private let repos: [LoadedRepository]
-    
-    private lazy var presenter = {
-        return InstallPresenter(view: self, transaction: transaction, repos: repos)
-    }()
-    
     var onCancelTapped: Driver<Void> {
         return self.contentView.primaryButton.rx.tap.asDriver()
     }
     
-    init(transaction: TransactionType, repos: [LoadedRepository]) {
-        self.transaction = transaction
-        self.repos = repos
+    required init() {
         super.init()
     }
     
@@ -66,12 +57,6 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
             contentView.horizontalIndicator.isIndeterminate = true
             contentView.horizontalIndicator.startAnimation(self)
         }
-    }
-    
-    func showCompletion(requiresReboot: Bool) {
-        AppContext.windows.set(
-            CompletionViewController(requiresReboot: requiresReboot),
-            for: MainWindowController.self)
     }
     
     func handle(error: Error) {
@@ -130,12 +115,12 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureToolbar()
     }
     
     override func viewWillAppear() {
         super.viewWillAppear()
+        configureToolbar()
         
-        self.presenter.start().disposed(by: bag)
+//        self.presenter.start().disposed(by: bag)
     }
 }

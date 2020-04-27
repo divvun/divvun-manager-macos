@@ -68,41 +68,54 @@ struct RefMap<K: Hashable, V: Hashable>: Equatable, Hashable {
     }
 }
 
-struct RefList<T: Hashable>: Sequence, Equatable {
+struct RefList<T: Hashable>: Collection, Sequence, Equatable {
     typealias Element = T
+    typealias Index = Int32
+    var startIndex: Int32 { 0 }
+    var endIndex: Int32 { Swift.max(0, count - 1) }
     
     private let ptr: UnsafeMutableRawPointer
     private let count: Int32
     private let getter: (Int32) throws -> T?
     
     var underestimatedCount: Int { Int(count) }
-
-    var lastItem: T {
-        try! self.getter(count-1)!
-    }
     
     struct Iterator : IteratorProtocol {
-        var count: Int32 = -1
+        var index: Int32 = -1
+        let count: Int32
+        
         private let getter: (Int32) throws -> T?
         
         typealias Element = T
         
         mutating func next() -> T? {
-            count += 1
-            return try? self.getter(count)
+            index += 1
+            if index > count {
+                return nil
+            }
+            return try? self.getter(index)
         }
         
-        fileprivate init(_ getter: @escaping (Int32) throws -> T?) {
+        fileprivate init(_ getter: @escaping (Int32) throws -> T?, count: Int32) {
             self.getter = getter
+            self.count = count - 1
         }
     }
     
     func makeIterator() -> Iterator {
-        return Iterator(getter)
+        return Iterator(getter, count: count)
     }
     
     subscript(_ index: Int) -> T? {
         return try? self.getter(Int32(index))
+    }
+    
+    subscript(position: Int32) -> T {
+        return self[Int(position)]!
+    }
+    
+    func index(after i: Int32) -> Int32 {
+        return Swift.min(endIndex, i)
     }
     
     static func == (lhs: RefList<T>, rhs: RefList<T>) -> Bool {
@@ -255,7 +268,7 @@ struct Target: Equatable, Hashable {
         }
     }
     var platform: String? {
-        return "macos" // FIXME: using inner.platform causes a crash
+        return inner.platform
     }
 }
 

@@ -19,8 +19,7 @@ fileprivate func categoryFilter(outlineRepo: OutlineRepository) -> PackageOutlin
     let repo = outlineRepo.repo
 
     repo.descriptors.values.forEach { (descriptor: Descriptor) in
-        let release = descriptor.release.lastItem // TODO: ensure this is actually the latest release
-//        let target = release.target[0]! // TODO: also probably wrong
+        guard let release = descriptor.release.first else { return }
         guard let target = release.macosTarget else {
             // this package doesn't have a macos target
             return
@@ -37,7 +36,7 @@ fileprivate func categoryFilter(outlineRepo: OutlineRepository) -> PackageOutlin
         let outlinePackage = OutlinePackage(package: descriptor,
                                             release: release,
                                             target: target,
-                                            status: (PackageStatus.notInstalled, SystemTarget.user), // TODO: get this from reality
+                                            status: (PackageStatus.notInstalled, SystemTarget.system), // TODO: get this from reality
                                             group: key,
                                             repo: outlineRepo,
                                             selection: nil)
@@ -45,33 +44,52 @@ fileprivate func categoryFilter(outlineRepo: OutlineRepository) -> PackageOutlin
     }
 
     return data
-//    todo()
 }
 
 fileprivate func languageFilter(outlineRepo: OutlineRepository) -> PackageOutlineMap {
-//    var data = PackageOutlineMap()
-//    let repo = outlineRepo.repo
-//
-//    repo.packages.values.forEach { package in
-//        package.languages.forEach { language in
-//            let value: String
-//            if language == "zxx" {
-//                value = "—"
-//            } else {
-//                value = ISO639.get(tag: language)?.autonymOrName ?? language
-//            }
-//
-//            let key = OutlineGroup(id: language, value: value, repo: outlineRepo)
-//            if !data.keys.contains(key) {
-//                data[key] = []
-//            }
-//
-//            data[key]!.insert(OutlinePackage(package: package, group: key, repo: outlineRepo, selection: nil))
-//        }
-//    }
-//
-//    return data
-    todo()
+    var data = PackageOutlineMap()
+    let repo = outlineRepo.repo
+
+    repo.descriptors.values.forEach { descriptor in
+        guard let release = descriptor.release.first else { return }
+        guard let target = release.macosTarget else {
+            // this package doesn't have a macos target
+            return
+        }
+        
+        var languages = descriptor.tags
+            .filter { $0.starts(with: "lang:") }
+            .map { String($0.split(separator: ":")[1]) }
+        
+        if languages.isEmpty {
+            languages.append("zxx")
+        }
+
+        languages.forEach { language in
+            let value: String
+            if language == "zxx" {
+                value = "—"
+            } else {
+                value = ISO639.get(tag: language)?.autonymOrName ?? language
+            }
+
+            let key = OutlineGroup(id: language, value: value, repo: outlineRepo)
+            if !data.keys.contains(key) {
+                data[key] = []
+            }
+
+            let outlinePackage = OutlinePackage(package: descriptor,
+                                                release: release,
+                                                target: target,
+                                                status: (PackageStatus.notInstalled, SystemTarget.system), // TODO: get this from reality
+                                                group: key,
+                                                repo: outlineRepo,
+                                                selection: nil)
+            data[key]!.insert(outlinePackage)
+        }
+    }
+
+    return data
 }
 
 class MainPresenter {
@@ -98,16 +116,22 @@ class MainPresenter {
         
         repositories.forEach { repo in
             print(repo)
-            let filter = OutlineFilter.category // TODO: get this from the repo?
+            let filter = OutlineFilter.language // TODO: get this from the repo?
             let key = OutlineRepository(filter: filter, repo: repo)
             self.updateFilters(key: key)
         }
     }
     
     private func bindUpdatePackageList() -> Disposable {
-        return AppContext.store.state
-            .map { $0.repositories }
-            .distinctUntilChanged({ (a, b) in a == b })
+//        notificationSubject
+//            .filter { $0 == "new repo shit bro" } // Observable<String>
+//            .map { _ in // Observable<String> -> Single<[LoadedRepository]>
+//                AppContext.packageStore.repoIndexes() // Observable<Single<[LoadedRepository]>>
+//            }
+//            .switchLatest() // Observable<T<[LoadedRepository]>> -> T -> Observable<[LoadedRepository]>
+        AppContext.packageStore.repoIndexes()
+            .asObservable()
+            .distinctUntilChanged({ (a, b) in a == b }) //Observable<[LoadedRepository]>
             .observeOn(MainScheduler.instance)
             .subscribeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] repos in
@@ -151,16 +175,28 @@ class MainPresenter {
     private func bindPrimaryButton() -> Disposable {
         return view.onPrimaryButtonPressed.drive(onNext: { [weak self] in
             guard let `self` = self else { return }
-            if self.selectedPackages.values.contains(where: { $0.target == .system }) {
-                // TODO: something reasonable
-//                PahkatAdminReceiver.checkForAdminService().subscribe(onCompleted: {
-//                    self.view.showDownloadView(with: self.selectedPackages)
-//                }, onError: { error in
-//                    self.view.handle(error: error)
-//                }).disposed(by: self.bag)
-            } else {
-                self.view.showDownloadView(with: self.selectedPackages)
+
+            let actions = self.selectedPackages.values.map { (package: SelectedPackage) in
+                return PackageAction(key: package.key, action: package.action, target: package.target)
             }
+            
+            let (cancelable, stream) = AppContext.packageStore.processTransaction(actions: actions)
+            
+            
+            DispatchQueue.main.async {
+                let disposable = stream.subscribe { event in
+                    print(event)
+                    switch event {
+                    case let .next(item):
+                        AppContext.currentTransaction.onNext(item)
+                    default:
+                        break
+                    }
+                }
+                AppContext.dontTouchThis = (cancelable, disposable, actions)
+//                AppContext.windows.set(DownloadViewController(actions: actions), for: MainWindowController.self)
+            }
+//            self.view.showDownloadView(with: self.selectedPackages)
         })
     }
     
@@ -213,79 +249,32 @@ class MainPresenter {
         }
     }
     
-    private func bindUpdatePackagesOnLoad() -> Disposable {
-        // Always update the repos on load.
-//        return AppContext.settings.state.map { $0.repositories }
-//            .observeOn(MainScheduler.instance)
-//            .subscribeOn(MainScheduler.instance)
-//            .flatMapLatest { [weak self] (configs: [RepoRecord]) -> Observable<[LoadedRepository]> in
-//                guard let `self` = self else { return Observable.empty() }
-//
-//                self.view.updateSettingsButton(isEnabled: false)
-//                self.view.updateProgressIndicator(isEnabled: true)
-//                try self.client.refreshRepos()
-//
-//                let repos: [LoadedRepository] = try self.client.repoIndexesWithStatuses()
-//
-//                if repos.count < configs.count {
-//                    var configSet = Set(configs.map { $0.url })
-//                    configSet.subtract(Set(repos.map { $0.meta.base }))
-//
-//                    var failingReposString = ""
-//
-//                    for failingURL in configSet {
-//                        log.debug("Could not load URL \(failingURL)\n")
-//                        failingReposString.append(Strings.repositoryErrorBody(message: failingURL.absoluteString))
-//                        failingReposString.append("\n\n")
-//                    }
-//
-//                    let alert = NSAlert()
-//                    alert.messageText = Strings.repositoryError
-//                    alert.informativeText = failingReposString
-//                    alert.runModal()
-//                }
-//
-//                return Observable.just(repos)
-//            }
-//            .subscribe(onNext: { [weak self] repos in
-//                log.debug("Refreshed repos in main view.")
-//                self?.view.updateSettingsButton(isEnabled: true)
-//                AppContext.store.dispatch(event: AppEvent.setRepositories(repos))
-//                self?.view.updateProgressIndicator(isEnabled: false)
-//            }, onError: { [weak self] error in
-//                self?.view.handle(error: error)
-//                self?.view.updateSettingsButton(isEnabled: true)
-//                self?.view.updateProgressIndicator(isEnabled: false)
-//            })
-        todo()
-    }
-    
     private func bindContextMenuEvents() -> Disposable {
         return view.onPackageEvent
             .observeOn(MainScheduler.instance)
             .subscribeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] event in
-            guard let `self` = self else { return }
+                guard let `self` = self else { return }
 
-            switch event {
-            case let .setPackageSelection(action):
-                guard let outlineRepo = self.data.keys.first(where: { $0.repo.descriptors.values.contains(action.package) }) else {
+                switch event {
+                case let .setPackageSelection(action):
+                    guard let outlineRepo = self.data.keys.first(where: { $0.repo.descriptors.values.contains(action.package) }) else {
+                        return
+                    }
+                    self.setPackageState(to: .set(action), package: action.package, repo: outlineRepo)
+                    self.updatePrimaryButton()
+                    self.view.refreshRepositories()
+                case let .changeFilter(repo, filter):
+                    repo.filter = filter
+                    self.updateFilters(key: repo)
+                    for action in self.selectedPackages.values {
+                        self.setPackageState(to: .set(action), package: action.package, repo: repo)
+                    }
+                    self.view.setRepositories(data: self.data)
+                default:
                     return
                 }
-                self.setPackageState(to: .set(action), package: action.package, repo: outlineRepo)
-                self.updatePrimaryButton()
-                self.view.refreshRepositories()
-            case let .changeFilter(repo, filter):
-                repo.filter = filter
-                self.updateFilters(key: repo)
-                for action in self.selectedPackages.values {
-                    self.setPackageState(to: .set(action), package: action.package, repo: repo)
-                }
-                self.view.setRepositories(data: self.data)
-            default:
-                return
-            }
-        })
+            })
     }
     
     private func bindPackageToggleEvent() -> Disposable {
@@ -329,9 +318,8 @@ class MainPresenter {
             bindSettingsButton(),
             bindUpdatePackageList(),
             bindPackageToggleEvent(),
-//            bindPrimaryButton(),
+            bindPrimaryButton(),
             bindContextMenuEvents(),
-//            bindUpdatePackagesOnLoad()
         ])
     }
 }

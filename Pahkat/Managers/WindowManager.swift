@@ -22,11 +22,11 @@ class WindowManager: NSObject, NSWindowDelegate {
         }
         
         // We handle app termination requirements here
-        if instances.isEmpty && AppDelegate.instance.applicationShouldTerminateAfterLastWindowClosed(NSApp) {
-            DispatchQueue.main.async {
-                NSApp.terminate(NSApp)
-            }
-        }
+//        if instances.isEmpty && AppDelegate.instance.applicationShouldTerminateAfterLastWindowClosed(NSApp) {
+//            DispatchQueue.main.async {
+//                NSApp.terminate(NSApp)
+//            }
+//        }
     }
     
     func get<W, T: WindowController<W>>(_ type: T.Type) -> T {

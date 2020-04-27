@@ -1,11 +1,3 @@
-//
-//  SettingsStore.swift
-//  Pahkat
-//
-//  Created by Brendan Molloy on 2018-02-06.
-//  Copyright © 2018 Divvun. All rights reserved.
-//
-
 import Foundation
 import RxSwift
 
@@ -59,6 +51,3 @@ class Settings: Config<SettingsFile> {
         try super.init(settingsFilePath)
     }
 }
-
-
-//let foo = try! Settings(URL(fileURLWithPath: "/tmp/whatever.json"))

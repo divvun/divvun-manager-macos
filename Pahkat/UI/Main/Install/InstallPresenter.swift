@@ -26,11 +26,12 @@ class InstallPresenter {
     }
     
     private func bindCancelButton() -> Disposable {
-        return view.onCancelTapped.drive(onNext: { [weak self] in
-            self?.isCancelled = true
-//            self?.cancelCallback?()
-            self?.view.beginCancellation()
-        })
+//        return view.onCancelTapped.drive(onNext: { [weak self] in
+//            self?.isCancelled = true
+////            self?.cancelCallback?()
+//            self?.view.beginCancellation()
+//        })
+        return Disposables.create()
     }
     
     private func package(for key: PackageKey) -> Package {

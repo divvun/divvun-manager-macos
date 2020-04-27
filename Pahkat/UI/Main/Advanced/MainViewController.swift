@@ -9,9 +9,16 @@
 import Cocoa
 import RxSwift
 import RxCocoa
-//import BTree
 
 class MainViewController: DisposableViewController<MainView>, MainViewable, NSToolbarDelegate {
+    required init() {
+        super.init()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private lazy var presenter = { MainPresenter(view: self) }()
     private var dataSource = MainViewControllerDataSource()
     
@@ -65,53 +72,6 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
                 self.contentView.progressIndicator.stopAnimation(self)
             }
         }
-    }
-    
-    private func sortPackages(packages: [PackageKey: SelectedPackage]) -> [SelectedPackage] {
-        return packages.values
-            .sorted(by: { (a, b) in
-                if (a.isInstalling && b.isInstalling) || (a.isUninstalling && b.isUninstalling) {
-                    // TODO: fix when dependency management is added
-//                    return a.key < b.key
-                    todo()
-                }
-                
-                return a.isUninstalling
-            })
-    }
-    
-    func showDownloadView(with packages: [PackageKey: SelectedPackage]) {
-//        let txActions = self.sortPackages(packages: packages).map { (x) -> TransactionAction<InstallerTarget> in
-//            switch x.action {
-//            case .install:
-//                return TransactionAction<InstallerTarget>.install(x.key, target: x.target)
-//            case .uninstall:
-//                return TransactionAction<InstallerTarget>.uninstall(x.key, target: x.target)
-//            }
-//        }
-//
-//        let reposSingle: Single<[LoadedRepository]> = AppContext.store.state
-//            .map { $0.repositories }
-//            .take(1)
-//            .asSingle()
-//
-//        Single
-//            .zip(
-//                PackageStoreProxy.instance.transaction(actions: txActions),
-//                reposSingle
-//            )
-//            .subscribe(onSuccess: { (tx, repos) in
-//                DispatchQueue.main.async {
-//                    AppContext.windows.set(
-//                        DownloadViewController(transaction: tx, repos: repos),
-//                        for: MainWindowController.self)
-//                }
-//            }, onError: { error in
-//                DispatchQueue.main.async {
-//                    self.handle(error: error)
-//                }
-//            }).disposed(by: bag)
-        todo()
     }
     
     func showSettings() {
@@ -234,6 +194,10 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear() {
+        super.viewWillAppear()
         
         configureToolbar()
         
@@ -243,10 +207,6 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         contentView.outlineView.dataSource = self.dataSource
         
         contentView.outlineView.columnAutoresizingStyle = .lastColumnOnlyAutoresizingStyle
-    }
-    
-    override func viewWillAppear() {
-        super.viewWillAppear()
         
         contentView.settingsButton.isEnabled = false
         self.update(title: Strings.appName)
@@ -549,7 +509,7 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                 tableColumn.width = max(tableColumn.width, baseWidth + repoAdjustedWidth)
             case .version:
                 let size = Int64(item.target.macOSPackage()?.size ?? 0)
-                cell.textField?.stringValue = "\(item.release.version ?? "<unknown>") (\(byteCountFormatter.string(fromByteCount: size)))"
+                cell.textField?.stringValue = "\(item.release.version) (\(byteCountFormatter.string(fromByteCount: size)))"
                 let a = cell.textField?.attributedStringValue.size().width ?? CGFloat(0.0)
                 tableColumn.width = max(tableColumn.width, a)
             case .state:

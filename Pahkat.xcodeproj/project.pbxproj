@@ -48,7 +48,6 @@
 		C612CFC42448B0E500EFEA98 /* index_generated+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C612CFC32448B0E500EFEA98 /* index_generated+Extensions.swift */; };
 		C622705F2039DEC800DBCD65 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622705E2039DEC800DBCD65 /* Strings.swift */; };
 		C62270642039E08B00DBCD65 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C62270622039E08B00DBCD65 /* Localizable.strings */; };
-		C62270672039E9CD00DBCD65 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62270662039E9CD00DBCD65 /* AppStore.swift */; };
 		C6227069203A243700DBCD65 /* iso639-autonyms.tsv in Resources */ = {isa = PBXBuildFile; fileRef = C6227068203A243700DBCD65 /* iso639-autonyms.tsv */; };
 		C622706B203A247300DBCD65 /* ISO639.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622706A203A247300DBCD65 /* ISO639.swift */; };
 		C62462392201226300BE484B /* CompatNSMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62462382201226300BE484B /* CompatNSMenuItem.swift */; };
@@ -75,7 +74,6 @@
 		C6C3FA642382C3870006E81B /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3FA632382C3870006E81B /* UserDefaults.swift */; };
 		C6C3FA672382C3C40006E81B /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3FA662382C3C40006E81B /* Process.swift */; };
 		C6C820D3204C53EF001682E8 /* PackageDownloadProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820D2204C53EF001682E8 /* PackageDownloadProgress.swift */; };
-		C6C820DA204C5450001682E8 /* SettingsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820D9204C5450001682E8 /* SettingsState.swift */; };
 		C6CC91272028E69300CB0B10 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6CC91262028E69300CB0B10 /* MainWindow.xib */; };
 		C6D78E1A23841D8E002F59E2 /* TransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D78E1923841D8E002F59E2 /* TransactionType.swift */; };
 		C6E392A12447489900560023 /* PackageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E392A02447489900560023 /* PackageKey.swift */; };
@@ -85,7 +83,7 @@
 		C6F4BC572029BC05002EE523 /* MainViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC562029BC05002EE523 /* MainViewable.swift */; };
 		C6F4BC592029BC2C002EE523 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC582029BC2C002EE523 /* MainPresenter.swift */; };
 		C6F4BC5B2029BC57002EE523 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC5A2029BC57002EE523 /* MainViewController.swift */; };
-		C6F4BC5D202A410A002EE523 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC5C202A410A002EE523 /* SettingsStore.swift */; };
+		C6F4BC5D202A410A002EE523 /* SettingsFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC5C202A410A002EE523 /* SettingsFile.swift */; };
 		C6F4BC5F202A43BC002EE523 /* RxStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC5E202A43BC002EE523 /* RxStore.swift */; };
 		C6F4BC662031DB81002EE523 /* DownloadViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC652031DB81002EE523 /* DownloadViewable.swift */; };
 		C6F4BC6A2031DBA4002EE523 /* DownloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC692031DBA4002EE523 /* DownloadView.swift */; };
@@ -182,7 +180,6 @@
 		C622705E2039DEC800DBCD65 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		C62270632039E08B00DBCD65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Pahkat/Base.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		C62270652039E09600DBCD65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = ../en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		C62270662039E9CD00DBCD65 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		C6227068203A243700DBCD65 /* iso639-autonyms.tsv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "iso639-autonyms.tsv"; sourceTree = SOURCE_ROOT; };
 		C622706A203A247300DBCD65 /* ISO639.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISO639.swift; sourceTree = "<group>"; };
 		C62462382201226300BE484B /* CompatNSMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompatNSMenuItem.swift; sourceTree = "<group>"; };
@@ -211,7 +208,6 @@
 		C6C3FA632382C3870006E81B /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		C6C3FA662382C3C40006E81B /* Process.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Process.swift; sourceTree = "<group>"; };
 		C6C820D2204C53EF001682E8 /* PackageDownloadProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageDownloadProgress.swift; sourceTree = "<group>"; };
-		C6C820D9204C5450001682E8 /* SettingsState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsState.swift; sourceTree = "<group>"; };
 		C6CC91262028E69300CB0B10 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		C6D675FD21BA8B6400AF6DD7 /* Launchd.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Launchd.plist; sourceTree = "<group>"; };
 		C6D78E1923841D8E002F59E2 /* TransactionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionType.swift; sourceTree = "<group>"; };
@@ -224,7 +220,7 @@
 		C6F4BC562029BC05002EE523 /* MainViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewable.swift; sourceTree = "<group>"; };
 		C6F4BC582029BC2C002EE523 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		C6F4BC5A2029BC57002EE523 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		C6F4BC5C202A410A002EE523 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
+		C6F4BC5C202A410A002EE523 /* SettingsFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFile.swift; sourceTree = "<group>"; };
 		C6F4BC5E202A43BC002EE523 /* RxStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxStore.swift; sourceTree = "<group>"; };
 		C6F4BC652031DB81002EE523 /* DownloadViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadViewable.swift; sourceTree = "<group>"; };
 		C6F4BC692031DBA4002EE523 /* DownloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadView.swift; sourceTree = "<group>"; };
@@ -494,11 +490,9 @@
 		C6F4BC792031E17E002EE523 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C62270662039E9CD00DBCD65 /* AppStore.swift */,
 				C6C820D2204C53EF001682E8 /* PackageDownloadProgress.swift */,
 				C6B742DB204C14BC00C7877D /* SettingsKey.swift */,
-				C6C820D9204C5450001682E8 /* SettingsState.swift */,
-				C6F4BC5C202A410A002EE523 /* SettingsStore.swift */,
+				C6F4BC5C202A410A002EE523 /* SettingsFile.swift */,
 				C6C3242B2382F8660043DD18 /* SelectedPackage.swift */,
 				C6D78E1923841D8E002F59E2 /* TransactionType.swift */,
 				C6E392A02447489900560023 /* PackageKey.swift */,
@@ -662,7 +656,7 @@
 				C6F8A8182028B3C1009A016E /* Cocoa+Nibbable.swift in Sources */,
 				C612CFB12448605700EFEA98 /* Weak.swift in Sources */,
 				C62462392201226300BE484B /* CompatNSMenuItem.swift in Sources */,
-				C6F4BC5D202A410A002EE523 /* SettingsStore.swift in Sources */,
+				C6F4BC5D202A410A002EE523 /* SettingsFile.swift in Sources */,
 				C612CFC02448AA8700EFEA98 /* PackageAction.swift in Sources */,
 				C6E392A5244755AF00560023 /* pahkat.pb.swift in Sources */,
 				271249BD2040448B009EE80B /* SettingsView.swift in Sources */,
@@ -674,7 +668,6 @@
 				271249C3204044B0009EE80B /* SettingsPresenter.swift in Sources */,
 				C612CFBA2448605700EFEA98 /* BTree.swift in Sources */,
 				C612CFAD2448605700EFEA98 /* BTreeIterator.swift in Sources */,
-				C62270672039E9CD00DBCD65 /* AppStore.swift in Sources */,
 				C6C3242C2382F8660043DD18 /* SelectedPackage.swift in Sources */,
 				276391A4203AE2660096E10C /* CompletionViewController.swift in Sources */,
 				C6F4BC662031DB81002EE523 /* DownloadViewable.swift in Sources */,
@@ -698,7 +691,6 @@
 				C612CFB22448605700EFEA98 /* BridgedList.swift in Sources */,
 				C612CFB32448605700EFEA98 /* Map.swift in Sources */,
 				C612CFB82448605700EFEA98 /* BTreePath.swift in Sources */,
-				C6C820DA204C5450001682E8 /* SettingsState.swift in Sources */,
 				C622705F2039DEC800DBCD65 /* Strings.swift in Sources */,
 				C6F4BC782031E0AD002EE523 /* CompletionViewable.swift in Sources */,
 				271249BF20404495009EE80B /* SettingsViewable.swift in Sources */,

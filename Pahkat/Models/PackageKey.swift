@@ -8,8 +8,35 @@
 
 import Foundation
 
-struct PackageKeyParams {
-    
+struct PackageKeyParams: Equatable, Hashable {
+    let platform: String?
+    let arch: String?
+    let version: String?
+    let channel: String?
+}
+
+extension Array where Element == URLQueryItem {
+    static func from(_ params: PackageKeyParams) -> [URLQueryItem] {
+        var out = [URLQueryItem]()
+        
+        if let platform = params.platform {
+            out.append(URLQueryItem(name: "platform", value: platform))
+        }
+        
+        if let arch = params.arch {
+            out.append(URLQueryItem(name: "arch", value: arch))
+        }
+        
+        if let version = params.version {
+            out.append(URLQueryItem(name: "version", value: version))
+        }
+        
+        if let channel = params.channel {
+            out.append(URLQueryItem(name: "channel", value: channel))
+        }
+        
+        return out
+    }
 }
 
 class PackageKey: Equatable, Hashable {
@@ -33,10 +60,17 @@ class PackageKey: Equatable, Hashable {
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(repositoryURL)
+        hasher.combine(id)
+        hasher.combine(params)
     }
     
     func toString() -> String {
-        todo()
+        var urlBuilder = URLComponents(url: repositoryURL
+            .appendingPathComponent("packages")
+            .appendingPathComponent(id), resolvingAgainstBaseURL: false)!
+
+        urlBuilder.queryItems = params.map { [URLQueryItem].from($0) }
+        return urlBuilder.url!.absoluteString
     }
 }
 

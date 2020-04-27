@@ -14,14 +14,18 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
     private let byteCountFormatter = ByteCountFormatter()
     private var delegate: DownloadProgressTableDelegate! = nil
     
-    private let transaction: TransactionType
-    private let repos: [LoadedRepository]
+//    private let actions: [PackageAction]
     
-    internal lazy var presenter = { DownloadPresenter(view: self, transaction: transaction) }()
+    internal lazy var presenter = { DownloadPresenter(view: self, actions: AppContext.dontTouchThis!.2) }()
     
-    init(transaction: TransactionType, repos: [LoadedRepository]) {
-        self.transaction = transaction
-        self.repos = repos
+//    init(actions: [PackageAction]) {
+//        self.actions = actions
+//        super.init()
+//    }
+    
+    required init() {
+        // FIXME: none of this TODO
+//        self.actions = []
         super.init()
     }
     
@@ -29,52 +33,60 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
         fatalError("init(coder:) has not been implemented")
     }
     
-    var onCancelTapped: Driver<Void> {
-        return self.contentView.primaryButton.rx.tap.asDriver()
-    }
+//    var onCancelTapped: Driver<Void> {
+//        return self.contentView.primaryButton.rx.tap.asDriver()
+//    }
     
     // TODO: maybe get rid of PackageDownloadStatus and use the new RPC one?
-    func setStatus(package: Descriptor, status: PackageDownloadStatus) {
+    func setStatus(key: PackageKey?, status: PackageDownloadStatus) {
         DispatchQueue.main.async {
-            if let view = self.delegate.tableView(self.contentView.tableView, viewFor: package) as? DownloadProgressView {
-                switch(status) {
-                case .notStarted:
-                    view.progressLabel.stringValue = Strings.queued
-                case .starting:
-                    view.progressLabel.stringValue = Strings.starting
-                    if let cellOrigin: NSPoint = view.superview?.frame.origin {
-                        self.contentView.clipView.animate(to: cellOrigin, with: 0.5)
-                    }
-                case .progress(let downloaded, let total):
-                    view.progressBar.maxValue = Double(total)
-                    view.progressBar.minValue = 0
-                    view.progressBar.doubleValue = Double(downloaded)
-                    
-                    let downloadStr = self.byteCountFormatter.string(fromByteCount: Int64(downloaded))
-                    let totalStr = self.byteCountFormatter.string(fromByteCount: Int64(total))
-                    
-                    view.progressLabel.stringValue = "\(downloadStr) / \(totalStr)"
-                case .completed:
-                    view.progressLabel.stringValue = Strings.completed
-                case .error:
-                    view.progressLabel.stringValue = Strings.downloadError
-                }
-            } else {
-                fatalError("couldn't get downloadProgressView")
-            }
+            // TODO: waiting for RPC to be our friend
+//            if let view = self.delegate.tableView(self.contentView.tableView, viewFor: package) as? DownloadProgressView {
+//                switch(status) {
+//                case .notStarted:
+//                    view.progressLabel.stringValue = Strings.queued
+//                case .starting:
+//                    view.progressLabel.stringValue = Strings.starting
+//                    if let cellOrigin: NSPoint = view.superview?.frame.origin {
+//                        self.contentView.clipView.animate(to: cellOrigin, with: 0.5)
+//                    }
+//                case .progress(let downloaded, let total):
+//                    view.progressBar.maxValue = Double(total)
+//                    view.progressBar.minValue = 0
+//                    view.progressBar.doubleValue = Double(downloaded)
+//
+//                    let downloadStr = self.byteCountFormatter.string(fromByteCount: Int64(downloaded))
+//                    let totalStr = self.byteCountFormatter.string(fromByteCount: Int64(total))
+//
+//                    view.progressLabel.stringValue = "\(downloadStr) / \(totalStr)"
+//                case .completed:
+//                    view.progressLabel.stringValue = Strings.completed
+//                case .error:
+//                    view.progressLabel.stringValue = Strings.downloadError
+//                }
+//            } else {
+//                fatalError("couldn't get downloadProgressView")
+//            }
         }
     }
     
     func cancel() {
-        AppContext.windows.set(MainViewController(), for: MainWindowController.self)
+        DispatchQueue.main.async {
+            print("FUNKY CANCEL")
+            AppContext.dontTouchThis!.0().subscribe().disposed(by: self.bag)
+            AppContext.dontTouchThis = nil
+            AppContext.currentTransaction.onNext(.none)
+            
+        }
     }
     
     func startInstallation(transaction: TransactionType) {
-        DispatchQueue.main.async {
-            AppContext.windows.set(
-                InstallViewController(transaction: transaction, repos: self.repos),
-                for: MainWindowController.self)
-        }
+//        DispatchQueue.main.async {
+//            AppContext.windows.set(
+//                InstallViewController(transaction: transaction, repos: self.repos),
+//                for: MainWindowController.self)
+//        }
+        todo()
     }
     
     func handle(error: Error) {
