@@ -13,7 +13,7 @@ import RxSwift
 
 enum TransactionEvent {
     case none
-    case transactionStarted
+    case transactionStarted(actions: [PackageAction])
     case transactionComplete
     case transactionProgress(packageKey: PackageKey?, message: String?, current: UInt64, total: UInt64)
     case transactionError(packageKey: PackageKey?, error: String?)
@@ -67,7 +67,7 @@ class MockPahkatClient: PahkatClient {
         
         var fakeEvents = [TransactionEvent]()
         
-        fakeEvents.append(TransactionEvent.transactionStarted)
+        fakeEvents.append(TransactionEvent.transactionStarted(actions: actions))
         
         actions.forEach { action in
             if action.action == .install {
@@ -163,7 +163,7 @@ class PahkatClientImpl: PahkatClient {
             
             switch value {
             case .transactionStarted(_):
-                event = .transactionStarted
+                event = .transactionStarted(actions: actions)
             case .transactionComplete(_):
                 event = .transactionComplete
             case let .transactionProgress(res):

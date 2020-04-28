@@ -30,7 +30,7 @@ enum TopLevelView {
 extension TransactionEvent {
     var view: TopLevelView {
         switch self {
-        case .transactionStarted, .downloadComplete(_), .downloadError(_, _), .downloadProgress(_, _, _):
+        case .transactionStarted(_), .downloadComplete(_), .downloadError(_, _), .downloadProgress(_, _, _):
             return .download
         case .installStarted(_), .uninstallStarted(_), .transactionProgress:
             return .install
