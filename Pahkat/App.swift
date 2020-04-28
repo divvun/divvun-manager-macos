@@ -15,8 +15,12 @@ class AppContextImpl {
     let settings: Settings
     let windows = { WindowManager() }()
     let packageStore: PahkatClient
-    
-    var dontTouchThis: (() -> Completable, Disposable, [PackageAction])? = nil
+
+    // fun stuff for the download/install views
+    var cancelTransactionCallback: (() -> Completable)?
+    let disposeBag = DisposeBag()
+    var currentActions: [PackageAction]?
+
     let currentTransaction = BehaviorSubject<TransactionEvent>(value: .none)
     
     init() throws {

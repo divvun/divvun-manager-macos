@@ -179,13 +179,15 @@ class MainPresenter {
             let actions = self.selectedPackages.values.map { (package: SelectedPackage) in
                 return PackageAction(key: package.key, action: package.action, target: package.target)
             }
-            
+            AppContext.currentActions = actions
+
             let (cancelable, stream) = AppContext.packageStore.processTransaction(actions: actions)
-            
-            
-            DispatchQueue.main.async {
+            AppContext.cancelTransactionCallback = cancelable
+
+//            DispatchQueue.main.async {
                 let disposable = stream.subscribe { event in
                     print(event)
+                    sleep(1)
                     switch event {
                     case let .next(item):
                         AppContext.currentTransaction.onNext(item)
@@ -193,9 +195,9 @@ class MainPresenter {
                         break
                     }
                 }
-                AppContext.dontTouchThis = (cancelable, disposable, actions)
+                disposable.disposed(by: AppContext.disposeBag)
 //                AppContext.windows.set(DownloadViewController(actions: actions), for: MainWindowController.self)
-            }
+//            }
 //            self.view.showDownloadView(with: self.selectedPackages)
         })
     }

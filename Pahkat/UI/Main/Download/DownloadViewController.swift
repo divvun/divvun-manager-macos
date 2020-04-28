@@ -16,8 +16,8 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
     
 //    private let actions: [PackageAction]
     
-    internal lazy var presenter = { DownloadPresenter(view: self, actions: AppContext.dontTouchThis!.2) }()
-    
+    internal lazy var presenter = { DownloadPresenter(view: self, actions: AppContext.currentActions!) }()
+
 //    init(actions: [PackageAction]) {
 //        self.actions = actions
 //        super.init()
@@ -73,10 +73,9 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
     func cancel() {
         DispatchQueue.main.async {
             print("FUNKY CANCEL")
-            AppContext.dontTouchThis!.0().subscribe().disposed(by: self.bag)
-            AppContext.dontTouchThis = nil
+            AppContext.cancelTransactionCallback?().subscribe().disposed(by: self.bag)
+            AppContext.cancelTransactionCallback = nil
             AppContext.currentTransaction.onNext(.none)
-            
         }
     }
     
