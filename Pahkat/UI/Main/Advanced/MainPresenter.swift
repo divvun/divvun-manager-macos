@@ -181,11 +181,12 @@ class MainPresenter {
             }
             AppContext.currentActions = actions
 
-            let (cancelable, stream) = AppContext.packageStore.processTransaction(actions: actions)
+            let (cancelable, txObservable) = AppContext.packageStore.processTransaction(actions: actions)
             AppContext.cancelTransactionCallback = cancelable
 
-//            DispatchQueue.main.async {
-                let disposable = stream.subscribe { event in
+            let disposable = txObservable
+                .subscribeOn(SerialDispatchQueueScheduler(qos: .background))
+                .subscribe { event in
                     print(event)
                     sleep(1)
                     switch event {
@@ -194,10 +195,9 @@ class MainPresenter {
                     default:
                         break
                     }
-                }
-                disposable.disposed(by: AppContext.disposeBag)
-//                AppContext.windows.set(DownloadViewController(actions: actions), for: MainWindowController.self)
-//            }
+            }
+            disposable.disposed(by: AppContext.disposeBag)
+//            AppContext.windows.set(DownloadViewController(), for: MainWindowController.self)
 //            self.view.showDownloadView(with: self.selectedPackages)
         })
     }

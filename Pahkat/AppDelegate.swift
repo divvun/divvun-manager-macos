@@ -61,16 +61,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         AppContext.currentTransaction
             .map { $0.view }
             .distinctUntilChanged()
+            .observeOn(MainScheduler.instance)
             .subscribe(onNext: { viewKey in
                 print("New current transaction state: \(viewKey)")
-                // Dems a load bearing async innit
-//                DispatchQueue.main.async {
-                    if self.views[viewKey] == nil {
-                        self.views[viewKey] = viewKey.makeView()
-                    }
-                    let view = self.views[viewKey]
-                    AppContext.windows.show(MainWindowController.self, viewController: view, sender: self)
-//                }
+                if self.views[viewKey] == nil {
+                    self.views[viewKey] = viewKey.makeView()
+                }
+                let view = self.views[viewKey]
+                AppContext.windows.show(MainWindowController.self, viewController: view, sender: self)
             }, onError: { e in
                 print("\(e)")
             }, onDisposed: {
