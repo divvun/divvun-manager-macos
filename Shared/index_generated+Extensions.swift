@@ -210,7 +210,7 @@ struct MacOSPackage: Equatable, Hashable {
     
     internal init(_ package: pahkat.MacOSPackage) {
         self.inner = package
-        self.targets = Set() // todo()
+        self.targets = Set() // todo() // HELP
         self.requiresReboot = Set() // todo()
     }
 }

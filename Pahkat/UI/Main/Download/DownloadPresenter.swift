@@ -56,13 +56,11 @@ class DownloadPresenter {
             case let .transactionStarted:
                 self.view.initializeDownloads(packages: [])
             case let .downloadProgress(key, progress, total):
-                // UI update goes here
                 self.view.setStatus(key: key, status: .progress(downloaded: progress, total: total))
             case let .downloadError(key, error):
-                // UI update goes here
                 self.view.setStatus(key: key, status: .error(DownloadError(message: Strings.downloadError)))
                 self.view.handle(error: DownloadError(message: error ?? "Unknown error"))
-            case let .transactionError(key, error):
+            case let .transactionError(_, error):
                 self.view.handle(error: DownloadError(message: error ?? "Unknown error"))
             case let .downloadComplete(key):
                 self.view.setStatus(key: key, status: .completed)
