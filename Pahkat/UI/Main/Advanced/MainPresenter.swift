@@ -176,10 +176,10 @@ class MainPresenter {
         return view.onPrimaryButtonPressed.drive(onNext: { [weak self] in
             guard let `self` = self else { return }
 
-            let actions = self.selectedPackages.values.map { (package: SelectedPackage) in
-                return PackageAction(key: package.key, action: package.action, target: package.target)
+            let actions: [ResolvedAction] = self.selectedPackages.values.map { (package: SelectedPackage) in
+                let packageAction = PackageAction(key: package.key, action: package.action, target: package.target)
+                return ResolvedAction(action: packageAction, hasAction: true, name: ["something": "epic"], version: "2.BETA")
             }
-            AppContext.currentActions = actions
 
             let (cancelable, txObservable) = AppContext.packageStore.processTransaction(actions: actions)
             AppContext.cancelTransactionCallback = cancelable

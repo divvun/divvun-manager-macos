@@ -16,7 +16,7 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
     
 //    private let actions: [PackageAction]
     
-    internal lazy var presenter = { DownloadPresenter(view: self, actions: AppContext.currentActions!) }()
+    internal lazy var presenter = { DownloadPresenter(view: self) }()
 
 //    init(actions: [PackageAction]) {
 //        self.actions = actions
@@ -39,34 +39,38 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
     
     // TODO: maybe get rid of PackageDownloadStatus and use the new RPC one?
     func setStatus(key: PackageKey?, status: PackageDownloadStatus) {
+        guard let key = key else {
+            // we need a key yo
+            return
+        }
         DispatchQueue.main.async {
             // TODO: waiting for RPC to be our friend
-//            if let view = self.delegate.tableView(self.contentView.tableView, viewFor: package) as? DownloadProgressView {
-//                switch(status) {
-//                case .notStarted:
-//                    view.progressLabel.stringValue = Strings.queued
-//                case .starting:
-//                    view.progressLabel.stringValue = Strings.starting
-//                    if let cellOrigin: NSPoint = view.superview?.frame.origin {
-//                        self.contentView.clipView.animate(to: cellOrigin, with: 0.5)
-//                    }
-//                case .progress(let downloaded, let total):
-//                    view.progressBar.maxValue = Double(total)
-//                    view.progressBar.minValue = 0
-//                    view.progressBar.doubleValue = Double(downloaded)
-//
-//                    let downloadStr = self.byteCountFormatter.string(fromByteCount: Int64(downloaded))
-//                    let totalStr = self.byteCountFormatter.string(fromByteCount: Int64(total))
-//
-//                    view.progressLabel.stringValue = "\(downloadStr) / \(totalStr)"
-//                case .completed:
-//                    view.progressLabel.stringValue = Strings.completed
-//                case .error:
-//                    view.progressLabel.stringValue = Strings.downloadError
-//                }
-//            } else {
-//                fatalError("couldn't get downloadProgressView")
-//            }
+            if let view = self.delegate.tableView(self.contentView.tableView, viewFor: key) as? DownloadProgressView {
+                switch(status) {
+                case .notStarted:
+                    view.progressLabel.stringValue = Strings.queued
+                case .starting:
+                    view.progressLabel.stringValue = Strings.starting
+                    if let cellOrigin: NSPoint = view.superview?.frame.origin {
+                        self.contentView.clipView.animate(to: cellOrigin, with: 0.5)
+                    }
+                case .progress(let downloaded, let total):
+                    view.progressBar.maxValue = Double(total)
+                    view.progressBar.minValue = 0
+                    view.progressBar.doubleValue = Double(downloaded)
+
+                    let downloadStr = self.byteCountFormatter.string(fromByteCount: Int64(downloaded))
+                    let totalStr = self.byteCountFormatter.string(fromByteCount: Int64(total))
+
+                    view.progressLabel.stringValue = "\(downloadStr) / \(totalStr)"
+                case .completed:
+                    view.progressLabel.stringValue = Strings.completed
+                case .error:
+                    view.progressLabel.stringValue = Strings.downloadError
+                }
+            } else {
+                fatalError("couldn't get downloadProgressView")
+            }
         }
     }
     
@@ -140,8 +144,8 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
         configureToolbar()
     }
     
-    func initializeDownloads(packages: [(Descriptor, Release)]) {
-        self.delegate = DownloadProgressTableDelegate(with: packages)
+    func initializeDownloads(actions: [ResolvedAction]) {
+        self.delegate = DownloadProgressTableDelegate(with: actions)
         contentView.tableView.delegate = self.delegate
         contentView.tableView.dataSource = self.delegate
     }
@@ -155,21 +159,21 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
 
 class DownloadProgressTableDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegate {
     private var views = [View]()
-    private let packages: [(Descriptor, Release)]
+    private let actions: [ResolvedAction]
     
-    init(with packages: [(Descriptor, Release)]) {
-        self.packages = packages
+    init(with actions: [ResolvedAction]) {
+        self.actions = actions
         
-        for (package, release) in packages {
+        for action in actions {
             let view = DownloadProgressView.loadFromNib()
-            let name = package.nativeName
-            view.nameLabel.stringValue = "\(name) \(release.nativeVersion)"
+            let name = action.name
+            view.nameLabel.stringValue = "\(name) \(action.version)"
             self.views.append(view)
         }
     }
     
-    func tableView(_ tableView: NSTableView, viewFor package: Descriptor) -> NSView? {
-        if let row = packages.map { $0.0 }.firstIndex(of: package) {
+    func tableView(_ tableView: NSTableView, viewFor key: PackageKey) -> NSView? {
+        if let row = actions.map({ $0.key }).firstIndex(of: key) {
             return self.tableView(tableView, viewFor: nil, row: row)
         } else {
             return nil

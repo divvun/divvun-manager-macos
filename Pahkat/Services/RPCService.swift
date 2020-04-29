@@ -13,7 +13,7 @@ import RxSwift
 
 enum TransactionEvent {
     case none
-    case transactionStarted(actions: [PackageAction])
+    case transactionStarted(actions: [ResolvedAction])
     case transactionComplete
     case transactionProgress(packageKey: PackageKey?, message: String?, current: UInt64, total: UInt64)
     case transactionError(packageKey: PackageKey?, error: String?)
@@ -46,7 +46,7 @@ enum PackageStatus: Int32 {
 protocol PahkatClient: class {
     func repoIndexes() -> Single<[LoadedRepository]>
     func status(packageKey: PackageKey) -> Single<(PackageStatus, SystemTarget)>
-    func processTransaction(actions: [PackageAction]) -> (() -> Completable, Observable<TransactionEvent>)
+    func processTransaction(actions: [ResolvedAction]) -> (() -> Completable, Observable<TransactionEvent>)
 }
 
 class MockPahkatClient: PahkatClient {
@@ -62,7 +62,7 @@ class MockPahkatClient: PahkatClient {
         return Single.just((.notInstalled, .system))
     }
     
-    func processTransaction(actions: [PackageAction]) -> (() -> Completable, Observable<TransactionEvent>) {
+    func processTransaction(actions: [ResolvedAction]) -> (() -> Completable, Observable<TransactionEvent>) {
         let completable = { Completable.empty() }
         
         var fakeEvents = [TransactionEvent]()
@@ -70,7 +70,7 @@ class MockPahkatClient: PahkatClient {
         fakeEvents.append(TransactionEvent.transactionStarted(actions: actions))
         
         actions.forEach { action in
-            if action.action == .install {
+            if action.actionType == .install {
                 fakeEvents.append(.downloadProgress(packageKey: action.key, current: 0, total: 100))
                 fakeEvents.append(.downloadProgress(packageKey: action.key, current: 33, total: 100))
                 fakeEvents.append(.downloadProgress(packageKey: action.key, current: 66, total: 100))
@@ -78,13 +78,13 @@ class MockPahkatClient: PahkatClient {
         }
         
         actions.forEach { action in
-            if action.action == .install {
+            if action.actionType == .install {
                 fakeEvents.append(.downloadComplete(packageKey: action.key))
             }
         }
         
         actions.forEach { action in
-            if action.action == .install {
+            if action.actionType == .install {
                 fakeEvents.append(.installStarted(packageKey: action.key))
             } else {
                 fakeEvents.append(.uninstallStarted(packageKey: action.key))
@@ -152,7 +152,7 @@ class PahkatClientImpl: PahkatClient {
         }
     }
     
-    public func processTransaction(actions: [PackageAction]) -> (() -> Completable, Observable<TransactionEvent>) {
+    public func processTransaction(actions: [ResolvedAction]) -> (() -> Completable, Observable<TransactionEvent>) {
         let subject = ReplaySubject<TransactionEvent>.createUnbounded()
         
         let responseCallback: (Pahkat_TransactionResponse) -> Void = { response in
@@ -213,15 +213,16 @@ class PahkatClientImpl: PahkatClient {
         let sender = self.inner.processTransaction(handler: responseCallback)
         
         var req = Pahkat_TransactionRequest()
-        var transaction = Pahkat_TransactionRequest.Transaction()
-        transaction.actions = actions.map { action in
-            var a = Pahkat_PackageAction()
-            a.id = action.key.toString()
-            a.action = UInt32(action.action.rawValue)
-            a.target = UInt32(action.target.rawValue)
-            return a
-        }
-        req.transaction = transaction
+        // FIXME: do stuff
+//        var transaction = Pahkat_TransactionRequest.Transaction()
+//        transaction.actions = actions.map { action in
+//            var a = Pahkat_PackageAction()
+//            a.id = action.key.toString()
+//            a.action = UInt32(action.action.rawValue)
+//            a.target = UInt32(action.target.rawValue)
+//            return a
+//        }
+//        req.transaction = transaction
         
         let _ = sender.sendMessage(req)
         

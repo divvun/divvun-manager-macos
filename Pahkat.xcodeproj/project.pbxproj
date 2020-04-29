@@ -24,6 +24,7 @@
 		278A10B7203ADACD007C3DC8 /* InstallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278A10B6203ADACD007C3DC8 /* InstallView.swift */; };
 		99C6A536244E079800AF4247 /* LoadedRepository+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C6A535244E079800AF4247 /* LoadedRepository+mock.swift */; };
 		99C6A53924509D0700AF4247 /* index.bin in Resources */ = {isa = PBXBuildFile; fileRef = 99C6A53824509D0700AF4247 /* index.bin */; };
+		99F28AE4245966C8006F14EF /* ResolvedAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F28AE3245966C8006F14EF /* ResolvedAction.swift */; };
 		C60B22F220432AF400A2027A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C60B22F020432AF400A2027A /* InfoPlist.strings */; };
 		C612CFAB2448605700EFEA98 /* BTreeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C612CF9B2448605400EFEA98 /* BTreeBuilder.swift */; };
 		C612CFAC2448605700EFEA98 /* BTreeCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C612CF9C2448605500EFEA98 /* BTreeCursor.swift */; };
@@ -152,6 +153,7 @@
 		278A10B6203ADACD007C3DC8 /* InstallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallView.swift; sourceTree = "<group>"; };
 		99C6A535244E079800AF4247 /* LoadedRepository+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoadedRepository+mock.swift"; sourceTree = "<group>"; };
 		99C6A53824509D0700AF4247 /* index.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = index.bin; sourceTree = "<group>"; };
+		99F28AE3245966C8006F14EF /* ResolvedAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolvedAction.swift; sourceTree = "<group>"; };
 		C60B22ED2043217300A2027A /* nn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nn; path = ../nn.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C60B22F120432AF400A2027A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Pahkat/Base.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		C60B22F320432AF800A2027A /* nn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nn; path = ../nn.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -496,6 +498,7 @@
 				C6C3242B2382F8660043DD18 /* SelectedPackage.swift */,
 				C6D78E1923841D8E002F59E2 /* TransactionType.swift */,
 				C6E392A02447489900560023 /* PackageKey.swift */,
+				99F28AE3245966C8006F14EF /* ResolvedAction.swift */,
 				C612CFBF2448AA8700EFEA98 /* PackageAction.swift */,
 				C612CFC12448AC0700EFEA98 /* LoadedRepository.swift */,
 				99C6A535244E079800AF4247 /* LoadedRepository+mock.swift */,
@@ -701,6 +704,7 @@
 				C612CFAC2448605700EFEA98 /* BTreeCursor.swift in Sources */,
 				276391A0203ADDC30096E10C /* InstallViewController.swift in Sources */,
 				C612CFC22448AC0700EFEA98 /* LoadedRepository.swift in Sources */,
+				99F28AE4245966C8006F14EF /* ResolvedAction.swift in Sources */,
 				C612CFAE2448605700EFEA98 /* BTreeIndex.swift in Sources */,
 				C6F8A8262028BD91009A016E /* MainWindow.swift in Sources */,
 				C6F4BC722031DCF7002EE523 /* Cocoa+Rx.swift in Sources */,

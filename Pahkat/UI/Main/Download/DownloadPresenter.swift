@@ -11,11 +11,9 @@ import RxSwift
 
 class DownloadPresenter {
     private weak var view: DownloadViewable!
-    let actions: [PackageAction]
     
-    required init(view: DownloadViewable, actions: [PackageAction]) {
+    required init(view: DownloadViewable) {
         self.view = view
-        self.actions = actions
     }
     
     private var isCancelled = false
@@ -53,8 +51,8 @@ class DownloadPresenter {
         
         return AppContext.currentTransaction.subscribe(onNext: { event in
             switch event {
-            case let .transactionStarted:
-                self.view.initializeDownloads(packages: [])
+            case let .transactionStarted(actions):
+                self.view.initializeDownloads(actions: actions)
             case let .downloadProgress(key, progress, total):
                 self.view.setStatus(key: key, status: .progress(downloaded: progress, total: total))
             case let .downloadError(key, error):
