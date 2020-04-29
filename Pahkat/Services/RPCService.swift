@@ -71,7 +71,9 @@ class MockPahkatClient: PahkatClient {
         
         actions.forEach { action in
             if action.action == .install {
-                fakeEvents.append(.downloadProgress(packageKey: action.key, current: 0, total: 0))
+                fakeEvents.append(.downloadProgress(packageKey: action.key, current: 0, total: 100))
+                fakeEvents.append(.downloadProgress(packageKey: action.key, current: 33, total: 100))
+                fakeEvents.append(.downloadProgress(packageKey: action.key, current: 66, total: 100))
             }
         }
         
