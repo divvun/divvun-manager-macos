@@ -38,7 +38,7 @@ enum PackageStatus: Int32 {
 protocol PahkatClient: class {
     func repoIndexes() -> Single<[LoadedRepository]>
     func status(packageKey: PackageKey) -> Single<(PackageStatus, SystemTarget)>
-    func processTransaction(actions: [ResolvedAction]) -> (() -> Completable, Observable<TransactionEvent>)
+    func processTransaction(actions: [PackageAction]) -> (() -> Completable, Observable<TransactionEvent>)
 }
 
 class MockPahkatClient: PahkatClient {
@@ -54,28 +54,33 @@ class MockPahkatClient: PahkatClient {
         return Single.just((.notInstalled, .system))
     }
     
-    func processTransaction(actions: [ResolvedAction]) -> (() -> Completable, Observable<TransactionEvent>) {
+    func processTransaction(actions: [PackageAction]) -> (() -> Completable, Observable<TransactionEvent>) {
         let completable = { Completable.empty() }
         
         var fakeEvents = [TransactionEvent]()
+
+        let resolvedActions = actions.map {
+            ResolvedAction(action: $0, hasAction: true, name: ["mock": "data"], version: "2.0")
+        }
         
-        fakeEvents.append(TransactionEvent.transactionStarted(actions: actions))
+        fakeEvents.append(TransactionEvent.transactionStarted(actions: resolvedActions))
         
-        actions.forEach { action in
+        resolvedActions.forEach { action in
             if action.actionType == .install {
                 fakeEvents.append(.downloadProgress(packageKey: action.key, current: 0, total: 100))
                 fakeEvents.append(.downloadProgress(packageKey: action.key, current: 33, total: 100))
                 fakeEvents.append(.downloadProgress(packageKey: action.key, current: 66, total: 100))
+                fakeEvents.append(.downloadProgress(packageKey: action.key, current: 100, total: 100))
             }
         }
         
-        actions.forEach { action in
+        resolvedActions.forEach { action in
             if action.actionType == .install {
                 fakeEvents.append(.downloadComplete(packageKey: action.key))
             }
         }
         
-        actions.forEach { action in
+        resolvedActions.forEach { action in
             if action.actionType == .install {
                 fakeEvents.append(.installStarted(packageKey: action.key))
             } else {
@@ -144,7 +149,7 @@ class PahkatClientImpl: PahkatClient {
         }
     }
     
-    public func processTransaction(actions: [ResolvedAction]) -> (() -> Completable, Observable<TransactionEvent>) {
+    public func processTransaction(actions: [PackageAction]) -> (() -> Completable, Observable<TransactionEvent>) {
         let subject = ReplaySubject<TransactionEvent>.createUnbounded()
         
         let responseCallback: (Pahkat_TransactionResponse) -> Void = { response in
@@ -156,8 +161,9 @@ class PahkatClientImpl: PahkatClient {
             let event: TransactionEvent
             
             switch value {
-            case .transactionStarted(_):
-                event = .transactionStarted(actions: actions)
+            case let .transactionStarted(res):
+                let resActions = res.actions.map { ResolvedAction.from($0) }
+                event = .transactionStarted(actions: resActions)
             case .transactionComplete(_):
                 event = .transactionComplete
             case let .transactionProgress(res):
