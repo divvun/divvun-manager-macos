@@ -1,11 +1,3 @@
-//
-//  BTreePath.swift
-//  BTree
-//
-//  Created by Károly Lőrentey on 2016-02-25.
-//  Copyright © 2016–2017 Károly Lőrentey.
-//
-
 /// A protocol that represents a mutable path from the root of a B-tree to one of its elements.
 /// The extension methods defined on `BTreePath` provide a uniform way to navigate around in a B-tree,
 /// independent of the details of the path representation.

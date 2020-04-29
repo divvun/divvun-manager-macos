@@ -1,11 +1,3 @@
-//
-//  SortedSet.swift
-//  BTree
-//
-//  Created by Károly Lőrentey on 2016-02-25.
-//  Copyright © 2016–2017 Károly Lőrentey.
-//
-
 /// A sorted collection of unique comparable elements.
 /// `SortedSet` is like `Set` in the standard library, but it always keeps its elements in ascending order.
 /// Lookup, insertion and removal of any element has logarithmic complexity.

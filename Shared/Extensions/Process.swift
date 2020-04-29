@@ -1,11 +1,3 @@
-//
-//  Process.swift
-//  Pahkat
-//
-//  Created by Brendan Molloy on 2019-11-18.
-//  Copyright © 2019 Divvun. All rights reserved.
-//
-
 import Foundation
 
 extension Process {

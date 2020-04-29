@@ -1,11 +1,3 @@
-//
-//  PackageKey.swift
-//  Pahkat
-//
-//  Created by Brendan Molloy on 2020-04-15.
-//  Copyright © 2020 Divvun. All rights reserved.
-//
-
 import Foundation
 
 struct PackageKeyParams: Equatable, Hashable {

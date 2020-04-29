@@ -1,11 +1,3 @@
-//
-//  MainViewController.swift
-//  Pahkat
-//
-//  Created by Brendan Molloy on 2018-02-06.
-//  Copyright © 2018 Divvun. All rights reserved.
-//
-
 import Cocoa
 import RxSwift
 import RxCocoa

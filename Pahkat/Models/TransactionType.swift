@@ -1,11 +1,3 @@
-//
-//  TransactionType.swift
-//  Pahkat
-//
-//  Created by Brendan Molloy on 2019-11-19.
-//  Copyright © 2019 Divvun. All rights reserved.
-//
-
 import Foundation
 
 //protocol TransactionType {

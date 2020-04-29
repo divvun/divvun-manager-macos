@@ -1,11 +1,3 @@
-//
-//  BTreeCursor.swift
-//  BTree
-//
-//  Created by Károly Lőrentey on 2016-02-12.
-//  Copyright © 2015–2017 Károly Lőrentey.
-//
-
 extension BTree {
     //MARK: Cursors
 

@@ -1,12 +1,3 @@
-//
-//  BTreeBuilder.swift
-//  BTree
-//
-//  Created by Károly Lőrentey on 2016-02-28.
-//  Copyright © 2016–2017 Károly Lőrentey.
-//
-
-
 extension BTree {
     //MARK: Bulk loading initializers
 

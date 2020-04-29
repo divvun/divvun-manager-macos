@@ -1,11 +1,3 @@
-//
-//  SortedBag.swift
-//  BTree
-//
-//  Created by Károly Lőrentey on 2016-10-11.
-//  Copyright © 2016–2017 Károly Lőrentey.
-//
-
 /// A sorted collection of comparable elements; also known as a multiset.
 /// `SortedBag` is like a `SortedSet` except it can contain multiple members that are equal to each other.
 /// Lookup, insertion and removal of any element has logarithmic complexity.

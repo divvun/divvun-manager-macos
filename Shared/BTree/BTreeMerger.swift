@@ -1,11 +1,3 @@
-//
-//  BTreeMerger.swift
-//  BTree
-//
-//  Created by Károly Lőrentey on 2016-02-27.
-//  Copyright © 2016–2017 Károly Lőrentey.
-//
-
 /// The matching strategy to use when comparing elements from two trees with duplicate keys.
 public enum BTreeMatchingStrategy {
 

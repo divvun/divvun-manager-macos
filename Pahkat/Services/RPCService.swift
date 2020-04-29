@@ -1,11 +1,3 @@
-//
-//  RPCService.swift
-//  Pahkat
-//
-//  Created by Brendan Molloy on 2020-04-16.
-//  Copyright © 2020 Divvun. All rights reserved.
-//
-
 import Foundation
 import GRPC
 import NIO

@@ -1,11 +1,3 @@
-//
-//  ISO639.swift
-//  Pahkat
-//
-//  Created by Brendan Molloy on 2018-02-18.
-//  Copyright © 2018 Divvun. All rights reserved.
-//
-
 import Foundation
 
 // Language tags

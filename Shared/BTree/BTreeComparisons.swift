@@ -1,11 +1,3 @@
-//
-//  BTreeComparator.swift
-//  BTree
-//
-//  Created by Károly Lőrentey on 2016-03-04.
-//  Copyright © 2016–2017 Károly Lőrentey.
-//
-
 extension BTree {
     //MARK: Comparison
 

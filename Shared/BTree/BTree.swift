@@ -1,11 +1,3 @@
-//
-//  BTree.swift
-//  BTree
-//
-//  Created by Károly Lőrentey on 2016-02-19.
-//  Copyright © 2015–2017 Károly Lőrentey.
-//
-
 /// B-trees are search trees that provide an ordered key-value store with excellent performance characteristics.
 public struct BTree<Key: Comparable, Value> {
     //MARK: Definition

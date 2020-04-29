@@ -1,11 +1,3 @@
-//
-//  WebBridgeService.swift
-//  Pahkat
-//
-//  Created by Brendan Molloy on 2019-11-20.
-//  Copyright © 2019 Divvun. All rights reserved.
-//
-
 import Foundation
 import WebKit
 //import BTree

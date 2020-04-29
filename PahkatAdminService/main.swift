@@ -1,11 +1,3 @@
-////
-////  main.swift
-////  PahkatAdminService
-////
-////  Created by Brendan Molloy on 2018-11-29.
-////  Copyright © 2018 Divvun. All rights reserved.
-////
-//
 //import Foundation
 //import Sentry
 //import RxSwift
