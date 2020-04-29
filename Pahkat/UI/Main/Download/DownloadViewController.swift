@@ -158,7 +158,7 @@ class DownloadProgressTableDelegate: NSObject, NSTableViewDataSource, NSTableVie
         
         for action in actions {
             let view = DownloadProgressView.loadFromNib()
-            let name = action.name
+            let name = action.nativeName
             view.nameLabel.stringValue = "\(name) \(action.version)"
             self.views.append(view)
         }

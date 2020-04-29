@@ -60,7 +60,7 @@ class MockPahkatClient: PahkatClient {
         var fakeEvents = [TransactionEvent]()
 
         let resolvedActions = actions.map {
-            ResolvedAction(action: $0, hasAction: true, name: ["mock": "data"], version: "2.0")
+            ResolvedAction(action: $0, hasAction: true, name: ["en": "Supreme keyboard"], version: "2.0")
         }
         
         fakeEvents.append(TransactionEvent.transactionStarted(actions: resolvedActions))
