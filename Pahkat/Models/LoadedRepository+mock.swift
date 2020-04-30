@@ -3,7 +3,7 @@ import FlatBuffers
 
 extension LoadedRepository {
     static func mock(id: String) -> LoadedRepository {
-        let index = LoadedRepository.Index(url: URL(string: id)!,
+        let index = LoadedRepository.Index(url: URL(string: "https://isitchristmas.com/\(id)")!,
                                            landingURL: nil,
                                            channels: ["wildly-unstable"],
                                            defaultChannel: nil,
