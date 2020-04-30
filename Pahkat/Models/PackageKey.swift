@@ -48,6 +48,8 @@ class PackageKey: Equatable, Hashable {
     
     static func == (lhs: PackageKey, rhs: PackageKey) -> Bool {
         lhs.repositoryURL == rhs.repositoryURL
+            && lhs.id == rhs.id
+            && lhs.params == rhs.params
     }
     
     func hash(into hasher: inout Hasher) {
