@@ -31,10 +31,14 @@ extension Array where Element == URLQueryItem {
     }
 }
 
-class PackageKey: Equatable, Hashable {
+class PackageKey: Equatable, Hashable, CustomDebugStringConvertible {
     let repositoryURL: URL
     let id: String
     let params: PackageKeyParams?
+
+    var debugDescription: String {
+        "URL: \(repositoryURL), id: \(id), params: \(String(describing: params))"
+    }
     
     init(repositoryURL: URL, id: String, params: PackageKeyParams? = nil) {
         self.repositoryURL = repositoryURL
@@ -97,7 +101,7 @@ extension Descriptor {
     func firstVersion() -> String? {
         self.firstRelease()?.version
     }
-    
+
     public var nativeName: String {
         for code in Locale(identifier: Strings.languageCode).derivedIdentifiers {
             if let name = self.name[code] {
