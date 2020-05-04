@@ -15,6 +15,10 @@ class CompletionViewController: DisposableViewController<CompletionView>, Comple
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    func showMain() {
+        AppContext.currentTransaction.onNext(.notStarted)
+    }
     
     func rebootSystem() {
         let source = "tell application \"Finder\"\nrestart\nend tell"
@@ -47,7 +51,7 @@ class CompletionViewController: DisposableViewController<CompletionView>, Comple
             contentView.leftButton.isHidden = false
             
             contentView.leftButton.rx.tap.subscribe(onNext: { [weak self] _ in
-                AppContext.currentTransaction.onNext(.notStarted)
+                self?.showMain()
             }).disposed(by: bag)
             
             contentView.rightButton.rx.tap.subscribe(onNext: { [weak self] _ in
@@ -63,7 +67,7 @@ class CompletionViewController: DisposableViewController<CompletionView>, Comple
             contentView.leftButton.isHidden = true
             
             contentView.rightButton.rx.tap.subscribe(onNext: { [weak self] _ in
-                AppContext.currentTransaction.onNext(.notStarted)
+                self?.showMain()
             }).disposed(by: bag)
         }
     }
