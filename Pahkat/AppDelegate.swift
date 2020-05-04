@@ -3,36 +3,36 @@ import RxSwift
 import Sentry
 import XCGLogger
 
-enum TopLevelView {
-    case download
-    case install
-    case completion
-    case main
-    
-    func makeView() -> NSViewController {
-        switch self {
-        case .main: return MainViewController()
-        case .download: return DownloadViewController()
-        case .install: return InstallViewController()
-        case .completion: return CompletionViewController()
-        }
-    }
-}
-
-extension TransactionEvent {
-    var view: TopLevelView {
-        switch self {
-        case .transactionStarted(_), .downloadComplete(_), .downloadError(_, _), .downloadProgress(_, _, _):
-            return .download
-        case .installStarted(_), .uninstallStarted(_), .transactionProgress:
-            return .install
-        case .transactionError, .transactionComplete:
-            return .completion
-        default:
-            return .main
-        }
-    }
-}
+//enum TopLevelView {
+//    case download
+//    case install
+//    case completion
+//    case main
+//
+//    func makeView() -> NSViewController {
+//        switch self {
+//        case .main: return MainViewController()
+//        case .download: return DownloadViewController()
+//        case .install: return InstallViewController()
+//        case .completion: return CompletionViewController()
+//        }
+//    }
+//}
+//
+//extension TransactionEvent {
+//    var view: TopLevelView {
+//        switch self {
+//        case .transactionStarted(_), .downloadComplete(_), .downloadError(_, _), .downloadProgress(_, _, _):
+//            return .download
+//        case .installStarted(_), .uninstallStarted(_), .transactionProgress:
+//            return .install
+//        case .transactionError, .transactionComplete:
+//            return .completion
+//        default:
+//            return .main
+//        }
+//    }
+//}
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -43,29 +43,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let window = NSApp.windows.filter({ $0.isVisible }).first {
             window.windowController?.showWindow(self)
         } else {
-            AppContext.windows.show(MainWindowController.self, viewController: MainViewController(), sender: self)
+            AppContext.windows.show(MainWindowController.self)
         }
     }
     
-    private var views = [TopLevelView: NSViewController]()
-    
     func launchMain() {
-        AppContext.currentTransaction
-            .map { $0.view }
-            .distinctUntilChanged()
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { viewKey in
-                print("New current transaction state: \(viewKey)")
-                if self.views[viewKey] == nil {
-                    self.views[viewKey] = viewKey.makeView()
-                }
-                let view = self.views[viewKey]
-                AppContext.windows.show(MainWindowController.self, viewController: view, sender: self)
-            }, onError: { e in
-                print("\(e)")
-            }, onDisposed: {
-                print("BYEEEE")
-            }).disposed(by: self.bag)
+        AppContext.windows.show(MainWindowController.self)
         
         log.debug("Setting event handler for core open event")
         

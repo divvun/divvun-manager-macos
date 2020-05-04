@@ -381,14 +381,6 @@ public struct Pahkat_TransactionResponse {
     set {value = .downloadProgress(newValue)}
   }
 
-  public var downloadError: Pahkat_TransactionResponse.TransactionError {
-    get {
-      if case .downloadError(let v)? = value {return v}
-      return Pahkat_TransactionResponse.TransactionError()
-    }
-    set {value = .downloadError(newValue)}
-  }
-
   public var downloadComplete: Pahkat_TransactionResponse.DownloadComplete {
     get {
       if case .downloadComplete(let v)? = value {return v}
@@ -421,7 +413,6 @@ public struct Pahkat_TransactionResponse {
     case transactionComplete(Pahkat_TransactionResponse.TransactionComplete)
     case transactionError(Pahkat_TransactionResponse.TransactionError)
     case downloadProgress(Pahkat_TransactionResponse.DownloadProgress)
-    case downloadError(Pahkat_TransactionResponse.TransactionError)
     case downloadComplete(Pahkat_TransactionResponse.DownloadComplete)
     case installStarted(Pahkat_TransactionResponse.InstallStarted)
     case uninstallStarted(Pahkat_TransactionResponse.UninstallStarted)
@@ -434,7 +425,6 @@ public struct Pahkat_TransactionResponse {
       case (.transactionComplete(let l), .transactionComplete(let r)): return l == r
       case (.transactionError(let l), .transactionError(let r)): return l == r
       case (.downloadProgress(let l), .downloadProgress(let r)): return l == r
-      case (.downloadError(let l), .downloadError(let r)): return l == r
       case (.downloadComplete(let l), .downloadComplete(let r)): return l == r
       case (.installStarted(let l), .installStarted(let r)): return l == r
       case (.uninstallStarted(let l), .uninstallStarted(let r)): return l == r
@@ -534,6 +524,8 @@ public struct Pahkat_TransactionResponse {
     // methods supported on all messages.
 
     public var actions: [Pahkat_ResolvedAction] = []
+
+    public var isRebootRequired: Bool = false
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1322,7 +1314,6 @@ extension Pahkat_TransactionResponse: SwiftProtobuf.Message, SwiftProtobuf._Mess
     3: .standard(proto: "transaction_complete"),
     4: .standard(proto: "transaction_error"),
     10: .standard(proto: "download_progress"),
-    11: .standard(proto: "download_error"),
     12: .standard(proto: "download_complete"),
     14: .standard(proto: "install_started"),
     16: .standard(proto: "uninstall_started"),
@@ -1371,14 +1362,6 @@ extension Pahkat_TransactionResponse: SwiftProtobuf.Message, SwiftProtobuf._Mess
         }
         try decoder.decodeSingularMessageField(value: &v)
         if let v = v {self.value = .downloadProgress(v)}
-      case 11:
-        var v: Pahkat_TransactionResponse.TransactionError?
-        if let current = self.value {
-          try decoder.handleConflictingOneOf()
-          if case .downloadError(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {self.value = .downloadError(v)}
       case 12:
         var v: Pahkat_TransactionResponse.DownloadComplete?
         if let current = self.value {
@@ -1420,8 +1403,6 @@ extension Pahkat_TransactionResponse: SwiftProtobuf.Message, SwiftProtobuf._Mess
       try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
     case .downloadProgress(let v)?:
       try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
-    case .downloadError(let v)?:
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
     case .downloadComplete(let v)?:
       try visitor.visitSingularMessageField(value: v, fieldNumber: 12)
     case .installStarted(let v)?:
@@ -1654,12 +1635,14 @@ extension Pahkat_TransactionResponse.TransactionStarted: SwiftProtobuf.Message, 
   public static let protoMessageName: String = Pahkat_TransactionResponse.protoMessageName + ".TransactionStarted"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "actions"),
+    2: .standard(proto: "is_reboot_required"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeRepeatedMessageField(value: &self.actions)
+      case 2: try decoder.decodeSingularBoolField(value: &self.isRebootRequired)
       default: break
       }
     }
@@ -1669,11 +1652,15 @@ extension Pahkat_TransactionResponse.TransactionStarted: SwiftProtobuf.Message, 
     if !self.actions.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.actions, fieldNumber: 1)
     }
+    if self.isRebootRequired != false {
+      try visitor.visitSingularBoolField(value: self.isRebootRequired, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Pahkat_TransactionResponse.TransactionStarted, rhs: Pahkat_TransactionResponse.TransactionStarted) -> Bool {
     if lhs.actions != rhs.actions {return false}
+    if lhs.isRebootRequired != rhs.isRebootRequired {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

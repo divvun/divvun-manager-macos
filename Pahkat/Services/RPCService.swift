@@ -3,17 +3,15 @@ import GRPC
 import NIO
 import RxSwift
 
-enum TransactionEvent {
-    case none
-    case transactionStarted(actions: [ResolvedAction])
+enum TransactionEvent: Equatable {
+    case transactionStarted(actions: [ResolvedAction], isRebootRequired: Bool)
     case transactionComplete
-    case transactionProgress(packageKey: PackageKey?, message: String?, current: UInt64, total: UInt64)
+    case transactionProgress(packageKey: PackageKey, message: String?, current: UInt64, total: UInt64)
     case transactionError(packageKey: PackageKey?, error: String?)
-    case downloadProgress(packageKey: PackageKey?, current: UInt64, total: UInt64)
-    case downloadError(packageKey: PackageKey?, error: String?)
-    case downloadComplete(packageKey: PackageKey?)
-    case installStarted(packageKey: PackageKey?)
-    case uninstallStarted(packageKey: PackageKey?)
+    case downloadProgress(packageKey: PackageKey, current: UInt64, total: UInt64)
+    case downloadComplete(packageKey: PackageKey)
+    case installStarted(packageKey: PackageKey)
+    case uninstallStarted(packageKey: PackageKey)
 }
 
 
@@ -63,7 +61,7 @@ class MockPahkatClient: PahkatClient {
             ResolvedAction(action: $0, hasAction: true, name: ["en": "Supreme keyboard"], version: "2.0")
         }
         
-        fakeEvents.append(TransactionEvent.transactionStarted(actions: resolvedActions))
+        fakeEvents.append(TransactionEvent.transactionStarted(actions: resolvedActions, isRebootRequired: false))
         
         resolvedActions.forEach { action in
             if action.actionType == .install {
@@ -163,7 +161,7 @@ class PahkatClientImpl: PahkatClient {
             switch value {
             case let .transactionStarted(res):
                 let resActions = res.actions.map { ResolvedAction.from($0) }
-                event = .transactionStarted(actions: resActions)
+                event = .transactionStarted(actions: resActions, isRebootRequired: res.isRebootRequired)
             case .transactionComplete(_):
                 event = .transactionComplete
             case let .transactionProgress(res):
@@ -171,7 +169,7 @@ class PahkatClientImpl: PahkatClient {
                 let message = res.message == "" ? nil : res.message
 
                 event = .transactionProgress(
-                    packageKey: packageKey,
+                    packageKey: packageKey!,
                     message: message,
                     current: res.current,
                     total: res.total)
@@ -186,25 +184,19 @@ class PahkatClientImpl: PahkatClient {
             case let .downloadProgress(res):
                 let packageKey = try? PackageKey.from(urlString: res.packageID)
                 event = .downloadProgress(
-                    packageKey: packageKey,
+                    packageKey: packageKey!,
                     current: res.current,
                     total: res.total)
-            case let .downloadError(res):
-                let packageKey = try? PackageKey.from(urlString: res.packageID)
-                let error = res.error == "" ? nil : res.error
-                event = .downloadError(packageKey: packageKey, error: error)
             case let .downloadComplete(res):
                 let packageKey = try? PackageKey.from(urlString: res.packageID)
-                event = .downloadComplete(packageKey: packageKey)
+                event = .downloadComplete(packageKey: packageKey!)
             case let .installStarted(res):
                 let packageKey = try? PackageKey.from(urlString: res.packageID)
-                event = .installStarted(packageKey: packageKey)
+                event = .installStarted(packageKey: packageKey!)
             case let .uninstallStarted(res):
                 let packageKey = try? PackageKey.from(urlString: res.packageID)
-                event = .uninstallStarted(packageKey: packageKey)
-            
+                event = .uninstallStarted(packageKey: packageKey!)
             }
-            
             subject.onNext(event)
         }
         

@@ -316,13 +316,7 @@ public struct Descriptor: FlatBufferObject {
 	public var id: String? { let o = _accessor.offset(4); return o == 0 ? nil : _accessor.string(at: o) }
 	public var idSegmentArray: [UInt8]? { return _accessor.getVector(at: 4) }
 	public var releaseCount: Int32 { let o = _accessor.offset(6); return o == 0 ? 0 : _accessor.vector(count: o) }
-	public func release(at index: Int32) -> pahkat.Release? {
-        let o = _accessor.offset(6)
-        return o == 0
-            ? nil
-            : pahkat.Release(_accessor.bb, o: _accessor.indirect(_accessor.vector(at: o) + index * 4))
-        
-    }
+	public func release(at index: Int32) -> pahkat.Release? { let o = _accessor.offset(6); return o == 0 ? nil : pahkat.Release(_accessor.bb, o: _accessor.indirect(_accessor.vector(at: o) + index * 4)) }
 	public var nameKeysCount: Int32 { let o = _accessor.offset(8); return o == 0 ? 0 : _accessor.vector(count: o) }
 	public func nameKeys(at index: Int32) -> String? { let o = _accessor.offset(8); return o == 0 ? nil : _accessor.directString(at: _accessor.vector(at: o) + index * 4) }
 	public var nameValuesCount: Int32 { let o = _accessor.offset(10); return o == 0 ? 0 : _accessor.vector(count: o) }
@@ -447,3 +441,5 @@ public struct Packages: FlatBufferObject {
 }
 
 // MARK: - pahkat
+
+
