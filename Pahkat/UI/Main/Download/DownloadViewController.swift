@@ -71,7 +71,7 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
             print("FUNKY CANCEL")
             AppContext.cancelTransactionCallback?().subscribe().disposed(by: self.bag)
             AppContext.cancelTransactionCallback = nil
-            AppContext.currentTransaction.onNext(.none)
+            AppContext.currentTransaction.onNext(.notStarted)
         }
     }
     

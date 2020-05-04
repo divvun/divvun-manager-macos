@@ -1,6 +1,6 @@
 import Foundation
 
-struct ResolvedAction {
+struct ResolvedAction: Equatable {
     let action: PackageAction
     let hasAction: Bool
     let name: [String: String]
