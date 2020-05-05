@@ -3,37 +3,6 @@ import RxSwift
 import Sentry
 import XCGLogger
 
-//enum TopLevelView {
-//    case download
-//    case install
-//    case completion
-//    case main
-//
-//    func makeView() -> NSViewController {
-//        switch self {
-//        case .main: return MainViewController()
-//        case .download: return DownloadViewController()
-//        case .install: return InstallViewController()
-//        case .completion: return CompletionViewController()
-//        }
-//    }
-//}
-//
-//extension TransactionEvent {
-//    var view: TopLevelView {
-//        switch self {
-//        case .transactionStarted(_), .downloadComplete(_), .downloadError(_, _), .downloadProgress(_, _, _):
-//            return .download
-//        case .installStarted(_), .uninstallStarted(_), .transactionProgress:
-//            return .install
-//        case .transactionError, .transactionComplete:
-//            return .completion
-//        default:
-//            return .main
-//        }
-//    }
-//}
-
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     static weak var instance: AppDelegate!

@@ -281,7 +281,7 @@
 			path = TestData;
 			sourceTree = "<group>";
 		};
-		C62270432035C1BE00DBCD65 /* Advanced */ = {
+		C62270432035C1BE00DBCD65 /* Detailed */ = {
 			isa = PBXGroup;
 			children = (
 				C6F8A81D2028B996009A016E /* MainView.swift */,
@@ -291,7 +291,7 @@
 				C6F4BC5A2029BC57002EE523 /* MainViewController.swift */,
 				C6B742C42049911B00C7877D /* MainOutlineModels.swift */,
 			);
-			path = Advanced;
+			path = Detailed;
 			sourceTree = "<group>";
 		};
 		C62270532036EA8D00DBCD65 /* Utilities */ = {
@@ -434,7 +434,7 @@
 				C69F94912028B1EA00127A47 /* MainMenu.xib */,
 				C6F8A8252028BD91009A016E /* MainWindow.swift */,
 				C6CC91262028E69300CB0B10 /* MainWindow.xib */,
-				C62270432035C1BE00DBCD65 /* Advanced */,
+				C62270432035C1BE00DBCD65 /* Detailed */,
 				C6F4BC642031DB6C002EE523 /* Download */,
 				C6F4BC732031E08C002EE523 /* Install */,
 				C6F4BC742031E096002EE523 /* Completion */,
@@ -469,11 +469,11 @@
 		C6F4BC732031E08C002EE523 /* Install */ = {
 			isa = PBXGroup;
 			children = (
-				C6F4BC752031E0A3002EE523 /* InstallViewable.swift */,
-				278A10B4203ADAB2007C3DC8 /* InstallView.xib */,
-				278A10B6203ADACD007C3DC8 /* InstallView.swift */,
-				2763919F203ADDC30096E10C /* InstallViewController.swift */,
 				276391A1203ADDD60096E10C /* InstallPresenter.swift */,
+				278A10B6203ADACD007C3DC8 /* InstallView.swift */,
+				278A10B4203ADAB2007C3DC8 /* InstallView.xib */,
+				C6F4BC752031E0A3002EE523 /* InstallViewable.swift */,
+				2763919F203ADDC30096E10C /* InstallViewController.swift */,
 			);
 			path = Install;
 			sourceTree = "<group>";

@@ -33,13 +33,13 @@ enum PackageStatus: Int32 {
     }
 }
 
-protocol PahkatClient: class {
+protocol PahkatClientType: class {
     func repoIndexes() -> Single<[LoadedRepository]>
     func status(packageKey: PackageKey) -> Single<(PackageStatus, SystemTarget)>
     func processTransaction(actions: [PackageAction]) -> (() -> Completable, Observable<TransactionEvent>)
 }
 
-class MockPahkatClient: PahkatClient {
+class MockPahkatClient: PahkatClientType {
     func repoIndexes() -> Single<[LoadedRepository]> {
         return Single.just([
             LoadedRepository.mock(id: "1"),
@@ -58,7 +58,7 @@ class MockPahkatClient: PahkatClient {
         var fakeEvents = [TransactionEvent]()
 
         let resolvedActions = actions.map {
-            ResolvedAction(action: $0, hasAction: true, name: ["en": "Supreme keyboard"], version: "2.0")
+            ResolvedAction(action: $0, name: ["en": "Supreme keyboard"], version: "2.0")
         }
         
         fakeEvents.append(TransactionEvent.transactionStarted(actions: resolvedActions, isRebootRequired: false))
@@ -94,7 +94,7 @@ class MockPahkatClient: PahkatClient {
     }
 }
 
-class PahkatClientImpl: PahkatClient {
+class PahkatClient: PahkatClientType {
     private let inner: Pahkat_PahkatClient
     
     public func repoIndexes() -> Single<[LoadedRepository]> {

@@ -61,8 +61,11 @@ class MainWindowController: WindowController<MainWindow> {
                 }
             })
             .distinctUntilChanged()
+            .observeOn(MainScheduler.instance)
             .subscribeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] route in
+                print("Setting route to: \(route)")
+                
                 switch route {
                 case .main:
                     AppContext.windows.set(MainViewController(), for: MainWindowController.self)

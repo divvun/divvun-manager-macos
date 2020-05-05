@@ -15,26 +15,15 @@ struct DownloadProgress: Equatable {
 }
 
 enum TransactionProcessState: Equatable {
-//    static func == (lhs: TransactionProcessState, rhs: TransactionProcessState) -> Bool {
-//        switch (lhs, rhs) {
-//        case (.completed, .completed):
-//            return true
-//        case let (.downloading(a), .downloading(b)):
-//            return a == b
-//        case let (.installing(a), .installing(b)):
-//            return a == b
-//        }
-//    }
-//
     case downloading(state: [PackageKey: DownloadProgress])
     case installing(current: PackageKey)
     case completed
     
-    static func defaultDownloading(for actions: [ResolvedAction]) -> TransactionProcessState {
+    static func defaultDownloading(for actions: [ResolvedAction], current: UInt64 = 0, total: UInt64 = 0) -> TransactionProcessState {
         var out = [PackageKey: DownloadProgress]()
         for action in actions {
             if action.action.action == .install {
-                out[action.action.key] = DownloadProgress(0, 0)
+                out[action.action.key] = DownloadProgress(current, total)
             }
         }
         return .downloading(state: out)
@@ -129,12 +118,32 @@ class AppContextImpl {
     var cancelTransactionCallback: (() -> Completable)?
     let disposeBag = DisposeBag()
 
-    let currentTransaction = BehaviorSubject<TransactionState>(value: .notStarted)
+    static func mock() -> TransactionState {
+        let actions = [
+            ResolvedAction(
+                action: .init(
+                    key: try! PackageKey.from(urlString: "https://x.brendan.so/packages/speller-sme"),
+                    action: .install,
+                    target: .system
+                ),
+                name: ["en": "Test Package"],
+                version: "420.69"
+            )
+        ]
+        
+        let processState = TransactionProcessState.defaultDownloading(for: actions, current: 100, total: 100)
+        let state = TransactionProgressState(actions: actions, isRebootRequired: false, state: processState)
+        
+        return .inProgress(state)
+    }
+    
+    let currentTransaction = BehaviorSubject<TransactionState>(
+        value: mock()
+    )
     
     init() throws {
         settings = try Settings()
-        packageStore = MockPahkatClient()
-//        packageStore = PahkatClient(unixSocketPath: URL(fileURLWithPath: "/tmp/pahkat"))
+        packageStore = PahkatClient(unixSocketPath: URL(fileURLWithPath: "/tmp/pahkat"))
     }
 }
 

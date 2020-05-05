@@ -4,6 +4,7 @@ import RxCocoa
 
 class MainViewController: DisposableViewController<MainView>, MainViewable, NSToolbarDelegate {
     required init() {
+        print("MAIN INIT")
         super.init()
     }
     

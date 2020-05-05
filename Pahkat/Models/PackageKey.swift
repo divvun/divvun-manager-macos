@@ -1,10 +1,34 @@
 import Foundation
 
 struct PackageKeyParams: Equatable, Hashable {
-    let platform: String?
-    let arch: String?
-    let version: String?
-    let channel: String?
+    private(set) var platform: String?
+    private(set) var arch: String?
+    private(set) var version: String?
+    private(set) var channel: String?
+    
+    init?(queryItems: [URLQueryItem]) {
+        for item in queryItems {
+            let name = item.name
+            let value = item.value
+            
+            switch name {
+            case "platform":
+                self.platform = value
+            case "arch":
+                self.arch = value
+            case "version":
+                self.version = value
+            case "channel":
+                self.channel = value
+            default:
+                continue
+            }
+        }
+        
+        if platform == nil && arch == nil && version == nil && channel == nil {
+            return nil
+        }
+    }
 }
 
 extension Array where Element == URLQueryItem {
@@ -31,6 +55,10 @@ extension Array where Element == URLQueryItem {
     }
 }
 
+enum PackageKeyError: Error {
+    case invalidURL(String)
+}
+
 class PackageKey: Equatable, Hashable, CustomDebugStringConvertible {
     let repositoryURL: URL
     let id: String
@@ -46,8 +74,37 @@ class PackageKey: Equatable, Hashable, CustomDebugStringConvertible {
         self.params = params
     }
     
-    static func from(urlString: String) throws -> Self {
-        todo()
+    static func from(url: URL) throws -> PackageKey {
+        guard let id = url.pathComponents.last else {
+            fatalError("this is impossible")
+        }
+        
+        var newUrl = url.deletingLastPathComponent()
+        
+        if let end = newUrl.pathComponents.last, end != "packages" {
+            throw PackageKeyError.invalidURL(url.absoluteString)
+        }
+        
+        newUrl = url.deletingLastPathComponent()
+        
+        var components = URLComponents(url: newUrl, resolvingAgainstBaseURL: false)!
+        let queryItems = components.queryItems ?? []
+        let params = PackageKeyParams(queryItems: queryItems)
+        
+        components.fragment = nil
+        components.query = nil
+        
+        let repoURL = components.url!
+        
+        return PackageKey(repositoryURL: repoURL, id: id, params: params)
+    }
+    
+    static func from(urlString: String) throws -> PackageKey {
+        guard let url = URL(string: urlString) else {
+            throw PackageKeyError.invalidURL(urlString)
+        }
+        
+        return try PackageKey.from(url: url)
     }
     
     static func == (lhs: PackageKey, rhs: PackageKey) -> Bool {

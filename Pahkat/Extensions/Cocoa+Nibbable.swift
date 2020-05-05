@@ -22,6 +22,42 @@ class ViewController<T: View>: NSViewController {
 class Window: NSWindow, Nibbable {
 }
 
+func setAssociatedObject<T>(_ object: Any, _ ptr: UnsafeRawPointer, value: T, policy: objc_AssociationPolicy = .OBJC_ASSOCIATION_RETAIN) {
+    objc_setAssociatedObject(object, ptr, value, policy)
+}
+
+func getAssociatedObject<T>(_ object: Any, _ ptr: UnsafeRawPointer) -> T? {
+    return objc_getAssociatedObject(object, ptr) as? T
+}
+
+extension NSObject {
+    func setAssociatedObject<T>(_ ptr: UnsafeRawPointer, value: T, policy: objc_AssociationPolicy = .OBJC_ASSOCIATION_RETAIN) {
+        objc_setAssociatedObject(self, ptr, value, policy)
+    }
+
+    func setAssociatedObject<T>(_ key: Selector, value: T, policy: objc_AssociationPolicy = .OBJC_ASSOCIATION_RETAIN) {
+        let keyObject = key as AnyObject
+        let unmanagedKey = Unmanaged.passUnretained(keyObject)
+        let ptr = unmanagedKey.toOpaque()
+        objc_setAssociatedObject(self, ptr, value, policy)
+    }
+
+    func getAssociatedObject<T>(_ ptr: UnsafeRawPointer) -> T? {
+        return objc_getAssociatedObject(self, ptr) as? T
+    }
+
+    func getAssociatedObject<T>(_ key: Selector) -> T? {
+        let ptr = Unmanaged.passUnretained(key as AnyObject).toOpaque()
+        return objc_getAssociatedObject(self, ptr) as? T
+    }
+    
+    func removeAssociatedObject(_ key: Selector, policy: objc_AssociationPolicy = .OBJC_ASSOCIATION_RETAIN) {
+        let ptr = Unmanaged.passUnretained(key as AnyObject).toOpaque()
+        return objc_setAssociatedObject(self, ptr, nil, policy)
+    }
+}
+
+
 class WindowController<T: Window>: NSWindowController {
     static var windowNibPath: String { return T.nibPath }
     

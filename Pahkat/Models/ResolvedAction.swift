@@ -2,7 +2,6 @@ import Foundation
 
 struct ResolvedAction: Equatable {
     let action: PackageAction
-    let hasAction: Bool
     let name: [String: String]
     let version: String
 }
@@ -28,6 +27,6 @@ extension ResolvedAction {
 
     static func from(_ protobuf: Pahkat_ResolvedAction) -> Self {
         let packageAction = PackageAction.from(protobuf.action)
-        return ResolvedAction(action: packageAction, hasAction: protobuf.hasAction, name: protobuf.name, version: protobuf.version)
+        return ResolvedAction(action: packageAction, name: protobuf.name, version: protobuf.version)
     }
 }

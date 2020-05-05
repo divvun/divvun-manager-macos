@@ -3,21 +3,13 @@ import RxSwift
 import RxCocoa
 
 class DownloadViewController: DisposableViewController<DownloadView>, DownloadViewable, NSToolbarDelegate {
+    
     private let byteCountFormatter = ByteCountFormatter()
     private var delegate: DownloadProgressTableDelegate! = nil
     
-//    private let actions: [PackageAction]
-    
-    internal lazy var presenter = { DownloadPresenter(view: self) }()
-
-//    init(actions: [PackageAction]) {
-//        self.actions = actions
-//        super.init()
-//    }
+//    internal lazy var presenter = { DownloadPresenter(view: self) }()
     
     required init() {
-        // FIXME: none of this TODO
-//        self.actions = []
         super.init()
     }
     
@@ -25,41 +17,125 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
         fatalError("init(coder:) has not been implemented")
     }
     
-//    var onCancelTapped: Driver<Void> {
-//        return self.contentView.primaryButton.rx.tap.asDriver()
-//    }
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        
+        let _ = AppContext.currentTransaction
+            .take(1)
+            .observeOn(MainScheduler.instance)
+            .subscribeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] state in
+                switch state {
+                case let .inProgress(progress):
+                    self?.initializeDownloads(actions: progress.actions)
+                default:
+                    break
+                }
+            })
+     
+        AppContext.currentTransaction
+            .observeOn(MainScheduler.instance)
+            .subscribeOn(MainScheduler.instance)
+            .filter { $0.isInProgress }
+            .map { (state: TransactionState) -> TransactionProgressState in
+                switch state {
+                case .inProgress(let x):
+                    return x
+                default:
+                    fatalError("logic error")
+                }
+            }
+            .subscribe(onNext: { [weak self] state in
+                guard let `self` = self else { return }
+                
+                switch state.state {
+                case let .downloading(downloadState):
+                    for (key, value) in downloadState {
+                        self.setStatus(key: key, status: value)
+                    }
+                default:
+                    break
+                }
+            }).disposed(by: bag)
+//            switch state {
+//            case let .inProgress(resolvedActions, isRebootRequired, processState):
+//                switch processState {
+//                case let .downloading(state: downloadState):
+//                    let keys = resolvedActions.map{ $0.action.key }
+//                    keys.forEach { key in
+//                        if let progress = downloadState[key] {
+//                            self.view.setStatus(key: key, status: .progress(downloaded: progress.0, total: progress.1))
+//                        }
+//                    }
+//                    break
+//                default:
+//                    break
+//                }
+//            default:
+//                break
+//            }
+//        presenter.start().disposed(by: bag)
+    }
+    
+    var onCancelTapped: Driver<Void> {
+        return self.contentView.primaryButton.rx.tap.asDriver()
+    }
     
     // TODO: maybe get rid of PackageDownloadStatus and use the new RPC one?
-    func setStatus(key: PackageKey?, status: PackageDownloadStatus) {
+    func setStatus(key: PackageKey?, status: DownloadProgress) {
         guard let key = key else {
             // we need a key yo
             return
         }
+            
+        
         DispatchQueue.main.async {
-            // TODO: waiting for RPC to be our friend
             if let view = self.delegate.tableView(self.contentView.tableView, viewFor: key) as? DownloadProgressView {
-                switch(status) {
-                case .notStarted:
-                    view.progressLabel.stringValue = Strings.queued
-                case .starting:
+                let current = status.current
+                let total = status.total
+                
+                // just starting is 0, 0
+                switch (current, total) {
+                case (0, 0):
                     view.progressLabel.stringValue = Strings.starting
-                    if let cellOrigin: NSPoint = view.superview?.frame.origin {
-                        self.contentView.clipView.animate(to: cellOrigin, with: 0.5)
-                    }
-                case .progress(let downloaded, let total):
-                    view.progressBar.maxValue = Double(total)
+                case (UInt64.max, UInt64.max):
+                    view.progressLabel.stringValue = Strings.downloadError
+                case let (x, y) where x == y:
+                    view.progressLabel.stringValue = Strings.completed
+                case let (x, y):
+                    view.progressBar.maxValue = Double(y)
                     view.progressBar.minValue = 0
-                    view.progressBar.doubleValue = Double(downloaded)
+                    view.progressBar.doubleValue = Double(x)
 
-                    let downloadStr = self.byteCountFormatter.string(fromByteCount: Int64(downloaded))
-                    let totalStr = self.byteCountFormatter.string(fromByteCount: Int64(total))
+                    let downloadStr = self.byteCountFormatter.string(fromByteCount: Int64(x))
+                    let totalStr = self.byteCountFormatter.string(fromByteCount: Int64(y))
 
                     view.progressLabel.stringValue = "\(downloadStr) / \(totalStr)"
-                case .completed:
-                    view.progressLabel.stringValue = Strings.completed
-                case .error:
-                    view.progressLabel.stringValue = Strings.downloadError
                 }
+                
+//                switch(status) {
+////                case .notStarted:
+////                    view.progressLabel.stringValue = Strings.queued
+//                case .starting:
+//                    view.progressLabel.stringValue = Strings.starting
+//                    if let cellOrigin: NSPoint = view.superview?.frame.origin {
+//                        self.contentView.clipView.animate(to: cellOrigin, with: 0.5)
+//                    }
+//                case .progress(let downloaded, let total):
+//                    view.progressBar.maxValue = Double(total)
+//                    view.progressBar.minValue = 0
+//                    view.progressBar.doubleValue = Double(downloaded)
+//
+//                    let downloadStr = self.byteCountFormatter.string(fromByteCount: Int64(downloaded))
+//                    let totalStr = self.byteCountFormatter.string(fromByteCount: Int64(total))
+//
+//                    view.progressLabel.stringValue = "\(downloadStr) / \(totalStr)"
+//                case .completed:
+//                    view.progressLabel.stringValue = Strings.completed
+//                case .error:
+//                    view.progressLabel.stringValue = Strings.downloadError
+//                case .
+//                }
             } else {
                 fatalError("couldn't get downloadProgressView")
             }
@@ -67,35 +143,7 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
     }
     
     func cancel() {
-        DispatchQueue.main.async {
-            print("FUNKY CANCEL")
-            AppContext.cancelTransactionCallback?().subscribe().disposed(by: self.bag)
-            AppContext.cancelTransactionCallback = nil
-            AppContext.currentTransaction.onNext(.notStarted)
-        }
-    }
-    
-    func startInstallation(transaction: TransactionType) {
-//        DispatchQueue.main.async {
-//            AppContext.windows.set(
-//                InstallViewController(transaction: transaction, repos: self.repos),
-//                for: MainWindowController.self)
-//        }
-        todo()
-    }
-    
-    func handle(error: Error) {
-        DispatchQueue.main.async {
-            let alert = NSAlert()
-            alert.messageText = Strings.downloadError
-            alert.informativeText = String(describing: error)
-            alert.alertStyle = .critical
-            
-            log.error(error)
-            alert.runModal()
-            
-            self.cancel()
-        }
+        
     }
     
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
@@ -141,12 +189,6 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
         contentView.tableView.delegate = self.delegate
         contentView.tableView.dataSource = self.delegate
     }
-    
-    override func viewWillAppear() {
-        super.viewWillAppear()
-        
-        presenter.start().disposed(by: bag)
-    }
 }
 
 class DownloadProgressTableDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegate {
@@ -183,7 +225,7 @@ class DownloadProgressTableDelegate: NSObject, NSTableViewDataSource, NSTableVie
 }
 
 extension NSClipView {
-    func animate(to point:NSPoint, with duration:TimeInterval) {
+    func animate(to point: NSPoint, with duration: TimeInterval) {
         NSAnimationContext.beginGrouping()
         NSAnimationContext.current.duration = duration
         NSAnimationContext.current.timingFunction = CAMediaTimingFunction.init(name: CAMediaTimingFunctionName.default)
