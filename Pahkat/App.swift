@@ -111,7 +111,7 @@ enum TransactionState: Equatable {
         case let .transactionError(packageKey: _, error: message):
             return .error(message ?? Strings.downloadError)
             
-        // We don't need to handle these two o
+        // We don't need to handle these two
         case .downloadComplete, .transactionProgress:
             break
         }
