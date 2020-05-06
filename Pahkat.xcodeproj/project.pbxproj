@@ -21,6 +21,7 @@
 		276391AE203DA3020096E10C /* DownloadProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 276391AD203DA3020096E10C /* DownloadProgressView.xib */; };
 		278A10B5203ADAB2007C3DC8 /* InstallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278A10B4203ADAB2007C3DC8 /* InstallView.xib */; };
 		278A10B7203ADACD007C3DC8 /* InstallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278A10B6203ADACD007C3DC8 /* InstallView.swift */; };
+		99AA94B12462B57E00E46795 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99AA94B02462B57E00E46795 /* AppContext.swift */; };
 		99C6A536244E079800AF4247 /* LoadedRepository+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C6A535244E079800AF4247 /* LoadedRepository+mock.swift */; };
 		99C6A53924509D0700AF4247 /* index.bin in Resources */ = {isa = PBXBuildFile; fileRef = 99C6A53824509D0700AF4247 /* index.bin */; };
 		99F28AE4245966C8006F14EF /* ResolvedAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F28AE3245966C8006F14EF /* ResolvedAction.swift */; };
@@ -148,6 +149,7 @@
 		276391AD203DA3020096E10C /* DownloadProgressView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadProgressView.xib; sourceTree = "<group>"; };
 		278A10B4203ADAB2007C3DC8 /* InstallView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstallView.xib; sourceTree = "<group>"; };
 		278A10B6203ADACD007C3DC8 /* InstallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallView.swift; sourceTree = "<group>"; };
+		99AA94B02462B57E00E46795 /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
 		99C6A535244E079800AF4247 /* LoadedRepository+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoadedRepository+mock.swift"; sourceTree = "<group>"; };
 		99C6A53824509D0700AF4247 /* index.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = index.bin; sourceTree = "<group>"; };
 		99F28AE3245966C8006F14EF /* ResolvedAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolvedAction.swift; sourceTree = "<group>"; };
@@ -369,6 +371,7 @@
 			children = (
 				99C6A53724509CE700AF4247 /* TestData */,
 				C6B742C8204BF22600C7877D /* App.swift */,
+				99AA94B02462B57E00E46795 /* AppContext.swift */,
 				C69F948D2028B1EA00127A47 /* AppDelegate.swift */,
 				C6F8A8192028B3F3009A016E /* Extensions */,
 				C6F8A8212028BBFC009A016E /* Managers */,
@@ -697,6 +700,7 @@
 				276391A0203ADDC30096E10C /* InstallViewController.swift in Sources */,
 				C612CFC22448AC0700EFEA98 /* LoadedRepository.swift in Sources */,
 				99F28AE4245966C8006F14EF /* ResolvedAction.swift in Sources */,
+				99AA94B12462B57E00E46795 /* AppContext.swift in Sources */,
 				C612CFAE2448605700EFEA98 /* BTreeIndex.swift in Sources */,
 				C6F8A8262028BD91009A016E /* MainWindow.swift in Sources */,
 				C6F4BC722031DCF7002EE523 /* Cocoa+Rx.swift in Sources */,
