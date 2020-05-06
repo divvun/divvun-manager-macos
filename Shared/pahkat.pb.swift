@@ -24,32 +24,52 @@ public struct Pahkat_NotificationResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var value: Pahkat_NotificationResponse.OneOf_Value? = nil
-
-  public var message: String {
-    get {
-      if case .message(let v)? = value {return v}
-      return String()
-    }
-    set {value = .message(newValue)}
-  }
+  public var value: Pahkat_NotificationResponse.ValueType = .rebootRequired
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public enum OneOf_Value: Equatable {
-    case message(String)
+  public enum ValueType: SwiftProtobuf.Enum {
+    public typealias RawValue = Int
+    case rebootRequired // = 0
+    case repositoriesChanged // = 1
+    case UNRECOGNIZED(Int)
 
-  #if !swift(>=4.1)
-    public static func ==(lhs: Pahkat_NotificationResponse.OneOf_Value, rhs: Pahkat_NotificationResponse.OneOf_Value) -> Bool {
-      switch (lhs, rhs) {
-      case (.message(let l), .message(let r)): return l == r
+    public init() {
+      self = .rebootRequired
+    }
+
+    public init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .rebootRequired
+      case 1: self = .repositoriesChanged
+      default: self = .UNRECOGNIZED(rawValue)
       }
     }
-  #endif
+
+    public var rawValue: Int {
+      switch self {
+      case .rebootRequired: return 0
+      case .repositoriesChanged: return 1
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
   }
 
   public init() {}
 }
+
+#if swift(>=4.2)
+
+extension Pahkat_NotificationResponse.ValueType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Pahkat_NotificationResponse.ValueType] = [
+    .rebootRequired,
+    .repositoriesChanged,
+  ]
+}
+
+#endif  // swift(>=4.2)
 
 public struct Pahkat_SelfUpdateRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -729,25 +749,21 @@ fileprivate let _protobuf_package = "pahkat"
 extension Pahkat_NotificationResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".NotificationResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "message"),
+    1: .same(proto: "value"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1:
-        if self.value != nil {try decoder.handleConflictingOneOf()}
-        var v: String?
-        try decoder.decodeSingularStringField(value: &v)
-        if let v = v {self.value = .message(v)}
+      case 1: try decoder.decodeSingularEnumField(value: &self.value)
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if case .message(let v)? = self.value {
-      try visitor.visitSingularStringField(value: v, fieldNumber: 1)
+    if self.value != .rebootRequired {
+      try visitor.visitSingularEnumField(value: self.value, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -757,6 +773,13 @@ extension Pahkat_NotificationResponse: SwiftProtobuf.Message, SwiftProtobuf._Mes
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension Pahkat_NotificationResponse.ValueType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "REBOOT_REQUIRED"),
+    1: .same(proto: "REPOSITORIES_CHANGED"),
+  ]
 }
 
 extension Pahkat_SelfUpdateRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

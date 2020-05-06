@@ -33,7 +33,13 @@ enum PackageStatus: Int32 {
     }
 }
 
+enum PahkatNotification {
+    case rebootRequired
+    case repositoriesChanged
+}
+
 protocol PahkatClientType: class {
+    func notifications() -> Observable<PahkatNotification>
     func repoIndexes() -> Single<[LoadedRepository]>
     func status(packageKey: PackageKey) -> Single<(PackageStatus, SystemTarget)>
     func processTransaction(actions: [PackageAction]) -> (() -> Completable, Observable<TransactionEvent>)
@@ -49,6 +55,10 @@ struct MessageMap {
 }
 
 class MockPahkatClient: PahkatClientType {
+    func notifications() -> Observable<PahkatNotification> {
+        todo()
+    }
+
     func strings(languageTag: String) -> Single<[URL : MessageMap]> {
         todo()
     }
@@ -121,6 +131,23 @@ class MockPahkatClient: PahkatClientType {
 
 class PahkatClient: PahkatClientType {
     private let inner: Pahkat_PahkatClient
+
+    public func notifications() -> Observable<PahkatNotification> {
+        return Observable<PahkatNotification>.create { emitter in
+            let _ = self.inner.notifications(Pahkat_NotificationsRequest(), handler: { response in
+                switch response.value {
+                case .rebootRequired:
+                    emitter.onNext(.rebootRequired)
+                case .repositoriesChanged:
+                    emitter.onNext(.repositoriesChanged)
+                default:
+                    return
+                }
+            })
+            
+            return Disposables.create()
+        }
+    }
     
     public func repoIndexes() -> Single<[LoadedRepository]> {
         let req = Pahkat_RepositoryIndexesRequest()

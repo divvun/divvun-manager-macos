@@ -119,7 +119,6 @@ class WebBridgeFunctions {
 
         for descriptor in repo.descriptors.values {
             let key = repo.packageKey(for: descriptor)
-            print(key)
             map[key.toString()] = descriptor
         }
 

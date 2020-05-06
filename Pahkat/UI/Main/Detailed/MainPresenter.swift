@@ -118,7 +118,6 @@ class MainPresenter {
         data = MainOutlineMap()
         
         repositories.forEach { repo in
-            print(repo)
             let filter = OutlineFilter.language // TODO: get this from the repo?
             let key = OutlineRepository(filter: filter, repo: repo)
             self.updateFilters(key: key)

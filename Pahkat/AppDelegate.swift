@@ -46,6 +46,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         AppDelegate.instance = self
+
+        AppContext.packageStore.notifications().subscribe(onNext: {
+            print($0)
+        }).disposed(by: bag)
         
         launchMain()
     }
