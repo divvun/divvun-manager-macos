@@ -3,13 +3,14 @@ import RxSwift
 import RxCocoa
 
 struct RepositoryTableRowData {
-    let url: URL?
+    let url: URL
+    let repo: LoadedRepository?
     let channel: String?
 }
 
 class SettingsViewController: DisposableViewController<SettingsView>, SettingsViewable, NSWindowDelegate {
     private(set) var tableDelegate: RepositoryTableDelegate! = nil
-    private lazy var presenter = { SettingsPresenter(view: self) }()
+//    private lazy var presenter = { SettingsPresenter(view: self) }()
     
     var onAddRepoButtonTapped: Driver<Void> {
         return contentView.repoAddButton.rx.tap.asDriver()
@@ -18,14 +19,38 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
     var onRemoveRepoButtonTapped: Driver<Void> {
         return contentView.repoRemoveButton.rx.tap.asDriver()
     }
-    
+
+    // FIXME: this gets the width as wide as I need it... lol
+    let textField = NSTextField(string: "                                                                       ")
+
     func addBlankRepositoryRow() {
-        let rows = self.contentView.repoTableView.numberOfRows
-        self.contentView.repoTableView.beginUpdates()
-//        self.tableDelegate.configs.append(RepositoryTableRowData(name: nil, url: nil, channel: .stable))
-        self.contentView.repoTableView.insertRows(at: IndexSet(integer: rows), withAnimation: .effectFade)
-        self.contentView.repoTableView.endUpdates()
-        self.contentView.repoTableView.editColumn(0, row: rows, with: nil, select: true)
+        let alert = NSAlert()
+
+        alert.accessoryView = textField
+        textField.stringValue = ""
+        textField.placeholderString = "https://…"
+
+        alert.addButton(withTitle: Strings.save)
+        alert.addButton(withTitle: Strings.cancel)
+        alert.messageText = "Add Repository"
+        alert.informativeText = "Enter the URL for the repository to add:"
+
+        alert.alertStyle = .informational
+
+        alert.beginSheetModal(
+            for: AppContext.windows.get(SettingsWindowController.self).window!,
+            completionHandler: { response in
+                guard let url = URL(string: self.textField.stringValue) else {
+                    log.error("Not a valid URL.")
+                    return
+                }
+
+                AppContext.packageStore.setRepo(url: url, record: RepoRecord(channel: nil))
+                    .subscribe(onSuccess: { [weak self] repos in
+                        self?.refreshRepoTable()
+                    })
+                    .disposed(by: self.bag)
+            })
     }
     
     func updateProgressIndicator(isEnabled: Bool) {
@@ -50,30 +75,21 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
         alert.informativeText = Strings.removeRepoBody
         alert.addButton(withTitle: Strings.ok)
         alert.addButton(withTitle: Strings.cancel)
+
         alert.beginSheetModal(for: self.contentView.window!, completionHandler: {
             if $0 == NSApplication.ModalResponse.alertFirstButtonReturn {
+                AppContext.packageStore.removeRepo(url: self.tableDelegate.configs[row].url)
+                    .subscribe()
+                    .disposed(by: self.bag)
+
                 self.tableDelegate.configs.remove(at: row)
                 self.contentView.repoTableView.beginUpdates()
                 self.contentView.repoTableView.removeRows(at: IndexSet(integer: row), withAnimation: .effectFade)
                 self.contentView.repoTableView.endUpdates()
+
+                self.refreshRepoTable()
             }
         })
-    }
-    
-    func windowWillClose(_ notification: Notification) {
-        guard let tableDelegate = tableDelegate, let AppContext = AppContext else {
-            return
-        }
-        
-        let v = tableDelegate.configs.compactMap { t -> RepoRecord? in
-//            if let url = t.url, let channel = t.channel {
-//                return RepoRecord(url: url, channel: channel)
-//            }
-            todo()
-            return nil
-        }
-        
-//        AppContext.settings.dispatch(event: .setRepositoryConfigs(v))
     }
     
     func handle(error: Error) {
@@ -96,14 +112,11 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
         title = Strings.settings
         
         InterfaceLanguage.bind(to: contentView.languageDropdown.menu!)
-//        UpdateFrequency.bind(to: contentView.frequencyPopUp.menu!)
-//        Repository.Channels.bind(to: contentView.repoChannelColumn.menu!)
     }
 
     override func viewWillAppear() {
         super.viewWillAppear()
 
-        // TODO: move to presenter
         contentView.repoAddButton.rx.tap.subscribe(onNext: { [weak self] in
             guard let `self` = self else { return }
             self.addBlankRepositoryRow()
@@ -113,55 +126,63 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
             guard let `self` = self else { return }
             self.promptRemoveRepositoryRow()
         }).disposed(by: bag)
-        
-//        AppContext.settings.state.map { $0.interfaceLanguage }
-//            .subscribe(onNext: { [weak self] language in
-//                guard let `self` = self else { return }
-//
-//                guard let item = self.contentView.languageDropdown.menu!.items
-//                    .first(where: { ($0.representedObject as! InterfaceLanguage).rawValue == language }) else {
-//                    return
-//                }
-//
-//                self.contentView.languageDropdown.select(item)
-//            }).disposed(by: bag)
-        
-//        AppContext.settings.state.map { $0.updateCheckInterval }
-//            .subscribe(onNext: { [weak self] frequency in
-//                guard let `self` = self else { return }
-//
-//                guard let item = self.contentView.frequencyPopUp.menu!.items
-//                    .first(where: { ($0.representedObject as! UpdateFrequency) == frequency }) else {
-//                        return
-//                }
-//
-//                self.contentView.frequencyPopUp.select(item)
-//            }).disposed(by: bag)
-        
-//        contentView.languageDropdown.rx.tap
-//            .map { self.contentView.languageDropdown.selectedItem!.representedObject as! InterfaceLanguage }
-//            .subscribe(onNext: {
-//                AppContext.settings.dispatch(event: .setInterfaceLanguage($0.rawValue))
-//            }).disposed(by: bag)
-        
-//        contentView.frequencyPopUp.rx.tap
-//            .map { self.contentView.frequencyPopUp.selectedItem!.representedObject as! UpdateFrequency }
-//            .subscribe(onNext: {
-//                AppContext.settings.dispatch(event: .setUpdateCheckInterval($0))
-//            }).disposed(by: bag)
-        
-        presenter.start().disposed(by: bag)
+
+        if let language: String = AppContext.settings.read(key: .language) {
+            if let item = self.contentView.languageDropdown.menu!.items
+                .first(where: { ($0.representedObject as! InterfaceLanguage).rawValue == language })
+            {
+                self.contentView.languageDropdown.select(item)
+            }
+        } else {
+            self.contentView.languageDropdown.selectItem(at: 0)
+        }
+
+        contentView.languageDropdown.rx.tap
+            .map { self.contentView.languageDropdown.selectedItem!.representedObject as! InterfaceLanguage }
+            .subscribe(onNext: { v in
+                try? AppContext.settings.write(key: .language, value: v.rawValue)
+                if v == .systemLocale {
+                    UserDefaults.standard.removeObject(forKey: "AppleLanguages")
+                } else {
+                    UserDefaults.standard.set([v.rawValue], forKey: "AppleLanguages")
+                }
+            }).disposed(by: bag)
+
+        updateProgressIndicator(isEnabled: true)
+
+        // Add all the info to the table
+        refreshRepoTable()
+    }
+
+    func refreshRepoTable() {
+        Single.zip(
+                AppContext.packageStore.repoIndexes(),
+                AppContext.packageStore.getRepoRecords(),
+                AppContext.packageStore.strings(languageTag: Strings.languageCode)
+            )
+            .observeOn(MainScheduler.instance)
+            .subscribeOn(MainScheduler.instance)
+            .subscribe(onSuccess: { [weak self] (repos, records, strings) in
+                let rows = records.map { (key, value) in
+                    return RepositoryTableRowData(url: key, repo: repos.first(where: { $0.index.url == key }), channel: value.channel)
+                }
+
+                self?.setRepositories(repositories: rows, strings: strings)
+                self?.updateProgressIndicator(isEnabled: false)
+            }, onError: { [weak self] error in
+                self?.handle(error: error)
+            }).disposed(by: bag)
     }
     
-    func setRepositories(repositories: [RepositoryTableRowData]) {
-        self.tableDelegate = RepositoryTableDelegate(with: repositories)
+    func setRepositories(repositories: [RepositoryTableRowData], strings: [URL: MessageMap]) {
+        self.tableDelegate = RepositoryTableDelegate(with: repositories, strings: strings)
         contentView.repoTableView.delegate = self.tableDelegate
         contentView.repoTableView.dataSource = self.tableDelegate
     }
 }
 
 enum RepositoryTableColumns: String {
-    case url
+    case name
     case channel
     
     init?(identifier: NSUserInterfaceItemIdentifier) {
@@ -181,10 +202,12 @@ enum RepositoryTableEvent {
 
 class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSource {
     fileprivate var configs: [RepositoryTableRowData]
+    fileprivate var strings: [URL: MessageMap] = [:]
     fileprivate let events = PublishSubject<RepositoryTableEvent>()
     
-    init(with configs: [RepositoryTableRowData]) {
+    init(with configs: [RepositoryTableRowData], strings: [URL: MessageMap]) {
         self.configs = configs
+        self.strings = strings
         super.init()
     }
     
@@ -199,16 +222,45 @@ class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSou
         let config = configs[row]
         
         switch column {
-        case .url:
-            return config.url?.absoluteString
+        case .name:
+            if let repo = config.repo {
+                return repo.index.nativeName
+            } else {
+                return config.url.absoluteString
+            }
         case .channel:
-//            guard let cell = tableColumn.dataCell as? NSPopUpButtonCell else { return nil }
-//            guard let index = cell.menu?.items.firstIndex(where: {
-//                $0.representedObject as? Repository.Channels == config.channel
-//            }) else {
-//                return nil
-//            }
-            todo()
+            guard let cell = tableColumn.dataCell as? NSPopUpButtonCell else { return nil }
+
+            let url = configs[row].url
+            let s = strings[url]?.channels ?? [String: String]()
+
+            var channels: [String]
+            if let repo = configs[row].repo {
+                channels = repo.index.channels.sorted().map { channelId in
+                    if let channel = s[channelId] {
+                        return channel
+                    } else {
+                        return channelId
+                    }
+                }
+            } else {
+                channels = []
+            }
+
+            // default channel
+            channels.insert(Strings.stable, at: 0)
+
+            cell.removeAllItems()
+            cell.addItems(withTitles: channels)
+
+            let ch = strings[url]?.channels[config.channel ?? ""] ?? config.channel
+
+            guard let index = cell.menu?.items.firstIndex(where: {
+                $0.representedObject as? String == ch
+            }) else {
+                return 0
+            }
+
             return index
         }
     }
@@ -222,22 +274,6 @@ class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSou
         }
         
         switch column {
-        case .url:
-            guard let string = object as? String else { return }
-            
-            if string == "" {
-                return
-            }
-            
-            if let url = URL(string: string), url.scheme?.starts(with: "http") ?? false {
-                self.configs[row] = RepositoryTableRowData(url: url, channel: configs[row].channel)
-                events.onNext(.setURL(row, url))
-            } else {
-                let alert = NSAlert()
-                alert.messageText = Strings.invalidUrlTitle
-                alert.informativeText = Strings.invalidUrlBody
-                alert.runModal()
-            }
         case .channel:
             guard let cell = tableColumn.dataCell as? NSPopUpButtonCell else { return }
             guard let index = object as? Int else { return }
@@ -245,8 +281,10 @@ class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSou
             guard let channel = menuItem.representedObject as? String else { return }
             
             // Required or UI does a weird blinking thing.
-            self.configs[row] = RepositoryTableRowData(url: configs[row].url, channel: channel)
+            self.configs[row] = RepositoryTableRowData(url: configs[row].url, repo: configs[row].repo, channel: channel)
             events.onNext(.setChannel(row, channel))
+        default:
+            return
         }
     }
     
@@ -254,91 +292,3 @@ class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSou
         return self.configs.count
     }
 }
-
-enum InterfaceLanguage: String, Comparable {
-    case systemLocale = ""
-    case en = "en"
-    case nb = "nb"
-    case nn = "nn"
-    case nnRunic = "nn-Runr"
-    case se = "se"
-    
-    var description: String {
-        if self == .systemLocale {
-            return Strings.systemLocale
-        }
-        
-        if self == .nnRunic {
-            return "ᚿᛦᚿᚮᚱᛌᚴ"
-        }
-        
-        return ISO639.get(tag: self.rawValue)?.autonymOrName ?? self.rawValue
-    }
-    
-    static func <(lhs: InterfaceLanguage, rhs: InterfaceLanguage) -> Bool {
-        return lhs.description < rhs.description
-    }
-    
-    private static func createMenuItem(_ thingo: InterfaceLanguage) -> NSMenuItem {
-        return NSMenuItem(title: thingo.description, value: thingo)
-    }
-    
-    static func asMenuItems() -> [NSMenuItem] {
-        var x = [
-            InterfaceLanguage.en,
-            InterfaceLanguage.nb,
-            InterfaceLanguage.nn,
-            InterfaceLanguage.nnRunic,
-            InterfaceLanguage.se
-        ].sorted()
-        
-        x.insert(InterfaceLanguage.systemLocale, at: 0)
-        
-        return x.map { createMenuItem($0) }
-    }
-    
-    static func bind(to menu: NSMenu) {
-        self.asMenuItems().forEach(menu.addItem(_:))
-    }
-}
-
-//fileprivate extension UpdateFrequency {
-//    private static func createMenuItem(_ thingo: UpdateFrequency) -> NSMenuItem {
-//        return NSMenuItem(title: thingo.description, value: thingo)
-//    }
-//
-//    static func asMenuItems() -> [NSMenuItem] {
-//        return [
-//            UpdateFrequency.createMenuItem(.daily),
-//            UpdateFrequency.createMenuItem(.weekly),
-//            UpdateFrequency.createMenuItem(.fortnightly),
-//            UpdateFrequency.createMenuItem(.monthly),
-//            UpdateFrequency.createMenuItem(.never)
-//        ]
-//    }
-//
-//    static func bind(to menu: NSMenu) {
-//        self.asMenuItems().forEach(menu.addItem(_:))
-//    }
-//}
-//
-//fileprivate extension Repository.Channels {
-//    private static func createMenuItem(_ thingo: Repository.Channels) -> NSMenuItem {
-//        return NSMenuItem(title: thingo.description, value: thingo)
-//    }
-//
-//    static func asMenuItems() -> [NSMenuItem] {
-//        return [
-//            createMenuItem(.stable),
-//            createMenuItem(.alpha),
-//            createMenuItem(.beta),
-//            createMenuItem(.nightly),
-//        ]
-//    }
-//
-//    static func bind(to menu: NSMenu) {
-//        self.asMenuItems().forEach(menu.addItem(_:))
-//    }
-//}
-
-

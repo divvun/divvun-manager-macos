@@ -88,6 +88,7 @@
 		C6E755A62462A93E00620D6F /* JSONValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E755A52462A93E00620D6F /* JSONValue.swift */; };
 		C6E755A82462A96800620D6F /* WebBridgeRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E755A72462A96800620D6F /* WebBridgeRPC.swift */; };
 		C6E755AB2462CC7800620D6F /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = C6E755AA2462CC7800620D6F /* RxBlocking */; };
+		C6E755AD2463361B00620D6F /* InterfaceLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E755AC2463361B00620D6F /* InterfaceLanguage.swift */; };
 		C6F4BC572029BC05002EE523 /* MainViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC562029BC05002EE523 /* MainViewable.swift */; };
 		C6F4BC592029BC2C002EE523 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC582029BC2C002EE523 /* MainPresenter.swift */; };
 		C6F4BC5B2029BC57002EE523 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC5A2029BC57002EE523 /* MainViewController.swift */; };
@@ -229,6 +230,7 @@
 		C6E755A32462A91C00620D6F /* WebBridgeFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebBridgeFunctions.swift; sourceTree = "<group>"; };
 		C6E755A52462A93E00620D6F /* JSONValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONValue.swift; sourceTree = "<group>"; };
 		C6E755A72462A96800620D6F /* WebBridgeRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebBridgeRPC.swift; sourceTree = "<group>"; };
+		C6E755AC2463361B00620D6F /* InterfaceLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceLanguage.swift; sourceTree = "<group>"; };
 		C6EA31D021B0A2460014F3B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6EA31D821B0A3360014F3B6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		C6F4BC562029BC05002EE523 /* MainViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewable.swift; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 		271249B5204043E2009EE80B /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				C6E755AE2463486300620D6F /* Add */,
 				271249B6204043F7009EE80B /* SettingsWindow.xib */,
 				271249B820404409009EE80B /* SettingsWindow.swift */,
 				271249BA2040446A009EE80B /* SettingsView.xib */,
@@ -281,6 +284,7 @@
 				271249BE20404494009EE80B /* SettingsViewable.swift */,
 				271249C02040449E009EE80B /* SettingsViewController.swift */,
 				271249C2204044B0009EE80B /* SettingsPresenter.swift */,
+				C6E755AC2463361B00620D6F /* InterfaceLanguage.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -483,6 +487,13 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C6E755AE2463486300620D6F /* Add */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Add;
 			sourceTree = "<group>";
 		};
 		C6EA31C921B0A2460014F3B6 /* PahkatAdminService */ = {
@@ -735,6 +746,7 @@
 				C68E9F842384C2700083ACF4 /* WebBridgeService.swift in Sources */,
 				C6F8A8232028BC07009A016E /* WindowManager.swift in Sources */,
 				C612CFC42448B0E500EFEA98 /* index_generated+Extensions.swift in Sources */,
+				C6E755AD2463361B00620D6F /* InterfaceLanguage.swift in Sources */,
 				C6C820D3204C53EF001682E8 /* PackageDownloadProgress.swift in Sources */,
 				C612CFB22448605700EFEA98 /* BridgedList.swift in Sources */,
 				C612CFB32448605700EFEA98 /* Map.swift in Sources */,

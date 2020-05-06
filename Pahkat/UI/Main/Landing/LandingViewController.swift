@@ -10,10 +10,6 @@ import Cocoa
 import WebKit
 import RxSwift
 
-struct RepoHolder {
-    let value: LoadedRepository?
-}
-
 class LandingViewController: DisposableViewController<LandingView>, NSToolbarDelegate, WebBridgeViewable {
     private lazy var bridge = { WebBridgeService(webView: self.contentView.webView, view: self) }()
     
@@ -34,8 +30,19 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         }
     }
 
-    var onRepoDropdownChanged: Observable<LoadedRepository> {
-        return Observable.just(LoadedRepository.mock(id: "LOL"))
+    var onRepoDropdownChanged: Observable<LoadedRepository?> {
+        return AppContext.settings.selectedRepository
+            .flatMapLatest { url -> Observable<LoadedRepository?> in
+                return AppContext.packageStore.repoIndexes().map { repos in
+                    if let url = url, let repo = repos.first(where: { $0.index.url == url }) {
+                        return repo
+                    } else if let repo = repos.first {
+                        return repo
+                    }
+
+                    return nil
+                }.asObservable()
+            }
     }
     
     override func viewDidLoad() {
@@ -55,12 +62,10 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         super.viewWillAppear()
 
         self.onRepoDropdownChanged
-            .map({ RepoHolder(value: $0) })
-            .startWith(RepoHolder(value: nil))
             .observeOn(MainScheduler.instance)
             .subscribeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] holder in
-                if let repo = holder.value {
+            .subscribe(onNext: { [weak self] repo in
+                if let repo = repo {
                     if let url = repo.index.landingURL {
                         self?.bridge.start(url: url, repo: repo)
                     } else {

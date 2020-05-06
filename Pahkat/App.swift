@@ -134,7 +134,7 @@ class App: NSApplication {
         let language: String? = AppContext.settings.read(key: .language)
         
         if let language = language {
-            UserDefaults.standard.set(language, forKey: "AppleLanguages")
+            UserDefaults.standard.set([language], forKey: "AppleLanguages")
         } else {
             UserDefaults.standard.removeObject(forKey: "AppleLanguages")
         }
