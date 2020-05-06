@@ -3,12 +3,9 @@ import RxSwift
 import RxCocoa
 
 class DownloadViewController: DisposableViewController<DownloadView>, DownloadViewable, NSToolbarDelegate {
-    
     private let byteCountFormatter = ByteCountFormatter()
     private var delegate: DownloadProgressTableDelegate! = nil
-    
-//    internal lazy var presenter = { DownloadPresenter(view: self) }()
-    
+
     required init() {
         super.init()
     }

@@ -15,7 +15,6 @@
 		271249C12040449E009EE80B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271249C02040449E009EE80B /* SettingsViewController.swift */; };
 		271249C3204044B0009EE80B /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271249C2204044B0009EE80B /* SettingsPresenter.swift */; };
 		276391A0203ADDC30096E10C /* InstallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2763919F203ADDC30096E10C /* InstallViewController.swift */; };
-		276391A2203ADDD60096E10C /* InstallPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276391A1203ADDD60096E10C /* InstallPresenter.swift */; };
 		276391A4203AE2660096E10C /* CompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276391A3203AE2660096E10C /* CompletionViewController.swift */; };
 		276391A6203AECE30096E10C /* CompletionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276391A5203AECE30096E10C /* CompletionView.swift */; };
 		276391AC203D7F620096E10C /* DownloadProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276391AB203D7F620096E10C /* DownloadProgressView.swift */; };
@@ -88,7 +87,6 @@
 		C6F4BC5F202A43BC002EE523 /* RxStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC5E202A43BC002EE523 /* RxStore.swift */; };
 		C6F4BC662031DB81002EE523 /* DownloadViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC652031DB81002EE523 /* DownloadViewable.swift */; };
 		C6F4BC6A2031DBA4002EE523 /* DownloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC692031DBA4002EE523 /* DownloadView.swift */; };
-		C6F4BC6C2031DBC0002EE523 /* DownloadPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC6B2031DBC0002EE523 /* DownloadPresenter.swift */; };
 		C6F4BC6E2031DBCB002EE523 /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC6D2031DBCB002EE523 /* DownloadViewController.swift */; };
 		C6F4BC702031DBD3002EE523 /* DownloadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6F4BC6F2031DBD3002EE523 /* DownloadView.xib */; };
 		C6F4BC722031DCF7002EE523 /* Cocoa+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC712031DCF7002EE523 /* Cocoa+Rx.swift */; };
@@ -144,7 +142,6 @@
 		271249C02040449E009EE80B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		271249C2204044B0009EE80B /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		2763919F203ADDC30096E10C /* InstallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallViewController.swift; sourceTree = "<group>"; };
-		276391A1203ADDD60096E10C /* InstallPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallPresenter.swift; sourceTree = "<group>"; };
 		276391A3203AE2660096E10C /* CompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionViewController.swift; sourceTree = "<group>"; };
 		276391A5203AECE30096E10C /* CompletionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionView.swift; sourceTree = "<group>"; };
 		276391AB203D7F620096E10C /* DownloadProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadProgressView.swift; sourceTree = "<group>"; };
@@ -226,7 +223,6 @@
 		C6F4BC5E202A43BC002EE523 /* RxStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxStore.swift; sourceTree = "<group>"; };
 		C6F4BC652031DB81002EE523 /* DownloadViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadViewable.swift; sourceTree = "<group>"; };
 		C6F4BC692031DBA4002EE523 /* DownloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadView.swift; sourceTree = "<group>"; };
-		C6F4BC6B2031DBC0002EE523 /* DownloadPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadPresenter.swift; sourceTree = "<group>"; };
 		C6F4BC6D2031DBCB002EE523 /* DownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadViewController.swift; sourceTree = "<group>"; };
 		C6F4BC6F2031DBD3002EE523 /* DownloadView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadView.xib; sourceTree = "<group>"; };
 		C6F4BC712031DCF7002EE523 /* Cocoa+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocoa+Rx.swift"; sourceTree = "<group>"; };
@@ -455,7 +451,6 @@
 		C6F4BC642031DB6C002EE523 /* Download */ = {
 			isa = PBXGroup;
 			children = (
-				C6F4BC6B2031DBC0002EE523 /* DownloadPresenter.swift */,
 				276391AB203D7F620096E10C /* DownloadProgressView.swift */,
 				276391AD203DA3020096E10C /* DownloadProgressView.xib */,
 				C6F4BC692031DBA4002EE523 /* DownloadView.swift */,
@@ -469,7 +464,6 @@
 		C6F4BC732031E08C002EE523 /* Install */ = {
 			isa = PBXGroup;
 			children = (
-				276391A1203ADDD60096E10C /* InstallPresenter.swift */,
 				278A10B6203ADACD007C3DC8 /* InstallView.swift */,
 				278A10B4203ADAB2007C3DC8 /* InstallView.xib */,
 				C6F4BC752031E0A3002EE523 /* InstallViewable.swift */,
@@ -652,7 +646,6 @@
 				C6F4BC5B2029BC57002EE523 /* MainViewController.swift in Sources */,
 				C612CFB62448605700EFEA98 /* Compatibility.swift in Sources */,
 				C6F4BC6E2031DBCB002EE523 /* DownloadViewController.swift in Sources */,
-				C6F4BC6C2031DBC0002EE523 /* DownloadPresenter.swift in Sources */,
 				C612CFB42448605700EFEA98 /* List.swift in Sources */,
 				C612CFBE2448AA7100EFEA98 /* RPCService.swift in Sources */,
 				271249C12040449E009EE80B /* SettingsViewController.swift in Sources */,
@@ -687,7 +680,6 @@
 				C622706B203A247300DBCD65 /* ISO639.swift in Sources */,
 				C6B742C9204BF22600C7877D /* App.swift in Sources */,
 				C68E9F842384C2700083ACF4 /* WebBridgeService.swift in Sources */,
-				276391A2203ADDD60096E10C /* InstallPresenter.swift in Sources */,
 				C6F8A8232028BC07009A016E /* WindowManager.swift in Sources */,
 				C612CFC42448B0E500EFEA98 /* index_generated+Extensions.swift in Sources */,
 				C6C820D3204C53EF001682E8 /* PackageDownloadProgress.swift in Sources */,
