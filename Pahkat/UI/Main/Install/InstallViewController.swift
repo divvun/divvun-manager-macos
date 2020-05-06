@@ -2,10 +2,6 @@ import Cocoa
 import RxSwift
 import RxCocoa
 
-enum InstallError: Error {
-    case error(_ text: String)
-}
-
 class InstallViewController: DisposableViewController<InstallView>, InstallViewable, NSToolbarDelegate {
     var onCancelTapped: Driver<Void> {
         return self.contentView.primaryButton.rx.tap.asDriver()
@@ -38,7 +34,7 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
                     self.updateUI(progressState: progressState)
                 case .error(let error):
                     // TODO: test this
-                    self.handle(error: InstallError.error(error))
+                    self.handle(error: error)
                     break
                 default:
                     break
@@ -97,12 +93,12 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
         }
     }
     
-    func handle(error: Error) {
+    func handle(error: String) {
         let alert = NSAlert()
         alert.alertStyle = .critical
         alert.addButton(withTitle: Strings.ok)
         alert.messageText = Strings.errorDuringInstallation
-        alert.informativeText = String(describing: error)
+        alert.informativeText = error
         
         log.error(error)
         alert.runModal()

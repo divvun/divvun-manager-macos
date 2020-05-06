@@ -143,7 +143,8 @@ class AppContextImpl {
         let installingState = TransactionProcessState.installing(current: actions[0].action.key)
 //        let processState = TransactionProcessState.defaultDownloading(for: actions, current: 100, total: 100)
         let state = TransactionProgressState(actions: actions, isRebootRequired: false, state: installingState)
-        
+
+//        return .error("Datorn brrr inte")
         return .inProgress(state)
     }
 
