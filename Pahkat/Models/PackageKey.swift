@@ -145,6 +145,16 @@ enum PackageActionType: UInt8 {
     case uninstall = 1
 }
 
+extension PackageActionType {
+    static func from(int value: UInt32) -> PackageActionType {
+        if value == 0 {
+            return .install
+        } else {
+            return .uninstall
+        }
+    }
+}
+
 
 extension Descriptor {
     func firstRelease() -> Release? {

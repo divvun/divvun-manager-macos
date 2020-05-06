@@ -1,12 +1,21 @@
 import Foundation
 
-struct RefMap<K: Hashable, V: Hashable>: Equatable, Hashable {
+struct RefMap<K: Hashable & Encodable, V: Hashable & Encodable>: Equatable, Hashable, Encodable {
     static func == (lhs: RefMap<K, V>, rhs: RefMap<K, V>) -> Bool {
         return lhs.ptr == rhs.ptr
     }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(self.ptr)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var map = [K:V]()
+        for i in 0..<count {
+            guard let k = keyGetter(i) else { continue }
+            map[k] = self[k]
+        }
+        try map.encode(to: encoder)
     }
     
     private let ptr: UnsafeMutableRawPointer
@@ -60,7 +69,7 @@ struct RefMap<K: Hashable, V: Hashable>: Equatable, Hashable {
     }
 }
 
-struct RefList<T: Hashable>: Collection, Sequence, Equatable {
+struct RefList<T: Hashable & Encodable>: Collection, Sequence, Equatable, Encodable {
     typealias Element = T
     typealias Index = Int32
     var startIndex: Int32 { 0 }
@@ -69,6 +78,11 @@ struct RefList<T: Hashable>: Collection, Sequence, Equatable {
     private let ptr: UnsafeMutableRawPointer
     private let count: Int32
     private let getter: (Int32) throws -> T?
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.unkeyedContainer()
+        try container.encode(contentsOf: self)
+    }
     
     var underestimatedCount: Int { Int(count) }
     
@@ -165,20 +179,77 @@ extension pahkat.Release {
     }
 }
 
-struct WindowsExecutable: Equatable, Hashable {}
-struct TarballPackage: Equatable, Hashable {}
+struct WindowsExecutable: Equatable, Hashable, Encodable {}
+struct TarballPackage: Equatable, Hashable, Encodable {}
 
-enum SystemTarget: UInt8, Equatable, Hashable {
-    case system = 0
-    case user = 1
+enum SystemTarget: String, Equatable, Hashable, Encodable {
+    case system
+    case user
 }
 
-enum RebootRequirement: Equatable, Hashable {
+extension SystemTarget {
+    var intValue: UInt32 {
+        switch self {
+        case .system: return 0
+        case .user: return 1
+        }
+    }
+}
+
+extension SystemTarget {
+    static func from(int value: UInt32) -> SystemTarget {
+        if value == 1 {
+            return .user
+        } else {
+            return .system
+        }
+    }
+    
+    static func from(byte value: UInt8) -> SystemTarget {
+        if value == 1 {
+            return .user
+        } else {
+            return .system
+        }
+    }
+
+    static func from(bitFlags: UInt8) -> Set<SystemTarget> {
+        if bitFlags & 0b0000_0001 == 1 {
+            return [.system, .user]
+        } else {
+            return [.system]
+        }
+    }
+}
+
+enum RebootSpec: String, Equatable, Hashable, Encodable {
     case install
     case uninstall
+    case update
 }
 
-struct MacOSPackage: Equatable, Hashable {
+extension RebootSpec {
+    static func from(bitFlags: UInt8) -> Set<RebootSpec> {
+        var set: Set<RebootSpec> = Set()
+        
+        if bitFlags & 0b1000_0000 != 0 {
+            set.insert(.install)
+        }
+        
+        if bitFlags & 0b0100_0000 != 0 {
+            set.insert(.uninstall)
+        }
+        
+        if bitFlags & 0b0010_0000 != 0 {
+            set.insert(.update)
+        }
+        
+        return set
+    }
+}
+
+
+struct MacOSPackage: Equatable, Hashable, Encodable {
     static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.url == rhs.url
     }
@@ -187,28 +258,41 @@ struct MacOSPackage: Equatable, Hashable {
         hasher.combine(url)
     }
     
+    func encode(to encoder: Encoder) throws {
+        todo()
+    }
+    
     let inner: pahkat.MacOSPackage
     
     var url: String? { inner.url }
     var pkgId: String? { inner.pkgId }
     var size: UInt64 { inner.size }
     var installedSize: UInt64 { inner.installedSize }
+    
     // WORKAROUND LACK OF ENUM BITFLAGS IN RUST
     // flags: MacOSPackageFlag = TargetSystem;
     
     let targets: Set<SystemTarget>
-    var requiresReboot: Set<RebootRequirement>
+    var requiresReboot: Set<RebootSpec>
     
     
     internal init(_ package: pahkat.MacOSPackage) {
         self.inner = package
-        self.targets = Set() // todo() // HELP
-        self.requiresReboot = Set() // todo()
+        self.targets = SystemTarget.from(bitFlags: package.flags)
+        self.requiresReboot = RebootSpec.from(bitFlags: package.flags)
     }
 }
 
 
-enum Payload: Equatable, Hashable {
+enum Payload: Equatable, Hashable, Encodable {
+    func encode(to encoder: Encoder) throws {
+        switch self {
+        case let .macOSPackage(x): try x.encode(to: encoder)
+        case let .windowsExecutable(x): try x.encode(to: encoder)
+        case let .tarballPackage(x): try x.encode(to: encoder)
+        }
+    }
+    
     case windowsExecutable(WindowsExecutable)
     case macOSPackage(MacOSPackage)
     case tarballPackage(TarballPackage)
@@ -225,7 +309,7 @@ extension pahkat.Target {
 }
 
 
-struct Target: Equatable, Hashable {
+struct Target: Equatable, Hashable, Encodable {
     private let inner: pahkat.Target
 
     internal init(_ target: pahkat.Target) {
@@ -239,6 +323,10 @@ struct Target: Equatable, Hashable {
     }
     
     func hash(into hasher: inout Hasher) {
+        todo()
+    }
+    
+    func encode(to encoder: Encoder) throws {
         todo()
     }
     
@@ -264,7 +352,7 @@ struct Target: Equatable, Hashable {
     }
 }
 
-struct Release: Equatable, Hashable {
+struct Release: Equatable, Hashable, Encodable {
     static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.version == rhs.version
             && lhs.channel == rhs.channel
@@ -272,6 +360,10 @@ struct Release: Equatable, Hashable {
     }
 
     func hash(into hasher: inout Hasher) {
+        todo()
+    }
+    
+    func encode(to encoder: Encoder) throws {
         todo()
     }
     
@@ -297,12 +389,16 @@ struct Release: Equatable, Hashable {
     }
 }
 
-struct Descriptor: Equatable, Hashable {
+struct Descriptor: Equatable, Hashable, Encodable {
     static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.id == rhs.id
     }
     
     func hash(into hasher: inout Hasher) {
+        todo()
+    }
+    
+    func encode(to encoder: Encoder) throws {
         todo()
     }
     
@@ -325,7 +421,13 @@ struct Descriptor: Equatable, Hashable {
     }
 }
 
-enum Package: Equatable, Hashable {
+enum Package: Equatable, Hashable, Encodable {
+    func encode(to encoder: Encoder) throws {
+        switch self {
+        case let .concrete(x): try x.encode(to: encoder)
+        }
+    }
+
     case concrete(Descriptor)
 //    case synthetic
 //    case redirect

@@ -81,6 +81,12 @@
 		C6E392A5244755AF00560023 /* pahkat.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E392A2244755AE00560023 /* pahkat.pb.swift */; };
 		C6E392A6244755AF00560023 /* pahkat.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E392A3244755AF00560023 /* pahkat.grpc.swift */; };
 		C6E392A7244755AF00560023 /* index_generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E392A4244755AF00560023 /* index_generated.swift */; };
+		C6E7559F2462A6A900620D6F /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E7559C2462A6A900620D6F /* LandingViewController.swift */; };
+		C6E755A02462A6A900620D6F /* LandingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6E7559D2462A6A900620D6F /* LandingView.xib */; };
+		C6E755A12462A6A900620D6F /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E7559E2462A6A900620D6F /* LandingView.swift */; };
+		C6E755A42462A91C00620D6F /* WebBridgeFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E755A32462A91C00620D6F /* WebBridgeFunctions.swift */; };
+		C6E755A62462A93E00620D6F /* JSONValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E755A52462A93E00620D6F /* JSONValue.swift */; };
+		C6E755A82462A96800620D6F /* WebBridgeRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E755A72462A96800620D6F /* WebBridgeRPC.swift */; };
 		C6F4BC572029BC05002EE523 /* MainViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC562029BC05002EE523 /* MainViewable.swift */; };
 		C6F4BC592029BC2C002EE523 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC582029BC2C002EE523 /* MainPresenter.swift */; };
 		C6F4BC5B2029BC57002EE523 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC5A2029BC57002EE523 /* MainViewController.swift */; };
@@ -216,6 +222,12 @@
 		C6E392A2244755AE00560023 /* pahkat.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pahkat.pb.swift; sourceTree = "<group>"; };
 		C6E392A3244755AF00560023 /* pahkat.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pahkat.grpc.swift; sourceTree = "<group>"; };
 		C6E392A4244755AF00560023 /* index_generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = index_generated.swift; sourceTree = "<group>"; };
+		C6E7559C2462A6A900620D6F /* LandingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingViewController.swift; sourceTree = "<group>"; };
+		C6E7559D2462A6A900620D6F /* LandingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LandingView.xib; sourceTree = "<group>"; };
+		C6E7559E2462A6A900620D6F /* LandingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
+		C6E755A32462A91C00620D6F /* WebBridgeFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebBridgeFunctions.swift; sourceTree = "<group>"; };
+		C6E755A52462A93E00620D6F /* JSONValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONValue.swift; sourceTree = "<group>"; };
+		C6E755A72462A96800620D6F /* WebBridgeRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebBridgeRPC.swift; sourceTree = "<group>"; };
 		C6EA31D021B0A2460014F3B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6EA31D821B0A3360014F3B6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		C6F4BC562029BC05002EE523 /* MainViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewable.swift; sourceTree = "<group>"; };
@@ -411,6 +423,7 @@
 		C6CC912820291A1B00CB0B10 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				C6E755A22462A90C00620D6F /* WebBridge */,
 				C68E9F832384C2700083ACF4 /* WebBridgeService.swift */,
 				C612CFBD2448AA7100EFEA98 /* RPCService.swift */,
 			);
@@ -434,11 +447,32 @@
 				C6F8A8252028BD91009A016E /* MainWindow.swift */,
 				C6CC91262028E69300CB0B10 /* MainWindow.xib */,
 				C62270432035C1BE00DBCD65 /* Detailed */,
+				C6E7559B2462A65500620D6F /* Landing */,
 				C6F4BC642031DB6C002EE523 /* Download */,
 				C6F4BC732031E08C002EE523 /* Install */,
 				C6F4BC742031E096002EE523 /* Completion */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		C6E7559B2462A65500620D6F /* Landing */ = {
+			isa = PBXGroup;
+			children = (
+				C6E7559E2462A6A900620D6F /* LandingView.swift */,
+				C6E7559D2462A6A900620D6F /* LandingView.xib */,
+				C6E7559C2462A6A900620D6F /* LandingViewController.swift */,
+			);
+			path = Landing;
+			sourceTree = "<group>";
+		};
+		C6E755A22462A90C00620D6F /* WebBridge */ = {
+			isa = PBXGroup;
+			children = (
+				C6E755A32462A91C00620D6F /* WebBridgeFunctions.swift */,
+				C6E755A52462A93E00620D6F /* JSONValue.swift */,
+				C6E755A72462A96800620D6F /* WebBridgeRPC.swift */,
+			);
+			path = WebBridge;
 			sourceTree = "<group>";
 		};
 		C6EA31C921B0A2460014F3B6 /* PahkatAdminService */ = {
@@ -619,6 +653,7 @@
 				C6F8A8202028BBC2009A016E /* MainView.xib in Resources */,
 				271249BB2040446A009EE80B /* SettingsView.xib in Resources */,
 				278A10B5203ADAB2007C3DC8 /* InstallView.xib in Resources */,
+				C6E755A02462A6A900620D6F /* LandingView.xib in Resources */,
 				276391AE203DA3020096E10C /* DownloadProgressView.xib in Resources */,
 				C69F94902028B1EA00127A47 /* Assets.xcassets in Resources */,
 				C69F94932028B1EA00127A47 /* MainMenu.xib in Resources */,
@@ -648,13 +683,16 @@
 				C612CFB72448605700EFEA98 /* BTreeNode.swift in Sources */,
 				C6F4BC5B2029BC57002EE523 /* MainViewController.swift in Sources */,
 				C612CFB62448605700EFEA98 /* Compatibility.swift in Sources */,
+				C6E7559F2462A6A900620D6F /* LandingViewController.swift in Sources */,
 				C6F4BC6E2031DBCB002EE523 /* DownloadViewController.swift in Sources */,
 				C612CFB42448605700EFEA98 /* List.swift in Sources */,
 				C612CFBE2448AA7100EFEA98 /* RPCService.swift in Sources */,
 				271249C12040449E009EE80B /* SettingsViewController.swift in Sources */,
 				C6F8A8182028B3C1009A016E /* Cocoa+Nibbable.swift in Sources */,
+				C6E755A62462A93E00620D6F /* JSONValue.swift in Sources */,
 				C612CFB12448605700EFEA98 /* Weak.swift in Sources */,
 				C62462392201226300BE484B /* CompatNSMenuItem.swift in Sources */,
+				C6E755A82462A96800620D6F /* WebBridgeRPC.swift in Sources */,
 				C6F4BC5D202A410A002EE523 /* SettingsFile.swift in Sources */,
 				C612CFC02448AA8700EFEA98 /* PackageAction.swift in Sources */,
 				C6E392A5244755AF00560023 /* pahkat.pb.swift in Sources */,
@@ -670,6 +708,7 @@
 				C6C3242C2382F8660043DD18 /* SelectedPackage.swift in Sources */,
 				276391A4203AE2660096E10C /* CompletionViewController.swift in Sources */,
 				C6F4BC662031DB81002EE523 /* DownloadViewable.swift in Sources */,
+				C6E755A12462A6A900620D6F /* LandingView.swift in Sources */,
 				C6F8A81E2028B996009A016E /* MainView.swift in Sources */,
 				C6F4BC592029BC2C002EE523 /* MainPresenter.swift in Sources */,
 				C612CFAB2448605700EFEA98 /* BTreeBuilder.swift in Sources */,
@@ -696,6 +735,7 @@
 				C6E392A12447489900560023 /* PackageKey.swift in Sources */,
 				C6F4BC5F202A43BC002EE523 /* RxStore.swift in Sources */,
 				C612CFBC2448770A00EFEA98 /* Config.swift in Sources */,
+				C6E755A42462A91C00620D6F /* WebBridgeFunctions.swift in Sources */,
 				C612CFAC2448605700EFEA98 /* BTreeCursor.swift in Sources */,
 				276391A0203ADDC30096E10C /* InstallViewController.swift in Sources */,
 				C612CFC22448AC0700EFEA98 /* LoadedRepository.swift in Sources */,

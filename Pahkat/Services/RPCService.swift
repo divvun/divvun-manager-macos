@@ -124,7 +124,7 @@ class PahkatClient: PahkatClientType {
     private func status(packageKey: PackageKey, target: SystemTarget) -> Single<(PackageStatus, SystemTarget)> {
         var req = Pahkat_StatusRequest()
         req.packageID = packageKey.toString()
-        req.target = UInt32(target.rawValue)
+        req.target = target.intValue
         let res = self.inner.status(req)
         
         return Single<(PackageStatus, SystemTarget)>.create { emitter in
@@ -160,8 +160,12 @@ class PahkatClient: PahkatClientType {
             
             switch value {
             case let .transactionStarted(res):
-                let resActions = res.actions.map { ResolvedAction.from($0) }
-                event = .transactionStarted(actions: resActions, isRebootRequired: res.isRebootRequired)
+                do {
+                    let resActions = try res.actions.map { try ResolvedAction.from($0) }
+                    event = .transactionStarted(actions: resActions, isRebootRequired: res.isRebootRequired)
+                } catch {
+                    event = .transactionError(packageKey: nil, error: "Invalid response from RPC service.")
+                }
             case .transactionComplete(_):
                 event = .transactionComplete
             case let .transactionProgress(res):

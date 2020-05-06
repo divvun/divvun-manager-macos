@@ -7,7 +7,8 @@ class MainWindow: Window {
 }
 
 enum Route {
-    case main
+    case landing
+    case detailed
     case install
     case download
     case complete
@@ -46,7 +47,7 @@ class MainWindowController: WindowController<MainWindow> {
             .map({ tx -> Route in
                 switch tx {
                 case .notStarted:
-                    return .main
+                    return .landing
                 case let .inProgress(progress):
                     switch progress.state {
                     case .installing:
@@ -67,7 +68,10 @@ class MainWindowController: WindowController<MainWindow> {
                 print("Setting route to: \(route)")
                 
                 switch route {
-                case .main:
+                case .landing:
+                    AppContext.windows.set(LandingViewController(), for: MainWindowController.self)
+                    return
+                case .detailed:
                     AppContext.windows.set(MainViewController(), for: MainWindowController.self)
                     return
                 case .download:

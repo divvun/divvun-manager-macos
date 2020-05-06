@@ -25,8 +25,8 @@ extension ResolvedAction {
         return self.name["en"] ?? ""
     }
 
-    static func from(_ protobuf: Pahkat_ResolvedAction) -> Self {
-        let packageAction = PackageAction.from(protobuf.action)
+    static func from(_ protobuf: Pahkat_ResolvedAction) throws -> Self {
+        let packageAction = try PackageAction.from(protobuf.action)
         return ResolvedAction(action: packageAction, name: protobuf.name, version: protobuf.version)
     }
 }

@@ -6,15 +6,19 @@ struct SettingsFile: Codable, ConfigFile {
     typealias Key = Keys
     
     private var language: String? = nil
+    private var selectedRepository: URL? = nil
     
     enum Keys: String, CodingKey {
         case language
+        case selectedRepository
     }
     
     func get(key: Keys) -> Any? {
         switch key {
         case .language:
             return language
+        case .selectedRepository:
+            return selectedRepository
         }
     }
     
@@ -28,6 +32,16 @@ struct SettingsFile: Codable, ConfigFile {
             } else {
                 self.language = nil
             }
+        case .selectedRepository:
+            if let value = value {
+                if let string = value as? String, let url = URL(string: string) {
+                    self.selectedRepository = url
+                } else if let url = value as? URL {
+                    self.selectedRepository = url
+                }
+            } else {
+                self.selectedRepository = nil
+            }
         }
     }
 }
@@ -35,6 +49,10 @@ struct SettingsFile: Codable, ConfigFile {
 class Settings: Config<SettingsFile> {
     var language: Observable<String?> {
         self.observe(key: .language)
+    }
+    
+    var selectedRepository: Observable<URL?> {
+        self.observe(key: .selectedRepository)
     }
     
     init() throws {
