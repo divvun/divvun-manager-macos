@@ -91,7 +91,7 @@ struct RefMap<K: Hashable & Encodable, V: Hashable & Encodable>: Equatable, Hash
     }
 }
 
-struct RefList<T: Hashable & Encodable>: Collection, Sequence, Equatable, Encodable {
+struct RefList<T: Hashable & Encodable>: Collection, Sequence, Equatable, Encodable, Hashable {
     typealias Element = T
     typealias Index = Int32
     var startIndex: Int32 { 0 }
@@ -100,11 +100,6 @@ struct RefList<T: Hashable & Encodable>: Collection, Sequence, Equatable, Encoda
     private let ptr: UnsafeMutableRawPointer
     private let count: Int32
     private let getter: (Int32) throws -> T?
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.unkeyedContainer()
-        try container.encode(contentsOf: self)
-    }
     
     var underestimatedCount: Int { Int(count) }
     
@@ -129,7 +124,7 @@ struct RefList<T: Hashable & Encodable>: Collection, Sequence, Equatable, Encoda
             self.count = count - 1
         }
     }
-    
+
     func makeIterator() -> Iterator {
         return Iterator(getter, count: count)
     }
@@ -141,7 +136,16 @@ struct RefList<T: Hashable & Encodable>: Collection, Sequence, Equatable, Encoda
     subscript(position: Int32) -> T {
         return self[Int(position)]!
     }
-    
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(ptr)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.unkeyedContainer()
+        try container.encode(contentsOf: self)
+    }
+
     func index(after i: Int32) -> Int32 {
         return Swift.min(endIndex, i)
     }
@@ -369,10 +373,14 @@ struct Target: Equatable, Hashable, Encodable {
         return lhs.platform == rhs.platform
             && lhs.arch == rhs.arch
             && lhs.dependencies == rhs.dependencies
+            && lhs.payload == rhs.payload
     }
     
     func hash(into hasher: inout Hasher) {
-        todo()
+        hasher.combine(platform)
+        hasher.combine(arch)
+        hasher.combine(dependencies)
+        hasher.combine(payload)
     }
 
     private enum Keys: String, CodingKey {
@@ -417,11 +425,19 @@ struct Release: Equatable, Hashable, Encodable {
     static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.version == rhs.version
             && lhs.channel == rhs.channel
+            && lhs.authors == rhs.authors
+            && lhs.license == rhs.license
+            && lhs.licenseUrl == rhs.licenseUrl
             && lhs.target == rhs.target
     }
 
     func hash(into hasher: inout Hasher) {
-        todo()
+        hasher.combine(version)
+        hasher.combine(channel)
+        hasher.combine(authors)
+        hasher.combine(license)
+        hasher.combine(licenseUrl)
+        hasher.combine(target)
     }
 
     private enum Keys: CodingKey {
@@ -467,14 +483,6 @@ struct Release: Equatable, Hashable, Encodable {
 }
 
 struct Descriptor: Equatable, Hashable, Encodable {
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        return lhs.id == rhs.id
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        todo()
-    }
-
     private enum Keys: CodingKey {
         case id
         case name
@@ -500,16 +508,25 @@ struct Descriptor: Equatable, Hashable, Encodable {
     var name: RefMap<String, String> { inner.name }
     var description: RefMap<String, String> { inner.description }
     var tags: RefList<String> { inner.tags }
-    
+
     internal init(_ descriptor: pahkat.Descriptor) throws {
         self.inner = descriptor
-        
+
         guard let id = descriptor.id else {
             throw LoadedRepositoryError.missingDescriptorID(inner)
         }
-        
+
         self.id = id
     }
+
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        id.hash(into: &hasher)
+    }
+
 }
 
 enum Package: Equatable, Hashable, Encodable {
@@ -561,15 +578,6 @@ extension pahkat.Packages {
 }
 
 struct Packages: Equatable, Hashable, Packageable {
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        todo()
-        return true
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        todo()
-    }
-    
     private let inner: pahkat.Packages
     
     var packages: RefMap<String, Package> { inner.packages }
@@ -577,6 +585,16 @@ struct Packages: Equatable, Hashable, Packageable {
 
     internal init(_ packages: pahkat.Packages) {
         self.inner = packages
+    }
+
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.packages == rhs.packages
+            && lhs.descriptors == rhs.descriptors
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(packages)
+        hasher.combine(descriptors)
     }
 }
 
