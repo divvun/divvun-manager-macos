@@ -1,9 +1,6 @@
 import Cocoa
 
 class SettingsView: View {
-    @IBOutlet weak var frequencyPopUp: NSPopUpButton!
-    @IBOutlet weak var frequencyLabel: NSTextField!
-    
     @IBOutlet weak var languageDropdown: NSPopUpButton!
     @IBOutlet weak var languageLabel: NSTextField!
     @IBOutlet weak var languageHelpLabel: NSTextField!
@@ -18,7 +15,6 @@ class SettingsView: View {
     @IBOutlet weak var progressIndicator: NSProgressIndicator!
     
     override func awakeFromNib() {
-        frequencyLabel.stringValue = "\(Strings.updateFrequency):"
         languageLabel.stringValue = "\(Strings.interfaceLanguage):"
         languageHelpLabel.stringValue = Strings.restartTheAppForLanguageChanges
         repoLabel.stringValue = "\(Strings.repositories):"

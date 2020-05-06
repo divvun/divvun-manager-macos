@@ -37,9 +37,34 @@ protocol PahkatClientType: class {
     func repoIndexes() -> Single<[LoadedRepository]>
     func status(packageKey: PackageKey) -> Single<(PackageStatus, SystemTarget)>
     func processTransaction(actions: [PackageAction]) -> (() -> Completable, Observable<TransactionEvent>)
+    func strings(languageTag: String) -> Single<[URL: MessageMap]>
+    func setRepo(url: URL, record: RepoRecord) -> Single<[URL: RepoRecord]>
+    func getRepoRecords() -> Single<[URL: RepoRecord]>
+    func removeRepo(url: URL) -> Single<[URL: RepoRecord]>
+}
+
+struct MessageMap {
+    let channels: [String: String]
+    let tags: [String: String]
 }
 
 class MockPahkatClient: PahkatClientType {
+    func strings(languageTag: String) -> Single<[URL : MessageMap]> {
+        todo()
+    }
+
+    func setRepo(url: URL, record: RepoRecord) -> Single<[URL : RepoRecord]> {
+        todo()
+    }
+
+    func getRepoRecords() -> Single<[URL : RepoRecord]> {
+        todo()
+    }
+
+    func removeRepo(url: URL) -> Single<[URL : RepoRecord]> {
+        todo()
+    }
+
     func repoIndexes() -> Single<[LoadedRepository]> {
         return Single.just([
             LoadedRepository.mock(id: "1"),
@@ -146,7 +171,7 @@ class PahkatClient: PahkatClientType {
             self.status(packageKey: packageKey, target: .system)
         }
     }
-    
+
     public func processTransaction(actions: [PackageAction]) -> (() -> Completable, Observable<TransactionEvent>) {
         let subject = ReplaySubject<TransactionEvent>.createUnbounded()
         
@@ -207,16 +232,16 @@ class PahkatClient: PahkatClientType {
         let sender = self.inner.processTransaction(handler: responseCallback)
         
         var req = Pahkat_TransactionRequest()
-        // FIXME: do stuff
-//        var transaction = Pahkat_TransactionRequest.Transaction()
-//        transaction.actions = actions.map { action in
-//            var a = Pahkat_PackageAction()
-//            a.id = action.key.toString()
-//            a.action = UInt32(action.action.rawValue)
-//            a.target = UInt32(action.target.rawValue)
-//            return a
-//        }
-//        req.transaction = transaction
+
+        var transaction = Pahkat_TransactionRequest.Transaction()
+        transaction.actions = actions.map { action in
+            var a = Pahkat_PackageAction()
+            a.id = action.key.toString()
+            a.action = UInt32(action.action.rawValue)
+            a.target = action.target.intValue
+            return a
+        }
+        req.transaction = transaction
         
         let _ = sender.sendMessage(req)
         
@@ -238,10 +263,119 @@ class PahkatClient: PahkatClientType {
             subject.asObservable()
         )
     }
+
+    func strings(languageTag: String) -> Single<[URL: MessageMap]> {
+        var req = Pahkat_StringsRequest()
+        req.language = languageTag
+
+        return Single<[URL: MessageMap]>.create { emitter in
+            let res = self.inner.strings(req)
+
+            res.response.whenSuccess { response in
+                var out = [URL: MessageMap]()
+
+                for (key, value) in response.repos {
+                    guard let key = URL(string: key) else { continue }
+                    out[key] = MessageMap(channels: value.channels, tags: value.tags)
+                }
+
+                emitter(.success(out))
+            }
+
+            res.response.whenFailure {
+                emitter(.error($0))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    func setRepo(url: URL, record: RepoRecord) -> Single<[URL : RepoRecord]> {
+        var req = Pahkat_SetRepoRequest()
+        req.url = url.absoluteString
+
+        var settings = Pahkat_RepoRecord()
+        if let channel = record.channel {
+            settings.channel = channel
+        }
+        req.settings = settings
+
+
+        return Single<[URL: RepoRecord]>.create { emitter in
+            let res = self.inner.setRepo(req)
+
+            res.response.whenSuccess { response in
+                var out = [URL: RepoRecord]()
+
+                for (key, value) in response.records {
+                    guard let key = URL(string: key) else { continue }
+                    out[key] = RepoRecord(channel: value.channel)
+                }
+
+                emitter(.success(out))
+            }
+
+            res.response.whenFailure {
+                emitter(.error($0))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    func getRepoRecords() -> Single<[URL : RepoRecord]> {
+        var req = Pahkat_GetRepoRecordsRequest()
+
+        return Single<[URL: RepoRecord]>.create { emitter in
+            let res = self.inner.getRepoRecords(req)
+
+            res.response.whenSuccess { response in
+                var out = [URL: RepoRecord]()
+
+                for (key, value) in response.records {
+                    guard let key = URL(string: key) else { continue }
+                    out[key] = RepoRecord(channel: value.channel)
+                }
+
+                emitter(.success(out))
+            }
+
+            res.response.whenFailure {
+                emitter(.error($0))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    func removeRepo(url: URL) -> Single<[URL : RepoRecord]> {
+        var req = Pahkat_RemoveRepoRequest()
+        req.url = url.absoluteString
+
+        return Single<[URL: RepoRecord]>.create { emitter in
+            let res = self.inner.removeRepo(req)
+
+            res.response.whenSuccess { response in
+                var out = [URL: RepoRecord]()
+
+                for (key, value) in response.records {
+                    guard let key = URL(string: key) else { continue }
+                    out[key] = RepoRecord(channel: value.channel)
+                }
+
+                emitter(.success(out))
+            }
+
+            res.response.whenFailure {
+                emitter(.error($0))
+            }
+
+            return Disposables.create()
+        }
+    }
     
     init(unixSocketPath path: URL) {
-        // TODO: 1.
-        let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+        let group = MultiThreadedEventLoopGroup(numberOfThreads: 2)
         let conn = ClientConnection(
             configuration: .init(target: .unixDomainSocket(path.path),
                                  eventLoopGroup: group))

@@ -20,7 +20,7 @@ public protocol Pahkat_PahkatClientProtocol {
   func processTransaction(callOptions: CallOptions?, handler: @escaping (Pahkat_TransactionResponse) -> Void) -> BidirectionalStreamingCall<Pahkat_TransactionRequest, Pahkat_TransactionResponse>
   func strings(_ request: Pahkat_StringsRequest, callOptions: CallOptions?) -> UnaryCall<Pahkat_StringsRequest, Pahkat_StringsResponse>
   func setRepo(_ request: Pahkat_SetRepoRequest, callOptions: CallOptions?) -> UnaryCall<Pahkat_SetRepoRequest, Pahkat_SetRepoResponse>
-  func getRepoRecord(_ request: Pahkat_GetRepoRecordRequest, callOptions: CallOptions?) -> UnaryCall<Pahkat_GetRepoRecordRequest, Pahkat_GetRepoRecordResponse>
+  func getRepoRecords(_ request: Pahkat_GetRepoRecordsRequest, callOptions: CallOptions?) -> UnaryCall<Pahkat_GetRepoRecordsRequest, Pahkat_GetRepoRecordsResponse>
   func removeRepo(_ request: Pahkat_RemoveRepoRequest, callOptions: CallOptions?) -> UnaryCall<Pahkat_RemoveRepoRequest, Pahkat_RemoveRepoResponse>
 }
 
@@ -115,14 +115,14 @@ public final class Pahkat_PahkatClient: GRPCClient, Pahkat_PahkatClientProtocol 
                               callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Unary call to GetRepoRecord
+  /// Unary call to GetRepoRecords
   ///
   /// - Parameters:
-  ///   - request: Request to send to GetRepoRecord.
+  ///   - request: Request to send to GetRepoRecords.
   ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func getRepoRecord(_ request: Pahkat_GetRepoRecordRequest, callOptions: CallOptions? = nil) -> UnaryCall<Pahkat_GetRepoRecordRequest, Pahkat_GetRepoRecordResponse> {
-    return self.makeUnaryCall(path: "/pahkat.Pahkat/GetRepoRecord",
+  public func getRepoRecords(_ request: Pahkat_GetRepoRecordsRequest, callOptions: CallOptions? = nil) -> UnaryCall<Pahkat_GetRepoRecordsRequest, Pahkat_GetRepoRecordsResponse> {
+    return self.makeUnaryCall(path: "/pahkat.Pahkat/GetRepoRecords",
                               request: request,
                               callOptions: callOptions ?? self.defaultCallOptions)
   }
@@ -151,7 +151,7 @@ public protocol Pahkat_PahkatProvider: CallHandlerProvider {
   func strings(request: Pahkat_StringsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Pahkat_StringsResponse>
   /// CRUD for repositories
   func setRepo(request: Pahkat_SetRepoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Pahkat_SetRepoResponse>
-  func getRepoRecord(request: Pahkat_GetRepoRecordRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Pahkat_GetRepoRecordResponse>
+  func getRepoRecords(request: Pahkat_GetRepoRecordsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Pahkat_GetRepoRecordsResponse>
   func removeRepo(request: Pahkat_RemoveRepoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Pahkat_RemoveRepoResponse>
 }
 
@@ -202,10 +202,10 @@ extension Pahkat_PahkatProvider {
         }
       }
 
-    case "GetRepoRecord":
+    case "GetRepoRecords":
       return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
         return { request in
-          self.getRepoRecord(request: request, context: context)
+          self.getRepoRecords(request: request, context: context)
         }
       }
 
@@ -235,8 +235,8 @@ extension Pahkat_StringsRequest: GRPCProtobufPayload {}
 extension Pahkat_StringsResponse: GRPCProtobufPayload {}
 extension Pahkat_SetRepoRequest: GRPCProtobufPayload {}
 extension Pahkat_SetRepoResponse: GRPCProtobufPayload {}
-extension Pahkat_GetRepoRecordRequest: GRPCProtobufPayload {}
-extension Pahkat_GetRepoRecordResponse: GRPCProtobufPayload {}
+extension Pahkat_GetRepoRecordsRequest: GRPCProtobufPayload {}
+extension Pahkat_GetRepoRecordsResponse: GRPCProtobufPayload {}
 extension Pahkat_RemoveRepoRequest: GRPCProtobufPayload {}
 extension Pahkat_RemoveRepoResponse: GRPCProtobufPayload {}
 

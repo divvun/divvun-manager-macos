@@ -27,7 +27,9 @@ class SettingsPresenter {
 //            }, onError: { [weak self] error in
 //                self?.view.handle(error: error)
 //            })
-        todo()
+        Disposables.create {
+            
+        }
     }
     
     func start() -> Disposable {

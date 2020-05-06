@@ -663,7 +663,7 @@ public struct Pahkat_SetRepoResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var isSuccess: Bool = false
+  public var records: Dictionary<String,Pahkat_RepoRecord> = [:]
 
   public var error: String = String()
 
@@ -672,39 +672,28 @@ public struct Pahkat_SetRepoResponse {
   public init() {}
 }
 
-public struct Pahkat_GetRepoRecordRequest {
+public struct Pahkat_GetRepoRecordsRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
-
-  public var url: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 }
 
-public struct Pahkat_GetRepoRecordResponse {
+public struct Pahkat_GetRepoRecordsResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var settings: Pahkat_RepoRecord {
-    get {return _settings ?? Pahkat_RepoRecord()}
-    set {_settings = newValue}
-  }
-  /// Returns true if `settings` has been explicitly set.
-  public var hasSettings: Bool {return self._settings != nil}
-  /// Clears the value of `settings`. Subsequent reads from it will return its default value.
-  public mutating func clearSettings() {self._settings = nil}
+  public var records: Dictionary<String,Pahkat_RepoRecord> = [:]
 
   public var error: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  fileprivate var _settings: Pahkat_RepoRecord? = nil
 }
 
 public struct Pahkat_RemoveRepoRequest {
@@ -724,7 +713,7 @@ public struct Pahkat_RemoveRepoResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var isSuccess: Bool = false
+  public var records: Dictionary<String,Pahkat_RepoRecord> = [:]
 
   public var error: String = String()
 
@@ -1921,14 +1910,14 @@ extension Pahkat_SetRepoRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
 extension Pahkat_SetRepoResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".SetRepoResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "is_success"),
+    1: .same(proto: "records"),
     2: .same(proto: "error"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularBoolField(value: &self.isSuccess)
+      case 1: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Pahkat_RepoRecord>.self, value: &self.records)
       case 2: try decoder.decodeSingularStringField(value: &self.error)
       default: break
       }
@@ -1936,8 +1925,8 @@ extension Pahkat_SetRepoResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageI
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.isSuccess != false {
-      try visitor.visitSingularBoolField(value: self.isSuccess, fieldNumber: 1)
+    if !self.records.isEmpty {
+      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Pahkat_RepoRecord>.self, value: self.records, fieldNumber: 1)
     }
     if !self.error.isEmpty {
       try visitor.visitSingularStringField(value: self.error, fieldNumber: 2)
@@ -1946,53 +1935,43 @@ extension Pahkat_SetRepoResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageI
   }
 
   public static func ==(lhs: Pahkat_SetRepoResponse, rhs: Pahkat_SetRepoResponse) -> Bool {
-    if lhs.isSuccess != rhs.isSuccess {return false}
+    if lhs.records != rhs.records {return false}
     if lhs.error != rhs.error {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Pahkat_GetRepoRecordRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".GetRepoRecordRequest"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "url"),
-  ]
+extension Pahkat_GetRepoRecordsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetRepoRecordsRequest"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.url)
-      default: break
-      }
+    while let _ = try decoder.nextFieldNumber() {
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.url.isEmpty {
-      try visitor.visitSingularStringField(value: self.url, fieldNumber: 1)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Pahkat_GetRepoRecordRequest, rhs: Pahkat_GetRepoRecordRequest) -> Bool {
-    if lhs.url != rhs.url {return false}
+  public static func ==(lhs: Pahkat_GetRepoRecordsRequest, rhs: Pahkat_GetRepoRecordsRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Pahkat_GetRepoRecordResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".GetRepoRecordResponse"
+extension Pahkat_GetRepoRecordsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetRepoRecordsResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "settings"),
+    1: .same(proto: "records"),
     2: .same(proto: "error"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._settings)
+      case 1: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Pahkat_RepoRecord>.self, value: &self.records)
       case 2: try decoder.decodeSingularStringField(value: &self.error)
       default: break
       }
@@ -2000,8 +1979,8 @@ extension Pahkat_GetRepoRecordResponse: SwiftProtobuf.Message, SwiftProtobuf._Me
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._settings {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    if !self.records.isEmpty {
+      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Pahkat_RepoRecord>.self, value: self.records, fieldNumber: 1)
     }
     if !self.error.isEmpty {
       try visitor.visitSingularStringField(value: self.error, fieldNumber: 2)
@@ -2009,8 +1988,8 @@ extension Pahkat_GetRepoRecordResponse: SwiftProtobuf.Message, SwiftProtobuf._Me
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Pahkat_GetRepoRecordResponse, rhs: Pahkat_GetRepoRecordResponse) -> Bool {
-    if lhs._settings != rhs._settings {return false}
+  public static func ==(lhs: Pahkat_GetRepoRecordsResponse, rhs: Pahkat_GetRepoRecordsResponse) -> Bool {
+    if lhs.records != rhs.records {return false}
     if lhs.error != rhs.error {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -2049,14 +2028,14 @@ extension Pahkat_RemoveRepoRequest: SwiftProtobuf.Message, SwiftProtobuf._Messag
 extension Pahkat_RemoveRepoResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".RemoveRepoResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "is_success"),
+    1: .same(proto: "records"),
     2: .same(proto: "error"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularBoolField(value: &self.isSuccess)
+      case 1: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Pahkat_RepoRecord>.self, value: &self.records)
       case 2: try decoder.decodeSingularStringField(value: &self.error)
       default: break
       }
@@ -2064,8 +2043,8 @@ extension Pahkat_RemoveRepoResponse: SwiftProtobuf.Message, SwiftProtobuf._Messa
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.isSuccess != false {
-      try visitor.visitSingularBoolField(value: self.isSuccess, fieldNumber: 1)
+    if !self.records.isEmpty {
+      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Pahkat_RepoRecord>.self, value: self.records, fieldNumber: 1)
     }
     if !self.error.isEmpty {
       try visitor.visitSingularStringField(value: self.error, fieldNumber: 2)
@@ -2074,7 +2053,7 @@ extension Pahkat_RemoveRepoResponse: SwiftProtobuf.Message, SwiftProtobuf._Messa
   }
 
   public static func ==(lhs: Pahkat_RemoveRepoResponse, rhs: Pahkat_RemoveRepoResponse) -> Bool {
-    if lhs.isSuccess != rhs.isSuccess {return false}
+    if lhs.records != rhs.records {return false}
     if lhs.error != rhs.error {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

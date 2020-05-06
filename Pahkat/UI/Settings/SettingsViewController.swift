@@ -102,7 +102,7 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
 
     override func viewWillAppear() {
         super.viewWillAppear()
-        
+
         // TODO: move to presenter
         contentView.repoAddButton.rx.tap.subscribe(onNext: { [weak self] in
             guard let `self` = self else { return }
