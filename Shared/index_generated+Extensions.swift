@@ -1,6 +1,36 @@
 import Foundation
 
 struct RefMap<K: Hashable & Encodable, V: Hashable & Encodable>: Equatable, Hashable, Encodable {
+    private let ptr: UnsafeMutableRawPointer
+    private let count: Int32
+    private let keyGetter: (Int32) -> K?
+    private let valueGetter: (Int32) throws -> V?
+
+    var values: Self.Values {
+        Self.Values(self)
+    }
+
+    var keys: Self.Keys {
+        Self.Keys(self)
+    }
+
+    subscript(_ key: K) -> V? {
+        for i in 0..<count {
+            if keyGetter(i) == key {
+                return try? valueGetter(i)
+            }
+        }
+
+        return nil
+    }
+
+    public init(ptr: UnsafeMutableRawPointer, count: Int32, keyGetter: @escaping (Int32) -> K?, valueGetter: @escaping (Int32) throws -> V?) {
+        self.ptr = ptr
+        self.count = count
+        self.keyGetter = keyGetter
+        self.valueGetter = valueGetter
+    }
+
     static func == (lhs: RefMap<K, V>, rhs: RefMap<K, V>) -> Bool {
         return lhs.ptr == rhs.ptr
     }
@@ -18,11 +48,6 @@ struct RefMap<K: Hashable & Encodable, V: Hashable & Encodable>: Equatable, Hash
         try map.encode(to: encoder)
     }
     
-    private let ptr: UnsafeMutableRawPointer
-    private let count: Int32
-    private let keyGetter: (Int32) -> K?
-    private let valueGetter: (Int32) throws -> V?
-
     class Values: IteratorProtocol, Sequence {
         typealias Element = V
 
@@ -64,31 +89,6 @@ struct RefMap<K: Hashable & Encodable, V: Hashable & Encodable>: Equatable, Hash
             return val
         }
     }
-    
-    var values: Self.Values {
-        Self.Values(self)
-    }
-
-    var keys: Self.Keys {
-        Self.Keys(self)
-    }
-    
-    subscript(_ key: K) -> V? {
-        for i in 0..<count {
-            if keyGetter(i) == key {
-                return try? valueGetter(i)
-            }
-        }
-        
-        return nil
-    }
-    
-    public init(ptr: UnsafeMutableRawPointer, count: Int32, keyGetter: @escaping (Int32) -> K?, valueGetter: @escaping (Int32) throws -> V?) {
-        self.ptr = ptr
-        self.count = count
-        self.keyGetter = keyGetter
-        self.valueGetter = valueGetter
-    }
 }
 
 struct RefList<T: Hashable & Encodable>: Collection, Sequence, Equatable, Encodable, Hashable {
@@ -102,7 +102,21 @@ struct RefList<T: Hashable & Encodable>: Collection, Sequence, Equatable, Encoda
     private let getter: (Int32) throws -> T?
     
     var underestimatedCount: Int { Int(count) }
-    
+
+    subscript(_ index: Int) -> T? {
+        return try? self.getter(Int32(index))
+    }
+
+    subscript(position: Int32) -> T {
+        return self[Int(position)]!
+    }
+
+    public init(ptr: UnsafeMutableRawPointer, count: Int32, getter: @escaping (Int32) throws -> T?) {
+        self.ptr = ptr
+        self.count = count
+        self.getter = getter
+    }
+
     struct Iterator : IteratorProtocol {
         var index: Int32 = -1
         let count: Int32
@@ -129,14 +143,6 @@ struct RefList<T: Hashable & Encodable>: Collection, Sequence, Equatable, Encoda
         return Iterator(getter, count: count)
     }
     
-    subscript(_ index: Int) -> T? {
-        return try? self.getter(Int32(index))
-    }
-    
-    subscript(position: Int32) -> T {
-        return self[Int(position)]!
-    }
-
     func hash(into hasher: inout Hasher) {
         hasher.combine(ptr)
     }
@@ -152,12 +158,6 @@ struct RefList<T: Hashable & Encodable>: Collection, Sequence, Equatable, Encoda
     
     static func == (lhs: RefList<T>, rhs: RefList<T>) -> Bool {
         return lhs.ptr == rhs.ptr
-    }
-
-    public init(ptr: UnsafeMutableRawPointer, count: Int32, getter: @escaping (Int32) throws -> T?) {
-        self.ptr = ptr
-        self.count = count
-        self.getter = getter
     }
 }
 
@@ -285,6 +285,26 @@ extension RebootSpec {
 
 
 struct MacOSPackage: Equatable, Hashable, Encodable {
+    let inner: pahkat.MacOSPackage
+
+    var url: String? { inner.url }
+    var pkgId: String? { inner.pkgId }
+    var size: UInt64 { inner.size }
+    var installedSize: UInt64 { inner.installedSize }
+
+    // WORKAROUND LACK OF ENUM BITFLAGS IN RUST
+    // flags: MacOSPackageFlag = TargetSystem;
+
+    let targets: Set<SystemTarget>
+    var requiresReboot: Set<RebootSpec>
+
+
+    internal init(_ package: pahkat.MacOSPackage) {
+        self.inner = package
+        self.targets = SystemTarget.from(bitFlags: package.flags)
+        self.requiresReboot = RebootSpec.from(bitFlags: package.flags)
+    }
+
     static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.url == rhs.url
     }
@@ -313,26 +333,6 @@ struct MacOSPackage: Equatable, Hashable, Encodable {
         try c.encode(installedSize, forKey: .installedSize)
         try c.encode(targets, forKey: .targets)
         try c.encode(requiresReboot, forKey: .requiresReboot)
-    }
-    
-    let inner: pahkat.MacOSPackage
-    
-    var url: String? { inner.url }
-    var pkgId: String? { inner.pkgId }
-    var size: UInt64 { inner.size }
-    var installedSize: UInt64 { inner.installedSize }
-    
-    // WORKAROUND LACK OF ENUM BITFLAGS IN RUST
-    // flags: MacOSPackageFlag = TargetSystem;
-    
-    let targets: Set<SystemTarget>
-    var requiresReboot: Set<RebootSpec>
-    
-    
-    internal init(_ package: pahkat.MacOSPackage) {
-        self.inner = package
-        self.targets = SystemTarget.from(bitFlags: package.flags)
-        self.requiresReboot = RebootSpec.from(bitFlags: package.flags)
     }
 }
 
