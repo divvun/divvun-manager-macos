@@ -1,12 +1,14 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import RxBlocking
 
 
 typealias PackageOutlineMap = Map<OutlineGroup, SortedSet<OutlinePackage>>
 typealias MainOutlineMap = Map<OutlineRepository, PackageOutlineMap>
 
 fileprivate func categoryFilter(outlineRepo: OutlineRepository) -> PackageOutlineMap {
+    // FIXME: make this classy
     var data = PackageOutlineMap()
     let repo = outlineRepo.repo
 
@@ -19,20 +21,29 @@ fileprivate func categoryFilter(outlineRepo: OutlineRepository) -> PackageOutlin
 
         let categoryId = descriptor.tags.first(where: { $0.starts(with: "cat:") }) ?? "cat:unknown"
         let category = categoryId // TODO: make native, human readable
-        let key = OutlineGroup(id: categoryId, value: category, repo: outlineRepo)
+        let group = OutlineGroup(id: categoryId, value: category, repo: outlineRepo)
+        let packageKey = repo.packageKey(for: descriptor)
 
-        if !data.keys.contains(key) {
-            data[key] = []
+        let status: (PackageStatus, SystemTarget)
+        do {
+            status = try AppContext.packageStore.status(packageKey: packageKey).toBlocking(timeout: 1).single()
+        } catch {
+            print("Error getting package status")
+            status = (PackageStatus.errorUnknownStatus, SystemTarget.system)
+        }
+
+        if !data.keys.contains(group) {
+            data[group] = []
         }
 
         let outlinePackage = OutlinePackage(package: descriptor,
                                             release: release,
                                             target: target,
-                                            status: (PackageStatus.notInstalled, SystemTarget.system), // TODO: get this from reality
-                                            group: key,
+                                            status: status,
+                                            group: group,
                                             repo: outlineRepo,
                                             selection: nil)
-        data[key]!.insert(outlinePackage)
+        data[group]!.insert(outlinePackage)
     }
 
     return data
