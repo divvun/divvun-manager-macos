@@ -112,7 +112,7 @@ enum TransactionState: Equatable {
 class AppContextImpl {
     let settings: Settings
     let windows = { WindowManager() }()
-    let packageStore: PahkatClient
+    let packageStore: PahkatClientType
 
     // fun stuff for the download/install views
     var cancelTransactionCallback: (() -> Completable)?
@@ -128,22 +128,34 @@ class AppContextImpl {
                 ),
                 name: ["en": "Test Package"],
                 version: "420.69"
+            ),
+            ResolvedAction(
+                action: .init(
+                    key: try! PackageKey.from(urlString: "https://x.brendan.so/packages/speller-smn"),
+                    action: .install,
+                    target: .system
+                ),
+                name: ["en": "Other Package"],
+                version: "2.69"
             )
         ]
         
-        let processState = TransactionProcessState.defaultDownloading(for: actions, current: 100, total: 100)
-        let state = TransactionProgressState(actions: actions, isRebootRequired: false, state: processState)
+        let installingState = TransactionProcessState.installing(current: actions[0].action.key)
+//        let processState = TransactionProcessState.defaultDownloading(for: actions, current: 100, total: 100)
+        let state = TransactionProgressState(actions: actions, isRebootRequired: false, state: installingState)
         
         return .inProgress(state)
     }
-    
+
     let currentTransaction = BehaviorSubject<TransactionState>(
         value: mock()
+//        value: .notStarted
     )
     
     init() throws {
         settings = try Settings()
-        packageStore = PahkatClient(unixSocketPath: URL(fileURLWithPath: "/tmp/pahkat"))
+        packageStore = MockPahkatClient()
+//        packageStore = PahkatClient(unixSocketPath: URL(fileURLWithPath: "/tmp/pahkat"))
     }
 }
 

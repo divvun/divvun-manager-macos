@@ -5,7 +5,7 @@ import RxCocoa
 protocol InstallViewable: class {
 //    var onCancelTapped: Driver<Void> { get }
     func set(totalPackages total: Int)
-    func set(nextPackage: Descriptor, action: PackageActionType)
+    func set(nextPackage resolvedAction: ResolvedAction)
     func handle(error: Error)
     func beginCancellation()
     func processCancelled()

@@ -2,6 +2,10 @@ import Cocoa
 import RxSwift
 import RxCocoa
 
+enum InstallError: Error {
+    case error(_ text: String)
+}
+
 class InstallViewController: DisposableViewController<InstallView>, InstallViewable, NSToolbarDelegate {
     var onCancelTapped: Driver<Void> {
         return self.contentView.primaryButton.rx.tap.asDriver()
@@ -10,7 +14,55 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
     required init() {
         super.init()
     }
-    
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        configureToolbar()
+        bindInstall()
+    }
+
+    private func bindInstall() {
+        AppContext
+            .currentTransaction
+            .subscribe(onNext: { state in
+                switch state {
+                case .inProgress(let progressState):
+                    self.updateUI(progressState: progressState)
+                case .error(let error):
+                    // TODO: test this
+                    self.handle(error: InstallError.error(error))
+                    break
+                default:
+                    break
+                }
+            })
+            .disposed(by: bag)
+    }
+
+    private func updateUI(progressState: TransactionProgressState) {
+        let actions: [ResolvedAction] = progressState.actions
+        set(totalPackages: actions.count)
+
+        let processState = progressState.state
+        switch processState {
+        case .installing(let key):
+            guard let action = (actions.first { $0.action.key == key }) else {
+                return
+            }
+            set(nextPackage: action)
+        default:
+            break
+        }
+    }
+
     private func setRemaining() {
         // Shhhhh
         let max = Int(self.contentView.horizontalIndicator.maxValue)
@@ -19,17 +71,15 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
         self.contentView.remainingLabel.stringValue = Strings.nItemsRemaining(count: String(max - value))
     }
     
-    func set(nextPackage package: Descriptor, action: PackageActionType) {
+    func set(nextPackage resolvedAction: ResolvedAction) {
         DispatchQueue.main.async {
             let label: String
             
-            let version = package.release.compactMap { $0.version }.first ?? "<no package!>"
-            
-            switch action {
+            switch resolvedAction.actionType {
             case .install:
-                label = Strings.installingPackage(name: package.nativeName, version: version)
+                label = Strings.installingPackage(name: resolvedAction.nativeName, version: resolvedAction.version)
             case .uninstall:
-                label = Strings.uninstallingPackage(name: package.nativeName, version: version)
+                label = Strings.uninstallingPackage(name: resolvedAction.nativeName, version: resolvedAction.version)
             }
             
             self.contentView.horizontalIndicator.increment(by: 1.0)
@@ -37,11 +87,7 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
             self.setRemaining()
         }
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+
     func set(totalPackages total: Int) {
         contentView.horizontalIndicator.maxValue = Double(total)
         
@@ -104,15 +150,5 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
         
         window.toolbar!.setItems(toolbarItems)
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-    override func viewWillAppear() {
-        super.viewWillAppear()
-        configureToolbar()
-        
-//        self.presenter.start().disposed(by: bag)
-    }
+
 }

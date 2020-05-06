@@ -26,21 +26,6 @@ class InstallPresenter {
         return Disposables.create()
     }
 
-    private func bindInstall() -> Disposable {
-        return AppContext.currentTransaction.subscribe(onNext: { event in
-            switch event {
-            case let .installStarted(packageKey: key):
-                // TODO: update view
-                break
-            case .transactionComplete:
-                // TODO: something here?
-                break
-            default:
-                break
-            }
-        })
-    }
-    
     private func package(for key: PackageKey) -> Package {
 //        for repo in repos {
 //            if let pkg = repo.package(for: key) {
