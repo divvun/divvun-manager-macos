@@ -11,7 +11,7 @@ enum LoadedRepositoryError: Error {
     case missingAgentVersion
 }
 
-struct LoadedRepository: Hashable, Equatable, Encodable {
+class LoadedRepository: Hashable, Equatable, Encodable {
     static func == (lhs: LoadedRepository, rhs: LoadedRepository) -> Bool {
         lhs.index.url.absoluteString == rhs.index.url.absoluteString
     }

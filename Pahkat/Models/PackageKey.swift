@@ -153,6 +153,13 @@ extension PackageActionType {
             return .uninstall
         }
     }
+    static func from(string value: String) -> PackageActionType {
+        if value == "install" {
+            return .install
+        } else {
+            return .uninstall
+        }
+    }
 }
 
 

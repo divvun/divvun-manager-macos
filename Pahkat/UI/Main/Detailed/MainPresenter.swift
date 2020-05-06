@@ -172,15 +172,7 @@ class MainPresenter {
                 PackageAction(key: package.key, action: package.action, target: package.target)
             }
 
-            let (cancelable, txObservable) = AppContext.packageStore.processTransaction(actions: actions)
-            AppContext.cancelTransactionCallback = cancelable
-
-            Observable.combineLatest(AppContext.currentTransaction, txObservable.distinctUntilChanged()) // (State, Event)
-                .subscribeOn(SerialDispatchQueueScheduler(qos: .background))
-                .subscribe(onNext: { (state, event) in
-                    AppContext.currentTransaction.onNext(state.reduce(event: event))
-                })
-                .disposed(by: AppContext.disposeBag)
+            AppContext.startTransaction(actions: actions)
         })
     }
     

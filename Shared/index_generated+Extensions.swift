@@ -23,32 +23,54 @@ struct RefMap<K: Hashable & Encodable, V: Hashable & Encodable>: Equatable, Hash
     private let keyGetter: (Int32) -> K?
     private let valueGetter: (Int32) throws -> V?
 
-    struct Values {
-        private let map: RefMap<K, V>
-        
-        @inlinable public func forEach(_ body: (V) throws -> Void) rethrows {
-            try (0..<self.map.count).forEach {
-                try body(self.map.valueGetter($0)!)
-            }
-        }
+    class Values: IteratorProtocol, Sequence {
+        typealias Element = V
 
-        func contains(_ value: V) -> Bool {
-            for i in 0 ..< self.map.count {
-                if let contains = try? self.map.valueGetter(i) == value,
-                    contains == true {
-                    return true
-                }
-            }
-            return false
-        }
-        
+        private let map: RefMap<K, V>
+        private var cur: Int32 = 0
+
         fileprivate init(_ map: RefMap<K, V>) {
             self.map = map
+        }
+
+        func next() -> V? {
+            if cur == map.count {
+                return nil
+            }
+
+            let val = try? map.valueGetter(cur)
+            self.cur += 1
+            return val
+        }
+    }
+
+    class Keys: IteratorProtocol, Sequence {
+        typealias Element = K
+
+        private let map: RefMap<K, V>
+        private var cur: Int32 = 0
+
+        fileprivate init(_ map: RefMap<K, V>) {
+            self.map = map
+        }
+
+        func next() -> K? {
+            if cur == map.count {
+                return nil
+            }
+
+            let val = map.keyGetter(cur)
+            self.cur += 1
+            return val
         }
     }
     
     var values: Self.Values {
         Self.Values(self)
+    }
+
+    var keys: Self.Keys {
+        Self.Keys(self)
     }
     
     subscript(_ key: K) -> V? {
@@ -204,6 +226,15 @@ extension SystemTarget {
             return .system
         }
     }
+
+    static func from(string value: String) -> SystemTarget {
+        switch value {
+        case "user":
+            return .user
+        default:
+            return .system
+        }
+    }
     
     static func from(byte value: UInt8) -> SystemTarget {
         if value == 1 {
@@ -257,9 +288,27 @@ struct MacOSPackage: Equatable, Hashable, Encodable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(url)
     }
-    
+
+    enum Keys: CodingKey {
+        case type
+        case url
+        case pkgId
+        case size
+        case installedSize
+        case targets
+        case requiresReboot
+    }
+
     func encode(to encoder: Encoder) throws {
-        todo()
+        var c = encoder.container(keyedBy: Keys.self)
+
+        try c.encode("MacOSPackage", forKey: .type)
+        try c.encodeIfPresent(url, forKey: .url)
+        try c.encodeIfPresent(pkgId, forKey: .pkgId)
+        try c.encode(size, forKey: .size)
+        try c.encode(installedSize, forKey: .installedSize)
+        try c.encode(targets, forKey: .targets)
+        try c.encode(requiresReboot, forKey: .requiresReboot)
     }
     
     let inner: pahkat.MacOSPackage
@@ -325,9 +374,21 @@ struct Target: Equatable, Hashable, Encodable {
     func hash(into hasher: inout Hasher) {
         todo()
     }
-    
+
+    private enum Keys: String, CodingKey {
+        case arch
+        case dependencies
+        case platform
+        case payload
+    }
+
     func encode(to encoder: Encoder) throws {
-        todo()
+        var c = encoder.container(keyedBy: Keys.self)
+
+        try c.encodeIfPresent(platform, forKey: .platform)
+        try c.encodeIfPresent(arch, forKey: .arch)
+        try c.encode(dependencies, forKey: .dependencies)
+        try c.encodeIfPresent(payload, forKey: .payload)
     }
     
     var arch: String? { inner.arch }
@@ -362,9 +423,25 @@ struct Release: Equatable, Hashable, Encodable {
     func hash(into hasher: inout Hasher) {
         todo()
     }
-    
+
+    private enum Keys: CodingKey {
+        case version
+        case channel
+        case authors
+        case license
+        case licenseUrl
+        case target
+    }
+
     func encode(to encoder: Encoder) throws {
-        todo()
+        var c = encoder.container(keyedBy: Keys.self)
+
+        try c.encode(version, forKey: .version)
+        try c.encodeIfPresent(channel, forKey: .channel)
+        try c.encode(authors, forKey: .authors)
+        try c.encodeIfPresent(license, forKey: .license)
+        try c.encodeIfPresent(licenseUrl, forKey: .licenseUrl)
+        try c.encode(target, forKey: .target)
     }
     
     private let inner: pahkat.Release
@@ -397,9 +474,23 @@ struct Descriptor: Equatable, Hashable, Encodable {
     func hash(into hasher: inout Hasher) {
         todo()
     }
-    
+
+    private enum Keys: CodingKey {
+        case id
+        case name
+        case description
+        case tags
+        case release
+    }
+
     func encode(to encoder: Encoder) throws {
-        todo()
+        var c = encoder.container(keyedBy: Keys.self)
+
+        try c.encode(id, forKey: .id)
+        try c.encode(name, forKey: .name)
+        try c.encode(description, forKey: .description)
+        try c.encode(tags, forKey: .tags)
+        try c.encode(release, forKey: .release)
     }
     
     private let inner: pahkat.Descriptor

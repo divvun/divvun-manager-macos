@@ -41,9 +41,23 @@ class AppContextImpl {
     }
 
     let currentTransaction = BehaviorSubject<TransactionState>(
-        value: mock()
-//        value: .notStarted
+//        value: mock()
+        value: .notStarted
     )
+
+    private var currentTxDisposable: Disposable? = nil
+
+    func startTransaction(actions: [PackageAction]) {
+        let (cancelable, txObservable) = AppContext.packageStore.processTransaction(actions: actions)
+        AppContext.cancelTransactionCallback = cancelable
+
+        currentTxDisposable?.dispose()
+        currentTxDisposable = Observable.combineLatest(AppContext.currentTransaction, txObservable.distinctUntilChanged()) // (State, Event)
+            .subscribeOn(SerialDispatchQueueScheduler(qos: .background))
+            .subscribe(onNext: { (state, event) in
+                AppContext.currentTransaction.onNext(state.reduce(event: event))
+            })
+    }
 
     init() throws {
         settings = try Settings()

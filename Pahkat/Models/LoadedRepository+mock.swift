@@ -4,7 +4,7 @@ import FlatBuffers
 extension LoadedRepository {
     static func mock(id: String) -> LoadedRepository {
         let index = LoadedRepository.Index(url: URL(string: "https://isitchristmas.com/\(id)")!,
-                                           landingURL: nil,
+                                           landingURL: URL(string: "http://localhost:5000")!,
                                            channels: ["wildly-unstable"],
                                            defaultChannel: nil,
                                            name: ["en": "Mock\(id)"],
@@ -14,7 +14,7 @@ extension LoadedRepository {
                                            agent: Index.Agent(name: "mOcK", version: "0.0", url: nil))
         let meta = LoadedRepository.Meta(channel: "MTV")
 
-        let data = try! Data(contentsOf: URL(fileURLWithPath: "/Users/dylanhand/Projects/divvun/pahkat-client-macos/Pahkat/TestData/index.bin"))
+        let data = try! Data(contentsOf: URL(fileURLWithPath: "/Users/brendan/git/divvun-pahkat-repo/packages/index.bin"))
         let packagesFbs = pahkat.Packages.getRootAsPackages(bb: ByteBuffer(data: data))
         let rawPackages = Packages(packagesFbs)
 

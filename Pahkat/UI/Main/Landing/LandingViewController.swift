@@ -10,6 +10,10 @@ import Cocoa
 import WebKit
 import RxSwift
 
+struct RepoHolder {
+    let value: LoadedRepository?
+}
+
 class LandingViewController: DisposableViewController<LandingView>, NSToolbarDelegate, WebBridgeViewable {
     private lazy var bridge = { WebBridgeService(webView: self.contentView.webView, view: self) }()
     
@@ -29,31 +33,42 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
             return nil
         }
     }
+
+    var onRepoDropdownChanged: Observable<LoadedRepository> {
+        return Observable.just(LoadedRepository.mock(id: "LOL"))
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureToolbar()
     }
-    
-    struct RepoHolder {
-        let value: LoadedRepository?
+
+    private func showNoSelection() {
+        print("No selection")
+    }
+
+    private func showNoLandingPage() {
+        print("No landing page")
     }
     
     override func viewWillAppear() {
         super.viewWillAppear()
-        
-        AppContext.settings.selectedRepository
-            .map { url -> RepoHolder in
-                // Convert url into loaded repository or fail
-                return RepoHolder(value: nil)
-            }.subscribe(onNext: { [weak self] holder in
+
+        self.onRepoDropdownChanged
+            .map({ RepoHolder(value: $0) })
+            .startWith(RepoHolder(value: nil))
+            .observeOn(MainScheduler.instance)
+            .subscribeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] holder in
                 if let repo = holder.value {
                     if let url = repo.index.landingURL {
-                        self?.bridge.start(url: url)
+                        self?.bridge.start(url: url, repo: repo)
                     } else {
                         // Show a view saying that this repo has no landing page, and to go to detailed view.
+                        self?.showNoLandingPage()
                     }
                 } else {
+                    self?.showNoSelection()
                     // Show a view saying no selection.
                 }
             }).disposed(by: bag)

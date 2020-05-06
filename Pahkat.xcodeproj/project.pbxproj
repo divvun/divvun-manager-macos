@@ -87,6 +87,7 @@
 		C6E755A42462A91C00620D6F /* WebBridgeFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E755A32462A91C00620D6F /* WebBridgeFunctions.swift */; };
 		C6E755A62462A93E00620D6F /* JSONValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E755A52462A93E00620D6F /* JSONValue.swift */; };
 		C6E755A82462A96800620D6F /* WebBridgeRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E755A72462A96800620D6F /* WebBridgeRPC.swift */; };
+		C6E755AB2462CC7800620D6F /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = C6E755AA2462CC7800620D6F /* RxBlocking */; };
 		C6F4BC572029BC05002EE523 /* MainViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC562029BC05002EE523 /* MainViewable.swift */; };
 		C6F4BC592029BC2C002EE523 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC582029BC2C002EE523 /* MainPresenter.swift */; };
 		C6F4BC5B2029BC57002EE523 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F4BC5A2029BC57002EE523 /* MainViewController.swift */; };
@@ -256,6 +257,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C63191CA244723760055DA03 /* RxCocoa in Frameworks */,
+				C6E755AB2462CC7800620D6F /* RxBlocking in Frameworks */,
 				C63191DD24472EF60055DA03 /* GRPC in Frameworks */,
 				C63191E0244730340055DA03 /* FlatBuffers in Frameworks */,
 				C63191CD24472C9E0055DA03 /* RxFeedback in Frameworks */,
@@ -367,6 +369,7 @@
 				C6EA31C921B0A2460014F3B6 /* PahkatAdminService */,
 				C6C3FA512382C1EA0006E81B /* Shared */,
 				C69F948B2028B1EA00127A47 /* Products */,
+				C6E755A92462CC7800620D6F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -473,6 +476,13 @@
 				C6E755A72462A96800620D6F /* WebBridgeRPC.swift */,
 			);
 			path = WebBridge;
+			sourceTree = "<group>";
+		};
+		C6E755A92462CC7800620D6F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C6EA31C921B0A2460014F3B6 /* PahkatAdminService */ = {
@@ -583,6 +593,7 @@
 				C63191D924472DE50055DA03 /* XCGLogger */,
 				C63191DC24472EF60055DA03 /* GRPC */,
 				C63191DF244730340055DA03 /* FlatBuffers */,
+				C6E755AA2462CC7800620D6F /* RxBlocking */,
 			);
 			productName = Pahkat;
 			productReference = C69F948A2028B1EA00127A47 /* Divvun Installer.app */;
@@ -1081,6 +1092,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C63191DE244730340055DA03 /* XCRemoteSwiftPackageReference "flatbuffers" */;
 			productName = FlatBuffers;
+		};
+		C6E755AA2462CC7800620D6F /* RxBlocking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C63191C6244723760055DA03 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxBlocking;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

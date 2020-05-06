@@ -61,4 +61,13 @@ indirect enum JSONValue: Codable {
             return nil
         }
     }
+
+    var object: [String: JSONValue]? {
+        switch self {
+        case .object(let v):
+            return v
+        default:
+            return nil
+        }
+    }
 }
