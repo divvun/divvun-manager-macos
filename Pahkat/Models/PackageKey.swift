@@ -188,9 +188,22 @@ extension PackageStatus {
         switch self {
         case .notInstalled:
             return Strings.notInstalled
-        default:
+        case .upToDate:
+            return Strings.noUpdatesTitle
+        case .requiresUpdate:
+            return Strings.updateAvailable
+        case .errorNoPackage:
             todo()
-            return "TODO"
+        case .errorNoPayloadFound:
+            return Strings.errorNoInstaller
+        case .errorWrongPayloadType:
+            todo()
+        case .errorParsingVersion:
+            todo()
+        case .errorCriteriaUnmet:
+            todo()
+        case .errorUnknownStatus:
+            todo()
         }
     }
 }
