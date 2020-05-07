@@ -210,17 +210,17 @@ extension PackageStatus {
         case .requiresUpdate:
             return Strings.updateAvailable
         case .errorNoPackage:
-            todo()
+            return Strings.errorUnknownPackage
         case .errorNoPayloadFound:
             return Strings.errorNoInstaller
         case .errorWrongPayloadType:
-            todo()
+            return Strings.errorNoInstaller
         case .errorParsingVersion:
-            todo()
+            return Strings.errorInvalidVersion
         case .errorCriteriaUnmet:
-            todo()
+            return Strings.errorUnknownPackage
         case .errorUnknownStatus:
-            todo()
+            return Strings.error
         }
     }
 }

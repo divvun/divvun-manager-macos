@@ -108,10 +108,6 @@ enum TransactionState: Equatable {
     }
 }
 
-public func todo() -> Never {
-    fatalError("Function not implemented")
-}
-
 var AppContext: AppContextImpl!
 
 let log = XCGLogger.default

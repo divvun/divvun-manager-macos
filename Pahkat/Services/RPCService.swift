@@ -56,23 +56,23 @@ struct MessageMap {
 
 class MockPahkatClient: PahkatClientType {
     func notifications() -> Observable<PahkatNotification> {
-        todo()
+        return Observable.just(PahkatNotification.repositoriesChanged)
     }
 
     func strings(languageTag: String) -> Single<[URL : MessageMap]> {
-        todo()
+        return Single.just([:])
     }
 
     func setRepo(url: URL, record: RepoRecord) -> Single<[URL : RepoRecord]> {
-        todo()
+        return Single.just([:])
     }
 
     func getRepoRecords() -> Single<[URL : RepoRecord]> {
-        todo()
+        return Single.just([:])
     }
 
     func removeRepo(url: URL) -> Single<[URL : RepoRecord]> {
-        todo()
+        return Single.just([:])
     }
 
     func repoIndexes() -> Single<[LoadedRepository]> {
@@ -144,7 +144,7 @@ class PahkatClient: PahkatClientType {
                     return
                 }
             })
-            
+
             return Disposables.create()
         }
     }
