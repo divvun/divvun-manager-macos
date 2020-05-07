@@ -201,7 +201,6 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         
         contentView.outlineView.columnAutoresizingStyle = .lastColumnOnlyAutoresizingStyle
         
-        contentView.settingsButton.isEnabled = false
         self.update(title: Strings.appName)
         updatePrimaryButton(isEnabled: false, label: Strings.noPackagesSelected)
         
