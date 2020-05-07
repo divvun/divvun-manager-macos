@@ -1,10 +1,15 @@
 import Cocoa
 import WebKit
 import RxSwift
+import RxCocoa
 
 class LandingViewController: DisposableViewController<LandingView>, NSToolbarDelegate, WebBridgeViewable {
     private lazy var bridge = { WebBridgeService(webView: self.contentView.webView, view: self) }()
     
+    private lazy var onSettingsTapped: Driver<Void> = {
+        return self.contentView.settingsButton.rx.tap.asDriver()
+    }()
+
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
         switch itemIdentifier.rawValue {
         case "settings":
@@ -52,7 +57,11 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
     
     override func viewWillAppear() {
         super.viewWillAppear()
+        bindRepoDropdown()
+        bindSettingsButton()
+    }
 
+    private func bindRepoDropdown() {
         self.onRepoDropdownChanged
             .observeOn(MainScheduler.instance)
             .subscribeOn(MainScheduler.instance)
@@ -75,6 +84,16 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         }).disposed(by: bag)
     }
     
+    private func bindSettingsButton() {
+        self.onSettingsTapped.drive(onNext: { [weak self] in
+            self?.showSettings()
+        }).disposed(by: bag)
+    }
+
+    func showSettings() {
+        AppContext.windows.show(SettingsWindowController.self)
+    }
+
     private func configureToolbar() {
         let window = AppContext.windows.get(MainWindowController.self).contentWindow
         
