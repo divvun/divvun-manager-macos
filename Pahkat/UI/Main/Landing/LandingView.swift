@@ -1,11 +1,3 @@
-//
-//  LandingView.swift
-//  Pahkat
-//
-//  Created by Brendan Molloy on 2019-02-07.
-//  Copyright © 2019 Divvun. All rights reserved.
-//
-
 import Cocoa
 import WebKit
 
