@@ -52,6 +52,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         // Brendan said this would work
         let url: URL? = nil
         try? AppContext.settings.write(key: .selectedRepository, value: url)
+        self.showEmptyStateIfNeeded()
     }
 
     private func showNoLandingPage() {
@@ -64,6 +65,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         bindRepoDropdown()
         bindSettingsButton()
         bindPrimaryButton()
+        bindEmptyState()
     }
 
     private func bindRepoDropdown() {
@@ -97,8 +99,34 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         }).disposed(by: bag)
     }
 
+    private func bindEmptyState() {
+        AppContext.packageStore.notifications()
+            .subscribeOn(MainScheduler.instance)
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (notification) in
+                if case PahkatNotification.repositoriesChanged = notification {
+                    self.showEmptyStateIfNeeded()
+                }
+            }).disposed(by: bag)
+    }
+
     func showSettings() {
         AppContext.windows.show(SettingsWindowController.self)
+    }
+
+    func showEmptyStateIfNeeded() {
+        AppContext.packageStore.getRepoRecords()
+            .subscribeOn(MainScheduler.instance)
+            .observeOn(MainScheduler.instance)
+            .subscribe(onSuccess: { (records: [URL: RepoRecord]) in
+                let empty = records.count <= 0
+                let state = empty
+                    ? LandingView.State.empty
+                    : LandingView.State.normal
+                self.contentView.updateView(state: state)
+            }) { error in
+                print("Error: \(error)")
+        }.disposed(by: self.bag)
     }
 
     private func showMain() {

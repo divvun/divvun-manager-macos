@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -11,7 +10,23 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="c22-O7-iKe" customClass="LandingView" customModule="Pahkat" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="506" height="265"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SVq-A0-aNZ">
+                    <rect key="frame" x="18" y="125" width="470" height="16"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Label" id="flz-i6-vz8">
+                        <font key="font" usesAppearanceFont="YES"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="SVq-A0-aNZ" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" id="aBW-rT-1D0"/>
+                <constraint firstItem="SVq-A0-aNZ" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="e9N-T0-lPa"/>
+                <constraint firstAttribute="trailing" secondItem="SVq-A0-aNZ" secondAttribute="trailing" constant="20" id="v8Y-Fk-bDF"/>
+            </constraints>
             <connections>
+                <outlet property="messageLabel" destination="SVq-A0-aNZ" id="x7d-nX-g0y"/>
                 <outlet property="primaryButton" destination="iAy-36-X9X" id="4Lk-nu-akb"/>
                 <outlet property="primaryLabel" destination="9oC-3V-prj" id="SZ2-7f-biE"/>
                 <outlet property="settingsButton" destination="M0y-7j-Lon" id="wk2-wD-TyV"/>
@@ -26,10 +41,10 @@
                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
             </textFieldCell>
-            <point key="canvasLocation" x="-239" y="77"/>
+            <point key="canvasLocation" x="-239" y="76.5"/>
         </textField>
         <button verticalHuggingPriority="750" id="iAy-36-X9X">
-            <rect key="frame" x="0.5" y="0.0" width="120" height="25"/>
+            <rect key="frame" x="0.0" y="0.0" width="120" height="25"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
             <buttonCell key="cell" type="roundTextured" title="--" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0uI-v7-Fqj">
                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -38,7 +53,7 @@
             <point key="canvasLocation" x="-252" y="193"/>
         </button>
         <button verticalHuggingPriority="750" id="M0y-7j-Lon">
-            <rect key="frame" x="0.5" y="0.0" width="48" height="25"/>
+            <rect key="frame" x="0.0" y="0.0" width="48" height="25"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Settings" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="73s-DM-kFk">
                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
