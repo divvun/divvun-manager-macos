@@ -56,12 +56,14 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
 
     private func showNoLandingPage() {
         print("No landing page")
+        self.showMain()
     }
     
     override func viewWillAppear() {
         super.viewWillAppear()
         bindRepoDropdown()
         bindSettingsButton()
+        bindPrimaryButton()
     }
 
     private func bindRepoDropdown() {
@@ -81,10 +83,6 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
                     // Show a view saying no selection.
                 }
             }).disposed(by: bag)
-        
-        contentView.primaryButton.rx.tap.subscribe(onNext: { _ in
-            AppContext.windows.show(MainWindowController.self, viewController: MainViewController(), sender: self)
-        }).disposed(by: bag)
     }
     
     private func bindSettingsButton() {
@@ -93,8 +91,18 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         }).disposed(by: bag)
     }
 
+    private func bindPrimaryButton() {
+        contentView.primaryButton.rx.tap.subscribe(onNext: { _ in
+            self.showMain()
+        }).disposed(by: bag)
+    }
+
     func showSettings() {
         AppContext.windows.show(SettingsWindowController.self)
+    }
+
+    private func showMain() {
+        AppContext.windows.show(MainWindowController.self, viewController: MainViewController(), sender: self)
     }
 
     private func configureToolbar() {
