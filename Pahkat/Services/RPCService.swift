@@ -55,6 +55,8 @@ struct MessageMap {
 }
 
 class MockPahkatClient: PahkatClientType {
+    var records = [URL: RepoRecord]()
+
     func notifications() -> Observable<PahkatNotification> {
         return Observable.just(PahkatNotification.repositoriesChanged)
     }
@@ -64,15 +66,17 @@ class MockPahkatClient: PahkatClientType {
     }
 
     func setRepo(url: URL, record: RepoRecord) -> Single<[URL : RepoRecord]> {
-        return Single.just([:])
+        records[url] = record
+        return Single.just(records)
     }
 
     func getRepoRecords() -> Single<[URL : RepoRecord]> {
-        return Single.just([:])
+        return Single.just(records)
     }
 
     func removeRepo(url: URL) -> Single<[URL : RepoRecord]> {
-        return Single.just([:])
+        records.removeValue(forKey: url)
+        return Single.just(records)
     }
 
     func repoIndexes() -> Single<[LoadedRepository]> {

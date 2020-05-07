@@ -49,6 +49,9 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
 
     private func showNoSelection() {
         print("No selection")
+        // Brendan said this would work
+        let url: URL? = nil
+        try? AppContext.settings.write(key: .selectedRepository, value: url)
     }
 
     private func showNoLandingPage() {
