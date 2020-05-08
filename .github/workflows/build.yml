@@ -12,8 +12,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
       with:
-        branch: develop
         repository: divvun/pahkat
+        ref: develop
         path: pahkat
 
     - name: Install Rust toolchain
@@ -22,6 +22,7 @@ jobs:
         toolchain: stable
         profile: minimal
         override: true
+        components: rustfmt
     - name: Did this work
       run: |
         rustc --version --verbose
@@ -49,7 +50,7 @@ jobs:
     - name: Cache cargo target dir
       uses: actions/cache@v1
       with:
-        path: target
+        path: "${{ env.GITHUB_WORKSPACE }}/pahkat/target"
         key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
         restore-keys: |
           ${{ runner.os }}-cargo-build-target
@@ -63,9 +64,7 @@ jobs:
         cd pahkat/pahkat-rpc
         cargo build --release --features launchd --bin server
         # Copy into installer build dir
-        ls 
-        ls ..
-        cp target/release/server "$RUNNER_WORKSPACE/divvun-installer/scripts/pahkatd"
+        cp ../target/release/server "$GITHUB_WORKSPACE/divvun-installer/scripts/pahkatd"
     - name: Build Divvun Installer
       run: |
         source $RUNNER_WORKSPACE/divvun-ci-config/enc/env.sh
@@ -78,12 +77,12 @@ jobs:
         path: divvun-installer/DivvunInstaller.pkg
     - name: Get Package Version
       run: |
-        export DEPLOY_VERSION=`/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "divvun-installer/Divvun Installer.app/Contents/Info.plist"`
+        export DEPLOY_VERSION=`/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "$GITHUB_WORKSPACE/divvun-installer/Divvun Installer.app/Contents/Info.plist"`
         echo "::set-env name=DEPLOY_VERSION::$DEPLOY_VERSION"
     - name: Deploy to Pahkat
       uses: divvun/actions/deploy@master
       with:
-        payload: "divvun-installer/DivvunInstaller.pkg"
+        payload: "${{ env.GITHUB_WORKSPACE }}divvun-installer/DivvunInstaller.pkg"
         repository: "https://pahkat.uit.no/tools"
         package: "divvun-installer"
         platform: "macos"

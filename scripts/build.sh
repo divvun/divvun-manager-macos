@@ -17,21 +17,24 @@ export CODE_SIGN_IDENTITY_INSTALLER="Developer ID Installer: The University of T
 #     OTHER_CODE_SIGN_FLAGS=--options=runtime || exit 1
 
 #xcodebuild -resolvePackageDependencies
+APP_NAME="Divvun Installer.app"
+PKG_NAME="DivvunInstaller.pkg"
+
 xcodebuild -scheme Pahkat -configuration Release -workspace "Pahkat.xcodeproj/project.xcworkspace" archive -archivePath build/pahkat.xcarchive -quiet \
-    CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM="$DEVELOPMENT_TEAM" CODE_SIGN_IDENTITY="$CODE_SIGN_IDENTITY"  -quiet -allowProvisioningUpdates  \
+    CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM="$MACOS_DEVELOPMENT_TEAM" CODE_SIGN_IDENTITY="$MACOS_CODE_SIGN_IDENTITY"  -quiet -allowProvisioningUpdates  \
     OTHER_CODE_SIGN_FLAGS=--options=runtime || exit 1
 
-APP_NAME="Divvun Installer.app"
 rm -rf "$APP_NAME"
 mv "build/pahkat.xcarchive/Products/Applications/$APP_NAME" .
 
 # Sign & copy daemon into bundle
 chmod +x scripts/pahkatd
-mv scripts/pahkatd "$APP_NAME/Contents/MacOS/pahkatd"
-codesign --options=runtime -f --deep -s "$CODE_SIGN_IDENTITY" "$APP_NAME/Contents/MacOS/pahkatd"
+cp scripts/pahkatd "$APP_NAME/Contents/MacOS/pahkatd"
+# Need to resign app bundle
+codesign --options=runtime -f --deep -s "$MACOS_CODE_SIGN_IDENTITY" "$APP_NAME"
 
 echo "Notarizing bundle"
-xcnotary notarize "$APP_NAME" --override-path-type app -d "$DEVELOPER_ACCOUNT" -k "$DEVELOPER_PASSWORD_CHAIN_ITEM"  2>&1
+xcnotary notarize "$APP_NAME" --override-path-type app -d "$MACOS_DEVELOPER_ACCOUNT" -k "$MACOS_DEVELOPER_PASSWORD_CHAIN_ITEM"
 stapler validate "$APP_NAME"
 
 # Daemon Installer
@@ -48,6 +51,7 @@ VERSION=`/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "$APP_NAM
 # App installer
 pkgbuild --component "$APP_NAME" \
     --ownership recommended \
+    --scripts "scripts/scripts" \
     --install-location /Applications \
     --version $VERSION \
     no.divvun.Pahkat.pkg
@@ -57,11 +61,10 @@ productbuild --distribution scripts/dist.xml \
     --package-path . \
     divvun-installer.unsigned.pkg
 
-PKG_NAME="DivvunInstaller.pkg"
 
-productsign --sign "$CODE_SIGN_IDENTITY_INSTALLER" divvun-installer.unsigned.pkg "$PKG_NAME"
+productsign --sign "$MACOS_CODE_SIGN_IDENTITY_INSTALLER" divvun-installer.unsigned.pkg "$PKG_NAME"
 pkgutil --check-signature "$PKG_NAME"
 
 echo "Notarizing installer"
-xcnotary notarize "$PKG_NAME" --override-path-type pkg -d "$DEVELOPER_ACCOUNT" -k "$DEVELOPER_PASSWORD_CHAIN_ITEM" 2>&1
+xcnotary notarize "$PKG_NAME" --override-path-type pkg -d "$MACOS_DEVELOPER_ACCOUNT" -k "$MACOS_DEVELOPER_PASSWORD_CHAIN_ITEM"
 stapler validate "$PKG_NAME"
