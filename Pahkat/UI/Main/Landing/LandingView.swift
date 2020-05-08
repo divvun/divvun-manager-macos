@@ -6,6 +6,7 @@ class LandingView: View {
     @IBOutlet weak var primaryButton: NSButton!
     @IBOutlet weak var settingsButton: NSButton!
     @IBOutlet weak var messageLabel: NSTextField!
+    @IBOutlet weak var openSettingsButton: NSButton!
 
     var webView: WKWebView!
 
@@ -23,14 +24,16 @@ class LandingView: View {
         self.addSubview(webView)
         
         primaryLabel.stringValue = Strings.appName
+        // TODO: localize
         primaryButton.title = "Detailed…"
         messageLabel.stringValue = "To get started, add a repository in Settings."
-        messageLabel.isHidden = true
+        openSettingsButton.title = "Open Settings…"
     }
 
     func updateView(state: State) {
         webView.isHidden = state == .empty
         messageLabel.isHidden = state == .normal
+        openSettingsButton.isHidden = state == .normal
     }
 }
 

@@ -7,7 +7,13 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
     private lazy var bridge = { WebBridgeService(webView: self.contentView.webView, view: self) }()
     
     private lazy var onSettingsTapped: Driver<Void> = {
+        // Main settings button
         return self.contentView.settingsButton.rx.tap.asDriver()
+    }()
+
+    private lazy var onOpenSettingsTapped: Driver<Void> = {
+        // The settings button that appears when no repos are configured
+        return self.contentView.openSettingsButton.rx.tap.asDriver()
     }()
 
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
@@ -64,6 +70,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         super.viewWillAppear()
         bindRepoDropdown()
         bindSettingsButton()
+        bindOpenSettingsButton()
         bindPrimaryButton()
         bindEmptyState()
     }
@@ -89,6 +96,12 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
     
     private func bindSettingsButton() {
         self.onSettingsTapped.drive(onNext: { [weak self] in
+            self?.showSettings()
+        }).disposed(by: bag)
+    }
+
+    private func bindOpenSettingsButton() {
+        self.onOpenSettingsTapped.drive(onNext: { [weak self] in
             self?.showSettings()
         }).disposed(by: bag)
     }

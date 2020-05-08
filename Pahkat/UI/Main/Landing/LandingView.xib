@@ -19,14 +19,24 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SRQ-B3-rGt">
+                    <rect key="frame" x="213" y="87" width="81" height="32"/>
+                    <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VMa-CK-WlH">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
             </subviews>
             <constraints>
+                <constraint firstItem="SRQ-B3-rGt" firstAttribute="top" secondItem="SVq-A0-aNZ" secondAttribute="bottom" constant="10" id="Y7c-km-khy"/>
                 <constraint firstItem="SVq-A0-aNZ" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" id="aBW-rT-1D0"/>
                 <constraint firstItem="SVq-A0-aNZ" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="e9N-T0-lPa"/>
+                <constraint firstItem="SRQ-B3-rGt" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="kyl-VH-f8R"/>
                 <constraint firstAttribute="trailing" secondItem="SVq-A0-aNZ" secondAttribute="trailing" constant="20" id="v8Y-Fk-bDF"/>
             </constraints>
             <connections>
                 <outlet property="messageLabel" destination="SVq-A0-aNZ" id="x7d-nX-g0y"/>
+                <outlet property="openSettingsButton" destination="SRQ-B3-rGt" id="oiT-iF-rj8"/>
                 <outlet property="primaryButton" destination="iAy-36-X9X" id="4Lk-nu-akb"/>
                 <outlet property="primaryLabel" destination="9oC-3V-prj" id="SZ2-7f-biE"/>
                 <outlet property="settingsButton" destination="M0y-7j-Lon" id="wk2-wD-TyV"/>
