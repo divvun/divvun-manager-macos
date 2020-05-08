@@ -35,7 +35,11 @@ class WebBridgeService: NSObject, WKScriptMessageHandler {
         functions = WebBridgeFunctions(repo: repo)
 
         webView.configuration.userContentController.removeAllUserScripts()
-        webView.configuration.userContentController.add(self, name: "pahkat")
+
+        let name = "pahkat"
+        webView.configuration.userContentController.removeScriptMessageHandler(forName: name)
+        webView.configuration.userContentController.add(self, name: name)
+
         webView.load(URLRequest(url: url))
     }
     

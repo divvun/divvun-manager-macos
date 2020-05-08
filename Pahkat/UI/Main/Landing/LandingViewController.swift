@@ -4,6 +4,9 @@ import RxSwift
 import RxCocoa
 
 class LandingViewController: DisposableViewController<LandingView>, NSToolbarDelegate, WebBridgeViewable {
+    private var records: [URL: RepoRecord]?
+    private var popupButton = NSPopUpButton(title: "Select Repository", target: self, action: #selector(popupDoneDid))
+
     private lazy var bridge = { WebBridgeService(webView: self.contentView.webView, view: self) }()
     
     private lazy var onSettingsTapped: Driver<Void> = {
@@ -25,9 +28,14 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         case "button":
             contentView.primaryButton.sizeToFit()
             return NSToolbarItem(view: contentView.primaryButton, identifier: itemIdentifier)
-        case "title":
-            contentView.primaryLabel.sizeToFit()
-            return NSToolbarItem(view: contentView.primaryLabel, identifier: itemIdentifier)
+        case "repo-selector":
+            // TODO: localize if this even ever shows up
+            guard let records = records else {
+                return nil
+            }
+            let urls = records.keys.map { $0.absoluteString }
+            popupButton.addItems(withTitles: urls)
+            return NSToolbarItem.init(view: popupButton, identifier: itemIdentifier)
         default:
             return nil
         }
@@ -53,6 +61,18 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         configureToolbar()
     }
 
+    private func makeRepoPopup() {
+        AppContext.packageStore.getRepoRecords()
+            .subscribeOn(MainScheduler.instance)
+            .observeOn(MainScheduler.instance)
+            .subscribe(onSuccess: { (records: [URL: RepoRecord]) in
+                self.records = records
+                self.configureToolbar()
+            }) { error in
+                print("Error: \(error)")
+        }.disposed(by: self.bag)
+    }
+
     private func showNoSelection() {
         print("No selection")
         // Brendan said this would work
@@ -73,6 +93,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         bindOpenSettingsButton()
         bindPrimaryButton()
         bindEmptyState()
+        makeRepoPopup()
     }
 
     private func bindRepoDropdown() {
@@ -119,6 +140,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
             .subscribe(onNext: { (notification) in
                 if case PahkatNotification.repositoriesChanged = notification {
                     self.showEmptyStateIfNeeded()
+                    self.makeRepoPopup()
                 }
             }).disposed(by: bag)
     }
@@ -152,16 +174,30 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         window.titleVisibility = .hidden
         window.toolbar!.isVisible = true
         window.toolbar!.delegate = self
-        
+
         let toolbarItems = ["settings",
                             NSToolbarItem.Identifier.flexibleSpace.rawValue,
                             NSToolbarItem.Identifier.flexibleSpace.rawValue,
-                            "title",
+                            "repo-selector",
                             NSToolbarItem.Identifier.flexibleSpace.rawValue,
                             NSToolbarItem.Identifier.flexibleSpace.rawValue,
                             "button"]
-        
+
         window.toolbar!.setItems(toolbarItems)
+    }
+
+    @objc func popupDoneDid() {
+        print("WE DONE DID")
+        // TODO: do this less stupidly
+        guard let urlString = popupButton.selectedItem?.title else {
+            // TODO: error or something
+            return
+        }
+        do {
+            try AppContext.settings.write(key: .selectedRepository, value: URL(string: urlString)!)
+        } catch {
+            print("Error setting selected repo: \(error)")
+        }
     }
     
     func handle(error: Error) {
