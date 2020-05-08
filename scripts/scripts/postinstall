@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+
+PLIST_FILE="no.divvun.pahkatd.plist"
+
+rm -f "/Library/LaunchDaemons/$PLIST_FILE"
+cp "$PLIST_FILE" "/Library/LaunchDaemons/$PLIST_FILE"
+/bin/launchctl load "/Library/LaunchDaemons/$PLIST_FILE"

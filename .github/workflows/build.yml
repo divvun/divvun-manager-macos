@@ -1,0 +1,89 @@
+on: [push]
+name: Build
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        path: divvun-installer
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        branch: develop
+        repository: divvun/pahkat
+        path: pahkat
+
+    - name: Install Rust toolchain
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        profile: minimal
+        override: true
+    - name: Did this work
+      run: |
+        rustc --version --verbose
+    - name: Cache cargo registry
+      uses: actions/cache@v1
+      with:
+        path: ~/.cargo/registry
+        key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-cargo-registry-
+    - name: Cache cargo index
+      uses: actions/cache@v1
+      with:
+        path: ~/.cargo/git
+        key: ${{ runner.os }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-cargo-index
+    - name: Cache cargo bin dir
+      uses: actions/cache@v1
+      with:
+        path: ~/.cargo/bin
+        key: ${{ runner.os }}-cargo-bin-${{ env.RUST_VERSION }}
+        restore-keys: |
+          ${{ runner.os }}-cargo-bin
+    - name: Cache cargo target dir
+      uses: actions/cache@v1
+      with:
+        path: target
+        key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-cargo-build-target
+    - name: Setup Divvun CI
+      uses: divvun/actions/setup@master
+      with:
+        key: ${{ secrets.DIVVUN_KEY }}
+    - name: Build Pahkat Daemon
+      run: |
+        source $RUNNER_WORKSPACE/divvun-ci-config/enc/env.sh
+        cd pahkat/pahkat-rpc
+        cargo build --release --bin server
+        # Copy into installer build dir
+        cp target/release/server "$RUNNER_WORKSPACE/divvun-installer/scripts/pahkatd"
+    - name: Build Divvun Installer
+      run: |
+        source $RUNNER_WORKSPACE/divvun-ci-config/enc/env.sh
+        cd divvun-installer
+        /bin/bash scripts/build.sh
+    - name: Upload installer
+      uses: actions/upload-artifact@v1
+      with:
+        name: divvun-installer
+        path: divvun-installer/DivvunInstaller.pkg
+    - name: Get Package Version
+      run: |
+        export DEPLOY_VERSION=`/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "divvun-installer/Divvun Installer.app/Contents/Info.plist"`
+        echo "::set-env name=DEPLOY_VERSION::$DEPLOY_VERSION"
+    - name: Deploy to Pahkat
+      uses: divvun/actions/deploy@master
+      with:
+        payload: "divvun-installer/DivvunInstaller.pkg"
+        repository: "https://pahkat.uit.no/tools"
+        package: "divvun-installer"
+        platform: "macos"
+        version: ${{ env.DEPLOY_VERSION }}
+
