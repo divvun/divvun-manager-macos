@@ -61,8 +61,10 @@ jobs:
       run: |
         source $RUNNER_WORKSPACE/divvun-ci-config/enc/env.sh
         cd pahkat/pahkat-rpc
-        cargo build --release --bin server
+        cargo build --release --features launchd --bin server
         # Copy into installer build dir
+        ls 
+        ls ..
         cp target/release/server "$RUNNER_WORKSPACE/divvun-installer/scripts/pahkatd"
     - name: Build Divvun Installer
       run: |
