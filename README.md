@@ -1,14 +1,8 @@
-# Páhkat Client for macOS
-
-[![Build Status](https://dev.azure.com/divvun/divvun-installer/_apis/build/status/divvun.pahkat-client-macos?branchName=master)](https://dev.azure.com/divvun/divvun-installer/_build/latest?definitionId=8&branchName=master)
+# Divvun Installer for macOS
 
 ## Building
 
-Ensure you have cloned this repository into the same directory as the [`divvun/pahkat-client-core`](https://github.com/divvun/pahkat-client-core) repository.
-
-You will need the [Rust toolchain installed](https://www.rustup.rs/), as well as Xcode and Cocoapods.
-
-After that, run `pod install`, open the `Pahkat.xcworkspace` and build as any other macOS project.
+`xcodebuild`
 
 ## Generating Localisations
 
