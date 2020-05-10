@@ -5,69 +5,73 @@ import RxBlocking
 class WebBridgeFunctions {
     private let repo: LoadedRepository
     private let jsonEncoder = JSONEncoder()
+    private let jsonDecoder = JSONDecoder()
 
     init(repo: LoadedRepository) {
         self.repo = repo
     }
 
-    func process(request: WebBridgeRequest) throws -> Data {
+    func process(request: WebBridgeRequest) -> Single<Data> {
         switch request.method {
         case "env":
-            return try env(request.args)
+            return env(request.args)
         case "string":
-            return try string(request.args)
+            return string(request.args)
         case "packages":
-            return try packages(request.args)
+            return packages(request.args)
         case "status":
-            return try status(request.args)
+            return status(request.args)
         case "transaction":
-            return try transaction(request.args)
+            return transaction(request.args)
         default:
             break
         }
 
-        throw ErrorResponse(error: "Unhandled method: \(request.method)")
+        return Single.error(ErrorResponse(error: "Unhandled method: \(request.method)"))
     }
 
-    private func env(_ args: [JSONValue]) throws -> Data {
+    private func env(_ args: [JSONValue]) -> Single<Data> {
         // Returns useful environment variables
-        return try jsonEncoder.encode([
-            "platform": "macos"
+        return jsonEncoder.encodeAsync([
+            "platform": "macos",
+            "locale": "TODO",
         ])
     }
 
-    private func string(_ args: [JSONValue]) throws -> Data {
+    private func string(_ args: [JSONValue]) -> Single<Data> {
         // No strings for now
         guard let key = args.first?.string else {
-            throw ErrorResponse(error: "String request requires a single string argument")
+            return Single.error(ErrorResponse(error: "String request requires a single string argument"))
         }
 
-        throw ErrorResponse(error: "No string found for key '\(key)'")
+        return Single.error(ErrorResponse(error: "No string found for key '\(key)'"))
     }
 
-    private func status(_ args: [JSONValue]) throws -> Data {
+    private func status(_ args: [JSONValue]) -> Single<Data> {
         // varargs of PackageKey is assumed, return a map keyed by package key with status as int
-        let requests = args.compactMap { $0.string }
+        let keys = args.compactMap { $0.string }
             .compactMap { arg -> PackageKey? in
                 return try? PackageKey.from(urlString: arg)
             }
-            .map { ($0, AppContext.packageStore.status(packageKey: $0)) }
-        
 
-        // Terrible hack.
-        var map = [String: JSONValue]()
-        try requests.forEach { (key, single) in
-            let (status, target) = try single.toBlocking(timeout: 5).single()
+        let keyObs: Observable<PackageKey> = Observable.from(keys)
+        return keyObs.flatMap { key -> Single<(PackageKey, (PackageStatus, SystemTarget))> in
+            AppContext.packageStore.status(packageKey: key).map { (key, $0) }
+        }.toArray().map { array in
+            var map = [String: JSONValue]()
 
-            map[key.toString()] = JSONValue.object([
-                "status": .number(Double(status.rawValue)),
-                "target": .string(target.rawValue)
-            ])
+            for (key, (status, target)) in array {
+                map[key.toString()] = JSONValue.object([
+                    "status": .number(Double(status.rawValue)),
+                    "target": .string(target.rawValue)
+                ])
+            }
+
+            return try self.jsonEncoder.encode(map)
         }
-        return try jsonEncoder.encode(map)
     }
 
-    private func transaction(_ args: [JSONValue]) throws -> Data {
+    private func transaction(_ args: [JSONValue]) -> Single<Data> {
         // Args should be in the form of { key: PackageKey, action: "install"|"uninstall", target: "system"|"user" }
 
         var actions = [PackageAction]()
@@ -96,13 +100,22 @@ class WebBridgeFunctions {
 
         if alert.runModal() == NSApplication.ModalResponse.alertFirstButtonReturn {
             AppContext.startTransaction(actions: actions)
-            return try jsonEncoder.encode(true)
+            return Single.just(try! jsonEncoder.encode(true))
         }
 
-        return try jsonEncoder.encode(false)
+        return Single.just(try! jsonEncoder.encode(false))
     }
 
-    private func packages(_ args: [JSONValue]) throws -> Data {
+    private func packages(_ args: [JSONValue]) -> Single<Data> {
+        // Args == 1 && first arg is PackageQuery
+        if args.count >= 1 {
+            let rawJson = try! jsonEncoder.encode(args[0])
+
+            if let query = try? jsonDecoder.decode(PackageQuery.self, from: rawJson) {
+                return AppContext.packageStore.resolvePackageQuery(query: query)
+            }
+        }
+
         // Args == 0? Return all packages
 
         print("packages: \(args)")
@@ -116,6 +129,16 @@ class WebBridgeFunctions {
 
         print("We done")
 
-        return try jsonEncoder.encode(map)
+        return jsonEncoder.encodeAsync(map)
+    }
+}
+
+extension JSONEncoder {
+    func encodeAsync<T: Encodable>(_ input: T) -> Single<Data> {
+        do {
+            return Single.just(try encode(input))
+        } catch let error {
+            return Single.error(error)
+        }
     }
 }

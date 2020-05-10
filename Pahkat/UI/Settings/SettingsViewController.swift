@@ -150,6 +150,19 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
 
         updateProgressIndicator(isEnabled: true)
 
+        self.tableDelegate = RepositoryTableDelegate(with: [], strings: [:])
+        contentView.repoTableView.delegate = self.tableDelegate
+        contentView.repoTableView.dataSource = self.tableDelegate
+
+        tableDelegate.events.subscribe(onNext: { event in
+            switch event {
+            case let .setChannel(row):
+                return AppContext.packageStore.setRepo(url: row.url, record: RepoRecord(channel: row.channel))
+                    .subscribe()
+                    .disposed(by: self.bag)
+            }
+        }).disposed(by: bag)
+
         // Add all the info to the table
         refreshRepoTable()
     }
@@ -175,9 +188,8 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
     }
     
     func setRepositories(repositories: [RepositoryTableRowData], strings: [URL: MessageMap]) {
-        self.tableDelegate = RepositoryTableDelegate(with: repositories, strings: strings)
-        contentView.repoTableView.delegate = self.tableDelegate
-        contentView.repoTableView.dataSource = self.tableDelegate
+        self.tableDelegate.configs = repositories
+        self.contentView.repoTableView.reloadData()
     }
 }
 
@@ -195,9 +207,7 @@ enum RepositoryTableColumns: String {
 }
 
 enum RepositoryTableEvent {
-    case setChannel(Int, String?)
-    case setURL(Int, URL)
-    case remove(Int)
+    case setChannel(RepositoryTableRowData)
 }
 
 class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSource {
@@ -234,13 +244,13 @@ class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSou
             let url = configs[row].url
             let s = strings[url]?.channels ?? [String: String]()
 
-            var channels: [String]
+            var channels: [(String, String)]
             if let repo = configs[row].repo {
                 channels = repo.index.channels.sorted().map { channelId in
                     if let channel = s[channelId] {
-                        return channel
+                        return (channelId, channel)
                     } else {
-                        return channelId
+                        return (channelId, channelId)
                     }
                 }
             } else {
@@ -248,12 +258,17 @@ class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSou
             }
 
             // default channel
-            channels.insert(Strings.stable, at: 0)
+            channels.insert(("", Strings.stable), at: 0)
 
             cell.removeAllItems()
-            cell.addItems(withTitles: channels)
+            cell.addItems(withTitles: channels.map { $0.1 })
+            for i in 0..<channels.count {
+                cell.menu?.item(at: i)?.representedObject = channels[i].0
+            }
 
             let ch = strings[url]?.channels[config.channel ?? ""] ?? config.channel
+
+
 
             guard let index = cell.menu?.items.firstIndex(where: {
                 $0.representedObject as? String == ch
@@ -278,11 +293,11 @@ class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSou
             guard let cell = tableColumn.dataCell as? NSPopUpButtonCell else { return }
             guard let index = object as? Int else { return }
             guard let menuItem = cell.menu?.item(at: index) else { return }
-            guard let channel = menuItem.representedObject as? String else { return }
+            guard let channel = menuItem.representedObject as? String? else { return }
             
             // Required or UI does a weird blinking thing.
             self.configs[row] = RepositoryTableRowData(url: configs[row].url, repo: configs[row].repo, channel: channel)
-            events.onNext(.setChannel(row, channel))
+            events.onNext(.setChannel(configs[row]))
         default:
             return
         }

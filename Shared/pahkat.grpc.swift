@@ -19,6 +19,7 @@ public protocol Pahkat_PahkatClientProtocol {
   func repositoryIndexes(_ request: Pahkat_RepositoryIndexesRequest, callOptions: CallOptions?) -> UnaryCall<Pahkat_RepositoryIndexesRequest, Pahkat_RepositoryIndexesResponse>
   func processTransaction(callOptions: CallOptions?, handler: @escaping (Pahkat_TransactionResponse) -> Void) -> BidirectionalStreamingCall<Pahkat_TransactionRequest, Pahkat_TransactionResponse>
   func strings(_ request: Pahkat_StringsRequest, callOptions: CallOptions?) -> UnaryCall<Pahkat_StringsRequest, Pahkat_StringsResponse>
+  func resolvePackageQuery(_ request: Pahkat_JsonRequest, callOptions: CallOptions?) -> UnaryCall<Pahkat_JsonRequest, Pahkat_JsonResponse>
   func setRepo(_ request: Pahkat_SetRepoRequest, callOptions: CallOptions?) -> UnaryCall<Pahkat_SetRepoRequest, Pahkat_SetRepoResponse>
   func getRepoRecords(_ request: Pahkat_GetRepoRecordsRequest, callOptions: CallOptions?) -> UnaryCall<Pahkat_GetRepoRecordsRequest, Pahkat_GetRepoRecordsResponse>
   func removeRepo(_ request: Pahkat_RemoveRepoRequest, callOptions: CallOptions?) -> UnaryCall<Pahkat_RemoveRepoRequest, Pahkat_RemoveRepoResponse>
@@ -103,6 +104,18 @@ public final class Pahkat_PahkatClient: GRPCClient, Pahkat_PahkatClientProtocol 
                               callOptions: callOptions ?? self.defaultCallOptions)
   }
 
+  /// Unary call to ResolvePackageQuery
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to ResolvePackageQuery.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  public func resolvePackageQuery(_ request: Pahkat_JsonRequest, callOptions: CallOptions? = nil) -> UnaryCall<Pahkat_JsonRequest, Pahkat_JsonResponse> {
+    return self.makeUnaryCall(path: "/pahkat.Pahkat/ResolvePackageQuery",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
   /// CRUD for repositories
   ///
   /// - Parameters:
@@ -149,6 +162,7 @@ public protocol Pahkat_PahkatProvider: CallHandlerProvider {
   func repositoryIndexes(request: Pahkat_RepositoryIndexesRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Pahkat_RepositoryIndexesResponse>
   func processTransaction(context: StreamingResponseCallContext<Pahkat_TransactionResponse>) -> EventLoopFuture<(StreamEvent<Pahkat_TransactionRequest>) -> Void>
   func strings(request: Pahkat_StringsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Pahkat_StringsResponse>
+  func resolvePackageQuery(request: Pahkat_JsonRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Pahkat_JsonResponse>
   /// CRUD for repositories
   func setRepo(request: Pahkat_SetRepoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Pahkat_SetRepoResponse>
   func getRepoRecords(request: Pahkat_GetRepoRecordsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Pahkat_GetRepoRecordsResponse>
@@ -195,6 +209,13 @@ extension Pahkat_PahkatProvider {
         }
       }
 
+    case "ResolvePackageQuery":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.resolvePackageQuery(request: request, context: context)
+        }
+      }
+
     case "SetRepo":
       return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
         return { request in
@@ -233,6 +254,8 @@ extension Pahkat_TransactionRequest: GRPCProtobufPayload {}
 extension Pahkat_TransactionResponse: GRPCProtobufPayload {}
 extension Pahkat_StringsRequest: GRPCProtobufPayload {}
 extension Pahkat_StringsResponse: GRPCProtobufPayload {}
+extension Pahkat_JsonRequest: GRPCProtobufPayload {}
+extension Pahkat_JsonResponse: GRPCProtobufPayload {}
 extension Pahkat_SetRepoRequest: GRPCProtobufPayload {}
 extension Pahkat_SetRepoResponse: GRPCProtobufPayload {}
 extension Pahkat_GetRepoRecordsRequest: GRPCProtobufPayload {}

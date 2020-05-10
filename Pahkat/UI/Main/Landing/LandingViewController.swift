@@ -103,7 +103,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
             .subscribe(onNext: { [weak self] repo in
                 if let repo = repo {
                     if let url = repo.index.landingURL {
-                        self?.bridge.start(url: url, repo: repo)
+                        self?.bridge.start(url: URL(string: "http://localhost:5000")!, repo: repo)
                     } else {
                         // Show a view saying that this repo has no landing page, and to go to detailed view.
                         self?.showNoLandingPage()

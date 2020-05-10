@@ -33,8 +33,8 @@ class MainWindowController: WindowController<MainWindow> {
                 default:
                     break
                 }
-                
-                AppContext.windows.set(MainViewController(), for: MainWindowController.self)
+
+                AppContext.currentTransaction.onNext(.notStarted)
             }
         }).disposed(by: bag)
     }

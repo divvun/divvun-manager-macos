@@ -53,9 +53,13 @@ class AppContextImpl {
 
         currentTxDisposable?.dispose()
         currentTxDisposable = Observable.combineLatest(AppContext.currentTransaction, txObservable.distinctUntilChanged()) // (State, Event)
+            .takeUntil(.inclusive, predicate: { (_, event) in event.isFinal })
             .subscribeOn(SerialDispatchQueueScheduler(qos: .background))
             .subscribe(onNext: { (state, event) in
-                AppContext.currentTransaction.onNext(state.reduce(event: event))
+                let value = state.reduce(event: event)
+                DispatchQueue.main.async {
+                    AppContext.currentTransaction.onNext(value)
+                }
             })
     }
 

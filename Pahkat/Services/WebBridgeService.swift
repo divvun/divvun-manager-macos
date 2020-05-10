@@ -1,5 +1,6 @@
 import Foundation
 import WebKit
+import RxSwift
 
 struct LanguageResponse: Encodable {
     let languageName: String
@@ -15,6 +16,8 @@ protocol WebBridgeViewable: class {
 }
 
 class WebBridgeService: NSObject, WKScriptMessageHandler {
+    private let bag = DisposeBag()
+
     private let jsonDecoder = JSONDecoder()
     private let jsonEncoder = JSONEncoder()
     private lazy var defaultResponse = { try! jsonEncoder.encode("{}") }()
@@ -42,6 +45,18 @@ class WebBridgeService: NSObject, WKScriptMessageHandler {
 
         webView.load(URLRequest(url: url))
     }
+
+    private func sendResponse(request: WebBridgeRequest, responseData: Data) {
+        let response = String(data: responseData, encoding: .utf8)!
+            .replacingOccurrences(of: "\"", with: "\\\"")
+
+        let js = "window.pahkatResponders[\"callback-\(request.id)\"](\"\(response)\")"
+        print(response)
+
+        DispatchQueue.main.async {
+            self.webView?.evaluateJavaScript(js, completionHandler: nil)
+        }
+    }
     
     func userContentController(_ userContentController: WKUserContentController,
                                didReceive message: WKScriptMessage)
@@ -68,28 +83,41 @@ class WebBridgeService: NSObject, WKScriptMessageHandler {
         }
         
         print("Request: \(request)")
+
+
+        functions.process(request: request).subscribe(
+            onSuccess: { [weak self] data in
+                guard let `self` = self else { return }
+                self.sendResponse(request: request, responseData: data)
+            },
+            onError: { [weak self] error in
+                guard let `self` = self else { return }
+                let responseData: Data
+
+                if let error = error as? ErrorResponse {
+                    responseData = try! self.jsonEncoder.encode(error)
+                } else {
+                    do {
+                        responseData = try self.jsonEncoder.encode(ErrorResponse(error: String(describing: error)))
+                    } catch {
+                        responseData = try! self.jsonEncoder.encode(ErrorResponse(error: "An unhandled error occurred"))
+                    }
+                }
+
+                self.sendResponse(request: request, responseData: responseData)
+            }).disposed(by: bag)
         
-        var responseData: Data = defaultResponse
-        
-        do {
-            responseData = try functions.process(request: request)
-        } catch let error as ErrorResponse {
-            responseData = try! jsonEncoder.encode(error)
-        } catch {
-            do {
-                responseData = try jsonEncoder.encode(ErrorResponse(error: String(describing: error)))
-            } catch {
-                responseData = try! jsonEncoder.encode(ErrorResponse(error: "An unhandled error occurred"))
-            }
-        }
-        
-        let response = String(data: responseData, encoding: .utf8)!
-            .replacingOccurrences(of: "\"", with: "\\\"")
-        
-        let js = "window.pahkatResponders[\"callback-\(request.id)\"](\"\(response)\")"
-        print(response)
-        
-        webView?.evaluateJavaScript(js, completionHandler: nil)
+//        do {
+//            responseData = try functions.process(request: request)
+//        } catch let error as ErrorResponse {
+//            responseData = try! jsonEncoder.encode(error)
+//        } catch {
+//            do {
+//                responseData = try jsonEncoder.encode(ErrorResponse(error: String(describing: error)))
+//            } catch {
+//                responseData = try! jsonEncoder.encode(ErrorResponse(error: "An unhandled error occurred"))
+//            }
+//        }
     }
 
 }

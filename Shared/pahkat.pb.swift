@@ -32,6 +32,7 @@ public struct Pahkat_NotificationResponse {
     public typealias RawValue = Int
     case rebootRequired // = 0
     case repositoriesChanged // = 1
+    case rpcStopping // = 2
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -42,6 +43,7 @@ public struct Pahkat_NotificationResponse {
       switch rawValue {
       case 0: self = .rebootRequired
       case 1: self = .repositoriesChanged
+      case 2: self = .rpcStopping
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -50,6 +52,7 @@ public struct Pahkat_NotificationResponse {
       switch self {
       case .rebootRequired: return 0
       case .repositoriesChanged: return 1
+      case .rpcStopping: return 2
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -66,6 +69,7 @@ extension Pahkat_NotificationResponse.ValueType: CaseIterable {
   public static var allCases: [Pahkat_NotificationResponse.ValueType] = [
     .rebootRequired,
     .repositoriesChanged,
+    .rpcStopping,
   ]
 }
 
@@ -742,6 +746,31 @@ public struct Pahkat_RemoveRepoResponse {
   public init() {}
 }
 
+/// There was no time to do this properly.
+public struct Pahkat_JsonRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var json: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Pahkat_JsonResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var json: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "pahkat"
@@ -779,6 +808,7 @@ extension Pahkat_NotificationResponse.ValueType: SwiftProtobuf._ProtoNameProvidi
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "REBOOT_REQUIRED"),
     1: .same(proto: "REPOSITORIES_CHANGED"),
+    2: .same(proto: "RPC_STOPPING"),
   ]
 }
 
@@ -2078,6 +2108,64 @@ extension Pahkat_RemoveRepoResponse: SwiftProtobuf.Message, SwiftProtobuf._Messa
   public static func ==(lhs: Pahkat_RemoveRepoResponse, rhs: Pahkat_RemoveRepoResponse) -> Bool {
     if lhs.records != rhs.records {return false}
     if lhs.error != rhs.error {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Pahkat_JsonRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".JsonRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "json"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.json)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.json.isEmpty {
+      try visitor.visitSingularStringField(value: self.json, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Pahkat_JsonRequest, rhs: Pahkat_JsonRequest) -> Bool {
+    if lhs.json != rhs.json {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Pahkat_JsonResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".JsonResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "json"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.json)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.json.isEmpty {
+      try visitor.visitSingularStringField(value: self.json, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Pahkat_JsonResponse, rhs: Pahkat_JsonResponse) -> Bool {
+    if lhs.json != rhs.json {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

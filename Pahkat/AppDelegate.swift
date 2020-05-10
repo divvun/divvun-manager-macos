@@ -48,7 +48,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         AppDelegate.instance = self
 
         AppContext.packageStore.notifications().subscribe(onNext: {
-            print($0)
+            switch $0 {
+            case .rpcStopping:
+                log.info("RPC is stopping.")
+            case .rebootRequired:
+                log.info("A reboot is required.")
+            case .repositoriesChanged:
+                log.info("Repository data has changed on the RPC.")
+            }
         }).disposed(by: bag)
         
         launchMain()

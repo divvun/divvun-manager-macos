@@ -12,10 +12,19 @@ enum TransactionEvent: Equatable {
     case downloadComplete(packageKey: PackageKey)
     case installStarted(packageKey: PackageKey)
     case uninstallStarted(packageKey: PackageKey)
+
+    var isFinal: Bool {
+        switch self {
+        case .transactionComplete, .transactionError:
+            return true
+        default:
+            return false
+        }
+    }
 }
 
 
-enum PackageStatus: Int32 {
+enum PackageStatus: Int32, Codable {
     case notInstalled = 0
     case upToDate = 1
     case requiresUpdate = 2
@@ -36,6 +45,11 @@ enum PackageStatus: Int32 {
 enum PahkatNotification {
     case rebootRequired
     case repositoriesChanged
+    case rpcStopping
+}
+
+struct PackageQuery: Codable {
+    let tags: [String]?
 }
 
 protocol PahkatClientType: class {
@@ -47,6 +61,7 @@ protocol PahkatClientType: class {
     func setRepo(url: URL, record: RepoRecord) -> Single<[URL: RepoRecord]>
     func getRepoRecords() -> Single<[URL: RepoRecord]>
     func removeRepo(url: URL) -> Single<[URL: RepoRecord]>
+    func resolvePackageQuery(query: PackageQuery) -> Single<Data>
 }
 
 struct MessageMap {
@@ -131,10 +146,18 @@ class MockPahkatClient: PahkatClientType {
         
         return (completable, observable)
     }
+
+    func resolvePackageQuery(query: PackageQuery) -> Single<Data> {
+        return Single.just("[]".data(using: .utf8)!)
+    }
 }
 
 class PahkatClient: PahkatClientType {
-    private let inner: Pahkat_PahkatClient
+    private let path: URL
+    private lazy var monitor = { Monitor(client: self) }()
+    private lazy var inner: Pahkat_PahkatClient = {
+        Self.connect(path: self.path, delegate: self.monitor)
+    }()
 
     public func notifications() -> Observable<PahkatNotification> {
         return Observable<PahkatNotification>.create { emitter in
@@ -144,8 +167,10 @@ class PahkatClient: PahkatClientType {
                     emitter.onNext(.rebootRequired)
                 case .repositoriesChanged:
                     emitter.onNext(.repositoriesChanged)
+                case .rpcStopping:
+                    emitter.onNext(.rpcStopping)
                 default:
-                    return
+                    log.error("Unhandled notification: \(response.value)")
                 }
             })
 
@@ -404,15 +429,59 @@ class PahkatClient: PahkatClientType {
             return Disposables.create()
         }
     }
-    
-    init(unixSocketPath path: URL) {
+
+    func resolvePackageQuery(query: PackageQuery) -> Single<Data> {
+        var req = Pahkat_JsonRequest()
+        req.json = String(data: try! JSONEncoder().encode(query), encoding: .utf8)!
+
+        return Single<Data>.create { emitter in
+            let res = self.inner.resolvePackageQuery(req)
+
+            res.response.whenSuccess { response in
+                emitter(.success(response.json.data(using: .utf8)!))
+            }
+
+            res.response.whenFailure {
+                emitter(.error($0))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    class Monitor: ConnectivityStateDelegate {
+        private weak var client: PahkatClient? = nil
+
+        func connectivityStateDidChange(from oldState: ConnectivityState, to newState: ConnectivityState) {
+            log.debug("RPC changed state: \(oldState) -> \(newState)")
+//            guard let client = client else { return }
+//            switch newState {
+//            case .shutdown, .transientFailure:
+//                client.inner = PahkatClient.connect(path: client.path, delegate: self)
+//            default:
+//                return
+//            }
+        }
+
+        init(client: PahkatClient) {
+            self.client = client
+        }
+    }
+
+    private static func connect(path: URL, delegate: ConnectivityStateDelegate) -> Pahkat_PahkatClient {
         let group = MultiThreadedEventLoopGroup(numberOfThreads: 2)
         let conn = ClientConnection(
             configuration: .init(target: .unixDomainSocket(path.path),
                                  eventLoopGroup: group))
+        conn.connectivity.delegate = delegate
+
         let client = Pahkat_PahkatClient(channel: conn)
-        
-        inner = client
+
+        return client
+    }
+
+    init(unixSocketPath path: URL) {
+        self.path = path
     }
 }
 

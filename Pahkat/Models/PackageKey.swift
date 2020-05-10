@@ -85,7 +85,7 @@ class PackageKey: Equatable, Hashable, CustomDebugStringConvertible {
             throw PackageKeyError.invalidURL(url.absoluteString)
         }
         
-        newUrl = url.deletingLastPathComponent()
+        newUrl = newUrl.deletingLastPathComponent()
         
         var components = URLComponents(url: newUrl, resolvingAgainstBaseURL: false)!
         let queryItems = components.queryItems ?? []

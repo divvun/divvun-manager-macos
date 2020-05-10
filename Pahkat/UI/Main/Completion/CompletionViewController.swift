@@ -16,7 +16,7 @@ class CompletionViewController: DisposableViewController<CompletionView>, Comple
         fatalError("init(coder:) has not been implemented")
     }
 
-    func showMain() {
+    private func showMain() {
         AppContext.currentTransaction.onNext(.notStarted)
     }
     

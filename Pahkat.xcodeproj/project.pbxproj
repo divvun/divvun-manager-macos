@@ -218,7 +218,6 @@
 		C6C3FA662382C3C40006E81B /* Process.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Process.swift; sourceTree = "<group>"; };
 		C6C820D2204C53EF001682E8 /* PackageDownloadProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageDownloadProgress.swift; sourceTree = "<group>"; };
 		C6CC91262028E69300CB0B10 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
-		C6D675FD21BA8B6400AF6DD7 /* Launchd.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Launchd.plist; sourceTree = "<group>"; };
 		C6D78E1923841D8E002F59E2 /* TransactionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionType.swift; sourceTree = "<group>"; };
 		C6E392A02447489900560023 /* PackageKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageKey.swift; sourceTree = "<group>"; };
 		C6E392A2244755AE00560023 /* pahkat.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pahkat.pb.swift; sourceTree = "<group>"; };
@@ -231,8 +230,6 @@
 		C6E755A52462A93E00620D6F /* JSONValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONValue.swift; sourceTree = "<group>"; };
 		C6E755A72462A96800620D6F /* WebBridgeRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebBridgeRPC.swift; sourceTree = "<group>"; };
 		C6E755AC2463361B00620D6F /* InterfaceLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceLanguage.swift; sourceTree = "<group>"; };
-		C6EA31D021B0A2460014F3B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C6EA31D821B0A3360014F3B6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		C6F4BC562029BC05002EE523 /* MainViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewable.swift; sourceTree = "<group>"; };
 		C6F4BC582029BC2C002EE523 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		C6F4BC5A2029BC57002EE523 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -370,7 +367,6 @@
 			isa = PBXGroup;
 			children = (
 				C69F948C2028B1EA00127A47 /* Pahkat */,
-				C6EA31C921B0A2460014F3B6 /* PahkatAdminService */,
 				C6C3FA512382C1EA0006E81B /* Shared */,
 				C69F948B2028B1EA00127A47 /* Products */,
 				C6E755A92462CC7800620D6F /* Frameworks */,
@@ -494,16 +490,6 @@
 			children = (
 			);
 			path = Add;
-			sourceTree = "<group>";
-		};
-		C6EA31C921B0A2460014F3B6 /* PahkatAdminService */ = {
-			isa = PBXGroup;
-			children = (
-				C6EA31D021B0A2460014F3B6 /* Info.plist */,
-				C6EA31D821B0A3360014F3B6 /* main.swift */,
-				C6D675FD21BA8B6400AF6DD7 /* Launchd.plist */,
-			);
-			path = PahkatAdminService;
 			sourceTree = "<group>";
 		};
 		C6F4BC642031DB6C002EE523 /* Download */ = {
