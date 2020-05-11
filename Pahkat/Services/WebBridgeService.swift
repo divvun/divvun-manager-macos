@@ -43,6 +43,15 @@ class WebBridgeService: NSObject, WKScriptMessageHandler {
         webView.configuration.userContentController.removeScriptMessageHandler(forName: name)
         webView.configuration.userContentController.add(self, name: name)
 
+        // force the url to reload in case it's cached/being stubborn
+        let unixEpoch = String(Date().timeIntervalSince1970 * 1000)
+        let reloadItem = URLQueryItem(name: "ts", value: unixEpoch)
+        var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
+        urlComponents?.queryItems = [reloadItem]
+        guard let url = urlComponents?.url else {
+            fatalError("Whack url")
+        }
+
         webView.load(URLRequest(url: url))
     }
 
