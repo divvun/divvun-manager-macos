@@ -5,7 +5,7 @@ import RxCocoa
 
 class LandingViewController: DisposableViewController<LandingView>, NSToolbarDelegate, WebBridgeViewable {
     private var repos: [LoadedRepository]?
-    private var popupButton = NSPopUpButton(title: "Select Repository", target: self, action: #selector(popupDoneDid))
+    private var popupButton = NSPopUpButton(title: "Select Repository", target: self, action: #selector(popupItemSelected))
 
     private lazy var bridge = { WebBridgeService(webView: self.contentView.webView, view: self) }()
     
@@ -67,6 +67,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
     }
 
     private func makeRepoPopup() {
+        popupButton.autoenablesItems = false // fixes bug where items are grayed out on first load
         AppContext.packageStore.repoIndexes()
             .subscribeOn(MainScheduler.instance)
             .observeOn(MainScheduler.instance)
@@ -191,8 +192,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         window.toolbar!.setItems(toolbarItems)
     }
 
-    @objc func popupDoneDid() {
-        print("WE DONE DID")
+    @objc func popupItemSelected() {
         guard let url = popupButton.selectedItem?.representedObject as? URL else {
             // TODO: error or something
             return
