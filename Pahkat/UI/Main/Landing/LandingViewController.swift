@@ -4,7 +4,7 @@ import RxSwift
 import RxCocoa
 
 class LandingViewController: DisposableViewController<LandingView>, NSToolbarDelegate, WebBridgeViewable {
-    private var records: [URL: RepoRecord]?
+    private var repos: [LoadedRepository]?
     private var popupButton = NSPopUpButton(title: "Select Repository", target: self, action: #selector(popupDoneDid))
 
     private lazy var bridge = { WebBridgeService(webView: self.contentView.webView, view: self) }()
@@ -29,12 +29,17 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
             contentView.primaryButton.sizeToFit()
             return NSToolbarItem(view: contentView.primaryButton, identifier: itemIdentifier)
         case "repo-selector":
-            // TODO: localize if this even ever shows up
-            guard let records = records else {
+            guard let repos = repos else {
                 return nil
             }
-            let urls = records.keys.map { $0.absoluteString }
-            popupButton.addItems(withTitles: urls)
+            repos.forEach { (repo) in
+                let name = repo.index.nativeName
+                let url = repo.index.url
+                let menuItem = NSMenuItem(title: name)
+                menuItem.representedObject = url
+                popupButton.menu?.addItem(menuItem)
+            }
+
             return NSToolbarItem.init(view: popupButton, identifier: itemIdentifier)
         default:
             return nil
@@ -62,11 +67,11 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
     }
 
     private func makeRepoPopup() {
-        AppContext.packageStore.getRepoRecords()
+        AppContext.packageStore.repoIndexes()
             .subscribeOn(MainScheduler.instance)
             .observeOn(MainScheduler.instance)
-            .subscribe(onSuccess: { (records: [URL: RepoRecord]) in
-                self.records = records
+            .subscribe(onSuccess: { (repos: [LoadedRepository]) in
+                self.repos = repos
                 self.configureToolbar()
             }) { error in
                 print("Error: \(error)")
@@ -188,13 +193,12 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
 
     @objc func popupDoneDid() {
         print("WE DONE DID")
-        // TODO: do this less stupidly
-        guard let urlString = popupButton.selectedItem?.title else {
+        guard let url = popupButton.selectedItem?.representedObject as? URL else {
             // TODO: error or something
             return
         }
         do {
-            try AppContext.settings.write(key: .selectedRepository, value: URL(string: urlString)!)
+            try AppContext.settings.write(key: .selectedRepository, value: url)
         } catch {
             print("Error setting selected repo: \(error)")
         }
