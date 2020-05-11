@@ -10,8 +10,7 @@ struct RepositoryTableRowData {
 
 class SettingsViewController: DisposableViewController<SettingsView>, SettingsViewable, NSWindowDelegate {
     private(set) var tableDelegate: RepositoryTableDelegate! = nil
-//    private lazy var presenter = { SettingsPresenter(view: self) }()
-    
+
     var onAddRepoButtonTapped: Driver<Void> {
         return contentView.repoAddButton.rx.tap.asDriver()
     }

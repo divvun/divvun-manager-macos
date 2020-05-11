@@ -13,7 +13,6 @@
 		271249BD2040448B009EE80B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271249BC2040448B009EE80B /* SettingsView.swift */; };
 		271249BF20404495009EE80B /* SettingsViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271249BE20404494009EE80B /* SettingsViewable.swift */; };
 		271249C12040449E009EE80B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271249C02040449E009EE80B /* SettingsViewController.swift */; };
-		271249C3204044B0009EE80B /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271249C2204044B0009EE80B /* SettingsPresenter.swift */; };
 		276391A0203ADDC30096E10C /* InstallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2763919F203ADDC30096E10C /* InstallViewController.swift */; };
 		276391A4203AE2660096E10C /* CompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276391A3203AE2660096E10C /* CompletionViewController.swift */; };
 		276391A6203AECE30096E10C /* CompletionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276391A5203AECE30096E10C /* CompletionView.swift */; };
@@ -149,7 +148,6 @@
 		271249BC2040448B009EE80B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		271249BE20404494009EE80B /* SettingsViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewable.swift; sourceTree = "<group>"; };
 		271249C02040449E009EE80B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		271249C2204044B0009EE80B /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		2763919F203ADDC30096E10C /* InstallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallViewController.swift; sourceTree = "<group>"; };
 		276391A3203AE2660096E10C /* CompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionViewController.swift; sourceTree = "<group>"; };
 		276391A5203AECE30096E10C /* CompletionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionView.swift; sourceTree = "<group>"; };
@@ -280,7 +278,6 @@
 				271249BC2040448B009EE80B /* SettingsView.swift */,
 				271249BE20404494009EE80B /* SettingsViewable.swift */,
 				271249C02040449E009EE80B /* SettingsViewController.swift */,
-				271249C2204044B0009EE80B /* SettingsPresenter.swift */,
 				C6E755AC2463361B00620D6F /* InterfaceLanguage.swift */,
 			);
 			path = Settings;
@@ -710,7 +707,6 @@
 				C6B742DC204C14BC00C7877D /* SettingsKey.swift in Sources */,
 				276391AC203D7F620096E10C /* DownloadProgressView.swift in Sources */,
 				C6F4BC572029BC05002EE523 /* MainViewable.swift in Sources */,
-				271249C3204044B0009EE80B /* SettingsPresenter.swift in Sources */,
 				C612CFBA2448605700EFEA98 /* BTree.swift in Sources */,
 				C612CFAD2448605700EFEA98 /* BTreeIterator.swift in Sources */,
 				C6C3242C2382F8660043DD18 /* SelectedPackage.swift in Sources */,
