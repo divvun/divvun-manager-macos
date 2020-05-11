@@ -15,6 +15,10 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        print("INSTALL DEINIT")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -28,13 +32,15 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
     private func bindInstall() {
         AppContext
             .currentTransaction
-            .subscribe(onNext: { state in
+            .observeOn(MainScheduler.instance)
+            .subscribeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] state in
                 switch state {
                 case .inProgress(let progressState):
-                    self.updateUI(progressState: progressState)
+                    self?.updateUI(progressState: progressState)
                 case .error(let error):
                     // TODO: test this
-                    self.handle(error: error)
+                    self?.handle(error: error)
                     break
                 default:
                     break
