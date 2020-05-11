@@ -48,11 +48,13 @@ class WebBridgeService: NSObject, WKScriptMessageHandler {
         let reloadItem = URLQueryItem(name: "ts", value: unixEpoch)
         var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
         urlComponents?.queryItems = [reloadItem]
-        guard let url = urlComponents?.url else {
-            fatalError("Whack url")
+        guard let reloadUrl = urlComponents?.url else {
+            print("Problem making force-reload url for \(url)")
+            webView.load(URLRequest(url: url))
+            return
         }
 
-        webView.load(URLRequest(url: url))
+        webView.load(URLRequest(url: reloadUrl))
     }
 
     private func sendResponse(request: WebBridgeRequest, responseData: Data) {
