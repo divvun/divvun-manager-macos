@@ -41,27 +41,21 @@ class MainWindowController: WindowController<MainWindow> {
     
     override func windowDidLoad() {
         super.windowDidLoad()
-        
-        AppContext.currentTransaction
-            .asObservable()
-            .map({ tx -> Route in
-                switch tx {
-                case .notStarted:
-                    return .landing
-                case let .inProgress(progress):
-                    switch progress.state {
-                    case .installing:
-                        return .install
-                    case .downloading:
-                        return .download
-                    case .completed:
-                        return .complete
-                    }
-                case .error:
-                    return Route.error
+
+        Observable.combineLatest(router(), AppContext.settings.selectedRepository)
+            .observeOn(MainScheduler.instance)
+            .subscribeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] (tuple: (Route, URL?)) in
+                switch tuple.0 {
+                case .landing:
+                    self?.showLandingPage(url: tuple.1)
+                default:
+                    break
                 }
             })
-            .distinctUntilChanged()
+            .disposed(by: bag)
+
+        router()
             .observeOn(MainScheduler.instance)
             .subscribeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] route in
@@ -69,7 +63,7 @@ class MainWindowController: WindowController<MainWindow> {
                 
                 switch route {
                 case .landing:
-                    AppContext.windows.set(LandingViewController(), for: MainWindowController.self)
+                    // Handled above
                     return
                 case .detailed:
                     AppContext.windows.set(MainViewController(), for: MainWindowController.self)
@@ -89,5 +83,38 @@ class MainWindowController: WindowController<MainWindow> {
                 }
             })
             .disposed(by: bag)
+    }
+
+    private func router() -> Observable<Route> {
+        return AppContext.currentTransaction
+            .asObservable()
+            .observeOn(MainScheduler.instance)
+            .subscribeOn(MainScheduler.instance)
+            .map({ tx -> Route in
+                switch tx {
+                case .notStarted:
+                    return .landing
+                case let .inProgress(progress):
+                    switch progress.state {
+                    case .installing:
+                        return .install
+                    case .downloading:
+                        return .download
+                    case .completed:
+                        return .complete
+                    }
+                case .error:
+                    return Route.error
+                }
+            })
+        .distinctUntilChanged()
+    }
+
+    private func showLandingPage(url: URL?) {
+        if url != nil && url?.scheme == "divvun-installer" {
+            AppContext.windows.set(MainViewController(), for: MainWindowController.self)
+        } else {
+            AppContext.windows.set(LandingViewController(), for: MainWindowController.self)
+        }
     }
 }
