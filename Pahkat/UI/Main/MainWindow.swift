@@ -63,7 +63,7 @@ class MainWindowController: WindowController<MainWindow> {
                 
                 switch route {
                 case .landing:
-                    // Handled above
+                    AppContext.windows.set(LandingViewController(), for: MainWindowController.self)
                     return
                 case .detailed:
                     AppContext.windows.set(MainViewController(), for: MainWindowController.self)
