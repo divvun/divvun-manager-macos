@@ -72,7 +72,6 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
     }
 
     private func makeRepoPopup() {
-        popupButton.autoenablesItems = false // fixes bug where items are grayed out on first load
         AppContext.packageStore.repoIndexes()
             .subscribeOn(MainScheduler.instance)
             .observeOn(MainScheduler.instance)
