@@ -32,6 +32,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
             guard let repos = repos else {
                 return nil
             }
+            popupButton.removeAllItems()
             repos.forEach { (repo) in
                 let name = repo.index.nativeName
                 let url = repo.index.url
