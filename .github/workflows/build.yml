@@ -83,7 +83,7 @@ jobs:
       uses: divvun/actions/deploy@master
       with:
         payload: "${{ env.GITHUB_WORKSPACE }}divvun-installer/DivvunInstaller.pkg"
-        repository: "https://pahkat.uit.no/tools"
+        repository: "https://pahkat.uit.no/divvun-installer/"
         package: "divvun-installer"
         platform: "macos"
         version: ${{ env.DEPLOY_VERSION }}
