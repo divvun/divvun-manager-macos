@@ -33,12 +33,17 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
                 return nil
             }
             popupButton.removeAllItems()
+            let selectedRepoUrl: URL? = AppContext.settings.read(key: .selectedRepository)
             repos.forEach { (repo) in
                 let name = repo.index.nativeName
                 let url = repo.index.url
                 let menuItem = NSMenuItem(title: name)
                 menuItem.representedObject = url
                 popupButton.menu?.addItem(menuItem)
+
+                if let selectedUrl = selectedRepoUrl, url == selectedUrl {
+                    popupButton.select(menuItem)
+                }
             }
             popupButton.menu?.addItem(NSMenuItem.separator())
             // TODO: Localize

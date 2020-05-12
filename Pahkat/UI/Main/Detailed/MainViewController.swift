@@ -151,6 +151,8 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
             let showDetailedItem = NSMenuItem(title: "Show detailed view…")
             showDetailedItem.representedObject = URL(string: "divvun-installer:detailed")
             popupButton.menu?.addItem(showDetailedItem)
+            
+            popupButton.select(showDetailedItem)
 
             return NSToolbarItem.init(view: popupButton, identifier: itemIdentifier)
         default:
