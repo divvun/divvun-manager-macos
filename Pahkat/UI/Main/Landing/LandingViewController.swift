@@ -54,10 +54,6 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         configureToolbar()
     }
 
-    @objc func onRepoSelected(_ sender: NSObject) {
-
-    }
-
     private func makeRepoPopup() {
         Single.zip(AppContext.packageStore.repoIndexes(), AppContext.packageStore.getRepoRecords())
             .subscribeOn(MainScheduler.instance)
@@ -68,6 +64,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
                 self.repos = repos.filter { records[$0.index.url] != nil }
 
                 let popupButton = self.contentView.popupButton
+                let selectedRepoUrl: URL? = AppContext.settings.read(key: .selectedRepository)
 
                 popupButton.removeAllItems()
                 self.repos.forEach { (repo) in
@@ -76,6 +73,10 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
                     let menuItem = NSMenuItem(title: name)
                     menuItem.representedObject = url
                     popupButton.menu?.addItem(menuItem)
+
+                    if let selectedUrl = selectedRepoUrl, url == selectedUrl {
+                           popupButton.select(menuItem)
+                    }
                 }
 
                 popupButton.menu?.addItem(NSMenuItem.separator())
@@ -89,7 +90,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
                 popupButton.target = self
             }) { error in
                 print("Error: \(error)")
-            }.disposed(by: self.bag)
+        }.disposed(by: self.bag)
     }
 
     private func showNoSelection() {
@@ -205,7 +206,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         window.toolbar!.setItems(toolbarItems)
     }
 
-    @objc func popupItemSelected(_ sender: NSMenuItem) {
+    @objc func popupItemSelected() {
         guard let url = contentView.popupButton.selectedItem?.representedObject as? URL else {
             // TODO: error or something
             return

@@ -3,8 +3,7 @@ import RxSwift
 import RxCocoa
 
 class MainViewController: DisposableViewController<MainView>, MainViewable, NSToolbarDelegate {
-    private var repos: [LoadedRepository]?
-    private var popupButton = NSPopUpButton(title: "Select Repository", target: self, action: #selector(popupItemSelected))
+    private var repos: [LoadedRepository] = []
 
     required init() {
         print("MAIN INIT")
@@ -135,26 +134,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
             contentView.primaryButton.sizeToFit()
             return NSToolbarItem(view: contentView.primaryButton, identifier: itemIdentifier)
         case "repo-selector":
-            guard let repos = repos else {
-                return nil
-            }
-            popupButton.removeAllItems()
-            repos.forEach { (repo) in
-                let name = repo.index.nativeName
-                let url = repo.index.url
-                let menuItem = NSMenuItem(title: name)
-                menuItem.representedObject = url
-                popupButton.menu?.addItem(menuItem)
-            }
-            popupButton.menu?.addItem(NSMenuItem.separator())
-            // TODO: Localize
-            let showDetailedItem = NSMenuItem(title: "Show detailed view…")
-            showDetailedItem.representedObject = URL(string: "divvun-installer:detailed")
-            popupButton.menu?.addItem(showDetailedItem)
-            
-            popupButton.select(showDetailedItem)
-
-            return NSToolbarItem.init(view: popupButton, identifier: itemIdentifier)
+            return NSToolbarItem.init(view: contentView.popupButton, identifier: itemIdentifier)
         default:
             return nil
         }
@@ -236,12 +216,35 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     }
 
     private func makeRepoPopup() {
-        AppContext.packageStore.repoIndexes()
+        Single.zip(AppContext.packageStore.repoIndexes(), AppContext.packageStore.getRepoRecords())
             .subscribeOn(MainScheduler.instance)
             .observeOn(MainScheduler.instance)
-            .subscribe(onSuccess: { [weak self] (repos: [LoadedRepository]) in
-                self?.repos = repos
-                self?.configureToolbar()
+            .subscribe(onSuccess: { [weak self] (repos, records) in
+                guard let `self` = self else { return }
+
+                self.repos = repos.filter { records[$0.index.url] != nil }
+
+                let popupButton = self.contentView.popupButton
+
+                popupButton.removeAllItems()
+                self.repos.forEach { (repo) in
+                    let name = repo.index.nativeName
+                    let url = repo.index.url
+                    let menuItem = NSMenuItem(title: name)
+                    menuItem.representedObject = url
+                    popupButton.menu?.addItem(menuItem)
+                }
+
+                popupButton.menu?.addItem(NSMenuItem.separator())
+
+                // TODO: Localize
+                let showDetailedItem = NSMenuItem(title: "Show detailed view…")
+                showDetailedItem.representedObject = URL(string: "divvun-installer:detailed")
+                popupButton.menu?.addItem(showDetailedItem)
+                popupButton.select(showDetailedItem)
+
+                popupButton.action = #selector(self.popupItemSelected)
+                popupButton.target = self
             }) { error in
                 print("Error: \(error)")
         }.disposed(by: self.bag)
@@ -260,7 +263,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     }
 
     @objc func popupItemSelected() {
-        guard let url = popupButton.selectedItem?.representedObject as? URL else {
+        guard let url = contentView.popupButton.selectedItem?.representedObject as? URL else {
             // TODO: error or something
             return
         }
