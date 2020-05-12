@@ -3,6 +3,9 @@ import RxSwift
 import RxCocoa
 
 class MainViewController: DisposableViewController<MainView>, MainViewable, NSToolbarDelegate {
+    private var repos: [LoadedRepository]?
+    private var popupButton = NSPopUpButton(title: "Select Repository", target: self, action: #selector(popupItemSelected))
+
     required init() {
         print("MAIN INIT")
         super.init()
@@ -131,14 +134,30 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         case "button":
             contentView.primaryButton.sizeToFit()
             return NSToolbarItem(view: contentView.primaryButton, identifier: itemIdentifier)
-        case "title":
-            contentView.primaryLabel.sizeToFit()
-            return NSToolbarItem(view: contentView.primaryLabel, identifier: itemIdentifier)
+        case "repo-selector":
+            guard let repos = repos else {
+                return nil
+            }
+            popupButton.removeAllItems()
+            repos.forEach { (repo) in
+                let name = repo.index.nativeName
+                let url = repo.index.url
+                let menuItem = NSMenuItem(title: name)
+                menuItem.representedObject = url
+                popupButton.menu?.addItem(menuItem)
+            }
+            popupButton.menu?.addItem(NSMenuItem.separator())
+            // TODO: Localize
+            let showDetailedItem = NSMenuItem(title: "Show detailed view…")
+            showDetailedItem.representedObject = URL(string: "divvun-installer:")
+            popupButton.menu?.addItem(showDetailedItem)
+
+            return NSToolbarItem.init(view: popupButton, identifier: itemIdentifier)
         default:
             return nil
         }
     }
-    
+
     private func row<T>(for targetItem: T) -> Int where T: Equatable {
         var i = 0
         
@@ -177,7 +196,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         let toolbarItems = ["settings",
                             NSToolbarItem.Identifier.flexibleSpace.rawValue,
                             NSToolbarItem.Identifier.flexibleSpace.rawValue,
-                            "title",
+                            "repo-selector",
                             NSToolbarItem.Identifier.flexibleSpace.rawValue,
                             NSToolbarItem.Identifier.flexibleSpace.rawValue,
                             "button"]
@@ -205,11 +224,36 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         updatePrimaryButton(isEnabled: false, label: Strings.noPackagesSelected)
         
         presenter.start().disposed(by: bag)
+        makeRepoPopup()
     }
     
     override func viewWillLayout() {
         super.viewWillLayout()
         contentView.outlineView.sizeLastColumnToFit()
+    }
+
+    private func makeRepoPopup() {
+        AppContext.packageStore.repoIndexes()
+            .subscribeOn(MainScheduler.instance)
+            .observeOn(MainScheduler.instance)
+            .subscribe(onSuccess: { [weak self] (repos: [LoadedRepository]) in
+                self?.repos = repos
+                self?.configureToolbar()
+            }) { error in
+                print("Error: \(error)")
+        }.disposed(by: self.bag)
+    }
+
+    @objc func popupItemSelected() {
+        guard let url = popupButton.selectedItem?.representedObject as? URL else {
+            // TODO: error or something
+            return
+        }
+        do {
+            try AppContext.settings.write(key: .selectedRepository, value: url)
+        } catch {
+            print("Error setting selected repo: \(error)")
+        }
     }
 }
 

@@ -103,7 +103,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         bindSettingsButton()
         bindOpenSettingsButton()
         bindPrimaryButton()
-        bindEmptyState()
+        bindRepositoriesChanged()
         makeRepoPopup()
     }
 
@@ -144,7 +144,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         }).disposed(by: bag)
     }
 
-    private func bindEmptyState() {
+    private func bindRepositoriesChanged() {
         AppContext.packageStore.notifications()
             .subscribeOn(MainScheduler.instance)
             .observeOn(MainScheduler.instance)
