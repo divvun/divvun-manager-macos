@@ -144,6 +144,17 @@ class MainPresenter {
 
             }, onError: { [weak self] in self?.view.handle(error: $0) })
     }
+
+    private func bindReposChanged() -> Disposable {
+        return AppContext.packageStore.notifications()
+            .subscribeOn(MainScheduler.instance)
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (notification) in
+                if case PahkatNotification.repositoriesChanged = notification {
+                    self.bindUpdatePackageList().disposed(by: self.bag)
+                }
+            })
+    }
     
     private func updatePrimaryButton() {
         let packageCount = String(self.selectedPackages.values.count)
@@ -306,6 +317,7 @@ class MainPresenter {
             bindPackageToggleEvent(),
             bindPrimaryButton(),
             bindContextMenuEvents(),
+            bindReposChanged()
         ])
     }
 }
