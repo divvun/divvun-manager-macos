@@ -267,8 +267,6 @@ class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSou
 
             let ch = strings[url]?.channels[config.channel ?? ""] ?? config.channel
 
-
-
             guard let index = cell.menu?.items.firstIndex(where: {
                 $0.representedObject as? String == ch
             }) else {

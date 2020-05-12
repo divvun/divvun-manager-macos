@@ -4,8 +4,7 @@ import RxSwift
 import RxCocoa
 
 class LandingViewController: DisposableViewController<LandingView>, NSToolbarDelegate, WebBridgeViewable {
-    private var repos: [LoadedRepository]?
-    private var popupButton = NSPopUpButton(title: "Select Repository", target: self, action: #selector(popupItemSelected))
+    private var repos: [LoadedRepository] = []
 
     private lazy var bridge = { WebBridgeService(webView: self.contentView.webView, view: self) }()
     
@@ -29,29 +28,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
             contentView.primaryButton.sizeToFit()
             return NSToolbarItem(view: contentView.primaryButton, identifier: itemIdentifier)
         case "repo-selector":
-            guard let repos = repos else {
-                return nil
-            }
-            popupButton.removeAllItems()
-            let selectedRepoUrl: URL? = AppContext.settings.read(key: .selectedRepository)
-            repos.forEach { (repo) in
-                let name = repo.index.nativeName
-                let url = repo.index.url
-                let menuItem = NSMenuItem(title: name)
-                menuItem.representedObject = url
-                popupButton.menu?.addItem(menuItem)
-
-                if let selectedUrl = selectedRepoUrl, url == selectedUrl {
-                    popupButton.select(menuItem)
-                }
-            }
-            popupButton.menu?.addItem(NSMenuItem.separator())
-            // TODO: Localize
-            let showDetailedItem = NSMenuItem(title: "Show detailed view…")
-            showDetailedItem.representedObject = URL(string: "divvun-installer:")
-            popupButton.menu?.addItem(showDetailedItem)
-
-            return NSToolbarItem.init(view: popupButton, identifier: itemIdentifier)
+            return NSToolbarItem.init(view: contentView.popupButton, identifier: itemIdentifier)
         default:
             return nil
         }
@@ -77,16 +54,42 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         configureToolbar()
     }
 
+    @objc func onRepoSelected(_ sender: NSObject) {
+
+    }
+
     private func makeRepoPopup() {
-        AppContext.packageStore.repoIndexes()
+        Single.zip(AppContext.packageStore.repoIndexes(), AppContext.packageStore.getRepoRecords())
             .subscribeOn(MainScheduler.instance)
             .observeOn(MainScheduler.instance)
-            .subscribe(onSuccess: { [weak self] (repos: [LoadedRepository]) in
-                self?.repos = repos
-                self?.configureToolbar()
+            .subscribe(onSuccess: { [weak self] (repos, records) in
+                guard let `self` = self else { return }
+
+                self.repos = repos.filter { records[$0.index.url] != nil }
+
+                let popupButton = self.contentView.popupButton
+
+                popupButton.removeAllItems()
+                self.repos.forEach { (repo) in
+                    let name = repo.index.nativeName
+                    let url = repo.index.url
+                    let menuItem = NSMenuItem(title: name)
+                    menuItem.representedObject = url
+                    popupButton.menu?.addItem(menuItem)
+                }
+
+                popupButton.menu?.addItem(NSMenuItem.separator())
+
+                // TODO: Localize
+                let showDetailedItem = NSMenuItem(title: "Show detailed view…")
+                showDetailedItem.representedObject = URL(string: "divvun-installer:detailed")
+                popupButton.menu?.addItem(showDetailedItem)
+
+                popupButton.action = #selector(self.popupItemSelected)
+                popupButton.target = self
             }) { error in
                 print("Error: \(error)")
-        }.disposed(by: self.bag)
+            }.disposed(by: self.bag)
     }
 
     private func showNoSelection() {
@@ -119,7 +122,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
             .subscribe(onNext: { [weak self] repo in
                 if let repo = repo {
                     if let url = repo.index.landingURL {
-                        self?.bridge.start(url: URL(string: "http://localhost:5000")!, repo: repo)
+                        self?.bridge.start(url: url, repo: repo)
                     } else {
                         // Show a view saying that this repo has no landing page, and to go to detailed view.
                         self?.showNoLandingPage()
@@ -153,10 +156,10 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         AppContext.packageStore.notifications()
             .subscribeOn(MainScheduler.instance)
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { (notification) in
+            .subscribe(onNext: { [weak self] (notification) in
                 if case PahkatNotification.repositoriesChanged = notification {
-                    self.showEmptyStateIfNeeded()
-                    self.makeRepoPopup()
+                    self?.showEmptyStateIfNeeded()
+                    self?.makeRepoPopup()
                 }
             }).disposed(by: bag)
     }
@@ -202,8 +205,8 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         window.toolbar!.setItems(toolbarItems)
     }
 
-    @objc func popupItemSelected() {
-        guard let url = popupButton.selectedItem?.representedObject as? URL else {
+    @objc func popupItemSelected(_ sender: NSMenuItem) {
+        guard let url = contentView.popupButton.selectedItem?.representedObject as? URL else {
             // TODO: error or something
             return
         }

@@ -69,88 +69,88 @@ struct MessageMap {
     let tags: [String: String]
 }
 
-class MockPahkatClient: PahkatClientType {
-    var records = [URL: RepoRecord]()
-
-    func notifications() -> Observable<PahkatNotification> {
-        return Observable.just(PahkatNotification.repositoriesChanged)
-    }
-
-    func strings(languageTag: String) -> Single<[URL : MessageMap]> {
-        return Single.just([:])
-    }
-
-    func setRepo(url: URL, record: RepoRecord) -> Single<[URL : RepoRecord]> {
-        records[url] = record
-        return Single.just(records)
-    }
-
-    func getRepoRecords() -> Single<[URL : RepoRecord]> {
-        return Single.just(records)
-    }
-
-    func removeRepo(url: URL) -> Single<[URL : RepoRecord]> {
-        records.removeValue(forKey: url)
-        return Single.just(records)
-    }
-
-    func repoIndexes() -> Single<[LoadedRepository]> {
-        return Single.just([
-            LoadedRepository.mock(id: "1"),
-            LoadedRepository.mock(id: "2"),
-            LoadedRepository.mock(id: "3")
-        ])
-    }
-
-    func status(packageKey: PackageKey) -> Single<(PackageStatus, SystemTarget)> {
-        return Single.just((.notInstalled, .system))
-    }
-    
-    func processTransaction(actions: [PackageAction]) -> (() -> Completable, Observable<TransactionEvent>) {
-        let completable = { Completable.empty() }
-        
-        var fakeEvents = [TransactionEvent]()
-
-        let resolvedActions = actions.map {
-            ResolvedAction(action: $0, name: ["en": "Supreme keyboard"], version: "2.0")
-        }
-        
-        fakeEvents.append(TransactionEvent.transactionStarted(actions: resolvedActions, isRebootRequired: false))
-        
-        resolvedActions.forEach { action in
-            if action.actionType == .install {
-                fakeEvents.append(.downloadProgress(packageKey: action.key, current: 0, total: 100))
-                fakeEvents.append(.downloadProgress(packageKey: action.key, current: 33, total: 100))
-                fakeEvents.append(.downloadProgress(packageKey: action.key, current: 66, total: 100))
-                fakeEvents.append(.downloadProgress(packageKey: action.key, current: 100, total: 100))
-            }
-        }
-        
-        resolvedActions.forEach { action in
-            if action.actionType == .install {
-                fakeEvents.append(.downloadComplete(packageKey: action.key))
-            }
-        }
-        
-        resolvedActions.forEach { action in
-            if action.actionType == .install {
-                fakeEvents.append(.installStarted(packageKey: action.key))
-            } else {
-                fakeEvents.append(.uninstallStarted(packageKey: action.key))
-            }
-        }
-
-        fakeEvents.append(.transactionComplete)
-        
-        let observable = Observable.from(fakeEvents)
-        
-        return (completable, observable)
-    }
-
-    func resolvePackageQuery(query: PackageQuery) -> Single<Data> {
-        return Single.just("[]".data(using: .utf8)!)
-    }
-}
+//class MockPahkatClient: PahkatClientType {
+//    var records = [URL: RepoRecord]()
+//
+//    func notifications() -> Observable<PahkatNotification> {
+//        return Observable.just(PahkatNotification.repositoriesChanged)
+//    }
+//
+//    func strings(languageTag: String) -> Single<[URL : MessageMap]> {
+//        return Single.just([:])
+//    }
+//
+//    func setRepo(url: URL, record: RepoRecord) -> Single<[URL : RepoRecord]> {
+//        records[url] = record
+//        return Single.just(records)
+//    }
+//
+//    func getRepoRecords() -> Single<[URL : RepoRecord]> {
+//        return Single.just(records)
+//    }
+//
+//    func removeRepo(url: URL) -> Single<[URL : RepoRecord]> {
+//        records.removeValue(forKey: url)
+//        return Single.just(records)
+//    }
+//
+//    func repoIndexes() -> Single<[LoadedRepository]> {
+//        return Single.just([
+//            LoadedRepository.mock(id: "1"),
+//            LoadedRepository.mock(id: "2"),
+//            LoadedRepository.mock(id: "3")
+//        ])
+//    }
+//
+//    func status(packageKey: PackageKey) -> Single<(PackageStatus, SystemTarget)> {
+//        return Single.just((.notInstalled, .system))
+//    }
+//
+//    func processTransaction(actions: [PackageAction]) -> (() -> Completable, Observable<TransactionEvent>) {
+//        let completable = { Completable.empty() }
+//
+//        var fakeEvents = [TransactionEvent]()
+//
+//        let resolvedActions = actions.map {
+//            ResolvedAction(action: $0, name: ["en": "Supreme keyboard"], version: "2.0")
+//        }
+//
+//        fakeEvents.append(TransactionEvent.transactionStarted(actions: resolvedActions, isRebootRequired: false))
+//
+//        resolvedActions.forEach { action in
+//            if action.actionType == .install {
+//                fakeEvents.append(.downloadProgress(packageKey: action.key, current: 0, total: 100))
+//                fakeEvents.append(.downloadProgress(packageKey: action.key, current: 33, total: 100))
+//                fakeEvents.append(.downloadProgress(packageKey: action.key, current: 66, total: 100))
+//                fakeEvents.append(.downloadProgress(packageKey: action.key, current: 100, total: 100))
+//            }
+//        }
+//
+//        resolvedActions.forEach { action in
+//            if action.actionType == .install {
+//                fakeEvents.append(.downloadComplete(packageKey: action.key))
+//            }
+//        }
+//
+//        resolvedActions.forEach { action in
+//            if action.actionType == .install {
+//                fakeEvents.append(.installStarted(packageKey: action.key))
+//            } else {
+//                fakeEvents.append(.uninstallStarted(packageKey: action.key))
+//            }
+//        }
+//
+//        fakeEvents.append(.transactionComplete)
+//
+//        let observable = Observable.from(fakeEvents)
+//
+//        return (completable, observable)
+//    }
+//
+//    func resolvePackageQuery(query: PackageQuery) -> Single<Data> {
+//        return Single.just("[]".data(using: .utf8)!)
+//    }
+//}
 
 class PahkatClient: PahkatClientType {
     private let path: URL
@@ -210,11 +210,13 @@ class PahkatClient: PahkatClientType {
         
         return Single<(PackageStatus, SystemTarget)>.create { emitter in
             res.response.whenSuccess { value in
+                print("Success: \(packageKey) \(value.value)")
                 let status = PackageStatus(rawValue: value.value) ?? PackageStatus.errorUnknownStatus
                 emitter(.success((status, target)))
             }
             
             res.response.whenFailure {
+                print("Error: \(packageKey) \($0)")
                 emitter(.error($0))
             }
             

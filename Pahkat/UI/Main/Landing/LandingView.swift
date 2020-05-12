@@ -8,6 +8,8 @@ class LandingView: View {
     @IBOutlet weak var messageLabel: NSTextField!
     @IBOutlet weak var openSettingsButton: NSButton!
 
+    var popupButton = NSPopUpButton(title: "Select Repository", target: nil, action: nil)
+
     var webView: WKWebView!
 
     enum State {
@@ -22,6 +24,7 @@ class LandingView: View {
         self.autoresizesSubviews = true
         webView.autoresizingMask = [.height, .width]
         self.addSubview(webView)
+        popupButton.autoenablesItems = true
         
         primaryLabel.stringValue = Strings.appName
         // TODO: localize
