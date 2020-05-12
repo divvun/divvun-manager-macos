@@ -1,3 +1,4 @@
+import Cocoa
 import Foundation
 import RxSwift
 import RxCocoa
@@ -92,7 +93,7 @@ class MainPresenter {
     private unowned let view: MainViewable
     private var data: MainOutlineMap = Map()
     private var selectedPackages = [PackageKey: SelectedPackage]()
-    
+
     init(view: MainViewable) {
         self.view = view
     }
@@ -143,6 +144,18 @@ class MainPresenter {
             }, onError: { [weak self] in self?.view.handle(error: $0) })
     }
 
+    private func refreshRepos() -> Disposable {
+        return Single.zip(AppContext.packageStore.repoIndexes(), AppContext.packageStore.getRepoRecords())
+            .subscribeOn(MainScheduler.instance)
+            .observeOn(MainScheduler.instance)
+            .subscribe(onSuccess: { [weak self] (repos, records) in
+                guard let `self` = self else { return }
+                self.view.repositoriesChanged(repos: repos, records: records)
+            }) { error in
+                print("Error: \(error)")
+        }
+    }
+
     private func bindReposChanged() -> Disposable {
         return AppContext.packageStore.notifications()
             .subscribeOn(MainScheduler.instance)
@@ -150,6 +163,7 @@ class MainPresenter {
             .subscribe(onNext: { (notification) in
                 if case PahkatNotification.repositoriesChanged = notification {
                     self.bindUpdatePackageList().disposed(by: self.bag)
+                    self.refreshRepos().disposed(by: self.bag)
                 }
             })
     }
@@ -320,7 +334,8 @@ class MainPresenter {
             bindPackageToggleEvent(),
             bindPrimaryButton(),
             bindContextMenuEvents(),
-            bindReposChanged()
+            bindReposChanged(),
+            refreshRepos()
         ])
     }
 }

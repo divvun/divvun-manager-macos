@@ -3,8 +3,6 @@ import RxSwift
 import RxCocoa
 
 class MainViewController: DisposableViewController<MainView>, MainViewable, NSToolbarDelegate {
-    private var repos: [LoadedRepository] = []
-
     required init() {
         print("MAIN INIT")
         super.init()
@@ -71,6 +69,32 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     
     func showSettings() {
         AppContext.windows.show(SettingsWindowController.self)
+    }
+
+    func repositoriesChanged(repos: [LoadedRepository], records: [URL : RepoRecord]) {
+        let repos = repos.filter { records[$0.index.url] != nil }
+
+        let popupButton = contentView.popupButton
+
+        popupButton.removeAllItems()
+        repos.forEach { (repo) in
+            let name = repo.index.nativeName
+            let url = repo.index.url
+            let menuItem = NSMenuItem(title: name)
+            menuItem.representedObject = url
+            popupButton.menu?.addItem(menuItem)
+        }
+
+        popupButton.menu?.addItem(NSMenuItem.separator())
+
+        // TODO: Localize
+        let showDetailedItem = NSMenuItem(title: "Show detailed view…")
+        showDetailedItem.representedObject = URL(string: "divvun-installer:detailed")
+        popupButton.menu?.addItem(showDetailedItem)
+        popupButton.select(showDetailedItem)
+
+        popupButton.action = #selector(self.popupItemSelected)
+        popupButton.target = self
     }
     
     override func keyDown(with event: NSEvent) {
@@ -206,60 +230,11 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         updatePrimaryButton(isEnabled: false, label: Strings.noPackagesSelected)
         
         presenter.start().disposed(by: bag)
-        makeRepoPopup()
-        bindReposChanged()
     }
     
     override func viewWillLayout() {
         super.viewWillLayout()
         contentView.outlineView.sizeLastColumnToFit()
-    }
-
-    private func makeRepoPopup() {
-        Single.zip(AppContext.packageStore.repoIndexes(), AppContext.packageStore.getRepoRecords())
-            .subscribeOn(MainScheduler.instance)
-            .observeOn(MainScheduler.instance)
-            .subscribe(onSuccess: { [weak self] (repos, records) in
-                guard let `self` = self else { return }
-
-                self.repos = repos.filter { records[$0.index.url] != nil }
-
-                let popupButton = self.contentView.popupButton
-
-                popupButton.removeAllItems()
-                self.repos.forEach { (repo) in
-                    let name = repo.index.nativeName
-                    let url = repo.index.url
-                    let menuItem = NSMenuItem(title: name)
-                    menuItem.representedObject = url
-                    popupButton.menu?.addItem(menuItem)
-                }
-
-                popupButton.menu?.addItem(NSMenuItem.separator())
-
-                // TODO: Localize
-                let showDetailedItem = NSMenuItem(title: "Show detailed view…")
-                showDetailedItem.representedObject = URL(string: "divvun-installer:detailed")
-                popupButton.menu?.addItem(showDetailedItem)
-                popupButton.select(showDetailedItem)
-
-                popupButton.action = #selector(self.popupItemSelected)
-                popupButton.target = self
-            }) { error in
-                print("Error: \(error)")
-        }.disposed(by: self.bag)
-    }
-
-    private func bindReposChanged() {
-        // TODO: it'd be nice to combine this with the presenter's implementation to reduce duplication
-        AppContext.packageStore.notifications()
-            .subscribeOn(MainScheduler.instance)
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { (notification) in
-                if case PahkatNotification.repositoriesChanged = notification {
-                    self.makeRepoPopup()
-                }
-            }).disposed(by: self.bag)
     }
 
     @objc func popupItemSelected() {

@@ -14,4 +14,5 @@ protocol MainViewable: class {
     func setRepositories(data: MainOutlineMap)
     func refreshRepositories()
     func showSettings()
+    func repositoriesChanged(repos: [LoadedRepository], records: [URL : RepoRecord])
 }
