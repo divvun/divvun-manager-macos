@@ -76,9 +76,9 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         AppContext.packageStore.repoIndexes()
             .subscribeOn(MainScheduler.instance)
             .observeOn(MainScheduler.instance)
-            .subscribe(onSuccess: { (repos: [LoadedRepository]) in
-                self.repos = repos
-                self.configureToolbar()
+            .subscribe(onSuccess: { [weak self] (repos: [LoadedRepository]) in
+                self?.repos = repos
+                self?.configureToolbar()
             }) { error in
                 print("Error: \(error)")
         }.disposed(by: self.bag)
