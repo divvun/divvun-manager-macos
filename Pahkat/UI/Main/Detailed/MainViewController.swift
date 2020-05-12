@@ -225,6 +225,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         
         presenter.start().disposed(by: bag)
         makeRepoPopup()
+        bindReposChanged()
     }
     
     override func viewWillLayout() {
@@ -242,6 +243,18 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
             }) { error in
                 print("Error: \(error)")
         }.disposed(by: self.bag)
+    }
+
+    private func bindReposChanged() {
+        // TODO: it'd be nice to combine this with the presenter's implementation to reduce duplication
+        AppContext.packageStore.notifications()
+            .subscribeOn(MainScheduler.instance)
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (notification) in
+                if case PahkatNotification.repositoriesChanged = notification {
+                    self.makeRepoPopup()
+                }
+            }).disposed(by: self.bag)
     }
 
     @objc func popupItemSelected() {
