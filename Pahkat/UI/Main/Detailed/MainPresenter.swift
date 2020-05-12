@@ -7,92 +7,84 @@ import RxBlocking
 typealias PackageOutlineMap = Map<OutlineGroup, SortedSet<OutlinePackage>>
 typealias MainOutlineMap = Map<OutlineRepository, PackageOutlineMap>
 
-fileprivate func categoryFilter(outlineRepo: OutlineRepository) -> PackageOutlineMap {
-    // FIXME: make this classy
-    var data = PackageOutlineMap()
-    let repo = outlineRepo.repo
-
-    repo.descriptors.values.forEach { (descriptor: Descriptor) in
-        guard let release = descriptor.release.first else { return }
-        guard let target = release.macosTarget else {
-            // this package doesn't have a macos target
-            return
+func sortByLanguage(outlineRepo: OutlineRepository) -> Single<PackageOutlineMap> {
+    return sortByTagPrefix(outlineRepo: outlineRepo, prefix: "lang:", mutator: {
+        if let tag = ISO639.get(tag: $0) {
+            return tag.autonymOrName
         }
 
-        let categoryId = descriptor.tags.first(where: { $0.starts(with: "cat:") }) ?? "cat:unknown"
-        let category = categoryId // TODO: make native, human readable
-        let group = OutlineGroup(id: categoryId, value: category, repo: outlineRepo)
-        let packageKey = repo.packageKey(for: descriptor)
-
-        let status: (PackageStatus, SystemTarget)
-        do {
-            status = try AppContext.packageStore.status(packageKey: packageKey).toBlocking(timeout: 1).single()
-        } catch {
-            print("Error getting package status")
-            status = (PackageStatus.errorUnknownStatus, SystemTarget.system)
-        }
-
-        if !data.keys.contains(group) {
-            data[group] = []
-        }
-
-        let outlinePackage = OutlinePackage(package: descriptor,
-                                            release: release,
-                                            target: target,
-                                            status: status,
-                                            group: group,
-                                            repo: outlineRepo,
-                                            selection: nil)
-        data[group]!.insert(outlinePackage)
-    }
-
-    return data
+        return $0
+    })
 }
 
-fileprivate func languageFilter(outlineRepo: OutlineRepository) -> PackageOutlineMap {
-    var data = PackageOutlineMap()
+func sortByCategory(outlineRepo: OutlineRepository) -> Single<PackageOutlineMap> {
+    let strings = AppContext.packageStore.strings(languageTag: "en")
+
+    return strings.flatMap { s -> Single<PackageOutlineMap> in
+        return sortByTagPrefix(outlineRepo: outlineRepo, prefix: "cat:", mutator: { x in
+            guard let str = s[outlineRepo.repo.index.url] else { return x }
+            guard let t = str.tags[x] else { return x }
+            return t
+        })
+    }
+}
+
+func sortByTagPrefix(outlineRepo: OutlineRepository, prefix: String, mutator: @escaping (String) -> String) -> Single<PackageOutlineMap> {
     let repo = outlineRepo.repo
 
-    repo.descriptors.values.forEach { descriptor in
-        guard let release = descriptor.release.first else { return }
-        guard let target = release.macosTarget else {
+    let filteredDescriptors = repo.descriptors.values.filter { descriptor in
+        guard let release = descriptor.release.first else { return false }
+        guard release.macosTarget != nil else {
             // this package doesn't have a macos target
-            return
+            return false
         }
-        
-        var languages = descriptor.tags
-            .filter { $0.starts(with: "lang:") }
-            .map { String($0.split(separator: ":")[1]) }
-        
-        if languages.isEmpty {
-            languages.append("zxx")
-        }
-
-        languages.forEach { language in
-            let value: String
-            if language == "zxx" {
-                value = "—"
-            } else {
-                value = ISO639.get(tag: language)?.autonymOrName ?? language
-            }
-
-            let key = OutlineGroup(id: language, value: value, repo: outlineRepo)
-            if !data.keys.contains(key) {
-                data[key] = []
-            }
-
-            let outlinePackage = OutlinePackage(package: descriptor,
-                                                release: release,
-                                                target: target,
-                                                status: (PackageStatus.notInstalled, SystemTarget.system), // TODO: get this from reality
-                                                group: key,
-                                                repo: outlineRepo,
-                                                selection: nil)
-            data[key]!.insert(outlinePackage)
-        }
+        return true
     }
 
-    return data
+    let statuses = Observable.from(filteredDescriptors.map { repo.packageKey(for: $0) })
+        .flatMap { key in AppContext.packageStore.status(packageKey: key).map { (key.id, $0) } }
+        .toArray()
+        .map {
+            $0.reduce(into: [String: (PackageStatus, SystemTarget)]()) { (acc, cur) in
+                acc[cur.0] = cur.1
+            }
+        }
+
+    return statuses.map { statuses -> PackageOutlineMap in
+        var data = Map<OutlineGroup, SortedSet<OutlinePackage>>()
+
+        for (key, status) in statuses {
+            guard let descriptor = repo.descriptors[key] else { continue }
+            let tags = descriptor.tags.filter { $0.starts(with: prefix) }
+
+            if tags.isEmpty {
+                continue
+            }
+
+            for tag in tags {
+                let group = OutlineGroup(id: tag, value: mutator(tag), repo: outlineRepo)
+
+                if !data.keys.contains(group) {
+                    data[group] = []
+                }
+
+                guard let release = descriptor.release.first else { continue }
+                guard let target = release.macosTarget else { continue }
+
+                let outlinePackage = OutlinePackage(package: descriptor,
+                                                    release: release,
+                                                    target: target,
+                                                    status: status,
+                                                    group: group,
+                                                    repo: outlineRepo,
+                                                    selection: nil)
+                data[group]!.insert(outlinePackage)
+            }
+
+        }
+
+        return data
+    }
 }
 
 class MainPresenter {
@@ -105,40 +97,46 @@ class MainPresenter {
         self.view = view
     }
     
-    private func updateFilters(key: OutlineRepository) {
+    private func updateFilters(key: OutlineRepository) -> Completable {
         switch key.filter {
         case .category:
-            data[key] = categoryFilter(outlineRepo: key)
+            return sortByCategory(outlineRepo: key).map { [weak self] value in
+                self?.data[key] = value
+            }.asCompletable()
         case .language:
-            data[key] = languageFilter(outlineRepo: key)
+            return sortByLanguage(outlineRepo: key).map { [weak self] value in
+                self?.data[key] = value
+            }.asCompletable()
         }
     }
     
-    private func updateData(with repositories: [LoadedRepository]) {
-        data = MainOutlineMap()
-        
-        repositories.forEach { repo in
-            let filter = OutlineFilter.language // TODO: get this from the repo?
-            let key = OutlineRepository(filter: filter, repo: repo)
-            self.updateFilters(key: key)
-        }
+    private func updateData(with repositories: [LoadedRepository]) -> Completable {
+        self.data = MainOutlineMap()
+
+        return Observable.from(repositories)
+            .observeOn(MainScheduler.instance)
+            .subscribeOn(MainScheduler.instance)
+            .flatMap { (repo: LoadedRepository) -> Completable in
+                let filter = OutlineFilter.language
+                let outlineRepository = OutlineRepository(filter: filter, repo: repo)
+                return self.updateFilters(key: outlineRepository)
+            }.asCompletable()
+//            .subscribe(onError: { print("Error: \($0)") }).disposed(by: bag)
     }
     
     private func bindUpdatePackageList() -> Disposable {
-//        notificationSubject
-//            .filter { $0 == "new repo shit bro" } // Observable<String>
-//            .map { _ in // Observable<String> -> Single<[LoadedRepository]>
-//                AppContext.packageStore.repoIndexes() // Observable<Single<[LoadedRepository]>>
-//            }
-//            .switchLatest() // Observable<T<[LoadedRepository]>> -> T -> Observable<[LoadedRepository]>
         AppContext.packageStore.repoIndexes()
             .asObservable()
             .distinctUntilChanged({ (a, b) in a == b }) //Observable<[LoadedRepository]>
             .observeOn(MainScheduler.instance)
             .subscribeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] repos in
+            .flatMap { repos in self.updateData(with: repos) }
+            .asCompletable()
+            .observeOn(MainScheduler.instance)
+            .subscribeOn(MainScheduler.instance)
+            .subscribe(onCompleted: { [weak self] in
                 guard let `self` = self else { return }
-                self.updateData(with: repos)
+//                self.updateData(with: repos)
                 self.view.updateProgressIndicator(isEnabled: false)
                 self.view.setRepositories(data: self.data)
 
@@ -264,10 +262,15 @@ class MainPresenter {
                 case let .changeFilter(repo, filter):
                     repo.filter = filter
                     self.updateFilters(key: repo)
-                    for action in self.selectedPackages.values {
-                        self.setPackageState(to: .set(action), package: action.package, repo: repo)
-                    }
-                    self.view.setRepositories(data: self.data)
+                        .observeOn(MainScheduler.instance)
+                        .subscribeOn(MainScheduler.instance)
+                        .subscribe(onCompleted: { [weak self] in
+                            guard let `self` = self else { return }
+                            for action in self.selectedPackages.values {
+                                self.setPackageState(to: .set(action), package: action.package, repo: repo)
+                            }
+                            self.view.setRepositories(data: self.data)
+                        }).disposed(by: self.bag)
                 default:
                     return
                 }

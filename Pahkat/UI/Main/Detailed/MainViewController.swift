@@ -149,7 +149,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
             popupButton.menu?.addItem(NSMenuItem.separator())
             // TODO: Localize
             let showDetailedItem = NSMenuItem(title: "Show detailed view…")
-            showDetailedItem.representedObject = URL(string: "divvun-installer:")
+            showDetailedItem.representedObject = URL(string: "divvun-installer:detailed")
             popupButton.menu?.addItem(showDetailedItem)
 
             return NSToolbarItem.init(view: popupButton, identifier: itemIdentifier)
