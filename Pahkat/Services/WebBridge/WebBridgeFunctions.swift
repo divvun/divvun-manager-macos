@@ -73,7 +73,6 @@ class WebBridgeFunctions {
 
     private func transaction(_ args: [JSONValue]) -> Single<Data> {
         // Args should be in the form of { key: PackageKey, action: "install"|"uninstall", target: "system"|"user" }
-
         var actions = [PackageAction]()
 
         for arg in args {
@@ -89,12 +88,15 @@ class WebBridgeFunctions {
                                          target: SystemTarget.from(string: target)))
         }
 
-        // TODO get package names properly
+        let packageNames = actions.map { (action) -> String in
+            let descriptor = repo.descriptors[action.key.id]
+            return descriptor?.nativeName ?? action.key.id
+        }
 
         let alert = NSAlert()
         alert.addButton(withTitle: Strings.install)
         alert.addButton(withTitle: Strings.cancel)
-        let names = actions.map { $0.key.id }.joined(separator: "\n - ")
+        let names = packageNames.joined(separator: "\n - ")
         alert.messageText = "Package Transaction"
         alert.informativeText = "The following items are requested for installation:\n - \(names)\n\nDo you wish to continue?"
 
