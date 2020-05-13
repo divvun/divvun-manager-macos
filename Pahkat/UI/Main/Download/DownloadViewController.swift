@@ -168,9 +168,9 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
                             NSToolbarItem.Identifier.flexibleSpace.rawValue,
                             "title",
                             NSToolbarItem.Identifier.flexibleSpace.rawValue,
-                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
-                            "button"]
-        
+                            NSToolbarItem.Identifier.flexibleSpace.rawValue]
+//                            "button"] // TODO: bring me back to life
+
         window.toolbar!.setItems(toolbarItems)
     }
     
