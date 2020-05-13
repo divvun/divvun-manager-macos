@@ -98,11 +98,10 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
                 case (UInt64.max, UInt64.max):
                     view.progressLabel.stringValue = Strings.downloadError
                 case let (x, y) where x == y:
+                    view.updateProgressBar(current: x, total: y)
                     view.progressLabel.stringValue = Strings.completed
                 case let (x, y):
-                    view.progressBar.maxValue = Double(y)
-                    view.progressBar.minValue = 0
-                    view.progressBar.doubleValue = Double(x)
+                    view.updateProgressBar(current: x, total: y)
 
                     let downloadStr = self.byteCountFormatter.string(fromByteCount: Int64(x))
                     let totalStr = self.byteCountFormatter.string(fromByteCount: Int64(y))
@@ -138,7 +137,7 @@ class DownloadViewController: DisposableViewController<DownloadView>, DownloadVi
             }
         }
     }
-    
+
     func cancel() {
         
     }
