@@ -191,6 +191,9 @@ ok: Greidt
 # Original: Open Package Manager
 openPackageManager: Opne Pakkehandteraren
 
+# Original: Open Settings…
+#openSettings: UNTRANSLATED
+
 # Original: Paste
 paste: Lim inn
 
@@ -263,6 +266,9 @@ save: Lagre
 # Original: Select All
 selectAll: Vel alt
 
+# Original: Select Repository
+#selectRepository: UNTRANSLATED
+
 # Original: Services
 services: Tenester
 
@@ -292,6 +298,9 @@ systemLocale: Standardspråk
 
 # Original: There are {count} updates available!
 thereAreNUpdatesAvailable: 'Det finst {count} oppdateringar!'
+
+# Original: To get started, add a repository in Settings.
+#toGetStartedAddARepoInSettings: UNTRANSLATED
 
 # Original: Undo
 undo: Angre

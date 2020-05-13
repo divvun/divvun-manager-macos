@@ -378,6 +378,11 @@ class Strings {
         return string(for: "openPackageManager")
     }
 
+    /** Open Settings… */
+    static var openSettings: String {
+        return string(for: "openSettings")
+    }
+
     /** Paste */
     static var paste: String {
         return string(for: "paste")
@@ -491,6 +496,11 @@ class Strings {
         return string(for: "selectAll")
     }
 
+    /** Select Repository */
+    static var selectRepository: String {
+        return string(for: "selectRepository")
+    }
+
     /** Services */
     static var services: String {
         return string(for: "services")
@@ -540,6 +550,11 @@ class Strings {
     static func thereAreNUpdatesAvailable(count: String) -> String {
         let format = string(for: "thereAreNUpdatesAvailable")
         return String(format: format, count)
+    }
+
+    /** To get started, add a repository in Settings. */
+    static var toGetStartedAddARepoInSettings: String {
+        return string(for: "toGetStartedAddARepoInSettings")
     }
 
     /** Undo */

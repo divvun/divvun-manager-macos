@@ -61,6 +61,7 @@
 "notInstalled" = "Ii leat sajáiduhtton";
 "ok" = "OK";
 "openPackageManager" = "Raba Package Manager";
+"openSettings" = "Open Settings…";
 "paste" = "Liibme";
 "pasteAndMatchStyle" = "Liibme ja heivet stiilla";
 "preferences" = "Heieveheamit";
@@ -84,6 +85,7 @@
 "restartTheAppForLanguageChanges" = "Álggat áppa ođđasis vai giellarievdadusat álget doaibmat";
 "save" = "Vurke";
 "selectAll" = "Vállje visot";
+"selectRepository" = "Select Repository";
 "services" = "Bálvalusat";
 "settings" = "Heiveheamit";
 "showAll" = "Čájet visot";
@@ -94,6 +96,7 @@
 "starting" = "Álgime...";
 "systemLocale" = "Standárdagiella";
 "thereAreNUpdatesAvailable" = "Leat %1$@ vieččahahtti ođđa veršuvnna!";
+"toGetStartedAddARepoInSettings" = "To get started, add a repository in Settings.";
 "undo" = "Gáđa";
 "uninstall" = "Váldde eret";
 "uninstallNPackages" = "Váldde eret %1$@ objeavtta";

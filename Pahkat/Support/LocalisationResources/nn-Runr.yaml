@@ -191,6 +191,9 @@ ok: ᚵᚱᛂᛁᛑᛐ
 # Original: Open Package Manager
 openPackageManager: ᚮᛔᚿᛂ ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱᛂᚿ
 
+# Original: Open Settings…
+#openSettings: UNTRANSLATED
+
 # Original: Paste
 paste: ᛚᛁᛘ ᛁᚿᚿ
 
@@ -263,6 +266,9 @@ save: ᛚᛆᚵᚱᛂ
 # Original: Select All
 selectAll: ᚡᛂᛚ ᛆᛚᛐ
 
+# Original: Select Repository
+#selectRepository: UNTRANSLATED
+
 # Original: Services
 services: ᛐᛂᚿᛂᛌᛐᛂᚱ
 
@@ -292,6 +298,9 @@ systemLocale: ᛌᛐᛆᚿᛑᛆᚱᛑᛌᛔᚱᚭᚴ
 
 # Original: There are {count} updates available!
 thereAreNUpdatesAvailable: 'ᛑᛂᛐ ᚠᛁᚿᛌᛐ {count} ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛆᚱ!'
+
+# Original: To get started, add a repository in Settings.
+#toGetStartedAddARepoInSettings: UNTRANSLATED
 
 # Original: Undo
 undo: ᛆᚿᚵᚱᛂ

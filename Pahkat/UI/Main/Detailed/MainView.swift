@@ -9,7 +9,7 @@ class MainView: View {
     @IBOutlet weak var outlineView: NSOutlineView!
     @IBOutlet weak var progressIndicator: NSProgressIndicator!
 
-    var popupButton = NSPopUpButton(title: "Select Repository", target: nil, action: nil)
+    var popupButton = NSPopUpButton(title: Strings.selectRepository, target: nil, action: nil)
     
     override func awakeFromNib() {
         primaryButton.title = Strings.noPackagesSelected

@@ -61,6 +61,7 @@
 "notInstalled" = "ᛁᚴᚴᛁᛂ ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛐ";
 "ok" = "ᚵᚱᛂᛁᛑᛐ";
 "openPackageManager" = "ᚮᛔᚿᛂ ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱᛂᚿ";
+"openSettings" = "Open Settings…";
 "paste" = "ᛚᛁᛘ ᛁᚿᚿ";
 "pasteAndMatchStyle" = "ᛚᛁᛘ ᛁᚿᚿ ᛐᛁᛚᛔᛆᛌᛌᛆ";
 "preferences" = "ᛁᚿᚿᛌᛐᛁᛚᛚᛁᚿᚵᛆᚱ…";
@@ -84,6 +85,7 @@
 "restartTheAppForLanguageChanges" = "ᛌᛐᛆᚱᛐ ᛔᚱᚮᚵᚱᛆᛘᛘᛂᛐ ᛔᚭ ᚿᛦᛐᛐ ᚠᚮᚱ ᚭ ᛒᛦᛐᛆ ᛌᛔᚱᚭᚴ.";
 "save" = "ᛚᛆᚵᚱᛂ";
 "selectAll" = "ᚡᛂᛚ ᛆᛚᛐ";
+"selectRepository" = "Select Repository";
 "services" = "ᛐᛂᚿᛂᛌᛐᛂᚱ";
 "settings" = "ᛁᚿᚿᛌᛐᛁᛚᛚᛁᚿᚵᛆᚱ";
 "showAll" = "ᚡᛁᛌ ᛆᛚᛚᛂ";
@@ -94,6 +96,7 @@
 "starting" = "ᛌᛐᛆᚱᛐᛆᚱ...";
 "systemLocale" = "ᛌᛐᛆᚿᛑᛆᚱᛑᛌᛔᚱᚭᚴ";
 "thereAreNUpdatesAvailable" = "ᛑᛂᛐ ᚠᛁᚿᛌᛐ %1$@ ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛆᚱ!";
+"toGetStartedAddARepoInSettings" = "To get started, add a repository in Settings.";
 "undo" = "ᛆᚿᚵᚱᛂ";
 "uninstall" = "ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱ";
 "uninstallNPackages" = "ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱ %1$@ ᛔᛆᚴᚴᛂᚱ";

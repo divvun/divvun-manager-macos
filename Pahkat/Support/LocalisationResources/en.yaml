@@ -187,6 +187,9 @@
 # Original: Open Package Manager
 #openPackageManager: UNTRANSLATED
 
+# Original: Open Settings…
+#openSettings: UNTRANSLATED
+
 # Original: Paste
 #paste: UNTRANSLATED
 
@@ -255,6 +258,9 @@
 # Original: Select All
 #selectAll: UNTRANSLATED
 
+# Original: Select Repository
+#selectRepository: UNTRANSLATED
+
 # Original: Services
 #services: UNTRANSLATED
 
@@ -284,6 +290,9 @@
 
 # Original: There are {count} updates available!
 #thereAreNUpdatesAvailable: UNTRANSLATED
+
+# Original: To get started, add a repository in Settings.
+#toGetStartedAddARepoInSettings: UNTRANSLATED
 
 # Original: Undo
 #undo: UNTRANSLATED

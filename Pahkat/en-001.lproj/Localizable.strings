@@ -61,6 +61,7 @@
 "notInstalled" = "Not Installed";
 "ok" = "OK";
 "openPackageManager" = "Open Package Manager";
+"openSettings" = "Open Settings…";
 "paste" = "Paste";
 "pasteAndMatchStyle" = "Paste and Match Style";
 "preferences" = "Preferences…";
@@ -85,6 +86,7 @@
 "restartTheAppForLanguageChanges" = "Restart the app for language changes to take effect.";
 "save" = "Save";
 "selectAll" = "Select All";
+"selectRepository" = "Select Repository";
 "services" = "Services";
 "settings" = "Settings";
 "showAll" = "Show All";
@@ -95,6 +97,7 @@
 "starting" = "Starting...";
 "systemLocale" = "Default Language";
 "thereAreNUpdatesAvailable" = "There are %1$@ updates available!";
+"toGetStartedAddARepoInSettings" = "To get started, add a repository in Settings.";
 "undo" = "Undo";
 "uninstall" = "Uninstall";
 "uninstallNPackages" = "Uninstall %1$@ Items";

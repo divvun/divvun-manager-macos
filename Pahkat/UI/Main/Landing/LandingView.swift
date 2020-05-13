@@ -8,7 +8,7 @@ class LandingView: View {
     @IBOutlet weak var messageLabel: NSTextField!
     @IBOutlet weak var openSettingsButton: NSButton!
 
-    var popupButton = NSPopUpButton(title: "Select Repository", target: nil, action: nil)
+    var popupButton = NSPopUpButton(title: Strings.selectRepository, target: nil, action: nil)
 
     var webView: WKWebView!
 
@@ -28,8 +28,8 @@ class LandingView: View {
         
         primaryLabel.stringValue = Strings.appName
         // TODO: localize
-        messageLabel.stringValue = "To get started, add a repository in Settings."
-        openSettingsButton.title = "Open Settings…"
+        messageLabel.stringValue = Strings.toGetStartedAddARepoInSettings
+        openSettingsButton.title = Strings.openSettings
     }
 
     func updateView(state: State) {

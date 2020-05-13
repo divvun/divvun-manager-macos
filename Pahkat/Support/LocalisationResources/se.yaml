@@ -191,6 +191,9 @@ ok: OK
 # Original: Open Package Manager
 openPackageManager: Raba Package Manager
 
+# Original: Open Settings…
+#openSettings: UNTRANSLATED
+
 # Original: Paste
 paste: Liibme
 
@@ -261,6 +264,9 @@ save: Vurke
 # Original: Select All
 selectAll: Vállje visot
 
+# Original: Select Repository
+#selectRepository: UNTRANSLATED
+
 # Original: Services
 services: Bálvalusat
 
@@ -290,6 +296,9 @@ systemLocale: Standárdagiella
 
 # Original: There are {count} updates available!
 thereAreNUpdatesAvailable: 'Leat {count} vieččahahtti ođđa veršuvnna!'
+
+# Original: To get started, add a repository in Settings.
+#toGetStartedAddARepoInSettings: UNTRANSLATED
 
 # Original: Undo
 undo: Gáđa

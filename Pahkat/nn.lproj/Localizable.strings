@@ -61,6 +61,7 @@
 "notInstalled" = "Ikkje installert";
 "ok" = "Greidt";
 "openPackageManager" = "Opne Pakkehandteraren";
+"openSettings" = "Open Settings…";
 "paste" = "Lim inn";
 "pasteAndMatchStyle" = "Lim inn tilpassa";
 "preferences" = "Innstillingar…";
@@ -84,6 +85,7 @@
 "restartTheAppForLanguageChanges" = "Start programmet på nytt for å byta språk.";
 "save" = "Lagre";
 "selectAll" = "Vel alt";
+"selectRepository" = "Select Repository";
 "services" = "Tenester";
 "settings" = "Innstillingar";
 "showAll" = "Vis alle";
@@ -94,6 +96,7 @@
 "starting" = "Startar...";
 "systemLocale" = "Standardspråk";
 "thereAreNUpdatesAvailable" = "Det finst %1$@ oppdateringar!";
+"toGetStartedAddARepoInSettings" = "To get started, add a repository in Settings.";
 "undo" = "Angre";
 "uninstall" = "Avinstaller";
 "uninstallNPackages" = "Avinstaller %1$@ pakker";

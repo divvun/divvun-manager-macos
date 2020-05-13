@@ -191,6 +191,9 @@ ok: OK
 # Original: Open Package Manager
 openPackageManager: Open Package Manager
 
+# Original: Open Settings…
+openSettings: Open Settings…
+
 # Original: Paste
 paste: Paste
 
@@ -264,6 +267,9 @@ save: Save
 # Original: Select All
 selectAll: Select All
 
+# Original: Select Repository
+selectRepository: Select Repository
+
 # Original: Services
 services: Services
 
@@ -293,6 +299,9 @@ systemLocale: Default Language
 
 # Original: There are {count} updates available!
 thereAreNUpdatesAvailable: 'There are {count} updates available!'
+
+# Original: To get started, add a repository in Settings.
+toGetStartedAddARepoInSettings: 'To get started, add a repository in Settings.'
 
 # Original: Undo
 undo: Undo
