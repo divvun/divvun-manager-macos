@@ -28,7 +28,6 @@ class LandingView: View {
         
         primaryLabel.stringValue = Strings.appName
         // TODO: localize
-        primaryButton.title = "Detailed…"
         messageLabel.stringValue = "To get started, add a repository in Settings."
         openSettingsButton.title = "Open Settings…"
     }
