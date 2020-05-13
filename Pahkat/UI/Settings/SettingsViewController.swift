@@ -8,6 +8,8 @@ struct RepositoryTableRowData {
     let channel: String?
 }
 
+let defaultRepoUrl = URL(string: "https://pahkat.uit.no/main/")!
+
 class SettingsViewController: DisposableViewController<SettingsView>, SettingsViewable, NSWindowDelegate {
     private(set) var tableDelegate: RepositoryTableDelegate! = nil
 
@@ -44,11 +46,7 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
                     return
                 }
 
-                AppContext.packageStore.setRepo(url: url, record: RepoRecord(channel: nil))
-                    .subscribe(onSuccess: { [weak self] repos in
-                        self?.refreshRepoTable()
-                    })
-                    .disposed(by: self.bag)
+                self.addRepo(url: url)
             })
     }
     
@@ -62,6 +60,14 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
                 self.contentView.progressIndicator.stopAnimation(self)
             }
         }
+    }
+
+    private func addRepo(url: URL) {
+        AppContext.packageStore.setRepo(url: url, record: RepoRecord(channel: nil))
+            .subscribe(onSuccess: { [weak self] repos in
+                self?.refreshRepoTable()
+            })
+            .disposed(by: self.bag)
     }
     
     func promptRemoveRepositoryRow() {
@@ -80,6 +86,16 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
                 AppContext.packageStore.removeRepo(url: self.tableDelegate.configs[row].url)
                     .subscribe()
                     .disposed(by: self.bag)
+
+                AppContext.packageStore.repoIndexes()
+                    .observeOn(MainScheduler.instance)
+                    .subscribeOn(MainScheduler.instance)
+                    .subscribe(onSuccess: { (repos) in
+                        if repos.count <= 0 {
+                            self.addRepo(url: defaultRepoUrl)
+                        }
+                    }).disposed(by: self.bag)
+
 
                 self.tableDelegate.configs.remove(at: row)
                 self.contentView.repoTableView.beginUpdates()
