@@ -1,9 +1,9 @@
-"aboutApp" = "About Divvun Installer";
+"aboutApp" = "About Package Manager";
 "alpha" = "Alpha";
 "appHelp" = "Help";
-"appName" = "Divvun Installer";
-"appUpdateBody" = "Divvun Installer v%1$@ is now available. It is highly recommended that you update as soon as possible. Update now?";
-"appUpdateTitle" = "Divvun Installer Update Available";
+"appName" = "Package Manager";
+"appUpdateBody" = "Package Manager v%1$@ is now available. It is highly recommended that you update as soon as possible. Update now?";
+"appUpdateTitle" = "Package Manager Update Available";
 "beta" = "Beta";
 "bringAllToFront" = "Bring All to Front";
 "cancel" = "Cancel";
@@ -33,7 +33,7 @@
 "exit" = "Exit";
 "finish" = "Finish";
 "help" = "Help";
-"hideApp" = "Hide Divvun Installer";
+"hideApp" = "Hide Package Manager";
 "hideOthers" = "Hide Others";
 "install" = "Install";
 "installNPackages" = "Install %1$@ Items";
@@ -60,14 +60,14 @@
 "notApplicable" = "--";
 "notInstalled" = "Not Installed";
 "ok" = "OK";
-"openPackageManager" = "Open Divvun Installer";
+"openPackageManager" = "Open Package Manager";
 "paste" = "Paste";
 "pasteAndMatchStyle" = "Paste and Match Style";
 "preferences" = "Preferences…";
 "processCompletedBody" = "You may now close this window, or return to the main screen.";
 "processCompletedTitle" = "Done!";
 "queued" = "Queued";
-"quitApp" = "Quit Divvun Installer";
+"quitApp" = "Quit Package Manager";
 "redo" = "Redo";
 "remindMeLater" = "Remind Me Later";
 "removeRepoBody" = "Are you sure you wish to remove this repository?";
@@ -88,6 +88,7 @@
 "services" = "Services";
 "settings" = "Settings";
 "showAll" = "Show All";
+"showDetailedView" = "Show detailed view…";
 "skipTheseUpdates" = "Skip These Updates";
 "sortBy" = "Sort by…";
 "stable" = "Stable";

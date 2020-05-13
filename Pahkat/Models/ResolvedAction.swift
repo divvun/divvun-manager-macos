@@ -17,7 +17,7 @@ extension ResolvedAction {
 
     // TODO: make protocol ext? used on Descriptor too
     public var nativeName: String {
-        for code in Locale(identifier: Strings.languageCode).derivedIdentifiers {
+        for code in derivedLocales(Strings.languageCode) {
             if let name = self.name[code] {
                 return name
             }

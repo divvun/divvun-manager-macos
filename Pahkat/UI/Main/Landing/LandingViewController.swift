@@ -78,8 +78,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
 
                 popupButton.menu?.addItem(NSMenuItem.separator())
 
-                // TODO: Localize
-                let showDetailedItem = NSMenuItem(title: "Show detailed view…")
+                let showDetailedItem = NSMenuItem(title: Strings.showDetailedView)
                 showDetailedItem.representedObject = URL(string: "divvun-installer:detailed")
                 popupButton.menu?.addItem(showDetailedItem)
 

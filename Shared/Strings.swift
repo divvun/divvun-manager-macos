@@ -8,66 +8,34 @@ fileprivate extension UserDefaults {
     }
 }
 
-extension Locale {
-    var derivedIdentifiers: [String] {
-        let x = self
-        var opts: [String] = []
-        
-        if let lang = x.languageCode {
-            if let script = x.scriptCode, let region = x.regionCode {
-                let c = "\(lang)-\(script)-\(region)"
-                opts.append(c)
-                if let x = localeTree[c] {
-                    opts.append(contentsOf: x)
-                    return opts
-                }
-            }
-            
-            if let script = x.scriptCode {
-                let c = "\(lang)-\(script)"
-                opts.append(c)
-                if let x = localeTree[c] {
-                    opts.append(contentsOf: x)
-                    return opts
-                }
-            }
-            
-            if let region = x.regionCode {
-                let c = "\(lang)-\(region)"
-                opts.append(c)
-                if let x = localeTree[c] {
-                    opts.append(contentsOf: x)
-                    return opts
-                }
-            }
-            
-            opts.append(lang)
-            if let x = localeTree[lang] {
-                opts.append(contentsOf: x)
-            }
-        }
-        
-        return opts
-    }
+// i manually made this not fileprivate
+func derivedLocales(_ languageCode: String) -> [String] {
+  let x = Locale(identifier: languageCode)
+  var opts: [String] = []
+  
+  if let lang = x.languageCode {
+      if let script = x.scriptCode, let region = x.regionCode {
+          opts.append("\(lang)-\(script)-\(region)")
+      }
+      
+      if let script = x.scriptCode {
+          opts.append("\(lang)-\(script)")
+      }
+      
+      if let region = x.regionCode {
+          opts.append("\(lang)-\(region)")
+      }
+      
+      opts.append(lang)
+  }
+  
+  return opts
 }
 
 class Strings {
-    static var bundle: Bundle = Bundle.main
-    
-    
-    // TODO: make this not as garbage fire like
     static var languageCode: String = UserDefaults.standard.appleLanguages[0] {
         didSet {
-            var bundle: Bundle? = nil
-            
-            for code in Locale(identifier: languageCode).derivedIdentifiers {
-                if let dir = Bundle.main.path(forResource: code, ofType: "lproj"), let b = Bundle(path: dir) {
-                    bundle = b
-                    break
-                }
-            }
-            
-            if let bundle = bundle {
+            if let dir = Bundle.main.path(forResource: languageCode, ofType: "lproj"), let bundle = Bundle(path: dir) {
                 self.bundle = bundle
             } else {
                 print("No bundle found for \(languageCode))")
@@ -75,6 +43,8 @@ class Strings {
             }
         }
     }
+
+    static var bundle: Bundle = Bundle.main
 
     internal static func string(for key: String) -> String {
         return bundle.localizedString(forKey: key, value: nil, table: nil)
@@ -534,6 +504,11 @@ class Strings {
     /** Show All */
     static var showAll: String {
         return string(for: "showAll")
+    }
+
+    /** Show detailed view… */
+    static var showDetailedView: String {
+        return string(for: "showDetailedView")
     }
 
     /** Skip These Updates */

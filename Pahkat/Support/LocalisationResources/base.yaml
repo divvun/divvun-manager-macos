@@ -273,6 +273,9 @@ settings: Settings
 # Original: Show All
 showAll: Show All
 
+# Original: Show detailed view…
+showDetailedView: Show detailed view…
+
 # Original: Skip These Updates
 skipTheseUpdates: Skip These Updates
 
