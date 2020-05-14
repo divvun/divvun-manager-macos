@@ -32,18 +32,35 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
     }
 
     var onRepoDropdownChanged: Observable<LoadedRepository?> {
-        return AppContext.settings.selectedRepository
-            .flatMapLatest { url -> Observable<LoadedRepository?> in
-                return AppContext.packageStore.repoIndexes().map { repos in
-                    if let url = url, let repo = repos.first(where: { $0.index.url == url }) {
-                        return repo
-                    } else if let repo = repos.first {
-                        return repo
+        return AppContext.settings.selectedRepository.flatMapLatest { url in
+            AppContext.packageStore.getRepoRecords().map { (url, $0) }
+        }
+        .flatMapLatest { (url, records) -> Observable<LoadedRepository?> in
+            return AppContext.packageStore.repoIndexes().map { repos in
+                // return a valid repo for given url if it exists
+                if let url = url,
+                    let record = records.first(where: { $0.key == url }),
+                    let repo = repos.first(where: { $0.index.url == record.key }) {
+                    return repo
+                } else if url?.scheme == "divvun-installer",
+                    url?.absoluteString.split(separator: ":")[1] == "detailed" {
+                    DispatchQueue.main.async {
+                        self.showNoLandingPage()
                     }
-
                     return nil
-                }.asObservable()
-            }
+                } else {
+                    // just return the first valid repo if we have one
+                    for record in records {
+                        for repo in repos {
+                            if repo.index.url == record.key {
+                                return repo
+                            }
+                        }
+                    }
+                }
+                return nil
+            }.asObservable()
+        }
     }
     
     override func viewDidLoad() {
@@ -116,6 +133,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         self.onRepoDropdownChanged
             .observeOn(MainScheduler.instance)
             .subscribeOn(MainScheduler.instance)
+            .startWith(nil)
             .subscribe(onNext: { [weak self] repo in
                 if let repo = repo {
                     if let url = repo.index.landingURL {
