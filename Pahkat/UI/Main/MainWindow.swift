@@ -112,7 +112,10 @@ class MainWindowController: WindowController<MainWindow> {
 
     private func showLandingPage(url: URL?) {
         if url != nil && url?.scheme == "divvun-installer" {
-            AppContext.windows.set(MainViewController(), for: MainWindowController.self)
+            let path = url?.absoluteString.split(separator: ":")[1]
+            if path == "detailed" {
+                AppContext.windows.set(MainViewController(), for: MainWindowController.self)
+            }
         } else {
             AppContext.windows.set(LandingViewController(), for: MainWindowController.self)
         }
