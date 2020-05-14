@@ -1,4 +1,5 @@
 "aboutApp" = "Package Manager birra";
+"allRepositories" = "All Repositories";
 "alpha" = "Alpha";
 "appHelp" = "Veahkki";
 "appName" = "Package Manager";
@@ -89,7 +90,6 @@
 "services" = "Bálvalusat";
 "settings" = "Heiveheamit";
 "showAll" = "Čájet visot";
-"showDetailedView" = "Show detailed view…";
 "skipTheseUpdates" = "Hilggo dáid ođastuhttimiid";
 "sortBy" = "Čuoldde … mielde";
 "stable" = "Stabiila";

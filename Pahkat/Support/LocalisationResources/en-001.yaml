@@ -1,6 +1,9 @@
 # Original: About Package Manager
 #aboutApp: UNTRANSLATED
 
+# Original: All Repositories
+#allRepositories: UNTRANSLATED
+
 # Original: Alpha
 #alpha: UNTRANSLATED
 
@@ -269,9 +272,6 @@ minimize: Minimise
 
 # Original: Show All
 #showAll: UNTRANSLATED
-
-# Original: Show detailed view…
-#showDetailedView: UNTRANSLATED
 
 # Original: Skip These Updates
 #skipTheseUpdates: UNTRANSLATED

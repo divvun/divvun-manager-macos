@@ -1,6 +1,9 @@
 # Original: About Package Manager
 aboutApp: Package Manager birra
 
+# Original: All Repositories
+#allRepositories: UNTRANSLATED
+
 # Original: Alpha
 alpha: Alpha
 
@@ -275,9 +278,6 @@ settings: Heiveheamit
 
 # Original: Show All
 showAll: Čájet visot
-
-# Original: Show detailed view…
-#showDetailedView: UNTRANSLATED
 
 # Original: Skip These Updates
 skipTheseUpdates: Hilggo dáid ođastuhttimiid

@@ -1,6 +1,9 @@
 # Original: About Package Manager
 aboutApp: Om Pakkehåndtereren
 
+# Original: All Repositories
+#allRepositories: UNTRANSLATED
+
 # Original: Alpha
 alpha: Alfa
 
@@ -277,9 +280,6 @@ settings: Innstillinger
 
 # Original: Show All
 showAll: Vis alle
-
-# Original: Show detailed view…
-#showDetailedView: UNTRANSLATED
 
 # Original: Skip These Updates
 skipTheseUpdates: Hopp over disse oppdateringene

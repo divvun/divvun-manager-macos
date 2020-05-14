@@ -1,4 +1,5 @@
 "aboutApp" = "About Package Manager";
+"allRepositories" = "All Repositories";
 "alpha" = "Alpha";
 "appHelp" = "Help";
 "appName" = "Package Manager";
@@ -90,7 +91,6 @@
 "services" = "Services";
 "settings" = "Settings";
 "showAll" = "Show All";
-"showDetailedView" = "Show detailed view…";
 "skipTheseUpdates" = "Skip These Updates";
 "sortBy" = "Sort by…";
 "stable" = "Stable";

@@ -1,4 +1,5 @@
 "aboutApp" = "Om Pakkehandteraren";
+"allRepositories" = "All Repositories";
 "alpha" = "Alfa";
 "appHelp" = "Hjelp";
 "appName" = "Pakkehandterar";
@@ -89,7 +90,6 @@
 "services" = "Tenester";
 "settings" = "Innstillingar";
 "showAll" = "Vis alle";
-"showDetailedView" = "Show detailed view…";
 "skipTheseUpdates" = "Hopp over desse oppdateringane";
 "sortBy" = "Sorter etter…";
 "stable" = "Stabil";

@@ -61,6 +61,11 @@ class Strings {
         return string(for: "aboutApp")
     }
 
+    /** All Repositories */
+    static var allRepositories: String {
+        return string(for: "allRepositories")
+    }
+
     /** Alpha */
     static var alpha: String {
         return string(for: "alpha")
@@ -514,11 +519,6 @@ class Strings {
     /** Show All */
     static var showAll: String {
         return string(for: "showAll")
-    }
-
-    /** Show detailed view… */
-    static var showDetailedView: String {
-        return string(for: "showDetailedView")
     }
 
     /** Skip These Updates */
