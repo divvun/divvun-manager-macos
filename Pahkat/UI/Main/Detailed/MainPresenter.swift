@@ -140,6 +140,8 @@ class MainPresenter {
         }
 
         return completable
+            .subscribeOn(MainScheduler.instance)
+            .observeOn(MainScheduler.instance)
             .subscribe(onCompleted: { [weak self] in
                 guard let `self` = self else { return }
 //                self.updateData(with: repos)
