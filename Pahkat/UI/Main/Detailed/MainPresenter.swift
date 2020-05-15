@@ -126,19 +126,20 @@ class MainPresenter {
     }
     
     private func bindUpdatePackageList() -> Disposable {
-        Single.zip(AppContext.packageStore.repoIndexes(), AppContext.packageStore.getRepoRecords())
-            .asObservable()
-            .distinctUntilChanged({ (a, b) in a == b }) //Observable<[LoadedRepository]>
+        let single: Single<([LoadedRepository], [URL : RepoRecord])> = Single.zip(
+                AppContext.packageStore.repoIndexes(),
+                AppContext.packageStore.getRepoRecords()
+            )
             .observeOn(MainScheduler.instance)
             .subscribeOn(MainScheduler.instance)
-            .flatMap( { [weak self] (repos, records) in
-                guard let `self` = self else { return }
-                let filtered = repos.filter { records[$0.index.url] != nil }
-                self.updateData(with: filtered)
-            })
-            .asCompletable()
-            .observeOn(MainScheduler.instance)
-            .subscribeOn(MainScheduler.instance)
+
+        let completable = single.flatMapCompletable { [weak self] (repos, records) in
+            guard let `self` = self else { return Completable.empty() }
+            let filtered = repos.filter { records[$0.index.url] != nil }
+            return self.updateData(with: filtered)
+        }
+
+        return completable
             .subscribe(onCompleted: { [weak self] in
                 guard let `self` = self else { return }
 //                self.updateData(with: repos)
