@@ -199,10 +199,10 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         window.toolbar!.delegate = self
 
         let toolbarItems = ["settings",
-                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
-                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
+//                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
+//                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
                             "repo-selector",
-                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
+//                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
                             NSToolbarItem.Identifier.flexibleSpace.rawValue,
                             "button"]
         

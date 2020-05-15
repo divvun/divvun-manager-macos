@@ -210,12 +210,12 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         window.toolbar!.delegate = self
 
         let toolbarItems = ["settings",
-                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
-                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
-                            "repo-selector",
-                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
-                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
-                            NSToolbarItem.Identifier.flexibleSpace.rawValue]
+//                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
+//                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
+                            "repo-selector"] //,
+//                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
+//                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
+//                            NSToolbarItem.Identifier.flexibleSpace.rawValue]
 
         window.toolbar!.setItems(toolbarItems)
     }
