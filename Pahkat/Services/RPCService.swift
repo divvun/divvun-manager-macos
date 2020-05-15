@@ -382,7 +382,7 @@ class PahkatClient: PahkatClientType {
     }
 
     func getRepoRecords() -> Single<[URL : RepoRecord]> {
-        var req = Pahkat_GetRepoRecordsRequest()
+        let req = Pahkat_GetRepoRecordsRequest()
 
         return Single<[URL: RepoRecord]>.create { emitter in
             let res = self.inner.getRepoRecords(req)
