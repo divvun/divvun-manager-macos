@@ -251,7 +251,7 @@ class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSou
             if let repo = config.repo {
                 return repo.index.nativeName
             } else {
-                return config.url.absoluteString
+                return "\(config.url.absoluteString) ⚠️"
             }
         case .channel:
             guard let cell = tableColumn.dataCell as? NSPopUpButtonCell else { return nil }

@@ -241,10 +241,12 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
             // TODO: error or something
             return
         }
-        do {
-            try AppContext.settings.write(key: .selectedRepository, value: url)
-        } catch {
-            print("Error setting selected repo: \(error)")
+        DispatchQueue.main.async {
+            do {
+                try AppContext.settings.write(key: .selectedRepository, value: url)
+            } catch {
+                print("Error setting selected repo: \(error)")
+            }
         }
     }
 }
