@@ -222,7 +222,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
 
     @objc func popupItemSelected() {
         guard let url = contentView.popupButton.selectedItem?.representedObject as? URL else {
-            // TODO: error or something
+            print("Selected item has no associated URL")
             return
         }
         do {
