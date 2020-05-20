@@ -15,7 +15,6 @@ jobs:
         repository: divvun/pahkat
         ref: develop
         path: pahkat
-
     - name: Install Rust toolchain
       uses: actions-rs/toolchain@v1
       with:
@@ -23,39 +22,36 @@ jobs:
         profile: minimal
         override: true
         components: rustfmt
-    - name: Did this work
-      run: |
-        rustc --version --verbose
-    - name: Cache cargo registry
-      uses: actions/cache@v1
-      with:
-        path: ~/.cargo/registry
-        key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-cargo-registry-
-    - name: Cache cargo index
-      uses: actions/cache@v1
-      with:
-        path: ~/.cargo/git
-        key: ${{ runner.os }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-cargo-index
-    - name: Cache cargo bin dir
-      uses: actions/cache@v1
-      with:
-        path: ~/.cargo/bin
-        key: ${{ runner.os }}-cargo-bin-${{ env.RUST_VERSION }}
-        restore-keys: |
-          ${{ runner.os }}-cargo-bin
-    - name: Cache cargo target dir
-      uses: actions/cache@v1
-      with:
-        path: "${{ env.GITHUB_WORKSPACE }}/pahkat/target"
-        key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-cargo-build-target
+    # - name: Cache cargo registry
+    #   uses: actions/cache@v1
+    #   with:
+    #     path: ~/.cargo/registry
+    #     key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-cargo-registry-
+    # - name: Cache cargo index
+    #   uses: actions/cache@v1
+    #   with:
+    #     path: ~/.cargo/git
+    #     key: ${{ runner.os }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-cargo-index
+    # - name: Cache cargo bin dir
+    #   uses: actions/cache@v1
+    #   with:
+    #     path: ~/.cargo/bin
+    #     key: ${{ runner.os }}-cargo-bin-${{ env.RUST_VERSION }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-cargo-bin
+    # - name: Cache cargo target dir
+    #   uses: actions/cache@v1
+    #   with:
+    #     path: "${{ env.GITHUB_WORKSPACE }}/pahkat/target"
+    #     key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-cargo-build-target
     - name: Setup Divvun CI
-      uses: divvun/actions/setup@master
+      uses: divvun/actions/setup@divvun-installer
       with:
         key: ${{ secrets.DIVVUN_KEY }}
     - name: Build Pahkat Daemon
@@ -78,13 +74,16 @@ jobs:
     - name: Get Package Version
       run: |
         export DEPLOY_VERSION=`/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "$GITHUB_WORKSPACE/divvun-installer/Divvun Installer.app/Contents/Info.plist"`
-        echo "::set-env name=DEPLOY_VERSION::$DEPLOY_VERSION"
+        VERSION=$DEPLOY_VERSION-nightly.$(date -u +%Y%m%dT%H%M%SZ)
+        echo "$VERSION"
+        echo "::set-env name=DEPLOY_VERSION::$VERSION"
     - name: Deploy to Pahkat
-      uses: divvun/actions/deploy@master
+      uses: divvun/actions/deploy@divvun-installer
       with:
         payload: "${{ env.GITHUB_WORKSPACE }}divvun-installer/DivvunInstaller.pkg"
         repository: "https://pahkat.uit.no/divvun-installer/"
         package: "divvun-installer"
         platform: "macos"
         version: ${{ env.DEPLOY_VERSION }}
+        forceDeploy: true
 
