@@ -77,10 +77,17 @@ jobs:
         VERSION=$DEPLOY_VERSION-nightly.$(date -u +%Y%m%dT%H%M%SZ)
         echo "$VERSION"
         echo "::set-env name=DEPLOY_VERSION::$VERSION"
+    - name: Write payload matadata
+      shell: bash
+      run: |
+        set -ex
+        pahkat-repomgr payload macos-package -r uninstall -i 1 -s 1 -u "pahkat:payload" -p no.divvun.Pahkat > payload.toml
+        cat payload.toml
     - name: Deploy to Pahkat
       uses: divvun/actions/deploy@divvun-installer
       with:
         payload: "${{ env.GITHUB_WORKSPACE }}divvun-installer/DivvunInstaller.pkg"
+        payloadMetadata: "payload.toml"
         repository: "https://pahkat.uit.no/divvun-installer/"
         package: "divvun-installer"
         platform: "macos"
