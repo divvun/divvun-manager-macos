@@ -59,7 +59,9 @@ jobs:
       with:
         platform: macos
         package-id: divvun-installer
-        repo: "https://pahkat.uit.no/divvun-installer/"
+        # repo: "https://pahkat.uit.no/divvun-installer/"
+        # Temporary workaround
+        repo: "https://pahkat.thetc.se/divvun-installer/"
         channel: nightly
         version: ${{ steps.version.outputs.version }}
         macos-pkg-id: "no.divvun.Pahkat"
