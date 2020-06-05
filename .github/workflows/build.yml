@@ -65,4 +65,5 @@ jobs:
         macos-pkg-id: "no.divvun.Pahkat"
         payload-path: "${{ env.GITHUB_WORKSPACE }}divvun-installer/DivvunInstaller.pkg"
         force-deploy: true
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
