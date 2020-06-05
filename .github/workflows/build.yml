@@ -15,6 +15,12 @@ jobs:
         repository: divvun/pahkat
         ref: master
         path: pahkat
+    - name: Install build tools from Pahkat for macOS
+      uses: divvun/actions/pahkat/init@master
+      with:
+        repo: https://pahkat.uit.no/devtools/
+        channel: nightly
+        packages: pahkat-uploader, xcnotary
     - name: Install Rust toolchain
       uses: actions-rs/toolchain@v1
       with:
