@@ -204,6 +204,7 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
     
     func setRepositories(repositories: [RepositoryTableRowData], strings: [URL: MessageMap]) {
         self.tableDelegate.configs = repositories
+        self.tableDelegate.strings = strings
         self.contentView.repoTableView.reloadData()
     }
 }
@@ -281,7 +282,7 @@ class RepositoryTableDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSou
                 cell.menu?.item(at: i)?.representedObject = channels[i].0
             }
 
-            let ch = strings[url]?.channels[config.channel ?? ""] ?? config.channel
+            let ch = /*strings[url]?.channels[config.channel ?? ""] ?? */ config.channel
 
             guard let index = cell.menu?.items.firstIndex(where: {
                 $0.representedObject as? String == ch

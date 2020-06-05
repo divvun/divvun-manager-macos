@@ -20,7 +20,13 @@ class SettingsView: View {
         repoLabel.stringValue = "\(Strings.repositories):"
         
         for column in repoTableView.tableColumns {
-            let id = column.identifier.rawValue
+            var id = column.identifier.rawValue
+
+            // Workaround, as `name` binds to data, but we want the localisation for repository
+            if id == "name" {
+                id = "repository"
+            }
+
             column.headerCell.stringValue = Strings.string(for: id)
         }
         
