@@ -1,6 +1,6 @@
 import Foundation
 
-struct RefMap<K: Hashable & Encodable, V: Hashable & Encodable>: Equatable, Hashable, Encodable {
+struct RefMap<K: Hashable & Encodable, V: Hashable & Encodable>: Equatable, Hashable, Encodable, CustomStringConvertible {
     private let ptr: UnsafeMutableRawPointer
     private let count: Int32
     private let keyGetter: (Int32) -> K?
@@ -89,9 +89,19 @@ struct RefMap<K: Hashable & Encodable, V: Hashable & Encodable>: Equatable, Hash
             return val
         }
     }
+
+    var description: String {
+        var out = "{ "
+        for key in self.keys {
+            out += "\(key): \(String(describing: self[key])), "
+        }
+        out += "}"
+
+        return out
+    }
 }
 
-struct RefList<T: Hashable & Encodable>: Collection, Sequence, Equatable, Encodable, Hashable {
+struct RefList<T: Hashable & Encodable>: Collection, Sequence, Equatable, Encodable, Hashable, CustomDebugStringConvertible {
     typealias Element = T
     typealias Index = Int32
     var startIndex: Int32 { 0 }
@@ -158,6 +168,10 @@ struct RefList<T: Hashable & Encodable>: Collection, Sequence, Equatable, Encoda
     
     static func == (lhs: RefList<T>, rhs: RefList<T>) -> Bool {
         return lhs.ptr == rhs.ptr
+    }
+
+    var debugDescription: String {
+        return String(describing: Array(self))
     }
 }
 
@@ -482,7 +496,7 @@ struct Release: Equatable, Hashable, Encodable {
     }
 }
 
-struct Descriptor: Equatable, Hashable, Encodable {
+struct Descriptor: Equatable, Hashable, Encodable, CustomDebugStringConvertible {
     private enum Keys: CodingKey {
         case id
         case name
@@ -527,6 +541,9 @@ struct Descriptor: Equatable, Hashable, Encodable {
         id.hash(into: &hasher)
     }
 
+    var debugDescription: String {
+        return "Descriptor { id: \(id), release: \(release), name: \(name) }"
+    }
 }
 
 enum Package: Equatable, Hashable, Encodable {

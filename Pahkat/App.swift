@@ -100,7 +100,7 @@ enum TransactionState: Equatable {
             return .error(message ?? Strings.downloadError)
             
         // We don't need to handle these two
-        case .downloadComplete, .transactionProgress:
+        case .downloadComplete, .transactionProgress, .transactionQueued:
             break
         }
         

@@ -318,10 +318,10 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                     let v = SelectedPackage(key: key, package: package, action: .install, target: .system)
                     menu.addItem(makeMenuItem(Strings.installSystem, value: OutlineContextMenuItem.SelectedPackage(v)))
                 }
-                if installer.targets.contains(.user) {
-                    let v = SelectedPackage(key: key, package: package, action: .install, target: .user)
-                    menu.addItem(makeMenuItem(Strings.installUser, value: OutlineContextMenuItem.SelectedPackage(v)))
-                }
+//                if installer.targets.contains(.user) {
+//                    let v = SelectedPackage(key: key, package: package, action: .install, target: .user)
+//                    menu.addItem(makeMenuItem(Strings.installUser, value: OutlineContextMenuItem.SelectedPackage(v)))
+//                }
             case .requiresUpdate:
                 let v = SelectedPackage(key: key, package: package, action: .install, target: target)
                 menu.addItem(makeMenuItem(Strings.update, value: OutlineContextMenuItem.SelectedPackage(v)))
@@ -403,7 +403,6 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                 return group.0
             }
         case let item as OutlineRepository:
-            log.debug(item.repo.index.url.absoluteString)
             let x = repos[item]!
             let keyIndex = x.index(x.startIndex, offsetBy: index)
             let outlineGroup = x[keyIndex]
@@ -539,8 +538,13 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
                 tableColumn.width = max(tableColumn.width, baseWidth + repoAdjustedWidth)
             case .version:
                 let size = Int64(item.target.macOSPackage()?.size ?? 0)
-                cell.textField?.stringValue = "\(item.release.version) (\(byteCountFormatter.string(fromByteCount: size)))"
-                let a = cell.textField?.attributedStringValue.size().width ?? CGFloat(0.0)
+                let attrString = NSAttributedString(
+                    string: "\(item.release.version) (\(byteCountFormatter.string(fromByteCount: size)))",
+                    attributes: [NSAttributedString.Key.kern: -0.75])
+
+                cell.textField?.attributedStringValue = attrString
+                let a = (cell.textField?.attributedStringValue.size().width ?? CGFloat(0.0)) * 1.35
+
                 tableColumn.width = max(tableColumn.width, a)
             case .state:
                 if let selectedPackage = item.selection {

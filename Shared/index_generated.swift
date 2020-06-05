@@ -10,11 +10,12 @@ public enum WindowsExecutableFlag: UInt8, Enum {
 	public var value: UInt8 { return self.rawValue }
 	case targetsystem = 0
 	case targetuser = 1
-	case requiresreboot = 6
-	case requiresuninstallreboot = 7
+	case requiresrebootonupdate = 32
+	case requiresrebootonuninstall = 64
+	case requiresrebootoninstall = 128
 
 
-	public static var max: WindowsExecutableFlag { return .requiresuninstallreboot }
+	public static var max: WindowsExecutableFlag { return .requiresrebootoninstall }
 	public static var min: WindowsExecutableFlag { return .targetsystem }
 }
 
@@ -38,11 +39,12 @@ public enum MacOSPackageFlag: UInt8, Enum {
 	public var value: UInt8 { return self.rawValue }
 	case targetsystem = 0
 	case targetuser = 1
-	case requiresreboot = 6
-	case requiresuninstallreboot = 7
+	case requiresrebootonupdate = 32
+	case requiresrebootonuninstall = 64
+	case requiresrebootoninstall = 128
 
 
-	public static var max: MacOSPackageFlag { return .requiresuninstallreboot }
+	public static var max: MacOSPackageFlag { return .requiresrebootoninstall }
 	public static var min: MacOSPackageFlag { return .targetsystem }
 }
 

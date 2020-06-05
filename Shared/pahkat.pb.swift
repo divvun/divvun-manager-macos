@@ -33,6 +33,8 @@ public struct Pahkat_NotificationResponse {
     case rebootRequired // = 0
     case repositoriesChanged // = 1
     case rpcStopping // = 2
+    case transactionLocked // = 3
+    case transactionUnlocked // = 4
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -44,6 +46,8 @@ public struct Pahkat_NotificationResponse {
       case 0: self = .rebootRequired
       case 1: self = .repositoriesChanged
       case 2: self = .rpcStopping
+      case 3: self = .transactionLocked
+      case 4: self = .transactionUnlocked
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -53,6 +57,8 @@ public struct Pahkat_NotificationResponse {
       case .rebootRequired: return 0
       case .repositoriesChanged: return 1
       case .rpcStopping: return 2
+      case .transactionLocked: return 3
+      case .transactionUnlocked: return 4
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -70,6 +76,8 @@ extension Pahkat_NotificationResponse.ValueType: CaseIterable {
     .rebootRequired,
     .repositoriesChanged,
     .rpcStopping,
+    .transactionLocked,
+    .transactionUnlocked,
   ]
 }
 
@@ -397,6 +405,14 @@ public struct Pahkat_TransactionResponse {
     set {value = .transactionError(newValue)}
   }
 
+  public var transactionQueued: Pahkat_TransactionResponse.TransactionQueued {
+    get {
+      if case .transactionQueued(let v)? = value {return v}
+      return Pahkat_TransactionResponse.TransactionQueued()
+    }
+    set {value = .transactionQueued(newValue)}
+  }
+
   public var downloadProgress: Pahkat_TransactionResponse.DownloadProgress {
     get {
       if case .downloadProgress(let v)? = value {return v}
@@ -436,6 +452,7 @@ public struct Pahkat_TransactionResponse {
     case transactionProgress(Pahkat_TransactionResponse.TransactionProgress)
     case transactionComplete(Pahkat_TransactionResponse.TransactionComplete)
     case transactionError(Pahkat_TransactionResponse.TransactionError)
+    case transactionQueued(Pahkat_TransactionResponse.TransactionQueued)
     case downloadProgress(Pahkat_TransactionResponse.DownloadProgress)
     case downloadComplete(Pahkat_TransactionResponse.DownloadComplete)
     case installStarted(Pahkat_TransactionResponse.InstallStarted)
@@ -448,6 +465,7 @@ public struct Pahkat_TransactionResponse {
       case (.transactionProgress(let l), .transactionProgress(let r)): return l == r
       case (.transactionComplete(let l), .transactionComplete(let r)): return l == r
       case (.transactionError(let l), .transactionError(let r)): return l == r
+      case (.transactionQueued(let l), .transactionQueued(let r)): return l == r
       case (.downloadProgress(let l), .downloadProgress(let r)): return l == r
       case (.downloadComplete(let l), .downloadComplete(let r)): return l == r
       case (.installStarted(let l), .installStarted(let r)): return l == r
@@ -557,6 +575,16 @@ public struct Pahkat_TransactionResponse {
   }
 
   public struct TransactionComplete {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
+  public struct TransactionQueued {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
@@ -809,6 +837,8 @@ extension Pahkat_NotificationResponse.ValueType: SwiftProtobuf._ProtoNameProvidi
     0: .same(proto: "REBOOT_REQUIRED"),
     1: .same(proto: "REPOSITORIES_CHANGED"),
     2: .same(proto: "RPC_STOPPING"),
+    3: .same(proto: "TRANSACTION_LOCKED"),
+    4: .same(proto: "TRANSACTION_UNLOCKED"),
   ]
 }
 
@@ -1355,6 +1385,7 @@ extension Pahkat_TransactionResponse: SwiftProtobuf.Message, SwiftProtobuf._Mess
     2: .standard(proto: "transaction_progress"),
     3: .standard(proto: "transaction_complete"),
     4: .standard(proto: "transaction_error"),
+    5: .standard(proto: "transaction_queued"),
     10: .standard(proto: "download_progress"),
     12: .standard(proto: "download_complete"),
     14: .standard(proto: "install_started"),
@@ -1396,6 +1427,14 @@ extension Pahkat_TransactionResponse: SwiftProtobuf.Message, SwiftProtobuf._Mess
         }
         try decoder.decodeSingularMessageField(value: &v)
         if let v = v {self.value = .transactionError(v)}
+      case 5:
+        var v: Pahkat_TransactionResponse.TransactionQueued?
+        if let current = self.value {
+          try decoder.handleConflictingOneOf()
+          if case .transactionQueued(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {self.value = .transactionQueued(v)}
       case 10:
         var v: Pahkat_TransactionResponse.DownloadProgress?
         if let current = self.value {
@@ -1443,6 +1482,8 @@ extension Pahkat_TransactionResponse: SwiftProtobuf.Message, SwiftProtobuf._Mess
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
     case .transactionError(let v)?:
       try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    case .transactionQueued(let v)?:
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
     case .downloadProgress(let v)?:
       try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
     case .downloadComplete(let v)?:
@@ -1722,6 +1763,25 @@ extension Pahkat_TransactionResponse.TransactionComplete: SwiftProtobuf.Message,
   }
 
   public static func ==(lhs: Pahkat_TransactionResponse.TransactionComplete, rhs: Pahkat_TransactionResponse.TransactionComplete) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Pahkat_TransactionResponse.TransactionQueued: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Pahkat_TransactionResponse.protoMessageName + ".TransactionQueued"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Pahkat_TransactionResponse.TransactionQueued, rhs: Pahkat_TransactionResponse.TransactionQueued) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

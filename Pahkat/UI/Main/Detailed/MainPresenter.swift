@@ -9,12 +9,13 @@ typealias PackageOutlineMap = Map<OutlineGroup, SortedSet<OutlinePackage>>
 typealias MainOutlineMap = Map<OutlineRepository, PackageOutlineMap>
 
 func sortByLanguage(outlineRepo: OutlineRepository) -> Single<PackageOutlineMap> {
-    return sortByTagPrefix(outlineRepo: outlineRepo, prefix: "lang:", mutator: {
-        if let tag = ISO639.get(tag: $0) {
+    return sortByTagPrefix(outlineRepo: outlineRepo, prefix: "lang:", mutator: { tagTag in
+        let langtag = String(tagTag.split(separator: ":")[1])
+        if let tag = ISO639.get(tag: langtag) {
             return tag.autonymOrName
         }
 
-        return $0
+        return langtag
     })
 }
 
@@ -34,8 +35,7 @@ func sortByTagPrefix(outlineRepo: OutlineRepository, prefix: String, mutator: @e
     let repo = outlineRepo.repo
 
     let filteredDescriptors = repo.descriptors.values.filter { descriptor in
-        guard let release = descriptor.release.first else { return false }
-        guard release.macosTarget != nil else {
+        guard let _ = descriptor.release.first(where: { $0.macosTarget != nil && ($0.channel == nil || $0.channel == repo.meta.channel) }) else {
             // this package doesn't have a macos target
             return false
         }
@@ -69,7 +69,7 @@ func sortByTagPrefix(outlineRepo: OutlineRepository, prefix: String, mutator: @e
                     data[group] = []
                 }
 
-                guard let release = descriptor.release.first else { continue }
+                guard let release = descriptor.release.first(where: { $0.macosTarget != nil }) else { continue }
                 guard let target = release.macosTarget else { continue }
 
                 let outlinePackage = OutlinePackage(package: descriptor,
@@ -134,9 +134,12 @@ class MainPresenter {
             .subscribeOn(MainScheduler.instance)
 
         let completable = single.flatMapCompletable { [weak self] (repos, records) in
+//            repos.forEach {
+//                print(String(describing: $0.descriptors))
+//            }
             guard let `self` = self else { return Completable.empty() }
-            let filtered = repos.filter { records[$0.index.url] != nil }
-            return self.updateData(with: filtered)
+//            let filtered = repos.filter { records[$0.index.url] != nil }
+            return self.updateData(with: repos)
         }
 
         return completable

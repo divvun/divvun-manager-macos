@@ -4,6 +4,7 @@ import NIO
 import RxSwift
 
 enum TransactionEvent: Equatable {
+    case transactionQueued
     case transactionStarted(actions: [ResolvedAction], isRebootRequired: Bool)
     case transactionComplete
     case transactionProgress(packageKey: PackageKey, message: String?, current: UInt64, total: UInt64)
@@ -39,6 +40,10 @@ enum PackageStatus: Int32, Codable {
     
     var isError: Bool {
         return self.rawValue < 0
+    }
+
+    var isNotInstalled: Bool {
+        return self.rawValue == 0
     }
 }
 
@@ -225,9 +230,18 @@ class PahkatClient: PahkatClientType {
     }
     
     public func status(packageKey: PackageKey) -> Single<(PackageStatus, SystemTarget)> {
-        self.status(packageKey: packageKey, target: .user).catchError { _ in
-            self.status(packageKey: packageKey, target: .system)
-        }
+//        self.status(packageKey: packageKey, target: .user)
+//            .flatMap({ (status, target) -> Single<(PackageStatus, SystemTarget)> in
+//                if status.isError || status.isNotInstalled {
+//                    return self.status(packageKey: packageKey, target: .system)
+//                } else {
+//                    return Single.just((status, target))
+//                }
+//            })
+//            .catchError { _ in
+//                self.status(packageKey: packageKey, target: .system)
+//            }
+        return self.status(packageKey: packageKey, target: .system)
     }
 
     public func processTransaction(actions: [PackageAction]) -> (() -> Completable, Observable<TransactionEvent>) {
@@ -242,6 +256,8 @@ class PahkatClient: PahkatClientType {
             let event: TransactionEvent
             
             switch value {
+            case .transactionQueued(_):
+                event = .transactionQueued
             case let .transactionStarted(res):
                 do {
                     let resActions = try res.actions.map { try ResolvedAction.from($0) }
