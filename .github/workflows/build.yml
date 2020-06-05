@@ -1,5 +1,5 @@
-on: [push]
 name: Build
+on: [push, repository_dispatch]
 
 jobs:
   build:
@@ -13,7 +13,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: divvun/pahkat
-        ref: develop
+        ref: master
         path: pahkat
     - name: Install Rust toolchain
       uses: actions-rs/toolchain@v1
@@ -22,36 +22,8 @@ jobs:
         profile: minimal
         override: true
         components: rustfmt
-    # - name: Cache cargo registry
-    #   uses: actions/cache@v1
-    #   with:
-    #     path: ~/.cargo/registry
-    #     key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
-    #     restore-keys: |
-    #       ${{ runner.os }}-cargo-registry-
-    # - name: Cache cargo index
-    #   uses: actions/cache@v1
-    #   with:
-    #     path: ~/.cargo/git
-    #     key: ${{ runner.os }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
-    #     restore-keys: |
-    #       ${{ runner.os }}-cargo-index
-    # - name: Cache cargo bin dir
-    #   uses: actions/cache@v1
-    #   with:
-    #     path: ~/.cargo/bin
-    #     key: ${{ runner.os }}-cargo-bin-${{ env.RUST_VERSION }}
-    #     restore-keys: |
-    #       ${{ runner.os }}-cargo-bin
-    # - name: Cache cargo target dir
-    #   uses: actions/cache@v1
-    #   with:
-    #     path: "${{ env.GITHUB_WORKSPACE }}/pahkat/target"
-    #     key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
-    #     restore-keys: |
-    #       ${{ runner.os }}-cargo-build-target
     - name: Setup Divvun CI
-      uses: divvun/actions/setup@divvun-installer
+      uses: divvun/actions/setup@master
       with:
         key: ${{ secrets.DIVVUN_KEY }}
     - name: Build Pahkat Daemon
@@ -71,26 +43,20 @@ jobs:
       with:
         name: divvun-installer
         path: divvun-installer/DivvunInstaller.pkg
-    - name: Get Package Version
+    - name: Get package version from .plist
+      id: version
       run: |
         export DEPLOY_VERSION=`/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "$GITHUB_WORKSPACE/divvun-installer/Divvun Installer.app/Contents/Info.plist"`
-        VERSION=$DEPLOY_VERSION-nightly.$(date -u +%Y%m%dT%H%M%SZ)
-        echo "$VERSION"
-        echo "::set-env name=DEPLOY_VERSION::$VERSION"
-    - name: Write payload matadata
-      shell: bash
-      run: |
-        set -ex
-        pahkat-repomgr payload macos-package -r uninstall -i 1 -s 1 -u "pahkat:payload" -p no.divvun.Pahkat > payload.toml
-        cat payload.toml
+        echo "::set-output name=version::$DEPLOY_VERSION"
     - name: Deploy to Pahkat
-      uses: divvun/actions/deploy@divvun-installer
+      uses: divvun/actions/deploy@master
       with:
-        payload: "${{ env.GITHUB_WORKSPACE }}divvun-installer/DivvunInstaller.pkg"
-        payloadMetadata: "payload.toml"
-        repository: "https://pahkat.uit.no/divvun-installer/"
-        package: "divvun-installer"
-        platform: "macos"
-        version: ${{ env.DEPLOY_VERSION }}
-        forceDeploy: true
+        platform: macos
+        package-id: divvun-installer
+        repo: "https://pahkat.uit.no/divvun-installer/"
+        channel: nightly
+        version: ${{ steps.version.outputs.version }}
+        macos-pkg-id: "no.divvun.Pahkat"
+        payload-path: "${{ env.GITHUB_WORKSPACE }}divvun-installer/DivvunInstaller.pkg"
+        force-deploy: true
 
