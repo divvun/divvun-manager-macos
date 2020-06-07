@@ -916,7 +916,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = 2K5J2584NX;
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../pahkat-client-core/src",
@@ -949,7 +949,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = 2K5J2584NX;
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../pahkat-client-core/src",
