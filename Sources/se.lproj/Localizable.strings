@@ -1,10 +1,10 @@
-"aboutApp" = "Package Manager birra";
+"aboutApp" = "Divvun Manager birra";
 "allRepositories" = "All Repositories";
 "alpha" = "Alpha";
 "appHelp" = "Veahkki";
-"appName" = "Package Manager";
-"appUpdateBody" = "Dál manná viežžat Package Manager v%1$@. Ođastuhte val vargga. Juogo siđat ođastuhttit?";
-"appUpdateTitle" = "Package Manager ođđa vieččahahtti veršuvdna";
+"appName" = "Divvun Manager";
+"appUpdateBody" = "Dál manná viežžat Divvun Manager v%1$@. Ođastuhte val vargga. Juogo siđat ođastuhttit?";
+"appUpdateTitle" = "Divvun Manager ođđa vieččahahtti veršuvdna";
 "beta" = "Beta";
 "bringAllToFront" = "Viežžal visot oidnosii";
 "cancel" = "Heaittit";
@@ -33,8 +33,8 @@
 "everyTwoWeeks" = "Juohke nuppi vahku";
 "exit" = "Mana eret";
 "finish" = "Válbme";
-"help" = "Package Manager veahkki";
-"hideApp" = "Čiega Package Manager";
+"help" = "Divvun Manager veahkki";
+"hideApp" = "Čiega Divvun Manager";
 "hideOthers" = "Čiega iežáid";
 "install" = "Sajáiduhte";
 "installNPackages" = "Sajáiduhte %1$@ objeavtta";
@@ -61,7 +61,7 @@
 "notApplicable" = "--";
 "notInstalled" = "Ii leat sajáiduhtton";
 "ok" = "OK";
-"openPackageManager" = "Raba Package Manager";
+"openPackageManager" = "Raba Divvun Manager";
 "openSettings" = "Open Settings…";
 "paste" = "Liibme";
 "pasteAndMatchStyle" = "Liibme ja heivet stiilla";
@@ -69,7 +69,7 @@
 "processCompletedBody" = "Oaččut dál jáddadit dán láse dehe mannat ruovttoluotta váldolásii.";
 "processCompletedTitle" = "Válmmas!";
 "queued" = "Vuordime vuorus";
-"quitApp" = "Heaittit Package Manager";
+"quitApp" = "Heaittit Divvun Manager";
 "redo" = "Daga ođđasis";
 "remindMeLater" = "Muittut munnje maŋŋil";
 "removeRepoBody" = "Siđat go duođaid váldit eret dán prográmmavuorkká?";

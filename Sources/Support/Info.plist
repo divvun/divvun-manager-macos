@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
-	<string>Divvun Installer</string>
+	<string>Divvun Manager</string>
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>Divvun Installer</string>
+	<string>Divvun Manager</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -30,15 +30,15 @@
 		<true/>
 	</dict>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2019 Divvun. All rights reserved.</string>
+	<string>Copyright © 2020 Divvun. All rights reserved.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
-	<string>Pahkat.App</string>
+	<string>DivvunManager.App</string>
 	<key>SMPrivilegedExecutables</key>
 	<dict>
 		<key>no.divvun.PahkatAdminService</key>
-		<string>anchor apple generic and identifier "no.divvun.PahkatAdminService" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "2K5J2584NX")</string>
+		<string>anchor apple generic and identifier &quot;no.divvun.PahkatAdminService&quot; and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = &quot;2K5J2584NX&quot;)</string>
 	</dict>
 </dict>
 </plist>

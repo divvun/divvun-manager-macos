@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1010"
+   LastUpgradeVersion = "1170"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C69F94892028B1EA00127A47"
-               BuildableName = "Divvun Installer.app"
-               BlueprintName = "Pahkat"
-               ReferencedContainer = "container:Pahkat.xcodeproj">
+               BuildableName = "Divvun Manager.app"
+               BlueprintName = "Divvun Manager"
+               ReferencedContainer = "container:Divvun Manager.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -31,9 +31,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C69F94892028B1EA00127A47"
-            BuildableName = "Divvun Installer.app"
-            BlueprintName = "Pahkat"
-            ReferencedContainer = "container:Pahkat.xcodeproj">
+            BuildableName = "Divvun Manager.app"
+            BlueprintName = "Divvun Manager"
+            ReferencedContainer = "container:Divvun Manager.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -54,9 +54,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C69F94892028B1EA00127A47"
-            BuildableName = "Divvun Installer.app"
-            BlueprintName = "Pahkat"
-            ReferencedContainer = "container:Pahkat.xcodeproj">
+            BuildableName = "Divvun Manager.app"
+            BlueprintName = "Divvun Manager"
+            ReferencedContainer = "container:Divvun Manager.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <EnvironmentVariables>
@@ -83,9 +83,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C69F94892028B1EA00127A47"
-            BuildableName = "Divvun Installer.app"
-            BlueprintName = "Pahkat"
-            ReferencedContainer = "container:Pahkat.xcodeproj">
+            BuildableName = "Divvun Manager.app"
+            BlueprintName = "Divvun Manager"
+            ReferencedContainer = "container:Divvun Manager.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

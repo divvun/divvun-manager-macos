@@ -1,5 +1,5 @@
-# Original: About Package Manager
-aboutApp: About Package Manager
+# Original: About Divvun Manager
+aboutApp: About Divvun Manager
 
 # Original: All Repositories
 allRepositories: All Repositories
@@ -10,16 +10,16 @@ alpha: Alpha
 # Original: Help
 appHelp: Help
 
-# Original: Package Manager
-appName: Package Manager
+# Original: Divvun Manager
+appName: Divvun Manager
 
-# Original: Package Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
+# Original: Divvun Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
 appUpdateBody: >-
-  Package Manager v{version} is now available. It is highly recommended that you
+  Divvun Manager v{version} is now available. It is highly recommended that you
   update as soon as possible. Update now?
 
-# Original: Package Manager Update Available
-appUpdateTitle: Package Manager Update Available
+# Original: Divvun Manager Update Available
+appUpdateTitle: Divvun Manager Update Available
 
 # Original: Beta
 beta: Beta
@@ -110,8 +110,8 @@ finish: Finish
 # Original: Help
 help: Help
 
-# Original: Hide Package Manager
-hideApp: Hide Package Manager
+# Original: Hide Divvun Manager
+hideApp: Hide Divvun Manager
 
 # Original: Hide Others
 hideOthers: Hide Others
@@ -191,8 +191,8 @@ notInstalled: Not Installed
 # Original: OK
 ok: OK
 
-# Original: Open Package Manager
-openPackageManager: Open Package Manager
+# Original: Open Divvun Manager
+openPackageManager: Open Divvun Manager
 
 # Original: Open Settings…
 openSettings: Open Settings…
@@ -215,8 +215,8 @@ processCompletedTitle: Done!
 # Original: Queued
 queued: Queued
 
-# Original: Quit Package Manager
-quitApp: Quit Package Manager
+# Original: Quit Divvun Manager
+quitApp: Quit Divvun Manager
 
 # Original: Redo
 redo: Redo

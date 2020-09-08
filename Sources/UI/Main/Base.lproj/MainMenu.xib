@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.3"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="App" customModule="Pahkat" customModuleProvider="target">
@@ -16,7 +15,7 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6" customClass="MainMenu" customModule="Pahkat" customModuleProvider="target">
             <items>
-                <menuItem title="Divvun Installer" id="1Xt-HY-uBw" userLabel="Package Manager" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                <menuItem title="Divvun Installer" id="1Xt-HY-uBw" userLabel="Divvun Manager" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Divvun Installer" systemMenu="apple" id="uQy-DD-JDr">
                         <items>
@@ -214,7 +213,7 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ" customClass="CompatNSMenu" customModule="Pahkat" customModuleProvider="target">
                         <items>
-                            <menuItem title="Package Manager Help" keyEquivalent="?" id="FKE-Sm-Kum" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                            <menuItem title="Divvun Manager Help" keyEquivalent="?" id="FKE-Sm-Kum" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="appHelp"/>
                                 </userDefinedRuntimeAttributes>

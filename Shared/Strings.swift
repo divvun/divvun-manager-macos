@@ -56,7 +56,7 @@ class Strings {
         }
     }
 
-    /** About Package Manager */
+    /** About Divvun Manager */
     static var aboutApp: String {
         return string(for: "aboutApp")
     }
@@ -76,18 +76,18 @@ class Strings {
         return string(for: "appHelp")
     }
 
-    /** Package Manager */
+    /** Divvun Manager */
     static var appName: String {
         return string(for: "appName")
     }
 
-    /** Package Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now? */
+    /** Divvun Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now? */
     static func appUpdateBody(version: String) -> String {
         let format = string(for: "appUpdateBody")
         return String(format: format, version)
     }
 
-    /** Package Manager Update Available */
+    /** Divvun Manager Update Available */
     static var appUpdateTitle: String {
         return string(for: "appUpdateTitle")
     }
@@ -237,7 +237,7 @@ class Strings {
         return string(for: "help")
     }
 
-    /** Hide Package Manager */
+    /** Hide Divvun Manager */
     static var hideApp: String {
         return string(for: "hideApp")
     }
@@ -378,7 +378,7 @@ class Strings {
         return string(for: "ok")
     }
 
-    /** Open Package Manager */
+    /** Open Divvun Manager */
     static var openPackageManager: String {
         return string(for: "openPackageManager")
     }
@@ -418,7 +418,7 @@ class Strings {
         return string(for: "queued")
     }
 
-    /** Quit Package Manager */
+    /** Quit Divvun Manager */
     static var quitApp: String {
         return string(for: "quitApp")
     }

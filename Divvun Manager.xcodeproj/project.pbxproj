@@ -119,16 +119,6 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C6B742D9204C127100C7877D /* Copy PahkatUpdateAgent Into App Bundle */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 6;
-			files = (
-			);
-			name = "Copy PahkatUpdateAgent Into App Bundle";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C6EA31D721B0A2460014F3B6 /* Embed XPC Services */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -160,7 +150,7 @@
 		99C6A53824509D0700AF4247 /* index.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = index.bin; sourceTree = "<group>"; };
 		99F28AE3245966C8006F14EF /* ResolvedAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolvedAction.swift; sourceTree = "<group>"; };
 		C60B22ED2043217300A2027A /* nn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nn; path = ../nn.lproj/Localizable.strings; sourceTree = "<group>"; };
-		C60B22F120432AF400A2027A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Pahkat/Base.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
+		C60B22F120432AF400A2027A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Sources/Base.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		C60B22F320432AF800A2027A /* nn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nn; path = ../nn.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C612CF9B2448605400EFEA98 /* BTreeBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTreeBuilder.swift; sourceTree = "<group>"; };
 		C612CF9C2448605500EFEA98 /* BTreeCursor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTreeCursor.swift; sourceTree = "<group>"; };
@@ -185,13 +175,13 @@
 		C612CFC32448B0E500EFEA98 /* index_generated+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "index_generated+Extensions.swift"; sourceTree = "<group>"; };
 		C61C52352051350000CAA498 /* nn-Runr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nn-Runr"; path = "../nn-Runr.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		C622705E2039DEC800DBCD65 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
-		C62270632039E08B00DBCD65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Pahkat/Base.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+		C62270632039E08B00DBCD65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Sources/Base.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		C62270652039E09600DBCD65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = ../en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C6227068203A243700DBCD65 /* iso639-autonyms.tsv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "iso639-autonyms.tsv"; sourceTree = SOURCE_ROOT; };
 		C622706A203A247300DBCD65 /* ISO639.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISO639.swift; sourceTree = "<group>"; };
 		C62462382201226300BE484B /* CompatNSMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompatNSMenuItem.swift; sourceTree = "<group>"; };
 		C656A692203ECAF80004E7F1 /* CompletionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompletionView.xib; sourceTree = "<group>"; };
-		C656A695203EE5190004E7F1 /* base.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = base.yaml; path = Pahkat/Support/LocalisationResources/base.yaml; sourceTree = SOURCE_ROOT; };
+		C656A695203EE5190004E7F1 /* base.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = base.yaml; path = Sources/Support/LocalisationResources/base.yaml; sourceTree = SOURCE_ROOT; };
 		C6646CD620507E3300602C20 /* se */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = se; path = ../se.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C6646CD720507E4800602C20 /* se */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = se; path = ../se.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C6646CD820507E5900602C20 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = ../nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -200,12 +190,12 @@
 		C6646CDB20507E7700602C20 /* en-001 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-001"; path = "../en-001.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C6646CDB20507E7700602C21 /* nn-Runr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nn-Runr"; path = "../nn-Runr.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C68E9F832384C2700083ACF4 /* WebBridgeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebBridgeService.swift; sourceTree = "<group>"; };
-		C69F948A2028B1EA00127A47 /* Divvun Installer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Divvun Installer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C69F948A2028B1EA00127A47 /* Divvun Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Divvun Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C69F948D2028B1EA00127A47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C69F948F2028B1EA00127A47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C69F94922028B1EA00127A47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		C69F94942028B1EA00127A47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C69F94952028B1EA00127A47 /* Pahkat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pahkat.entitlements; sourceTree = "<group>"; };
+		C69F94952028B1EA00127A47 /* Divvun Manager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Divvun Manager.entitlements"; sourceTree = "<group>"; };
 		C6B742C42049911B00C7877D /* MainOutlineModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainOutlineModels.swift; sourceTree = "<group>"; };
 		C6B742C6204BF19E00C7877D /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		C6B742C8204BF22600C7877D /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
@@ -323,7 +313,7 @@
 				C60B22F020432AF400A2027A /* InfoPlist.strings */,
 				C62270622039E08B00DBCD65 /* Localizable.strings */,
 				C69F948F2028B1EA00127A47 /* Assets.xcassets */,
-				C69F94952028B1EA00127A47 /* Pahkat.entitlements */,
+				C69F94952028B1EA00127A47 /* Divvun Manager.entitlements */,
 				C69F94942028B1EA00127A47 /* Info.plist */,
 			);
 			path = Support;
@@ -363,7 +353,7 @@
 		C69F94812028B1EA00127A47 = {
 			isa = PBXGroup;
 			children = (
-				C69F948C2028B1EA00127A47 /* Pahkat */,
+				C69F948C2028B1EA00127A47 /* Sources */,
 				C6C3FA512382C1EA0006E81B /* Shared */,
 				C69F948B2028B1EA00127A47 /* Products */,
 				C6E755A92462CC7800620D6F /* Frameworks */,
@@ -373,12 +363,12 @@
 		C69F948B2028B1EA00127A47 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C69F948A2028B1EA00127A47 /* Divvun Installer.app */,
+				C69F948A2028B1EA00127A47 /* Divvun Manager.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C69F948C2028B1EA00127A47 /* Pahkat */ = {
+		C69F948C2028B1EA00127A47 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				99C6A53724509CE700AF4247 /* TestData */,
@@ -394,7 +384,7 @@
 				C62270532036EA8D00DBCD65 /* Utilities */,
 				C6B742E0204C456100C7877D /* Constants.swift */,
 			);
-			path = Pahkat;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		C6C3FA512382C1EA0006E81B /* Shared */ = {
@@ -562,14 +552,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C69F94892028B1EA00127A47 /* Pahkat */ = {
+		C69F94892028B1EA00127A47 /* Divvun Manager */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C69F94982028B1EA00127A47 /* Build configuration list for PBXNativeTarget "Pahkat" */;
+			buildConfigurationList = C69F94982028B1EA00127A47 /* Build configuration list for PBXNativeTarget "Divvun Manager" */;
 			buildPhases = (
 				C69F94862028B1EA00127A47 /* Sources */,
 				C69F94872028B1EA00127A47 /* Frameworks */,
 				C69F94882028B1EA00127A47 /* Resources */,
-				C6B742D9204C127100C7877D /* Copy PahkatUpdateAgent Into App Bundle */,
 				C6EA31D721B0A2460014F3B6 /* Embed XPC Services */,
 				C63191D224472CF00055DA03 /* Embed Frameworks */,
 			);
@@ -577,7 +566,7 @@
 			);
 			dependencies = (
 			);
-			name = Pahkat;
+			name = "Divvun Manager";
 			packageProductDependencies = (
 				C63191C7244723760055DA03 /* RxSwift */,
 				C63191C9244723760055DA03 /* RxCocoa */,
@@ -589,8 +578,8 @@
 				C63191DF244730340055DA03 /* FlatBuffers */,
 				C6E755AA2462CC7800620D6F /* RxBlocking */,
 			);
-			productName = Pahkat;
-			productReference = C69F948A2028B1EA00127A47 /* Divvun Installer.app */;
+			productName = "Divvun Manager";
+			productReference = C69F948A2028B1EA00127A47 /* Divvun Manager.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -600,7 +589,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1170;
 				ORGANIZATIONNAME = Divvun;
 				TargetAttributes = {
 					C69F94892028B1EA00127A47 = {
@@ -614,7 +603,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C69F94852028B1EA00127A47 /* Build configuration list for PBXProject "Pahkat" */;
+			buildConfigurationList = C69F94852028B1EA00127A47 /* Build configuration list for PBXProject "Divvun Manager" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -640,7 +629,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C69F94892028B1EA00127A47 /* Pahkat */,
+				C69F94892028B1EA00127A47 /* Divvun Manager */,
 			);
 		};
 /* End PBXProject section */
@@ -851,6 +840,7 @@
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -904,6 +894,7 @@
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -913,16 +904,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2K5J2584NX;
+				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../pahkat-client-core/src",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = Pahkat/Support/Info.plist;
+				INFOPLIST_FILE = Sources/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -931,12 +923,13 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MARKETING_VERSION = 2.0.0;
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = no.divvun.Pahkat;
-				PRODUCT_MODULE_NAME = Pahkat;
-				PRODUCT_NAME = "Divvun Installer";
+				PRODUCT_BUNDLE_IDENTIFIER = no.divvun.Manager;
+				PRODUCT_MODULE_NAME = DivvunManager;
+				PRODUCT_NAME = "Divvun Manager";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				VALID_ARCHS = "x86_64 arm64";
 			};
 			name = Debug;
 		};
@@ -946,16 +939,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2K5J2584NX;
+				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../pahkat-client-core/src",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = Pahkat/Support/Info.plist;
+				INFOPLIST_FILE = Sources/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -964,18 +958,19 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MARKETING_VERSION = 2.0.0;
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = no.divvun.Pahkat;
-				PRODUCT_MODULE_NAME = Pahkat;
-				PRODUCT_NAME = "Divvun Installer";
+				PRODUCT_BUNDLE_IDENTIFIER = no.divvun.Manager;
+				PRODUCT_MODULE_NAME = DivvunManager;
+				PRODUCT_NAME = "Divvun Manager";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
+				VALID_ARCHS = "x86_64 arm64";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C69F94852028B1EA00127A47 /* Build configuration list for PBXProject "Pahkat" */ = {
+		C69F94852028B1EA00127A47 /* Build configuration list for PBXProject "Divvun Manager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C69F94962028B1EA00127A47 /* Debug */,
@@ -984,7 +979,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C69F94982028B1EA00127A47 /* Build configuration list for PBXNativeTarget "Pahkat" */ = {
+		C69F94982028B1EA00127A47 /* Build configuration list for PBXNativeTarget "Divvun Manager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C69F94992028B1EA00127A47 /* Debug */,

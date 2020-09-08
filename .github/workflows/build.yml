@@ -8,7 +8,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
       with:
-        path: divvun-installer
+        path: divvun-manager
     - name: Checkout repository
       uses: actions/checkout@v2
       with:
@@ -38,34 +38,34 @@ jobs:
         cd pahkat/pahkat-rpc
         cargo build --release --features launchd --bin server
         # Copy into installer build dir
-        cp ../target/release/server "$GITHUB_WORKSPACE/divvun-installer/scripts/pahkatd"
-    - name: Build Divvun Installer
+        cp ../target/release/server "$GITHUB_WORKSPACE/divvun-manager/scripts/pahkatd"
+    - name: Build Divvun Manager
       run: |
         source $RUNNER_WORKSPACE/divvun-ci-config/enc/env.sh
-        cd divvun-installer
+        cd divvun-manager
         /bin/bash scripts/build.sh
     - name: Upload installer
       uses: actions/upload-artifact@v1
       with:
-        name: divvun-installer
-        path: divvun-installer/DivvunInstaller.pkg
+        name: divvun-manager
+        path: divvun-manager/DivvunManager.pkg
     - name: Get package version from .plist
       id: version
       run: |
-        export DEPLOY_VERSION=`/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "$GITHUB_WORKSPACE/divvun-installer/Divvun Installer.app/Contents/Info.plist"`
+        export DEPLOY_VERSION=`/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "$GITHUB_WORKSPACE/divvun-manager/Divvun Manager.app/Contents/Info.plist"`
         echo "::set-output name=version::$DEPLOY_VERSION"
     - name: Deploy to Pahkat
       uses: divvun/actions/deploy@master
       with:
         platform: macos
-        package-id: divvun-installer
+        package-id: divvun-manager
         # repo: "https://pahkat.uit.no/divvun-installer/"
         # Temporary workaround
         repo: "https://pahkat.thetc.se/divvun-installer/"
         channel: nightly
         version: ${{ steps.version.outputs.version }}
         macos-pkg-id: "no.divvun.Pahkat"
-        payload-path: "${{ env.GITHUB_WORKSPACE }}divvun-installer/DivvunInstaller.pkg"
+        payload-path: "${{ env.GITHUB_WORKSPACE }}divvun-manager/DivvunManager.pkg"
         force-deploy: true
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
