@@ -15,12 +15,17 @@ jobs:
         repository: divvun/pahkat
         ref: master
         path: pahkat
-    - name: Install build tools from Pahkat for macOS
-      uses: divvun/actions/pahkat/init@master
+    - name: Setup Divvun CI
+      uses: divvun/actions/setup@master
       with:
-        repo: https://pahkat.uit.no/devtools/
-        channel: nightly
-        packages: pahkat-uploader, xcnotary
+        key: ${{ secrets.DIVVUN_KEY }}
+    - name: Get version
+      id: version
+      uses: divvun/actions/version@master
+      with:
+        plist: divvun-manager/Sources/Support/Info.plist
+        stable-channel: beta
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Install Rust toolchain
       uses: actions-rs/toolchain@v1
       with:
@@ -28,11 +33,13 @@ jobs:
         profile: minimal
         override: true
         components: rustfmt
-    - name: Setup Divvun CI
-      uses: divvun/actions/setup@master
+    - name: Install build tools from Pahkat for macOS
+      uses: divvun/actions/pahkat/init@master
       with:
-        key: ${{ secrets.DIVVUN_KEY }}
-    - name: Build Pahkat Daemon
+        repo: https://pahkat.uit.no/devtools/
+        channel: nightly
+        packages: pahkat-uploader, xcnotary
+    - name: Build Pahkat Service daemon
       run: |
         source $RUNNER_WORKSPACE/divvun-ci-config/enc/env.sh
         cd pahkat/pahkat-rpc
@@ -44,16 +51,11 @@ jobs:
         source $RUNNER_WORKSPACE/divvun-ci-config/enc/env.sh
         cd divvun-manager
         /bin/bash scripts/build.sh
-    - name: Upload installer
-      uses: actions/upload-artifact@v1
-      with:
-        name: divvun-manager
-        path: divvun-manager/DivvunManager.pkg
-    - name: Get package version from .plist
-      id: version
-      run: |
-        export DEPLOY_VERSION=`/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "$GITHUB_WORKSPACE/divvun-manager/Divvun Manager.app/Contents/Info.plist"`
-        echo "::set-output name=version::$DEPLOY_VERSION"
+    # - name: Upload installer
+    #   uses: actions/upload-artifact@v1
+    #   with:
+    #     name: divvun-manager
+    #     path: divvun-manager/DivvunManager.pkg
     - name: Deploy to Pahkat
       uses: divvun/actions/deploy@master
       with:
@@ -62,10 +64,9 @@ jobs:
         # repo: "https://pahkat.uit.no/divvun-installer/"
         # Temporary workaround
         repo: "https://pahkat.thetc.se/divvun-installer/"
-        channel: nightly
+        channel: ${{ steps.version.outputs.channel }}
         version: ${{ steps.version.outputs.version }}
-        macos-pkg-id: "no.divvun.Pahkat"
+        macos-pkg-id: "no.divvun.Manager"
         payload-path: "${{ env.GITHUB_WORKSPACE }}divvun-manager/DivvunManager.pkg"
-        force-deploy: true
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
