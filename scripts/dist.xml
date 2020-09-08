@@ -4,12 +4,12 @@
   <options customize="never" rootVolumeOnly="true" />
   <choices-outline>
     <line choice="default">
-      <line choice="no.divvun.Pahkat"/>
+      <line choice="no.divvun.Manager"/>
     </line>
   </choices-outline>
   <choice id="default"/>
-  <choice id="no.divvun.Pahkat" visible="false">
-    <pkg-ref id="no.divvun.Pahkat"/>
+  <choice id="no.divvun.Manager" visible="false">
+    <pkg-ref id="no.divvun.Manager"/>
   </choice>
-  <pkg-ref auth="root" id="no.divvun.Pahkat" version="0">no.divvun.Pahkat.pkg</pkg-ref>
+  <pkg-ref auth="root" id="no.divvun.Manager" version="0">no.divvun.Manager.pkg</pkg-ref>
 </installer-gui-script>

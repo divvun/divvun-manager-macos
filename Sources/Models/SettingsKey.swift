@@ -1,12 +1,12 @@
 import Foundation
 
 enum SettingsKey: String, UserSettingsJSON {
-    static let suiteName = "no.divvun.Pahkat"
+    static let suiteName = "no.divvun.Manager"
     
     case interfaceLanguage = "AppleLanguages"
-    case repositories = "no.divvun.Pahkat.repositories"
-    case nextUpdateCheck = "no.divvun.Pahkat.nextUpdateCheck"
-    case updateCheckInterval = "no.divvun.Pahkat.updateCheckInterval"
+    case repositories = "no.divvun.Manager.repositories"
+    case nextUpdateCheck = "no.divvun.Manager.nextUpdateCheck"
+    case updateCheckInterval = "no.divvun.Manager.updateCheckInterval"
     
     var requiresJSON: Bool {
         switch self {
