@@ -1,5 +1,7 @@
 # Divvun Manager for macOS
 
+[![Build Status](https://github.com/divvun/divvun-installer-macos/workflows/Build/badge.svg)](https://github.com/divvun/divvun-installer-macos/actions)
+
 ## Building
 
 `xcodebuild`
