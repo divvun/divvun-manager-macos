@@ -63,7 +63,7 @@ class OutlineGroup: Equatable, Comparable {
     }
 }
 
-class OutlinePackage: Equatable, Comparable {
+class OutlinePackage: Equatable, Comparable, CustomDebugStringConvertible {
     let package: Descriptor
     let release: Release
     let target: Target
@@ -93,6 +93,10 @@ class OutlinePackage: Equatable, Comparable {
         }
         
         return lhs.package.nativeName < rhs.package.nativeName
+    }
+
+    var debugDescription: String {
+        return "OutlinePackage { package: \(package.nativeName), .. }"
     }
 }
 

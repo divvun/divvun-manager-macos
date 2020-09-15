@@ -131,4 +131,31 @@ extension LoadedRepository {
     func packageKey(for descriptor: Descriptor) -> PackageKey {
         return PackageKey(repositoryURL: self.index.url, id: descriptor.id)
     }
+
+    func release(for key: PackageKey) -> Release? {
+        if (key.repositoryURL != self.index.url) {
+            return nil
+        }
+
+        guard let descriptor = self.descriptors[key.id] else {
+            return nil
+        }
+
+        return descriptor.release.first(where: { release in
+            if release.macosTarget == nil { return false }
+
+            var channel: String? = release.channel
+            if channel == "" {
+                channel = nil
+            }
+
+            // Check if repo channel is not null
+            if let repoChannel = self.meta.channel {
+                // If this package's channel is null or repo channel is equal, it's valid
+                return channel == nil || repoChannel == channel
+            }
+
+            return channel == nil
+        })
+    }
 }

@@ -36,6 +36,8 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     }
     
     func setRepositories(data: MainOutlineMap) {
+        assert(Thread.isMainThread)
+
         dataSource.repos = data
         
         contentView.outlineView.reloadData()
@@ -46,6 +48,9 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     }
     
     func refreshRepositories() {
+        assert(Thread.isMainThread)
+
+        let contentView = self.contentView
         contentView.outlineView.beginUpdates()
         contentView.outlineView.reloadData(
             forRowIndexes: IndexSet(integersIn: 0..<self.dataSource.rowCount()),
@@ -60,6 +65,8 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     }
     
     func updateProgressIndicator(isEnabled: Bool) {
+        assert(Thread.isMainThread)
+
         DispatchQueue.main.async {
             if isEnabled {
                 self.contentView.progressIndicator.startAnimation(self)
@@ -70,10 +77,12 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     }
     
     func showSettings() {
+        assert(Thread.isMainThread)
         AppContext.windows.show(SettingsWindowController.self)
     }
 
     func repositoriesChanged(repos: [LoadedRepository], records: [URL : RepoRecord]) {
+        assert(Thread.isMainThread)
         let repos = repos.filter { records[$0.index.url] != nil }
 
         let popupButton = contentView.popupButton
@@ -118,12 +127,14 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     }
     
     func updateSettingsButton(isEnabled: Bool) {
+        assert(Thread.isMainThread)
         DispatchQueue.main.async {
             self.contentView.settingsButton.isEnabled = isEnabled
         }
     }
     
     func updatePrimaryButton(isEnabled: Bool, label: String) {
+        assert(Thread.isMainThread)
         contentView.primaryButton.isEnabled = isEnabled
         contentView.primaryButton.title = label
         
@@ -220,8 +231,10 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         
         configureToolbar()
         
-        dataSource.events.subscribe(onPackageEventSubject).disposed(by: bag)
-        
+        dataSource.events.subscribe(onNext: { [weak self] value in
+            self?.onPackageEventSubject.onNext(value)
+        }).disposed(by: bag)
+
         contentView.outlineView.delegate = self.dataSource
         contentView.outlineView.dataSource = self.dataSource
         
@@ -254,7 +267,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
 }
 
 enum OutlineContextMenuItem {
-    case SelectedPackage(SelectedPackage)
+    case selectedPackage(SelectedPackage)
     case filter(OutlineRepository, OutlineFilter)
 }
 
@@ -286,7 +299,7 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
         
         if let value = item.representedObject as? OutlineContextMenuItem {
             switch value {
-            case let .SelectedPackage(action):
+            case let .selectedPackage(action):
                 events.onNext(OutlineEvent.setPackageSelection(action))
             case let .filter(repo, filter):
                 events.onNext(OutlineEvent.changeFilter(repo, filter))
@@ -318,7 +331,7 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
             case .notInstalled:
                 if installer.targets.contains(.system) {
                     let v = SelectedPackage(key: key, package: package, action: .install, target: .system)
-                    menu.addItem(makeMenuItem(Strings.installSystem, value: OutlineContextMenuItem.SelectedPackage(v)))
+                    menu.addItem(makeMenuItem(Strings.installSystem, value: OutlineContextMenuItem.selectedPackage(v)))
                 }
 //                if installer.targets.contains(.user) {
 //                    let v = SelectedPackage(key: key, package: package, action: .install, target: .user)
@@ -326,7 +339,7 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
 //                }
             case .requiresUpdate:
                 let v = SelectedPackage(key: key, package: package, action: .install, target: target)
-                menu.addItem(makeMenuItem(Strings.update, value: OutlineContextMenuItem.SelectedPackage(v)))
+                menu.addItem(makeMenuItem(Strings.update, value: OutlineContextMenuItem.selectedPackage(v)))
             default:
                 break
             }
@@ -334,7 +347,7 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
             switch status {
             case .upToDate, .requiresUpdate:
                 let v = SelectedPackage(key: key, package: package, action: .uninstall, target: target)
-                menu.addItem(makeMenuItem(Strings.uninstall, value: OutlineContextMenuItem.SelectedPackage(v)))
+                menu.addItem(makeMenuItem(Strings.uninstall, value: OutlineContextMenuItem.selectedPackage(v)))
             default:
                 break
             }
@@ -382,7 +395,6 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
             return repos[item]!.count
         case let item as OutlineGroup:
             return repos[item.repo]![item]!.count
-//            return repos[item.repo]![item]?.count ?? 0
         default:
             return 0
         }
@@ -424,12 +436,17 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
             self.events.onNext(event)
         }
     }
+
+    func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
+        // Fix UI glitch where text is written over previous table row's viewbox.
+        return NSTableRowView()
+    }
     
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         guard let tableColumn = tableColumn else { return nil }
         guard let column = MainViewOutlineColumns(identifier: tableColumn.identifier) else { return nil }
-        let cell = outlineView.makeView(withIdentifier: tableColumn.identifier, owner: outlineView) as! NSTableCellView
-        
+        let cell = outlineView.makeView(withIdentifier: tableColumn.identifier, owner: nil) as! NSTableCellView
+
         switch item {
         case let outlineRepo as OutlineRepository:
             guard case .name = column else {
@@ -465,9 +482,6 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
             cell.textField?.stringValue = name
 
             let packages = repos[outlineRepo]![group]!
-//            guard let packages = repos[outlineRepo]![group] else {
-//                return nil
-//            }
 
             if let button = cell.nextKeyView as? OutlineCheckbox {
                 button.target = self
@@ -592,17 +606,15 @@ class MainViewControllerDataSource: NSObject, NSOutlineViewDataSource, NSOutline
             return cell
         }
         
-        let withCheckboxX: CGFloat = 24
-        let withoutCheckboxX: CGFloat = 8
-        let textFieldWidth: CGFloat = 205
-        
         // Offset textfield if checkbox is visible
-        if cell.nextKeyView?.isHidden ?? false {
-            cell.textField?.frame = CGRect(x: withoutCheckboxX, y: 0, width: textFieldWidth, height: cell.frame.height)
-        } else {
-            cell.textField?.frame = CGRect(x: withCheckboxX, y: 0, width: textFieldWidth, height: cell.frame.height)
+        if let checkbox = cell.nextKeyView as? OutlineCheckbox, let c = checkbox.constraints.first(where: { x in x.firstAttribute == .width }) {
+            if checkbox.isHidden {
+                c.constant = 0.0
+            } else {
+                c.constant = 12.0
+            }
         }
-        
+
         return cell
     }
     

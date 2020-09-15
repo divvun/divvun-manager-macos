@@ -35,11 +35,7 @@ func sortByTagPrefix(outlineRepo: OutlineRepository, prefix: String, mutator: @e
     let repo = outlineRepo.repo
 
     let filteredDescriptors = repo.descriptors.values.filter { descriptor in
-        guard let _ = descriptor.release.first(where: { $0.macosTarget != nil && ($0.channel == nil || $0.channel == repo.meta.channel) }) else {
-            // this package doesn't have a macos target
-            return false
-        }
-        return true
+        return repo.release(for: repo.packageKey(for: descriptor)) != nil
     }
 
     let statuses = Observable.from(filteredDescriptors.map { repo.packageKey(for: $0) })
@@ -69,7 +65,7 @@ func sortByTagPrefix(outlineRepo: OutlineRepository, prefix: String, mutator: @e
                     data[group] = []
                 }
 
-                guard let release = descriptor.release.first(where: { $0.macosTarget != nil }) else { continue }
+                guard let release = repo.release(for: repo.packageKey(for: descriptor)) else { continue }
                 guard let target = release.macosTarget else { continue }
 
                 let outlinePackage = OutlinePackage(package: descriptor,
