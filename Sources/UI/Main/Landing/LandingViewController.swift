@@ -102,20 +102,19 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
                 popupButton.action = #selector(self.popupItemSelected)
                 popupButton.target = self
             }) { error in
-                print("Error: \(error)")
+                log.error("Error: \(error)")
         }.disposed(by: self.bag)
     }
 
     private func showNoSelection() {
-        print("No selection")
-        // Brendan said this would work
+        log.debug("No selection")
         let url: URL? = nil
         try? AppContext.settings.write(key: .selectedRepository, value: url)
         self.showEmptyStateIfNeeded()
     }
 
     private func showNoLandingPage() {
-        print("No landing page")
+        log.debug("No landing page")
         self.showMain()
     }
     
@@ -194,7 +193,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
                     : LandingView.State.normal
                 self.contentView.updateView(state: state)
             }) { error in
-                print("Error: \(error)")
+                log.error("Error: \(error)")
         }.disposed(by: self.bag)
     }
 
@@ -222,13 +221,13 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
 
     @objc func popupItemSelected() {
         guard let url = contentView.popupButton.selectedItem?.representedObject as? URL else {
-            print("Selected item has no associated URL")
+            log.warning("Selected item has no associated URL")
             return
         }
         do {
             try AppContext.settings.write(key: .selectedRepository, value: url)
         } catch {
-            print("Error setting selected repo: \(error)")
+            log.error("Error setting selected repo: \(error)")
         }
     }
     

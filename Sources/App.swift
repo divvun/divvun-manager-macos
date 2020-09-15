@@ -1,6 +1,5 @@
 import Foundation
 import Cocoa
-import XCGLogger
 import RxSwift
 
 struct DownloadProgress: Equatable {
@@ -110,13 +109,12 @@ enum TransactionState: Equatable {
 
 var AppContext: AppContextImpl!
 
-let log = XCGLogger.default
-
 class App: NSApplication {
     private lazy var appDelegate = AppDelegate()
     
     override init() {
         super.init()
+        let _ = log
         
         self.delegate = appDelegate
         
@@ -128,7 +126,8 @@ class App: NSApplication {
         }
         
         let language: String? = AppContext.settings.read(key: .language)
-        
+        log.debug("Setting default language: \(String(describing: language))")
+
         if let language = language {
             UserDefaults.standard.set([language], forKey: "AppleLanguages")
         } else {

@@ -215,13 +215,13 @@ class PahkatClient: PahkatClientType {
         
         return Single<(PackageStatus, SystemTarget)>.create { emitter in
             res.response.whenSuccess { value in
-                print("Success: \(packageKey) \(value.value)")
+                log.debug("Success: \(packageKey) \(value.value)")
                 let status = PackageStatus(rawValue: value.value) ?? PackageStatus.errorUnknownStatus
                 emitter(.success((status, target)))
             }
             
             res.response.whenFailure {
-                print("Error: \(packageKey) \($0)")
+                log.debug("Error: \(packageKey) \($0)")
                 emitter(.error($0))
             }
             

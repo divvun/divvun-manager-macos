@@ -120,7 +120,7 @@ class WebBridgeFunctions {
 
         // Args == 0? Return all packages
 
-        print("packages: \(args)")
+        log.debug("packages: \(args)")
 
         var map = [String: Descriptor]()
 
@@ -129,7 +129,7 @@ class WebBridgeFunctions {
             map[key.toString()] = descriptor
         }
 
-        print("We done")
+//        print("We done")
 
         return jsonEncoder.encodeAsync(map)
     }

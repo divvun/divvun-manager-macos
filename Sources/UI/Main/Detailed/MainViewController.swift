@@ -2,9 +2,11 @@ import Cocoa
 import RxSwift
 import RxCocoa
 
+
+
 class MainViewController: DisposableViewController<MainView>, MainViewable, NSToolbarDelegate {
     required init() {
-        print("MAIN INIT")
+        log.debug("MAIN INIT")
         super.init()
     }
     
@@ -30,7 +32,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     
     deinit {
         onPackageEventSubject.onCompleted()
-        print("MAIN DEINIT")
+        log.debug("MAIN DEINIT")
     }
     
     func setRepositories(data: MainOutlineMap) {
@@ -133,7 +135,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
     }
     
     func handle(error: Error) {
-        print(Thread.callStackSymbols.joined(separator: "\n"))
+        log.debug(Thread.callStackSymbols.joined(separator: "\n"))
         DispatchQueue.main.async {
             let alert = NSAlert()
             alert.messageText = Strings.downloadError
@@ -238,14 +240,14 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
 
     @objc func popupItemSelected() {
         guard let url = contentView.popupButton.selectedItem?.representedObject as? URL else {
-            print("Selected item has no associated URL")
+            log.debug("Selected item has no associated URL")
             return
         }
         DispatchQueue.main.async {
             do {
                 try AppContext.settings.write(key: .selectedRepository, value: url)
             } catch {
-                print("Error setting selected repo: \(error)")
+                log.debug("Error setting selected repo: \(error)")
             }
         }
     }

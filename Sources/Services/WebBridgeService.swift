@@ -49,7 +49,7 @@ class WebBridgeService: NSObject, WKScriptMessageHandler {
         var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
         urlComponents?.queryItems = [reloadItem]
         guard let reloadUrl = urlComponents?.url else {
-            print("Problem making force-reload url for \(url)")
+            log.error("Problem making force-reload url for \(url)")
             webView.load(URLRequest(url: url))
             return
         }
@@ -62,7 +62,7 @@ class WebBridgeService: NSObject, WKScriptMessageHandler {
             .replacingOccurrences(of: "\"", with: "\\\"")
 
         let js = "window.pahkatResponders[\"callback-\(request.id)\"](\"\(response)\")"
-        print(response)
+        log.debug(response)
 
         DispatchQueue.main.async {
             self.webView?.evaluateJavaScript(js, completionHandler: nil)
@@ -93,7 +93,7 @@ class WebBridgeService: NSObject, WKScriptMessageHandler {
             return
         }
         
-        print("Request: \(request)")
+        log.debug("Request: \(request)")
 
 
         functions.process(request: request).subscribe(

@@ -51,6 +51,7 @@
 		C6227069203A243700DBCD65 /* iso639-autonyms.tsv in Resources */ = {isa = PBXBuildFile; fileRef = C6227068203A243700DBCD65 /* iso639-autonyms.tsv */; };
 		C622706B203A247300DBCD65 /* ISO639.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622706A203A247300DBCD65 /* ISO639.swift */; };
 		C62462392201226300BE484B /* CompatNSMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62462382201226300BE484B /* CompatNSMenuItem.swift */; };
+		C624C14C250FA1FB00620D6F /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = C624C14B250FA1FB00620D6F /* Logging.swift */; };
 		C63191C8244723760055DA03 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C63191C7244723760055DA03 /* RxSwift */; };
 		C63191CA244723760055DA03 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = C63191C9244723760055DA03 /* RxCocoa */; };
 		C63191CD24472C9E0055DA03 /* RxFeedback in Frameworks */ = {isa = PBXBuildFile; productRef = C63191CC24472C9E0055DA03 /* RxFeedback */; };
@@ -180,6 +181,7 @@
 		C6227068203A243700DBCD65 /* iso639-autonyms.tsv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "iso639-autonyms.tsv"; sourceTree = SOURCE_ROOT; };
 		C622706A203A247300DBCD65 /* ISO639.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISO639.swift; sourceTree = "<group>"; };
 		C62462382201226300BE484B /* CompatNSMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompatNSMenuItem.swift; sourceTree = "<group>"; };
+		C624C14B250FA1FB00620D6F /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
 		C656A692203ECAF80004E7F1 /* CompletionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompletionView.xib; sourceTree = "<group>"; };
 		C656A695203EE5190004E7F1 /* base.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = base.yaml; path = Sources/Support/LocalisationResources/base.yaml; sourceTree = SOURCE_ROOT; };
 		C6646CD620507E3300602C20 /* se */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = se; path = ../se.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -416,6 +418,7 @@
 				C6E755A22462A90C00620D6F /* WebBridge */,
 				C68E9F832384C2700083ACF4 /* WebBridgeService.swift */,
 				C612CFBD2448AA7100EFEA98 /* RPCService.swift */,
+				C624C14B250FA1FB00620D6F /* Logging.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -726,6 +729,7 @@
 				C6F4BC782031E0AD002EE523 /* CompletionViewable.swift in Sources */,
 				271249BF20404495009EE80B /* SettingsViewable.swift in Sources */,
 				C6D78E1A23841D8E002F59E2 /* TransactionType.swift in Sources */,
+				C624C14C250FA1FB00620D6F /* Logging.swift in Sources */,
 				C6E392A12447489900560023 /* PackageKey.swift in Sources */,
 				C6F4BC5F202A43BC002EE523 /* RxStore.swift in Sources */,
 				C612CFBC2448770A00EFEA98 /* Config.swift in Sources */,

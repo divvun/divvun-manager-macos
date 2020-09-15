@@ -16,7 +16,7 @@ class InstallViewController: DisposableViewController<InstallView>, InstallViewa
     }
 
     deinit {
-        print("INSTALL DEINIT")
+        log.debug("INSTALL DEINIT")
     }
 
     override func viewDidLoad() {

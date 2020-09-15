@@ -162,7 +162,7 @@ class MainPresenter {
                 guard let `self` = self else { return }
                 self.view.repositoriesChanged(repos: repos, records: records)
             }) { error in
-                print("Error: \(error)")
+                log.error("Error: \(error)")
         }
     }
 

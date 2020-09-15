@@ -59,7 +59,7 @@ class MainWindowController: WindowController<MainWindow> {
             .observeOn(MainScheduler.instance)
             .subscribeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] route in
-                print("Setting route to: \(route)")
+                log.debug("Setting route to: \(route)")
                 
                 switch route {
                 case .landing:
