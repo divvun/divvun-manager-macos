@@ -24,7 +24,7 @@ jobs:
       uses: divvun/actions/version@master
       with:
         #plist: divvun-manager/Sources/Support/Info.plist'
-        xcode: true
+        xcode: divvun-manager
         stable-channel: beta
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Set self-update channel to nightly
