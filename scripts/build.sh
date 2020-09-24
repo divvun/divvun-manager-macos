@@ -13,8 +13,8 @@ echo "::add-mask::$MACOS_NOTARIZATION_APP_PWD"
 rm -rf tmp || echo "no tmp dir; continuing"
 rm -rf build || echo "no build dir; continuing"
 
-xcodebuild -scheme "Divvun Manager" -configuration Release archive -clonedSourcePackagesDirPath tmp/src -derivedDataPath tmp/derived -archivePath build/app.xcarchive -quiet \
-    CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM="$MACOS_DEVELOPMENT_TEAM" CODE_SIGN_IDENTITY="$MACOS_CODE_SIGN_IDENTITY" -quiet -allowProvisioningUpdates  \
+xcodebuild -scheme "Divvun Manager" -configuration Release archive -clonedSourcePackagesDirPath tmp/src -derivedDataPath tmp/derived -archivePath build/app.xcarchive \
+    CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM="$MACOS_DEVELOPMENT_TEAM" CODE_SIGN_IDENTITY="$MACOS_CODE_SIGN_IDENTITY" -allowProvisioningUpdates  \
     OTHER_CODE_SIGN_FLAGS=--options=runtime || exit 1
 
 rm -rf "$APP_NAME"
