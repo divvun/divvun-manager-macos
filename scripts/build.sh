@@ -10,7 +10,10 @@ PKG_NAME="DivvunManager.pkg"
 
 echo "::add-mask::$MACOS_NOTARIZATION_APP_PWD"
 
-xcodebuild -scheme "Divvun Manager" -configuration Release archive -archivePath build/app.xcarchive -quiet \
+rm -rf tmp || echo "no tmp dir; continuing"
+rm -rf build || echo "no build dir; continuing"
+
+xcodebuild -scheme "Divvun Manager" -configuration Release archive -clonedSourcePackagesDirPath tmp/src -derivedDataPath tmp/derived -archivePath build/app.xcarchive -quiet \
     CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM="$MACOS_DEVELOPMENT_TEAM" CODE_SIGN_IDENTITY="$MACOS_CODE_SIGN_IDENTITY" -quiet -allowProvisioningUpdates  \
     OTHER_CODE_SIGN_FLAGS=--options=runtime || exit 1
 
