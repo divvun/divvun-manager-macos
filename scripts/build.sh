@@ -1,8 +1,5 @@
 #!/bin/sh
 set -ex
-security default-keychain -s build.keychain
-security unlock-keychain -p travis build.keychain
-security set-keychain-settings -t 3600 -u build.keychain
 
 export DEVELOPMENT_TEAM="2K5J2584NX"
 export CODE_SIGN_IDENTITY="Developer ID Application: The University of Tromso (2K5J2584NX)"
@@ -12,7 +9,7 @@ APP_NAME="Divvun Manager.app"
 PKG_NAME="DivvunManager.pkg"
 
 xcodebuild -scheme "Divvun Manager" -configuration Release -workspace "Divvun Manager.xcodeproj/project.xcworkspace" archive -archivePath build/app.xcarchive -quiet \
-    CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM="$MACOS_DEVELOPMENT_TEAM" CODE_SIGN_IDENTITY="$MACOS_CODE_SIGN_IDENTITY"  -quiet -allowProvisioningUpdates  \
+    CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM="$MACOS_DEVELOPMENT_TEAM" CODE_SIGN_IDENTITY="$MACOS_CODE_SIGN_IDENTITY" -quiet -allowProvisioningUpdates  \
     OTHER_CODE_SIGN_FLAGS=--options=runtime || exit 1
 
 rm -rf "$APP_NAME"
@@ -28,8 +25,6 @@ echo "Notarizing bundle"
 xcnotary notarize "$APP_NAME" --override-path-type app -d "$MACOS_DEVELOPER_ACCOUNT" -k "$MACOS_DEVELOPER_PASSWORD_CHAIN_ITEM"
 stapler validate "$APP_NAME"
 
-# Daemon Installer
-
 VERSION=`/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "$APP_NAME/Contents/Info.plist"`
 
 # App installer
@@ -44,7 +39,6 @@ productbuild --distribution scripts/dist.xml \
     --version $VERSION \
     --package-path . \
     divvun-manager.unsigned.pkg
-
 
 productsign --sign "$MACOS_CODE_SIGN_IDENTITY_INSTALLER" divvun-manager.unsigned.pkg "$PKG_NAME"
 pkgutil --check-signature "$PKG_NAME"
