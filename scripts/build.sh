@@ -46,5 +46,5 @@ productsign --sign "$MACOS_CODE_SIGN_IDENTITY_INSTALLER" divvun-manager.unsigned
 pkgutil --check-signature "$PKG_NAME"
 
 echo "Notarizing installer"
-xcnotary notarize "$PKG_NAME" --override-path-type app -d "$MACOS_DEVELOPER_ACCOUNT" -p "$MACOS_NOTARIZATION_APP_PWD"
+xcnotary notarize "$PKG_NAME" --override-path-type pkg -d "$MACOS_DEVELOPER_ACCOUNT" -p "$MACOS_NOTARIZATION_APP_PWD"
 stapler validate "$PKG_NAME"
