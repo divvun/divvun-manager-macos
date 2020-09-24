@@ -1,14 +1,16 @@
 #!/bin/sh
 set -ex
 
-export DEVELOPMENT_TEAM="2K5J2584NX"
-export CODE_SIGN_IDENTITY="Developer ID Application: The University of Tromso (2K5J2584NX)"
-export CODE_SIGN_IDENTITY_INSTALLER="Developer ID Installer: The University of Tromso (2K5J2584NX)"
+export MACOS_DEVELOPMENT_TEAM="2K5J2584NX"
+export MACOS_CODE_SIGN_IDENTITY="Developer ID Application: The University of Tromso (2K5J2584NX)"
+export MACOS_CODE_SIGN_IDENTITY_INSTALLER="Developer ID Installer: The University of Tromso (2K5J2584NX)"
 
 APP_NAME="Divvun Manager.app"
 PKG_NAME="DivvunManager.pkg"
 
-xcodebuild -scheme "Divvun Manager" -configuration Release -workspace "Divvun Manager.xcodeproj/project.xcworkspace" archive -archivePath build/app.xcarchive -quiet \
+echo "::add-mask::$MACOS_NOTARIZATION_APP_PWD"
+
+xcodebuild -scheme "Divvun Manager" -configuration Release archive -archivePath build/app.xcarchive -quiet \
     CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM="$MACOS_DEVELOPMENT_TEAM" CODE_SIGN_IDENTITY="$MACOS_CODE_SIGN_IDENTITY" -quiet -allowProvisioningUpdates  \
     OTHER_CODE_SIGN_FLAGS=--options=runtime || exit 1
 
@@ -22,7 +24,7 @@ cp scripts/pahkatd "$APP_NAME/Contents/MacOS/pahkatd"
 codesign --options=runtime -f --deep -s "$MACOS_CODE_SIGN_IDENTITY" "$APP_NAME"
 
 echo "Notarizing bundle"
-xcnotary notarize "$APP_NAME" --override-path-type app -d "$MACOS_DEVELOPER_ACCOUNT" -k "$MACOS_DEVELOPER_PASSWORD_CHAIN_ITEM"
+xcnotary notarize "$APP_NAME" --override-path-type app -d "$MACOS_DEVELOPER_ACCOUNT" -p "$MACOS_NOTARIZATION_APP_PWD"
 stapler validate "$APP_NAME"
 
 VERSION=`/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "$APP_NAME/Contents/Info.plist"`
@@ -44,5 +46,5 @@ productsign --sign "$MACOS_CODE_SIGN_IDENTITY_INSTALLER" divvun-manager.unsigned
 pkgutil --check-signature "$PKG_NAME"
 
 echo "Notarizing installer"
-xcnotary notarize "$PKG_NAME" --override-path-type pkg -d "$MACOS_DEVELOPER_ACCOUNT" -k "$MACOS_DEVELOPER_PASSWORD_CHAIN_ITEM"
+xcnotary notarize "$PKG_NAME" --override-path-type app -d "$MACOS_DEVELOPER_ACCOUNT" -p "$MACOS_NOTARIZATION_APP_PWD"
 stapler validate "$PKG_NAME"

@@ -47,7 +47,7 @@ jobs:
         packages: pahkat-uploader, xcnotary
     - name: Build Pahkat Service daemon
       run: |
-        source $RUNNER_WORKSPACE/divvun-ci-config/enc/env.sh
+        source $GITHUB_WORKSPACE/_temp/divvun-ci-config/enc/env.sh
         cd pahkat/pahkat-rpc
         cargo build --release --features launchd --bin server
         # Copy into installer build dir
@@ -56,7 +56,7 @@ jobs:
         CHANNEL: ${{ steps.self_update_channel.outputs.channel }}
     - name: Build Divvun Manager
       run: |
-        source $RUNNER_WORKSPACE/divvun-ci-config/enc/env.sh
+        source $GITHUB_WORKSPACE/_temp/divvun-ci-config/enc/env.sh
         cd divvun-manager
         /bin/bash scripts/build.sh
     # - name: Upload installer
