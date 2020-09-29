@@ -5,6 +5,8 @@
 ## Build generated
 build/
 DerivedData/
+tmp/
+Divvun\ Manager.app
 
 ## Various settings
 *.pbxuser
