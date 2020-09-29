@@ -88,7 +88,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         let popupButton = contentView.popupButton
 
         popupButton.removeAllItems()
-        repos.forEach { (repo) in
+        repos.filter { $0.index.landingURL != nil }.forEach { (repo) in
             let name = repo.index.nativeName
             let url = repo.index.url
             let menuItem = NSMenuItem(title: name)

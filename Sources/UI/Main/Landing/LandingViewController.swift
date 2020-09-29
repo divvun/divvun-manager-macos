@@ -81,7 +81,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
                 let selectedRepoUrl: URL? = AppContext.settings.read(key: .selectedRepository)
 
                 popupButton.removeAllItems()
-                self.repos.forEach { (repo) in
+                self.repos.filter { $0.index.landingURL != nil }.forEach { (repo) in
                     let name = repo.index.nativeName
                     let url = repo.index.url
                     let menuItem = NSMenuItem(title: name)
@@ -89,7 +89,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
                     popupButton.menu?.addItem(menuItem)
 
                     if let selectedUrl = selectedRepoUrl, url == selectedUrl {
-                           popupButton.select(menuItem)
+                        popupButton.select(menuItem)
                     }
                 }
 
