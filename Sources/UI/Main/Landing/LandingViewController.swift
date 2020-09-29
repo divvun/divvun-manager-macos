@@ -42,7 +42,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
                     let record = records.first(where: { $0.key == url }),
                     let repo = repos.first(where: { $0.index.url == record.key }) {
                     return repo
-                } else if url?.scheme == "divvun-installer",
+                } else if url?.scheme == "divvun-manager",
                     url?.absoluteString.split(separator: ":")[1] == "detailed" {
                     DispatchQueue.main.async {
                         self.showNoLandingPage()
@@ -96,7 +96,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
                 popupButton.menu?.addItem(NSMenuItem.separator())
 
                 let showDetailedItem = NSMenuItem(title: Strings.allRepositories)
-                showDetailedItem.representedObject = URL(string: "divvun-installer:detailed")
+                showDetailedItem.representedObject = URL(string: "divvun-manager:detailed")
                 popupButton.menu?.addItem(showDetailedItem)
 
                 popupButton.action = #selector(self.popupItemSelected)

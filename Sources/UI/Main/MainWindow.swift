@@ -111,7 +111,7 @@ class MainWindowController: WindowController<MainWindow> {
     }
 
     private func showLandingPage(url: URL?) {
-        if url != nil && url?.scheme == "divvun-installer" {
+        if url != nil && url?.scheme == "divvun-manager" {
             let path = url?.absoluteString.split(separator: ":")[1]
             if path == "detailed" {
                 AppContext.windows.set(MainViewController(), for: MainWindowController.self)

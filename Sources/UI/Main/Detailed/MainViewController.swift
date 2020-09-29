@@ -99,7 +99,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         popupButton.menu?.addItem(NSMenuItem.separator())
 
         let showDetailedItem = NSMenuItem(title: Strings.allRepositories)
-        showDetailedItem.representedObject = URL(string: "divvun-installer:detailed")
+        showDetailedItem.representedObject = URL(string: "divvun-manager:detailed")
         popupButton.menu?.addItem(showDetailedItem)
         popupButton.select(showDetailedItem)
 
