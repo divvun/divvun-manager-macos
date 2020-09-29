@@ -28,14 +28,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             forEventClass: kCoreEventClass,
             andEventID: kAEReopenApplication)
     }
-    
-    private func configureLogging() {
-        log.setup(level: .debug, showThreadName: true, showLevel: true, showFileNames: true, showLineNumbers: true, writeToFile: "/tmp/divvun-installer.log", fileLevel: .debug)
-    }
-    
+
     func applicationDidFinishLaunching(_ notification: Notification) {
-        configureLogging()
-        
         // Configure Sentry.io
         do {
             Client.shared = try Client(dsn: "https://554b508acddd44e98c5b3dc70f8641c1@sentry.io/1357390")

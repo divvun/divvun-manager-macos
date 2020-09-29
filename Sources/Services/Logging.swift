@@ -24,12 +24,17 @@ let fileDest: AutoRotatingFileDestination = {
     let x = AutoRotatingFileDestination(
         writeToFile: divvunManagerLogsPath.appendingPathComponent("app.log").path,
         identifier: "DivvunManager.file")
+    x.outputLevel = .debug
     x.logQueue = XCGLogger.logQueue
     return x
 }()
 
 internal let log: XCGLogger = {
     let x = XCGLogger(identifier: "DivvunManager", includeDefaultDestinations: false)
+
+    try? FileManager.default.createDirectory(at: divvunManagerLogsPath,
+                                        withIntermediateDirectories: true,
+                                        attributes: nil)
 
     x.add(destination: systemDest)
     x.add(destination: fileDest)
