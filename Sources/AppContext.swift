@@ -66,6 +66,6 @@ class AppContextImpl {
     init() throws {
         settings = try Settings()
 //        packageStore = MockPahkatClient()
-        packageStore = PahkatClient(unixSocketPath: URL(fileURLWithPath: "/tmp/pahkat"))
+        packageStore = PahkatClient(unixSocketPath: URL(fileURLWithPath: "/tmp/pahkat.sock"))
     }
 }
