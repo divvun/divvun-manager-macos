@@ -3,7 +3,7 @@ on: [push, repository_dispatch]
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: self-hosted
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -59,6 +59,8 @@ jobs:
         source $RUNNER_TEMP/divvun-ci-config/enc/env.sh
         cd divvun-manager
         /bin/bash scripts/build.sh
+      env:
+        VERSION: ${{ steps.version.outputs.version }}
     # - name: Upload installer
     #   uses: actions/upload-artifact@v1
     #   with:
