@@ -3,6 +3,14 @@ set -e
 
 PLIST_FILE="no.divvun.pahkatd.plist"
 
+# Uninstall Divvun Installer 1.0
+if [[ -e "/Applications/Divvun Installer.app" ]]; then
+  rm -rf "/Applications/Divvun Installer.app"
+  pkgutil --forget no.divvun.Pahkat
+  rm -f /Library/LaunchDaemons/no.divvun.PahkatAdminService.plist
+  rm -f /Library/PrivilegedHelperTools/no.divvun.PahkatAdminService
+fi
+
 rm -f "/Library/LaunchDaemons/$PLIST_FILE"
 cp "$PLIST_FILE" "/Library/LaunchDaemons/$PLIST_FILE"
-/bin/launchctl load "/Library/LaunchDaemons/$PLIST_FILE"
+/bin/launchctl load "/Library/LaunchDaemons/$PLIST_FILE" -w

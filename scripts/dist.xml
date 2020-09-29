@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <installer-gui-script minSpecVersion="2">
-  <title>Divvun Installer</title>
+  <title>Divvun Manager</title>
   <options customize="never" rootVolumeOnly="true" />
   <choices-outline>
     <line choice="default">
       <line choice="no.divvun.Manager"/>
-    </line>
+g   </line>
   </choices-outline>
   <choice id="default"/>
   <choice id="no.divvun.Manager" visible="false">
