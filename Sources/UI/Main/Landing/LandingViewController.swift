@@ -120,6 +120,8 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
     
     override func viewWillAppear() {
         super.viewWillAppear()
+
+        AppContext.packageStore.refresh().subscribe().disposed(by: bag)
         bindRepoDropdown()
         bindSettingsButton()
         bindOpenSettingsButton()

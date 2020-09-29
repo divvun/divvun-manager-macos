@@ -335,6 +335,7 @@ class MainPresenter {
     
     func start() -> Disposable {
         return CompositeDisposable(disposables: [
+            AppContext.packageStore.refresh().subscribe(),
             bindSettingsButton(),
             bindUpdatePackageList(),
             bindPackageToggleEvent(),

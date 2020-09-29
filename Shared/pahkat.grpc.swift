@@ -15,6 +15,7 @@ import SwiftProtobuf
 /// Usage: instantiate Pahkat_PahkatClient, then call methods of this protocol to make API calls.
 public protocol Pahkat_PahkatClientProtocol {
   func notifications(_ request: Pahkat_NotificationsRequest, callOptions: CallOptions?, handler: @escaping (Pahkat_NotificationResponse) -> Void) -> ServerStreamingCall<Pahkat_NotificationsRequest, Pahkat_NotificationResponse>
+  func refresh(_ request: Pahkat_RefreshRequest, callOptions: CallOptions?) -> UnaryCall<Pahkat_RefreshRequest, Pahkat_RefreshResponse>
   func status(_ request: Pahkat_StatusRequest, callOptions: CallOptions?) -> UnaryCall<Pahkat_StatusRequest, Pahkat_StatusResponse>
   func repositoryIndexes(_ request: Pahkat_RepositoryIndexesRequest, callOptions: CallOptions?) -> UnaryCall<Pahkat_RepositoryIndexesRequest, Pahkat_RepositoryIndexesResponse>
   func processTransaction(callOptions: CallOptions?, handler: @escaping (Pahkat_TransactionResponse) -> Void) -> BidirectionalStreamingCall<Pahkat_TransactionRequest, Pahkat_TransactionResponse>
@@ -51,6 +52,18 @@ public final class Pahkat_PahkatClient: GRPCClient, Pahkat_PahkatClientProtocol 
                                         request: request,
                                         callOptions: callOptions ?? self.defaultCallOptions,
                                         handler: handler)
+  }
+
+  /// Unary call to Refresh
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to Refresh.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  public func refresh(_ request: Pahkat_RefreshRequest, callOptions: CallOptions? = nil) -> UnaryCall<Pahkat_RefreshRequest, Pahkat_RefreshResponse> {
+    return self.makeUnaryCall(path: "/pahkat.Pahkat/Refresh",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
   }
 
   /// Store
@@ -157,6 +170,7 @@ public final class Pahkat_PahkatClient: GRPCClient, Pahkat_PahkatClientProtocol 
 /// To build a server, implement a class that conforms to this protocol.
 public protocol Pahkat_PahkatProvider: CallHandlerProvider {
   func notifications(request: Pahkat_NotificationsRequest, context: StreamingResponseCallContext<Pahkat_NotificationResponse>) -> EventLoopFuture<GRPCStatus>
+  func refresh(request: Pahkat_RefreshRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Pahkat_RefreshResponse>
   /// Store
   func status(request: Pahkat_StatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Pahkat_StatusResponse>
   func repositoryIndexes(request: Pahkat_RepositoryIndexesRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Pahkat_RepositoryIndexesResponse>
@@ -180,6 +194,13 @@ extension Pahkat_PahkatProvider {
       return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.notifications(request: request, context: context)
+        }
+      }
+
+    case "Refresh":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.refresh(request: request, context: context)
         }
       }
 
@@ -246,6 +267,8 @@ extension Pahkat_PahkatProvider {
 // Provides conformance to `GRPCPayload` for request and response messages
 extension Pahkat_NotificationsRequest: GRPCProtobufPayload {}
 extension Pahkat_NotificationResponse: GRPCProtobufPayload {}
+extension Pahkat_RefreshRequest: GRPCProtobufPayload {}
+extension Pahkat_RefreshResponse: GRPCProtobufPayload {}
 extension Pahkat_StatusRequest: GRPCProtobufPayload {}
 extension Pahkat_StatusResponse: GRPCProtobufPayload {}
 extension Pahkat_RepositoryIndexesRequest: GRPCProtobufPayload {}

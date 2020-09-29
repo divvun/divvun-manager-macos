@@ -59,6 +59,7 @@ struct PackageQuery: Codable {
 
 protocol PahkatClientType: class {
     func notifications() -> Observable<PahkatNotification>
+    func refresh() -> Completable
     func repoIndexes() -> Single<[LoadedRepository]>
     func status(packageKey: PackageKey) -> Single<(PackageStatus, SystemTarget)>
     func processTransaction(actions: [PackageAction]) -> (() -> Completable, Observable<TransactionEvent>)
@@ -79,6 +80,10 @@ class MockPahkatClient: PahkatClientType {
 
     func notifications() -> Observable<PahkatNotification> {
         return Observable.just(PahkatNotification.repositoriesChanged)
+    }
+
+    func refresh() -> Completable {
+        return Completable.empty()
     }
 
     func strings(languageTag: String) -> Single<[URL : MessageMap]> {
@@ -178,6 +183,23 @@ class PahkatClient: PahkatClientType {
                     log.error("Unhandled notification: \(response.value)")
                 }
             })
+
+            return Disposables.create()
+        }
+    }
+
+    public func refresh() -> Completable {
+        let req = Pahkat_RefreshRequest()
+        let res = self.inner.refresh(req)
+
+        return Completable.create { emitter in
+            res.response.whenSuccess { _ in
+                emitter(.completed)
+            }
+
+            res.response.whenFailure {
+                emitter(.error($0))
+            }
 
             return Disposables.create()
         }
