@@ -86,7 +86,7 @@ func sortByTagPrefix(outlineRepo: OutlineRepository, prefix: String, mutator: @e
 
 class MainPresenter {
     private let bag = DisposeBag()
-    private unowned let view: MainViewable
+    private weak var view: MainViewable?
     private var data: MainOutlineMap = Map()
     private var selectedPackages = [PackageKey: SelectedPackage]()
 
@@ -144,10 +144,10 @@ class MainPresenter {
             .subscribe(onCompleted: { [weak self] in
                 guard let `self` = self else { return }
 //                self.updateData(with: repos)
-                self.view.updateProgressIndicator(isEnabled: false)
-                self.view.setRepositories(data: self.data)
+                self.view?.updateProgressIndicator(isEnabled: false)
+                self.view?.setRepositories(data: self.data)
 
-            }, onError: { [weak self] in self?.view.handle(error: $0) })
+            }, onError: { [weak self] in self?.view?.handle(error: $0) })
     }
 
     private func refreshRepos() -> Disposable {
@@ -156,7 +156,7 @@ class MainPresenter {
             .observeOn(MainScheduler.instance)
             .subscribe(onSuccess: { [weak self] (repos, records) in
                 guard let `self` = self else { return }
-                self.view.repositoriesChanged(repos: repos, records: records)
+                self.view?.repositoriesChanged(repos: repos, records: records)
             }) { error in
                 log.error("Error: \(error)")
         }
@@ -166,7 +166,8 @@ class MainPresenter {
         return AppContext.packageStore.notifications()
             .subscribeOn(MainScheduler.instance)
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { (notification) in
+            .subscribe(onNext: { [weak self] (notification) in
+                guard let `self` = self else { return }
                 if case PahkatNotification.repositoriesChanged = notification {
                     self.bindUpdatePackageList().disposed(by: self.bag)
                     self.refreshRepos().disposed(by: self.bag)
@@ -194,17 +195,17 @@ class MainPresenter {
             label = Strings.noPackagesSelected
         }
         
-        self.view.updatePrimaryButton(isEnabled: isEnabled, label: label)
+        self.view?.updatePrimaryButton(isEnabled: isEnabled, label: label)
     }
     
     private func bindSettingsButton() -> Disposable {
-        return view.onSettingsTapped.drive(onNext: { [weak self] in
-            self?.view.showSettings()
+        return view!.onSettingsTapped.drive(onNext: { [weak self] in
+            self?.view?.showSettings()
         })
     }
     
     private func bindPrimaryButton() -> Disposable {
-        return view.onPrimaryButtonPressed.drive(onNext: { [weak self] in
+        return view!.onPrimaryButtonPressed.drive(onNext: { [weak self] in
             guard let `self` = self else { return }
 
             let actions = self.selectedPackages.values.map { (package: SelectedPackage) in
@@ -265,7 +266,7 @@ class MainPresenter {
     }
     
     private func bindContextMenuEvents() -> Disposable {
-        return view.onPackageEvent
+        return view!.onPackageEvent
             .observeOn(MainScheduler.instance)
             .subscribeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] event in
@@ -278,7 +279,7 @@ class MainPresenter {
                     }
                     self.setPackageState(to: .set(action), package: action.package, repo: outlineRepo)
                     self.updatePrimaryButton()
-                    self.view.refreshRepositories()
+                    self.view?.refreshRepositories()
                 case let .changeFilter(repo, filter):
                     repo.filter = filter
                     self.updateFilters(key: repo)
@@ -289,7 +290,7 @@ class MainPresenter {
                             for action in self.selectedPackages.values {
                                 self.setPackageState(to: .set(action), package: action.package, repo: repo)
                             }
-                            self.view.setRepositories(data: self.data)
+                            self.view?.setRepositories(data: self.data)
                         }).disposed(by: self.bag)
                 default:
                     return
@@ -298,7 +299,7 @@ class MainPresenter {
     }
     
     private func bindPackageToggleEvent() -> Disposable {
-        return view.onPackageEvent
+        return view!.onPackageEvent
             .observeOn(MainScheduler.instance)
             .subscribeOn(MainScheduler.instance)
             .flatMapLatest { [weak self] (event: OutlineEvent) -> Observable<(OutlineRepository, [Descriptor])> in
@@ -329,7 +330,7 @@ class MainPresenter {
                 }
 
                 self.updatePrimaryButton()
-                self.view.refreshRepositories()
+                self.view?.refreshRepositories()
             })
     }
     
@@ -344,6 +345,10 @@ class MainPresenter {
             bindReposChanged(),
             refreshRepos()
         ])
+    }
+
+    deinit {
+        log.debug("MainPresenter DEINIT")
     }
 }
 

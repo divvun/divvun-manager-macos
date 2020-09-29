@@ -245,6 +245,13 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         
         presenter.start().disposed(by: bag)
     }
+
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+
+        log.debug("CLEARING MAIN BAG")
+        self.bag = DisposeBag()
+    }
     
     override func viewWillLayout() {
         super.viewWillLayout()
