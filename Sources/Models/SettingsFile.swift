@@ -58,9 +58,9 @@ class Settings: Config<SettingsFile> {
     init() throws {
         let prefsPath = try FileManager.default
             .url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-            .appendingPathComponent("Preferences")
+            .appendingPathComponent("Application Support")
         
-        let divvunInstallerPrefsPath = prefsPath.appendingPathComponent("Divvun Installer")
+        let divvunInstallerPrefsPath = prefsPath.appendingPathComponent("Divvun Manager")
         try FileManager.default
             .createDirectory(at: divvunInstallerPrefsPath, withIntermediateDirectories: true, attributes: nil)
         

@@ -15,11 +15,11 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6" customClass="MainMenu" customModule="Pahkat" customModuleProvider="target">
             <items>
-                <menuItem title="Divvun Installer" id="1Xt-HY-uBw" userLabel="Divvun Manager" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                <menuItem title="Divvun Manager" id="1Xt-HY-uBw" userLabel="Divvun Manager" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Divvun Installer" systemMenu="apple" id="uQy-DD-JDr">
+                    <menu key="submenu" title="Divvun Manager" systemMenu="apple" id="uQy-DD-JDr">
                         <items>
-                            <menuItem title="About Divvun Installer" id="5kV-Vb-QxS" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                            <menuItem title="About Divvun Manager" id="5kV-Vb-QxS" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="aboutApp"/>
@@ -43,7 +43,7 @@
                                 </userDefinedRuntimeAttributes>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="4je-JR-u6R" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target"/>
-                            <menuItem title="Hide Divvun Installer" keyEquivalent="h" id="Olw-nP-bQN" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                            <menuItem title="Hide Divvun Manager" keyEquivalent="h" id="Olw-nP-bQN" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="hideApp"/>
                                 </userDefinedRuntimeAttributes>
@@ -70,7 +70,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="kCx-OE-vgT" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target"/>
-                            <menuItem title="Quit Divvun Installer" keyEquivalent="q" id="4sb-4s-VLi" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                            <menuItem title="Quit Divvun Manager" keyEquivalent="q" id="4sb-4s-VLi" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="quitApp"/>
                                 </userDefinedRuntimeAttributes>
