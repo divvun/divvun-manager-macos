@@ -2,40 +2,36 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>StandardErrorPath</key>
-	<string>/tmp/pahkat_err.log</string>
-	<key>StandardOutPath</key>
-	<string>/tmp/pahkat.log</string>
+	<key>EnvironmentVariables</key>
+	<dict>
+		<key>RUST_LOG</key>
+		<string>pahkat_rpc=trace,pahkat_client=trace</string>
+	</dict>
+	<key>KeepAlive</key>
+	<true/>
 	<key>Label</key>
 	<string>no.divvun.pahkatd</string>
-	
+	<key>OnDemand</key>
+	<false/>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/Applications/Divvun Installer.app/Contents/MacOS/pahkatd</string>
+		<string>/Applications/Divvun Manager.app/Contents/MacOS/pahkatd</string>
 	</array>
-
-	<key>EnvironmentVariables</key>
-    <dict>
-           <key>RUST_LOG</key>
-           <string>info</string>
-    </dict>
-
-	<key>OnDemand</key>
-    <false/>
-    <key>KeepAlive</key>
-    <true/>
-    <key>RunAtLoad</key>
-    <true/>
-
+	<key>RunAtLoad</key>
+	<true/>
 	<key>Sockets</key>
 	<dict>
 		<key>pahkat</key>
 		<dict>
-			<key>SockPathName</key>
-			<string>/tmp/pahkat</string>
+			<key>SecureSocketWithKey</key>
+			<string>PAHKATD_UDS_PATH</string>
 			<key>SockFamily</key>
 			<string>Unix</string>
 		</dict>
 	</dict>
+	<key>StandardErrorPath</key>
+	<string>/Library/Logs/Pahkat/stderr.log</string>
+	<key>StandardOutPath</key>
+	<string>/Library/Logs/Pahkat/stdout.log</string>
 </dict>
 </plist>
