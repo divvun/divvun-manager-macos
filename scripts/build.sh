@@ -27,6 +27,10 @@ echo "::group::Signing and notarizing Divvun Manager"
 # Sign & copy daemon into bundle
 chmod +x scripts/pahkatd
 cp scripts/pahkatd "$APP_NAME/Contents/MacOS/pahkatd"
+
+# Update the version to the one provided by the build system
+/usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" "$APP_NAME/Contents/Info.plist"
+
 # Need to re-sign app bundle
 codesign --options=runtime -f --deep -s "$MACOS_CODE_SIGN_IDENTITY" "$APP_NAME"
 
@@ -37,18 +41,31 @@ stapler validate "$APP_NAME"
 echo "::endgroup::"
 echo "::group::Building .pkg"
 
-# VERSION=`/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "$APP_NAME/Contents/Info.plist"`
-
 # App installer
 pkgbuild --component "$APP_NAME" \
     --ownership recommended \
     --scripts "scripts/scripts" \
     --install-location /Applications \
-    --version $VERSION \
     no.divvun.Manager.pkg
 
+dir=$PWD
+
+# Fix the broken version in the file
+TMPDIR=`mktemp -d /tmp/build.XXXXXX` || exit 1
+pushd $TMPDIR
+xar -xf $dir/no.divvun.Manager.pkg
+python3 <<EOF
+from xml.etree import ElementTree
+x = ElementTree.fromstring(open("./PackageInfo", "rb").read())
+x.attrib['version'] = "$VERSION"
+x.find("*[@CFBundleShortVersionString]").attrib["CFBundleShortVersionString"] = "$VERSION"
+with open("./PackageInfo", "w", encoding="utf-8") as f:
+    f.write(ElementTree.tostring(x).decode('utf-8'))
+EOF
+xar -cf $dir/no.divvun.Manager.pkg *
+popd
+
 productbuild --distribution scripts/dist.xml \
-    --version $VERSION \
     --package-path . \
     divvun-manager.unsigned.pkg
 
