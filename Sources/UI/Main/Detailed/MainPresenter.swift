@@ -130,12 +130,9 @@ class MainPresenter {
             .subscribeOn(MainScheduler.instance)
 
         let completable = single.flatMapCompletable { [weak self] (repos, records) in
-//            repos.forEach {
-//                print(String(describing: $0.descriptors))
-//            }
             guard let `self` = self else { return Completable.empty() }
-//            let filtered = repos.filter { records[$0.index.url] != nil }
-            return self.updateData(with: repos)
+            let filtered = repos.filter { records[$0.index.url] != nil }
+            return self.updateData(with: filtered)
         }
 
         return completable
