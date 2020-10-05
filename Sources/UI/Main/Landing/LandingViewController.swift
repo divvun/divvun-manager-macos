@@ -18,6 +18,10 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         return self.contentView.openSettingsButton.rx.tap.asDriver()
     }()
 
+    func toggleProgressIndicator(_ isVisible: Bool) {
+        self.contentView.progressIndicator.isHidden = !isVisible
+    }
+
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
         switch itemIdentifier.rawValue {
         case "settings":

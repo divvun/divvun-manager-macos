@@ -12,10 +12,11 @@ struct LanguageResponse: Encodable {
 }
 
 protocol WebBridgeViewable: class {
+    func toggleProgressIndicator(_ isVisible: Bool)
     func handle(error: Error)
 }
 
-class WebBridgeService: NSObject, WKScriptMessageHandler {
+class WebBridgeService: NSObject, WKScriptMessageHandler, WKNavigationDelegate {
     private let bag = DisposeBag()
 
     private let jsonDecoder = JSONDecoder()
@@ -26,13 +27,30 @@ class WebBridgeService: NSObject, WKScriptMessageHandler {
     private weak var view: WebBridgeViewable?
 
     private var functions: WebBridgeFunctions? = nil
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        self.view?.toggleProgressIndicator(false)
+    }
+
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        log.error(error)
+        self.view?.toggleProgressIndicator(false)
+    }
+
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        log.error(error)
+        self.view?.toggleProgressIndicator(false)
+    }
     
     init(webView: WKWebView, view: WebBridgeViewable) {
         self.webView = webView
         self.view = view
+
+        super.init()
+
+        webView.navigationDelegate = self
     }
 
-    
     func start(url: URL, repo: LoadedRepository) {
         guard let webView = webView else { return }
         functions = WebBridgeFunctions(repo: repo)
@@ -48,6 +66,9 @@ class WebBridgeService: NSObject, WKScriptMessageHandler {
         let reloadItem = URLQueryItem(name: "ts", value: unixEpoch)
         var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
         urlComponents?.queryItems = [reloadItem]
+
+        view?.toggleProgressIndicator(true)
+
         guard let reloadUrl = urlComponents?.url else {
             log.error("Problem making force-reload url for \(url)")
             webView.load(URLRequest(url: url))
@@ -95,7 +116,6 @@ class WebBridgeService: NSObject, WKScriptMessageHandler {
         
         log.debug("Request: \(request)")
 
-
         functions.process(request: request).subscribe(
             onSuccess: { [weak self] data in
                 guard let `self` = self else { return }
@@ -117,18 +137,6 @@ class WebBridgeService: NSObject, WKScriptMessageHandler {
 
                 self.sendResponse(request: request, responseData: responseData)
             }).disposed(by: bag)
-        
-//        do {
-//            responseData = try functions.process(request: request)
-//        } catch let error as ErrorResponse {
-//            responseData = try! jsonEncoder.encode(error)
-//        } catch {
-//            do {
-//                responseData = try jsonEncoder.encode(ErrorResponse(error: String(describing: error)))
-//            } catch {
-//                responseData = try! jsonEncoder.encode(ErrorResponse(error: "An unhandled error occurred"))
-//            }
-//        }
     }
 
 }

@@ -1,12 +1,32 @@
 import Cocoa
 import WebKit
 
+extension NSView {
+    func bringSubviewToFront(_ view: NSView) {
+        var theView = view
+        self.sortSubviews({ (viewA, viewB, rawPointer) in
+            let view = rawPointer?.load(as: NSView.self)
+
+            switch view {
+            case viewA:
+                return ComparisonResult.orderedDescending
+            case viewB:
+                return ComparisonResult.orderedAscending
+            default:
+                return ComparisonResult.orderedSame
+            }
+        }, context: &theView)
+    }
+}
+
+
 class LandingView: View {
     @IBOutlet weak var primaryLabel: NSTextField!
     @IBOutlet weak var primaryButton: NSButton!
     @IBOutlet weak var settingsButton: NSButton!
     @IBOutlet weak var messageLabel: NSTextField!
     @IBOutlet weak var openSettingsButton: NSButton!
+    @IBOutlet weak var progressIndicator: NSProgressIndicator!
 
     var popupButton = NSPopUpButton(title: Strings.selectRepository, target: nil, action: nil)
 
@@ -16,6 +36,8 @@ class LandingView: View {
         case empty
         case normal
     }
+
+    private var firstLoad = true
     
     override func awakeFromNib() {
         let config = WKWebViewConfiguration()
@@ -24,6 +46,8 @@ class LandingView: View {
         self.autoresizesSubviews = true
         webView.autoresizingMask = [.height, .width]
         self.addSubview(webView)
+        self.bringSubviewToFront(progressIndicator)
+        progressIndicator.startAnimation(self)
         popupButton.autoenablesItems = true
         
         primaryLabel.stringValue = Strings.appName
@@ -34,6 +58,10 @@ class LandingView: View {
 
     func updateView(state: State) {
         webView.isHidden = state == .empty
+        if firstLoad {
+            progressIndicator.isHidden = state != .normal
+            firstLoad = false
+        }
         messageLabel.isHidden = state == .normal
         openSettingsButton.isHidden = state == .normal
     }
