@@ -29,7 +29,11 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
             item.maxSize = NSSize(width: CGFloat(48.0), height: item.maxSize.height)
             return item
         case "repo-selector":
-            return NSToolbarItem.init(view: contentView.popupButton, identifier: itemIdentifier)
+            let item = NSToolbarItem.init(view: contentView.popupButton, identifier: itemIdentifier)
+            item.minSize = NSSize(width: CGFloat(160.0), height: item.maxSize.height)
+            return item
+        case "title":
+            return NSToolbarItem.init(view: contentView.primaryLabel, identifier: itemIdentifier)
         default:
             return nil
         }
@@ -214,13 +218,13 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         window.toolbar!.isVisible = true
         window.toolbar!.delegate = self
 
-        let toolbarItems = ["settings",
-//                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
-//                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
-                            "repo-selector"] //,
-//                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
-//                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
-//                            NSToolbarItem.Identifier.flexibleSpace.rawValue]
+        let toolbarItems = [
+            "settings",
+            "repo-selector",
+            NSToolbarItem.Identifier.flexibleSpace.rawValue,
+            "title",
+            NSToolbarItem.Identifier.flexibleSpace.rawValue,
+            NSToolbarItem.Identifier.flexibleSpace.rawValue]
 
         window.toolbar!.setItems(toolbarItems)
     }

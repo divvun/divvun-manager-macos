@@ -170,7 +170,11 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
             contentView.primaryButton.sizeToFit()
             return NSToolbarItem(view: contentView.primaryButton, identifier: itemIdentifier)
         case "repo-selector":
-            return NSToolbarItem.init(view: contentView.popupButton, identifier: itemIdentifier)
+            let item = NSToolbarItem.init(view: contentView.popupButton, identifier: itemIdentifier)
+            item.minSize = NSSize(width: CGFloat(160.0), height: item.maxSize.height)
+            return item
+        case "title":
+            return NSToolbarItem.init(view: contentView.primaryLabel, identifier: itemIdentifier)
         default:
             return nil
         }
@@ -211,13 +215,13 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         window.toolbar!.isVisible = true
         window.toolbar!.delegate = self
 
-        let toolbarItems = ["settings",
-//                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
-//                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
-                            "repo-selector",
-//                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
-                            NSToolbarItem.Identifier.flexibleSpace.rawValue,
-                            "button"]
+        let toolbarItems = [
+            "settings",
+            "repo-selector",
+            NSToolbarItem.Identifier.flexibleSpace.rawValue,
+            "title",
+            NSToolbarItem.Identifier.flexibleSpace.rawValue,
+            "button"]
         
         window.toolbar!.setItems(toolbarItems)
     }
