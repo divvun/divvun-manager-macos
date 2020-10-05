@@ -59,10 +59,11 @@ from xml.etree import ElementTree
 x = ElementTree.fromstring(open("./PackageInfo", "rb").read())
 x.attrib['version'] = "$VERSION"
 x.find("*[@CFBundleShortVersionString]").attrib["CFBundleShortVersionString"] = "$VERSION"
+out = ElementTree.tostring(x).decode('utf-8')
 with open("./PackageInfo", "w", encoding="utf-8") as f:
-    f.write(ElementTree.tostring(x).decode('utf-8'))
+    f.write(out)
 EOF
-xar -cf $dir/no.divvun.Manager.pkg *
+xar -cf $dir/no.divvun.Manager.pkg --compression=none --distribution Bom Payload Scripts PackageInfo
 popd
 
 productbuild --distribution scripts/dist.xml \
