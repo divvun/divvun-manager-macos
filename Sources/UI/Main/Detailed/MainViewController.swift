@@ -83,12 +83,17 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
 
     func repositoriesChanged(repos: [LoadedRepository], records: [URL : RepoRecord]) {
         assert(Thread.isMainThread)
-        let repos = repos.filter { records[$0.index.url] != nil }
+        let repos = repos.filter { records[$0.index.url] != nil && $0.index.landingURL != nil }
+
+        if repos.isEmpty {
+            try? AppContext.settings.clear(key: .selectedRepository)
+            AppContext.windows.set(LandingViewController(), for: MainWindowController.self)
+        }
 
         let popupButton = contentView.popupButton
 
         popupButton.removeAllItems()
-        repos.filter { $0.index.landingURL != nil }.forEach { (repo) in
+        repos.forEach { (repo) in
             let name = repo.index.nativeName
             let url = repo.index.url
             let menuItem = NSMenuItem(title: name)
@@ -169,6 +174,9 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         case "button":
             contentView.primaryButton.sizeToFit()
             return NSToolbarItem(view: contentView.primaryButton, identifier: itemIdentifier)
+        case "refresh":
+            contentView.refreshButton.sizeToFit()
+            return NSToolbarItem(view: contentView.refreshButton, identifier: itemIdentifier)
         case "repo-selector":
             let item = NSToolbarItem.init(view: contentView.popupButton, identifier: itemIdentifier)
             item.minSize = NSSize(width: CGFloat(160.0), height: item.maxSize.height)
@@ -218,8 +226,10 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         let toolbarItems = [
             "settings",
             "repo-selector",
+//            "refresh",
             NSToolbarItem.Identifier.flexibleSpace.rawValue,
             "title",
+            NSToolbarItem.Identifier.flexibleSpace.rawValue,
             NSToolbarItem.Identifier.flexibleSpace.rawValue,
             "button"]
         

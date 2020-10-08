@@ -51,7 +51,13 @@ class WebBridgeService: NSObject, WKScriptMessageHandler, WKNavigationDelegate {
         webView.navigationDelegate = self
     }
 
+    func refresh() {
+        guard let webView = webView else { return }
+        webView.reload()
+    }
+
     func start(url: URL, repo: LoadedRepository) {
+        assert(Thread.isMainThread)
         guard let webView = webView else { return }
         functions = WebBridgeFunctions(repo: repo)
 

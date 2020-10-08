@@ -8,8 +8,6 @@ struct RepositoryTableRowData {
     let channel: String?
 }
 
-let defaultRepoUrl = URL(string: "https://pahkat.uit.no/main/")!
-
 class SettingsViewController: DisposableViewController<SettingsView>, SettingsViewable, NSWindowDelegate {
     private(set) var tableDelegate: RepositoryTableDelegate! = nil
 
@@ -86,16 +84,6 @@ class SettingsViewController: DisposableViewController<SettingsView>, SettingsVi
                 AppContext.packageStore.removeRepo(url: self.tableDelegate.configs[row].url)
                     .subscribe()
                     .disposed(by: self.bag)
-
-                AppContext.packageStore.repoIndexes()
-                    .observeOn(MainScheduler.instance)
-                    .subscribeOn(MainScheduler.instance)
-                    .subscribe(onSuccess: { (repos) in
-                        if repos.count <= 0 {
-                            self.addRepo(url: defaultRepoUrl)
-                        }
-                    }).disposed(by: self.bag)
-
 
                 self.tableDelegate.configs.remove(at: row)
                 self.contentView.repoTableView.beginUpdates()

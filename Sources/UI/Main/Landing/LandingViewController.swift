@@ -19,6 +19,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
     }()
 
     func toggleProgressIndicator(_ isVisible: Bool) {
+        assert(Thread.isMainThread)
         self.contentView.progressIndicator.isHidden = !isVisible
     }
 
@@ -28,6 +29,9 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
             let item = NSToolbarItem(view: contentView.settingsButton, identifier: itemIdentifier)
             item.maxSize = NSSize(width: CGFloat(48.0), height: item.maxSize.height)
             return item
+        case "refresh":
+            contentView.refreshButton.sizeToFit()
+            return NSToolbarItem(view: contentView.refreshButton, identifier: itemIdentifier)
         case "repo-selector":
             let item = NSToolbarItem.init(view: contentView.popupButton, identifier: itemIdentifier)
             item.minSize = NSSize(width: CGFloat(160.0), height: item.maxSize.height)
@@ -45,6 +49,8 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         }
         .flatMapLatest { (url, records) -> Observable<LoadedRepository?> in
             return AppContext.packageStore.repoIndexes().map { repos in
+                assert(!Thread.isMainThread)
+
                 // return a valid repo for given url if it exists
                 if let url = url,
                     let record = records.first(where: { $0.key == url }),
@@ -53,6 +59,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
                 } else if url?.scheme == "divvun-manager",
                     url?.absoluteString.split(separator: ":")[1] == "detailed" {
                     DispatchQueue.main.async {
+                        log.debug("Showing no landing page due to detailed pseudo URL")
                         self.showNoLandingPage()
                     }
                     return nil
@@ -67,7 +74,8 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
                     }
                 }
                 return nil
-            }.asObservable()
+            }
+            .asObservable()
         }
     }
     
@@ -81,15 +89,21 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
             .subscribeOn(MainScheduler.instance)
             .observeOn(MainScheduler.instance)
             .subscribe(onSuccess: { [weak self] (repos, records) in
+                assert(Thread.isMainThread)
                 guard let `self` = self else { return }
 
-                self.repos = repos.filter { records[$0.index.url] != nil }
-
                 let popupButton = self.contentView.popupButton
+                popupButton.removeAllItems()
+                
+                let repos = repos.filter { records[$0.index.url] != nil && $0.index.landingURL != nil }
+
+                if repos.isEmpty {
+                    return
+                }
+
                 let selectedRepoUrl: URL? = AppContext.settings.read(key: .selectedRepository)
 
-                popupButton.removeAllItems()
-                self.repos.filter { $0.index.landingURL != nil }.forEach { (repo) in
+                repos.forEach { (repo) in
                     let name = repo.index.nativeName
                     let url = repo.index.url
                     let menuItem = NSMenuItem(title: name)
@@ -111,7 +125,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
                 popupButton.target = self
             }) { error in
                 log.error("Error: \(error)")
-        }.disposed(by: self.bag)
+            }.disposed(by: self.bag)
     }
 
     private func showNoSelection() {
@@ -134,8 +148,27 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         bindSettingsButton()
         bindOpenSettingsButton()
         bindPrimaryButton()
+        bindResetToDefaultsButton()
         bindRepositoriesChanged()
+        bindRefreshButton()
         makeRepoPopup()
+    }
+
+    private func bindResetToDefaultsButton() {
+        contentView.resetToDefaultsButton.rx.tap.subscribe(onNext: { [weak self] in
+            guard let `self` = self else { return }
+            self.contentView.updateView(state: .normal)
+            self.contentView.progressIndicator.isHidden = false
+            self.contentView.webView.isHidden = true
+            AppContext.packageStore.setRepo(url: defaultRepoUrl, record: RepoRecord(channel: nil))
+                .observeOn(MainScheduler.instance)
+                .subscribeOn(MainScheduler.instance)
+                .subscribe(onSuccess: { [weak self] _ in
+                    try? AppContext.settings.write(key: .selectedRepository, value: defaultRepoUrl)
+                    self?.contentView.webView.isHidden = false
+                    self?.contentView.progressIndicator.isHidden = true
+                }).disposed(by: self.bag)
+        }).disposed(by: bag)
     }
 
     private func bindRepoDropdown() {
@@ -144,6 +177,8 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
             .subscribeOn(MainScheduler.instance)
             .startWith(nil)
             .subscribe(onNext: { [weak self] repo in
+                log.debug("Dropdown changed: \(String(describing: repo))")
+
                 if let repo = repo {
                     if let url = repo.index.landingURL {
                         self?.bridge.start(url: url, repo: repo)
@@ -171,8 +206,14 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
     }
 
     private func bindPrimaryButton() {
-        contentView.primaryButton.rx.tap.subscribe(onNext: { _ in
-            self.showMain()
+        contentView.primaryButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            self?.showMain()
+        }).disposed(by: bag)
+    }
+
+    private func bindRefreshButton() {
+        contentView.refreshButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            self?.bridge.refresh()
         }).disposed(by: bag)
     }
 
@@ -181,6 +222,8 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
             .subscribeOn(MainScheduler.instance)
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] (notification) in
+                assert(Thread.isMainThread)
+
                 if case PahkatNotification.repositoriesChanged = notification {
                     self?.showEmptyStateIfNeeded()
                     self?.makeRepoPopup()
@@ -208,6 +251,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
     }
 
     private func showMain() {
+        assert(Thread.isMainThread)
         AppContext.windows.show(MainWindowController.self, viewController: MainViewController(), sender: self)
     }
 
@@ -221,6 +265,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
         let toolbarItems = [
             "settings",
             "repo-selector",
+//            "refresh",
             NSToolbarItem.Identifier.flexibleSpace.rawValue,
             "title",
             NSToolbarItem.Identifier.flexibleSpace.rawValue,
@@ -230,6 +275,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
     }
 
     @objc func popupItemSelected() {
+        assert(Thread.isMainThread)
         guard let url = contentView.popupButton.selectedItem?.representedObject as? URL else {
             log.warning("Selected item has no associated URL")
             return

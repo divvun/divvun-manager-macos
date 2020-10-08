@@ -15,6 +15,8 @@ enum Route {
     case error
 }
 
+let defaultRepoUrl = URL(string: "https://pahkat.uit.no/main/")!
+
 class MainWindowController: WindowController<MainWindow> {
     private let bag = DisposeBag()
     
@@ -38,10 +40,8 @@ class MainWindowController: WindowController<MainWindow> {
             }
         }).disposed(by: bag)
     }
-    
-    override func windowDidLoad() {
-        super.windowDidLoad()
 
+    func startRouting() {
         Observable.combineLatest(router(), AppContext.settings.selectedRepository)
             .observeOn(MainScheduler.instance)
             .subscribeOn(MainScheduler.instance)
@@ -60,7 +60,7 @@ class MainWindowController: WindowController<MainWindow> {
             .subscribeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] route in
                 log.debug("Setting route to: \(route)")
-                
+
                 switch route {
                 case .landing:
                     AppContext.windows.set(LandingViewController(), for: MainWindowController.self)
@@ -80,6 +80,26 @@ class MainWindowController: WindowController<MainWindow> {
                 case .error:
                     self?.handleError()
                     return
+                }
+            })
+            .disposed(by: bag)
+    }
+    
+    override func windowDidLoad() {
+        super.windowDidLoad()
+
+        AppContext.packageStore.getRepoRecords()
+            .subscribe(onSuccess: { [weak self] records in
+                guard let `self` = self else { return }
+
+                if records.isEmpty {
+                    AppContext.packageStore.setRepo(url: defaultRepoUrl, record: RepoRecord(channel: nil))
+                        .subscribe(onSuccess: { [weak self] _ in
+                            try? AppContext.settings.write(key: .selectedRepository, value: defaultRepoUrl)
+                            self?.startRouting()
+                        }).disposed(by: self.bag)
+                } else {
+                    self.startRouting()
                 }
             })
             .disposed(by: bag)

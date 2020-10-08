@@ -23,9 +23,11 @@ extension NSView {
 class LandingView: View {
     @IBOutlet weak var primaryLabel: NSTextField!
     @IBOutlet weak var primaryButton: NSButton!
+    @IBOutlet weak var refreshButton: NSButton!
     @IBOutlet weak var settingsButton: NSButton!
     @IBOutlet weak var messageLabel: NSTextField!
     @IBOutlet weak var openSettingsButton: NSButton!
+    @IBOutlet weak var resetToDefaultsButton: NSButton!
     @IBOutlet weak var progressIndicator: NSProgressIndicator!
 
     var popupButton = NSPopUpButton(title: Strings.selectRepository, target: nil, action: nil)
@@ -51,12 +53,13 @@ class LandingView: View {
         popupButton.autoenablesItems = true
         
         primaryLabel.stringValue = Strings.appName
-        // TODO: localize
         messageLabel.stringValue = Strings.toGetStartedAddARepoInSettings
         openSettingsButton.title = Strings.openSettings
+        resetToDefaultsButton.title = "Reset to Defaults"
     }
 
     func updateView(state: State) {
+        assert(Thread.isMainThread)
         webView.isHidden = state == .empty
         if firstLoad {
             progressIndicator.isHidden = state != .normal
@@ -64,6 +67,7 @@ class LandingView: View {
         }
         messageLabel.isHidden = state == .normal
         openSettingsButton.isHidden = state == .normal
+        resetToDefaultsButton.isHidden = state == .normal
     }
 }
 

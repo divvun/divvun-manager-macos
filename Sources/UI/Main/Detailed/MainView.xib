@@ -180,6 +180,7 @@
                 <outlet property="primaryButton" destination="R6u-Ct-oD5" id="Var-N3-yPT"/>
                 <outlet property="primaryLabel" destination="tmX-W5-PJQ" id="akr-OL-K6V"/>
                 <outlet property="progressIndicator" destination="8f9-j2-fvG" id="msV-JE-liI"/>
+                <outlet property="refreshButton" destination="MWn-wM-RrU" id="utM-Zw-YkA"/>
                 <outlet property="settingsButton" destination="jxA-Vr-T8K" id="hXZ-kj-Jgl"/>
             </connections>
             <point key="canvasLocation" x="-281" y="175"/>
@@ -204,9 +205,18 @@
             <point key="canvasLocation" x="-712" y="394"/>
         </button>
         <button verticalHuggingPriority="750" id="jxA-Vr-T8K">
-            <rect key="frame" x="0.5" y="0.0" width="48" height="25"/>
+            <rect key="frame" x="0.0" y="0.0" width="48" height="25"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Settings" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sWp-cK-7gv">
+                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                <font key="font" metaFont="system"/>
+            </buttonCell>
+            <point key="canvasLocation" x="-802" y="493"/>
+        </button>
+        <button verticalHuggingPriority="750" id="MWn-wM-RrU">
+            <rect key="frame" x="0.0" y="0.0" width="48" height="25"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRefreshTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7C9-Jz-k1s">
                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                 <font key="font" metaFont="system"/>
             </buttonCell>
@@ -214,6 +224,7 @@
         </button>
     </objects>
     <resources>
+        <image name="NSRefreshTemplate" width="11" height="15"/>
         <image name="Settings" width="500" height="500"/>
     </resources>
 </document>

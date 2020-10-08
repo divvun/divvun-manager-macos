@@ -46,6 +46,12 @@ class Config<File> where File: ConfigFile {
         let data = try JSONEncoder().encode(self.state)
         try data.write(to: self.filePath)
     }
+
+    func clear(key: File.Key) throws {
+        state.set(key: key, value: nil)
+        try self.save()
+        changeSubject.onNext(state)
+    }
     
     func write<V>(key: File.Key, value: V) throws {
         state.set(key: key, value: value)
