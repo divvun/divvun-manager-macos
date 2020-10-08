@@ -76,6 +76,25 @@
 		C6C3FA672382C3C40006E81B /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3FA662382C3C40006E81B /* Process.swift */; };
 		C6C820D3204C53EF001682E8 /* PackageDownloadProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C820D2204C53EF001682E8 /* PackageDownloadProgress.swift */; };
 		C6CC91272028E69300CB0B10 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6CC91262028E69300CB0B10 /* MainWindow.xib */; };
+		C6D56BC5252F4AEE00620D6F /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D56BA3252F4AEE00620D6F /* SSZipArchive.m */; };
+		C6D56BC6252F4AEE00620D6F /* mz_strm_os_posix.c in Sources */ = {isa = PBXBuildFile; fileRef = C6D56BA5252F4AEE00620D6F /* mz_strm_os_posix.c */; };
+		C6D56BC7252F4AEE00620D6F /* mz_strm_pkcrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = C6D56BA6252F4AEE00620D6F /* mz_strm_pkcrypt.c */; };
+		C6D56BC8252F4AEE00620D6F /* mz_strm_zlib.c in Sources */ = {isa = PBXBuildFile; fileRef = C6D56BA9252F4AEE00620D6F /* mz_strm_zlib.c */; };
+		C6D56BC9252F4AEE00620D6F /* mz_zip.c in Sources */ = {isa = PBXBuildFile; fileRef = C6D56BAA252F4AEE00620D6F /* mz_zip.c */; };
+		C6D56BCA252F4AEE00620D6F /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = C6D56BAC252F4AEE00620D6F /* LICENSE */; };
+		C6D56BCB252F4AEE00620D6F /* mz_zip_rw.c in Sources */ = {isa = PBXBuildFile; fileRef = C6D56BAD252F4AEE00620D6F /* mz_zip_rw.c */; };
+		C6D56BCC252F4AEE00620D6F /* mz_crypt_apple.c in Sources */ = {isa = PBXBuildFile; fileRef = C6D56BB0252F4AEE00620D6F /* mz_crypt_apple.c */; };
+		C6D56BCD252F4AEE00620D6F /* mz_strm_mem.c in Sources */ = {isa = PBXBuildFile; fileRef = C6D56BB2252F4AEE00620D6F /* mz_strm_mem.c */; };
+		C6D56BCE252F4AEE00620D6F /* mz_crypt.c in Sources */ = {isa = PBXBuildFile; fileRef = C6D56BB3252F4AEE00620D6F /* mz_crypt.c */; };
+		C6D56BCF252F4AEE00620D6F /* mz_strm_wzaes.c in Sources */ = {isa = PBXBuildFile; fileRef = C6D56BB4252F4AEE00620D6F /* mz_strm_wzaes.c */; };
+		C6D56BD0252F4AEE00620D6F /* mz_compat.c in Sources */ = {isa = PBXBuildFile; fileRef = C6D56BB6252F4AEE00620D6F /* mz_compat.c */; };
+		C6D56BD1252F4AEE00620D6F /* mz_os.c in Sources */ = {isa = PBXBuildFile; fileRef = C6D56BB9252F4AEE00620D6F /* mz_os.c */; };
+		C6D56BD2252F4AEE00620D6F /* mz_os_posix.c in Sources */ = {isa = PBXBuildFile; fileRef = C6D56BBB252F4AEE00620D6F /* mz_os_posix.c */; };
+		C6D56BD3252F4AEE00620D6F /* mz_strm_buf.c in Sources */ = {isa = PBXBuildFile; fileRef = C6D56BBD252F4AEE00620D6F /* mz_strm_buf.c */; };
+		C6D56BD4252F4AEE00620D6F /* mz_strm_split.c in Sources */ = {isa = PBXBuildFile; fileRef = C6D56BBE252F4AEE00620D6F /* mz_strm_split.c */; };
+		C6D56BD5252F4AEE00620D6F /* mz_strm.c in Sources */ = {isa = PBXBuildFile; fileRef = C6D56BC1252F4AEE00620D6F /* mz_strm.c */; };
+		C6D56BD7252F4B0600620D6F /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = C6D56BD6252F4B0600620D6F /* LICENSE.txt */; };
+		C6D56BDB252F4B4A00620D6F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6D56BDA252F4B4A00620D6F /* Security.framework */; };
 		C6D78E1A23841D8E002F59E2 /* TransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D78E1923841D8E002F59E2 /* TransactionType.swift */; };
 		C6E392A12447489900560023 /* PackageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E392A02447489900560023 /* PackageKey.swift */; };
 		C6E392A5244755AF00560023 /* pahkat.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E392A2244755AE00560023 /* pahkat.pb.swift */; };
@@ -208,6 +227,45 @@
 		C6C3FA662382C3C40006E81B /* Process.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Process.swift; sourceTree = "<group>"; };
 		C6C820D2204C53EF001682E8 /* PackageDownloadProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageDownloadProgress.swift; sourceTree = "<group>"; };
 		C6CC91262028E69300CB0B10 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		C6D56BA1252F4AED00620D6F /* DivvunManager-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DivvunManager-Bridging-Header.h"; sourceTree = "<group>"; };
+		C6D56BA2252F4AED00620D6F /* SSZipCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipCommon.h; sourceTree = "<group>"; };
+		C6D56BA3252F4AEE00620D6F /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
+		C6D56BA5252F4AEE00620D6F /* mz_strm_os_posix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_os_posix.c; sourceTree = "<group>"; };
+		C6D56BA6252F4AEE00620D6F /* mz_strm_pkcrypt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_pkcrypt.c; sourceTree = "<group>"; };
+		C6D56BA7252F4AEE00620D6F /* mz_strm_wzaes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm_wzaes.h; sourceTree = "<group>"; };
+		C6D56BA8252F4AEE00620D6F /* mz_compat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_compat.h; sourceTree = "<group>"; };
+		C6D56BA9252F4AEE00620D6F /* mz_strm_zlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_zlib.c; sourceTree = "<group>"; };
+		C6D56BAA252F4AEE00620D6F /* mz_zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_zip.c; sourceTree = "<group>"; };
+		C6D56BAB252F4AEE00620D6F /* mz_os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_os.h; sourceTree = "<group>"; };
+		C6D56BAC252F4AEE00620D6F /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		C6D56BAD252F4AEE00620D6F /* mz_zip_rw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_zip_rw.c; sourceTree = "<group>"; };
+		C6D56BAE252F4AEE00620D6F /* mz_strm_split.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm_split.h; sourceTree = "<group>"; };
+		C6D56BAF252F4AEE00620D6F /* mz_strm_buf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm_buf.h; sourceTree = "<group>"; };
+		C6D56BB0252F4AEE00620D6F /* mz_crypt_apple.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_crypt_apple.c; sourceTree = "<group>"; };
+		C6D56BB1252F4AEE00620D6F /* mz_strm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm.h; sourceTree = "<group>"; };
+		C6D56BB2252F4AEE00620D6F /* mz_strm_mem.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_mem.c; sourceTree = "<group>"; };
+		C6D56BB3252F4AEE00620D6F /* mz_crypt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_crypt.c; sourceTree = "<group>"; };
+		C6D56BB4252F4AEE00620D6F /* mz_strm_wzaes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_wzaes.c; sourceTree = "<group>"; };
+		C6D56BB5252F4AEE00620D6F /* mz_strm_zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm_zlib.h; sourceTree = "<group>"; };
+		C6D56BB6252F4AEE00620D6F /* mz_compat.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_compat.c; sourceTree = "<group>"; };
+		C6D56BB7252F4AEE00620D6F /* mz_strm_pkcrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm_pkcrypt.h; sourceTree = "<group>"; };
+		C6D56BB8252F4AEE00620D6F /* mz_zip_rw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_zip_rw.h; sourceTree = "<group>"; };
+		C6D56BB9252F4AEE00620D6F /* mz_os.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_os.c; sourceTree = "<group>"; };
+		C6D56BBA252F4AEE00620D6F /* mz_zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_zip.h; sourceTree = "<group>"; };
+		C6D56BBB252F4AEE00620D6F /* mz_os_posix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_os_posix.c; sourceTree = "<group>"; };
+		C6D56BBC252F4AEE00620D6F /* mz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz.h; sourceTree = "<group>"; };
+		C6D56BBD252F4AEE00620D6F /* mz_strm_buf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_buf.c; sourceTree = "<group>"; };
+		C6D56BBE252F4AEE00620D6F /* mz_strm_split.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_split.c; sourceTree = "<group>"; };
+		C6D56BBF252F4AEE00620D6F /* mz_crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_crypt.h; sourceTree = "<group>"; };
+		C6D56BC0252F4AEE00620D6F /* mz_strm_mem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm_mem.h; sourceTree = "<group>"; };
+		C6D56BC1252F4AEE00620D6F /* mz_strm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm.c; sourceTree = "<group>"; };
+		C6D56BC2252F4AEE00620D6F /* mz_strm_os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm_os.h; sourceTree = "<group>"; };
+		C6D56BC3252F4AEE00620D6F /* SSZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipArchive.h; sourceTree = "<group>"; };
+		C6D56BC4252F4AEE00620D6F /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
+		C6D56BD6252F4B0600620D6F /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		C6D56BD8252F4B1D00620D6F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		C6D56BD9252F4B2800620D6F /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		C6D56BDA252F4B4A00620D6F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		C6D78E1923841D8E002F59E2 /* TransactionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionType.swift; sourceTree = "<group>"; };
 		C6E392A02447489900560023 /* PackageKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageKey.swift; sourceTree = "<group>"; };
 		C6E392A2244755AE00560023 /* pahkat.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pahkat.pb.swift; sourceTree = "<group>"; };
@@ -251,6 +309,7 @@
 				C63191E0244730340055DA03 /* FlatBuffers in Frameworks */,
 				C63191CD24472C9E0055DA03 /* RxFeedback in Frameworks */,
 				C63191DA24472DE50055DA03 /* XCGLogger in Frameworks */,
+				C6D56BDB252F4B4A00620D6F /* Security.framework in Frameworks */,
 				C63191C8244723760055DA03 /* RxSwift in Frameworks */,
 				C63191D524472D910055DA03 /* Sentry in Frameworks */,
 				C63191D824472DE50055DA03 /* ObjcExceptionBridging in Frameworks */,
@@ -392,6 +451,8 @@
 		C6C3FA512382C1EA0006E81B /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				C6D56BA1252F4AED00620D6F /* DivvunManager-Bridging-Header.h */,
+				C6D56BA0252F4AD800620D6F /* SSZipArchive */,
 				C67E3B4C24485FD100A5D372 /* BTree */,
 				C6E392A4244755AF00560023 /* index_generated.swift */,
 				C612CFC32448B0E500EFEA98 /* index_generated+Extensions.swift */,
@@ -448,6 +509,56 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		C6D56BA0252F4AD800620D6F /* SSZipArchive */ = {
+			isa = PBXGroup;
+			children = (
+				C6D56BA4252F4AEE00620D6F /* minizip */,
+				C6D56BC3252F4AEE00620D6F /* SSZipArchive.h */,
+				C6D56BA3252F4AEE00620D6F /* SSZipArchive.m */,
+				C6D56BA2252F4AED00620D6F /* SSZipCommon.h */,
+				C6D56BC4252F4AEE00620D6F /* ZipArchive.h */,
+				C6D56BD6252F4B0600620D6F /* LICENSE.txt */,
+			);
+			path = SSZipArchive;
+			sourceTree = "<group>";
+		};
+		C6D56BA4252F4AEE00620D6F /* minizip */ = {
+			isa = PBXGroup;
+			children = (
+				C6D56BA5252F4AEE00620D6F /* mz_strm_os_posix.c */,
+				C6D56BA6252F4AEE00620D6F /* mz_strm_pkcrypt.c */,
+				C6D56BA7252F4AEE00620D6F /* mz_strm_wzaes.h */,
+				C6D56BA8252F4AEE00620D6F /* mz_compat.h */,
+				C6D56BA9252F4AEE00620D6F /* mz_strm_zlib.c */,
+				C6D56BAA252F4AEE00620D6F /* mz_zip.c */,
+				C6D56BAB252F4AEE00620D6F /* mz_os.h */,
+				C6D56BAC252F4AEE00620D6F /* LICENSE */,
+				C6D56BAD252F4AEE00620D6F /* mz_zip_rw.c */,
+				C6D56BAE252F4AEE00620D6F /* mz_strm_split.h */,
+				C6D56BAF252F4AEE00620D6F /* mz_strm_buf.h */,
+				C6D56BB0252F4AEE00620D6F /* mz_crypt_apple.c */,
+				C6D56BB1252F4AEE00620D6F /* mz_strm.h */,
+				C6D56BB2252F4AEE00620D6F /* mz_strm_mem.c */,
+				C6D56BB3252F4AEE00620D6F /* mz_crypt.c */,
+				C6D56BB4252F4AEE00620D6F /* mz_strm_wzaes.c */,
+				C6D56BB5252F4AEE00620D6F /* mz_strm_zlib.h */,
+				C6D56BB6252F4AEE00620D6F /* mz_compat.c */,
+				C6D56BB7252F4AEE00620D6F /* mz_strm_pkcrypt.h */,
+				C6D56BB8252F4AEE00620D6F /* mz_zip_rw.h */,
+				C6D56BB9252F4AEE00620D6F /* mz_os.c */,
+				C6D56BBA252F4AEE00620D6F /* mz_zip.h */,
+				C6D56BBB252F4AEE00620D6F /* mz_os_posix.c */,
+				C6D56BBC252F4AEE00620D6F /* mz.h */,
+				C6D56BBD252F4AEE00620D6F /* mz_strm_buf.c */,
+				C6D56BBE252F4AEE00620D6F /* mz_strm_split.c */,
+				C6D56BBF252F4AEE00620D6F /* mz_crypt.h */,
+				C6D56BC0252F4AEE00620D6F /* mz_strm_mem.h */,
+				C6D56BC1252F4AEE00620D6F /* mz_strm.c */,
+				C6D56BC2252F4AEE00620D6F /* mz_strm_os.h */,
+			);
+			path = minizip;
+			sourceTree = "<group>";
+		};
 		C6E7559B2462A65500620D6F /* Landing */ = {
 			isa = PBXGroup;
 			children = (
@@ -471,6 +582,9 @@
 		C6E755A92462CC7800620D6F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C6D56BDA252F4B4A00620D6F /* Security.framework */,
+				C6D56BD9252F4B2800620D6F /* libiconv.tbd */,
+				C6D56BD8252F4B1D00620D6F /* libz.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -597,7 +711,7 @@
 				TargetAttributes = {
 					C69F94892028B1EA00127A47 = {
 						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1200;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 0;
@@ -650,9 +764,11 @@
 				C6F8A8202028BBC2009A016E /* MainView.xib in Resources */,
 				271249BB2040446A009EE80B /* SettingsView.xib in Resources */,
 				278A10B5203ADAB2007C3DC8 /* InstallView.xib in Resources */,
+				C6D56BCA252F4AEE00620D6F /* LICENSE in Resources */,
 				C6E755A02462A6A900620D6F /* LandingView.xib in Resources */,
 				276391AE203DA3020096E10C /* DownloadProgressView.xib in Resources */,
 				C69F94902028B1EA00127A47 /* Assets.xcassets in Resources */,
+				C6D56BD7252F4B0600620D6F /* LICENSE.txt in Resources */,
 				C69F94932028B1EA00127A47 /* MainMenu.xib in Resources */,
 				C656A693203ECAF80004E7F1 /* CompletionView.xib in Resources */,
 				C62270642039E08B00DBCD65 /* Localizable.strings in Resources */,
@@ -668,23 +784,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6D56BD2252F4AEE00620D6F /* mz_os_posix.c in Sources */,
 				278A10B7203ADACD007C3DC8 /* InstallView.swift in Sources */,
 				C612CFAF2448605700EFEA98 /* SortedSet.swift in Sources */,
 				99C6A536244E079800AF4247 /* LoadedRepository+mock.swift in Sources */,
 				C6E392A7244755AF00560023 /* index_generated.swift in Sources */,
+				C6D56BCC252F4AEE00620D6F /* mz_crypt_apple.c in Sources */,
+				C6D56BC5252F4AEE00620D6F /* SSZipArchive.m in Sources */,
 				C6B742C7204BF19E00C7877D /* MainMenu.swift in Sources */,
+				C6D56BCE252F4AEE00620D6F /* mz_crypt.c in Sources */,
 				C6C3FA642382C3870006E81B /* UserDefaults.swift in Sources */,
+				C6D56BD5252F4AEE00620D6F /* mz_strm.c in Sources */,
 				C6C3FA672382C3C40006E81B /* Process.swift in Sources */,
 				276391A6203AECE30096E10C /* CompletionView.swift in Sources */,
 				C69F948E2028B1EA00127A47 /* AppDelegate.swift in Sources */,
 				C612CFB72448605700EFEA98 /* BTreeNode.swift in Sources */,
 				C6F4BC5B2029BC57002EE523 /* MainViewController.swift in Sources */,
 				C612CFB62448605700EFEA98 /* Compatibility.swift in Sources */,
+				C6D56BCB252F4AEE00620D6F /* mz_zip_rw.c in Sources */,
 				C6E7559F2462A6A900620D6F /* LandingViewController.swift in Sources */,
 				C6F4BC6E2031DBCB002EE523 /* DownloadViewController.swift in Sources */,
 				C612CFB42448605700EFEA98 /* List.swift in Sources */,
+				C6D56BC7252F4AEE00620D6F /* mz_strm_pkcrypt.c in Sources */,
 				C612CFBE2448AA7100EFEA98 /* RPCService.swift in Sources */,
 				271249C12040449E009EE80B /* SettingsViewController.swift in Sources */,
+				C6D56BD0252F4AEE00620D6F /* mz_compat.c in Sources */,
 				C6F8A8182028B3C1009A016E /* Cocoa+Nibbable.swift in Sources */,
 				C6E755A62462A93E00620D6F /* JSONValue.swift in Sources */,
 				C612CFB12448605700EFEA98 /* Weak.swift in Sources */,
@@ -704,11 +828,14 @@
 				C6C3242C2382F8660043DD18 /* SelectedPackage.swift in Sources */,
 				276391A4203AE2660096E10C /* CompletionViewController.swift in Sources */,
 				C6F4BC662031DB81002EE523 /* DownloadViewable.swift in Sources */,
+				C6D56BD1252F4AEE00620D6F /* mz_os.c in Sources */,
 				C6E755A12462A6A900620D6F /* LandingView.swift in Sources */,
+				C6D56BD4252F4AEE00620D6F /* mz_strm_split.c in Sources */,
 				C6F8A81E2028B996009A016E /* MainView.swift in Sources */,
 				C6F4BC592029BC2C002EE523 /* MainPresenter.swift in Sources */,
 				C612CFAB2448605700EFEA98 /* BTreeBuilder.swift in Sources */,
 				C612CFB52448605700EFEA98 /* BTreeComparisons.swift in Sources */,
+				C6D56BCD252F4AEE00620D6F /* mz_strm_mem.c in Sources */,
 				C6F4BC6A2031DBA4002EE523 /* DownloadView.swift in Sources */,
 				C612CFB92448605700EFEA98 /* SortedBag.swift in Sources */,
 				C6F4BC762031E0A3002EE523 /* InstallViewable.swift in Sources */,
@@ -721,6 +848,7 @@
 				C6F8A8232028BC07009A016E /* WindowManager.swift in Sources */,
 				C612CFC42448B0E500EFEA98 /* index_generated+Extensions.swift in Sources */,
 				C6E755AD2463361B00620D6F /* InterfaceLanguage.swift in Sources */,
+				C6D56BCF252F4AEE00620D6F /* mz_strm_wzaes.c in Sources */,
 				C6C820D3204C53EF001682E8 /* PackageDownloadProgress.swift in Sources */,
 				C612CFB22448605700EFEA98 /* BridgedList.swift in Sources */,
 				C612CFB32448605700EFEA98 /* Map.swift in Sources */,
@@ -729,8 +857,11 @@
 				C6F4BC782031E0AD002EE523 /* CompletionViewable.swift in Sources */,
 				271249BF20404495009EE80B /* SettingsViewable.swift in Sources */,
 				C6D78E1A23841D8E002F59E2 /* TransactionType.swift in Sources */,
+				C6D56BC8252F4AEE00620D6F /* mz_strm_zlib.c in Sources */,
 				C624C14C250FA1FB00620D6F /* Logging.swift in Sources */,
 				C6E392A12447489900560023 /* PackageKey.swift in Sources */,
+				C6D56BC9252F4AEE00620D6F /* mz_zip.c in Sources */,
+				C6D56BC6252F4AEE00620D6F /* mz_strm_os_posix.c in Sources */,
 				C6F4BC5F202A43BC002EE523 /* RxStore.swift in Sources */,
 				C612CFBC2448770A00EFEA98 /* Config.swift in Sources */,
 				C6E755A42462A91C00620D6F /* WebBridgeFunctions.swift in Sources */,
@@ -739,6 +870,7 @@
 				C612CFC22448AC0700EFEA98 /* LoadedRepository.swift in Sources */,
 				99F28AE4245966C8006F14EF /* ResolvedAction.swift in Sources */,
 				99AA94B12462B57E00E46795 /* AppContext.swift in Sources */,
+				C6D56BD3252F4AEE00620D6F /* mz_strm_buf.c in Sources */,
 				C612CFAE2448605700EFEA98 /* BTreeIndex.swift in Sources */,
 				C6F8A8262028BD91009A016E /* MainWindow.swift in Sources */,
 				C6F4BC722031DCF7002EE523 /* Cocoa+Rx.swift in Sources */,
@@ -831,6 +963,12 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
+					HAVE_INTTYPES_H,
+					HAVE_PKCRYPT,
+					HAVE_STDINT_H,
+					HAVE_WZAES,
+					HAVE_ZLIB,
+					"$(inherited)",
 					"$(inherited)",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -889,6 +1027,14 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					HAVE_INTTYPES_H,
+					HAVE_PKCRYPT,
+					HAVE_STDINT_H,
+					HAVE_WZAES,
+					HAVE_ZLIB,
+					"$(inherited)",
+				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -928,11 +1074,16 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MARKETING_VERSION = 2.0.0;
-				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"-lz",
+					"-liconv",
+					"$(inherited)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = no.divvun.Manager;
 				PRODUCT_MODULE_NAME = DivvunManager;
 				PRODUCT_NAME = "Divvun Manager";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Shared/DivvunManager-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VALID_ARCHS = "x86_64 arm64";
@@ -963,11 +1114,16 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MARKETING_VERSION = 2.0.0;
-				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"-lz",
+					"-liconv",
+					"$(inherited)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = no.divvun.Manager;
 				PRODUCT_MODULE_NAME = DivvunManager;
 				PRODUCT_NAME = "Divvun Manager";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Shared/DivvunManager-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VALID_ARCHS = "x86_64 arm64";
 			};
