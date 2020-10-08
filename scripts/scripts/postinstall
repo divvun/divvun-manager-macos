@@ -11,10 +11,10 @@ if [[ -e "/Applications/Divvun Installer.app" ]]; then
   rm -f /Library/PrivilegedHelperTools/no.divvun.PahkatAdminService
 fi
 
-rm -f "/Library/LaunchDaemons/$PLIST_FILE"
-cp "$PLIST_FILE" "/Library/LaunchDaemons/$PLIST_FILE"
-/bin/launchctl load "/Library/LaunchDaemons/$PLIST_FILE" -w
+rm -f "/Library/LaunchDaemons/$PLIST_FILE";
+cp "$PLIST_FILE" "/Library/LaunchDaemons/$PLIST_FILE";
+/bin/launchctl load -w "/Library/LaunchDaemons/$PLIST_FILE";
 
 if [[ ! $COMMAND_LINE_INSTALL ]]; then
-  su "$USER" -c "/Applications/Divvun Manager.app"
+  su "$USER" -c "open /Applications/Divvun\ Manager.app";
 fi
