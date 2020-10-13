@@ -37,6 +37,10 @@ class MainMenu: NSMenu {
             }
         }
 
+        let pb = NSPasteboard.general
+        pb.declareTypes([.string], owner: nil)
+        NSPasteboard.general.setString("feedback@divvun.no", forType: .string)
+
         let alert2 = NSAlert()
         alert2.informativeText = "A zip file named \(savePanel.url!.lastPathComponent) has been created.\n\n" +
             "Please attach this to an email to feedback@divvun.no.\n\n" +
@@ -45,7 +49,6 @@ class MainMenu: NSMenu {
             "email tool)"
         alert2.messageText = "Debug Data Zipped!"
         alert2.addButton(withTitle: "Go to file")
-        NSPasteboard.general.setString("feedback@divvun.no", forType: .string)
 
         if alert2.runModal() == .alertFirstButtonReturn {
             let proc = Process()
