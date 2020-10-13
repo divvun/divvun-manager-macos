@@ -95,6 +95,7 @@
 		C6D56BD5252F4AEE00620D6F /* mz_strm.c in Sources */ = {isa = PBXBuildFile; fileRef = C6D56BC1252F4AEE00620D6F /* mz_strm.c */; };
 		C6D56BD7252F4B0600620D6F /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = C6D56BD6252F4B0600620D6F /* LICENSE.txt */; };
 		C6D56BDB252F4B4A00620D6F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6D56BDA252F4B4A00620D6F /* Security.framework */; };
+		C6D56BDD252F4DD000620D6F /* LogCollator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D56BDC252F4DD000620D6F /* LogCollator.swift */; };
 		C6D78E1A23841D8E002F59E2 /* TransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D78E1923841D8E002F59E2 /* TransactionType.swift */; };
 		C6E392A12447489900560023 /* PackageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E392A02447489900560023 /* PackageKey.swift */; };
 		C6E392A5244755AF00560023 /* pahkat.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E392A2244755AE00560023 /* pahkat.pb.swift */; };
@@ -261,11 +262,11 @@
 		C6D56BC1252F4AEE00620D6F /* mz_strm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm.c; sourceTree = "<group>"; };
 		C6D56BC2252F4AEE00620D6F /* mz_strm_os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm_os.h; sourceTree = "<group>"; };
 		C6D56BC3252F4AEE00620D6F /* SSZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipArchive.h; sourceTree = "<group>"; };
-		C6D56BC4252F4AEE00620D6F /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
 		C6D56BD6252F4B0600620D6F /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		C6D56BD8252F4B1D00620D6F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C6D56BD9252F4B2800620D6F /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		C6D56BDA252F4B4A00620D6F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		C6D56BDC252F4DD000620D6F /* LogCollator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogCollator.swift; sourceTree = "<group>"; };
 		C6D78E1923841D8E002F59E2 /* TransactionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionType.swift; sourceTree = "<group>"; };
 		C6E392A02447489900560023 /* PackageKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageKey.swift; sourceTree = "<group>"; };
 		C6E392A2244755AE00560023 /* pahkat.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pahkat.pb.swift; sourceTree = "<group>"; };
@@ -480,6 +481,7 @@
 				C68E9F832384C2700083ACF4 /* WebBridgeService.swift */,
 				C612CFBD2448AA7100EFEA98 /* RPCService.swift */,
 				C624C14B250FA1FB00620D6F /* Logging.swift */,
+				C6D56BDC252F4DD000620D6F /* LogCollator.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -516,7 +518,6 @@
 				C6D56BC3252F4AEE00620D6F /* SSZipArchive.h */,
 				C6D56BA3252F4AEE00620D6F /* SSZipArchive.m */,
 				C6D56BA2252F4AED00620D6F /* SSZipCommon.h */,
-				C6D56BC4252F4AEE00620D6F /* ZipArchive.h */,
 				C6D56BD6252F4B0600620D6F /* LICENSE.txt */,
 			);
 			path = SSZipArchive;
@@ -858,6 +859,7 @@
 				271249BF20404495009EE80B /* SettingsViewable.swift in Sources */,
 				C6D78E1A23841D8E002F59E2 /* TransactionType.swift in Sources */,
 				C6D56BC8252F4AEE00620D6F /* mz_strm_zlib.c in Sources */,
+				C6D56BDD252F4DD000620D6F /* LogCollator.swift in Sources */,
 				C624C14C250FA1FB00620D6F /* Logging.swift in Sources */,
 				C6E392A12447489900560023 /* PackageKey.swift in Sources */,
 				C6D56BC9252F4AEE00620D6F /* mz_zip.c in Sources */,

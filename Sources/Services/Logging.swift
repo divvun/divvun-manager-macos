@@ -9,18 +9,18 @@
 import Foundation
 import XCGLogger
 
-let userLibraryDir = try! FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-let divvunManagerLogsPath = userLibraryDir
+private let userLibraryDir = try! FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+private let divvunManagerLogsPath = userLibraryDir
     .appendingPathComponent("Logs")
     .appendingPathComponent("Divvun Manager")
 
-let systemDest: AppleSystemLogDestination = {
+private let systemDest: AppleSystemLogDestination = {
     let x = AppleSystemLogDestination(identifier: "DivvunManager.system")
     x.outputLevel = .debug
     return x
 }()
 
-let fileDest: AutoRotatingFileDestination = {
+private let fileDest: AutoRotatingFileDestination = {
     let x = AutoRotatingFileDestination(
         writeToFile: divvunManagerLogsPath.appendingPathComponent("app.log").path,
         identifier: "DivvunManager.file")

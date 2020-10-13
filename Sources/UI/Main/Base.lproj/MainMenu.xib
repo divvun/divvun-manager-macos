@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.3"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="App" customModule="Pahkat" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="App" customModule="DivvunManager" customModuleProvider="target">
             <connections>
                 <outlet property="delegate" destination="Voe-Tx-rLC" id="GzC-gU-4Uq"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application" customClass="App" customModule="Pahkat" customModuleProvider="target"/>
-        <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Pahkat" customModuleProvider="target"/>
+        <customObject id="-3" userLabel="Application" customClass="App" customModule="DivvunManager" customModuleProvider="target"/>
+        <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="DivvunManager" customModuleProvider="target"/>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
-        <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6" customClass="MainMenu" customModule="Pahkat" customModuleProvider="target">
+        <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6" customClass="MainMenu" customModule="DivvunManager" customModuleProvider="target">
             <items>
-                <menuItem title="Divvun Manager" id="1Xt-HY-uBw" userLabel="Divvun Manager" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                <menuItem title="Divvun Manager" id="1Xt-HY-uBw" userLabel="Divvun Manager" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Divvun Manager" systemMenu="apple" id="uQy-DD-JDr">
                         <items>
-                            <menuItem title="About Divvun Manager" id="5kV-Vb-QxS" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                            <menuItem title="About Divvun Manager" id="5kV-Vb-QxS" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="aboutApp"/>
@@ -28,22 +29,22 @@
                                     <action selector="orderFrontStandardAboutPanel:" target="-1" id="Exp-CZ-Vem"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="VOq-y0-SEH" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target"/>
-                            <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                            <menuItem isSeparatorItem="YES" id="VOq-y0-SEH" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target"/>
+                            <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="preferences"/>
                                 </userDefinedRuntimeAttributes>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target"/>
-                            <menuItem title="Services" id="NMo-om-nkz" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                            <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target"/>
+                            <menuItem title="Services" id="NMo-om-nkz" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="services"/>
                                 </userDefinedRuntimeAttributes>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="4je-JR-u6R" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target"/>
-                            <menuItem title="Hide Divvun Manager" keyEquivalent="h" id="Olw-nP-bQN" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                            <menuItem isSeparatorItem="YES" id="4je-JR-u6R" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target"/>
+                            <menuItem title="Hide Divvun Manager" keyEquivalent="h" id="Olw-nP-bQN" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="hideApp"/>
                                 </userDefinedRuntimeAttributes>
@@ -51,7 +52,7 @@
                                     <action selector="hide:" target="-1" id="PnN-Uc-m68"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Hide Others" keyEquivalent="h" id="Vdr-fp-XzO" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                            <menuItem title="Hide Others" keyEquivalent="h" id="Vdr-fp-XzO" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="hideOthers"/>
@@ -60,7 +61,7 @@
                                     <action selector="hideOtherApplications:" target="-1" id="VT4-aY-XCT"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Show All" id="Kd2-mp-pUS" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                            <menuItem title="Show All" id="Kd2-mp-pUS" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="showAll"/>
@@ -69,8 +70,8 @@
                                     <action selector="unhideAllApplications:" target="-1" id="Dhg-Le-xox"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="kCx-OE-vgT" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target"/>
-                            <menuItem title="Quit Divvun Manager" keyEquivalent="q" id="4sb-4s-VLi" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                            <menuItem isSeparatorItem="YES" id="kCx-OE-vgT" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target"/>
+                            <menuItem title="Quit Divvun Manager" keyEquivalent="q" id="4sb-4s-VLi" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="quitApp"/>
                                 </userDefinedRuntimeAttributes>
@@ -81,11 +82,11 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="Edit" id="5QF-Oa-p0T" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                <menuItem title="Edit" id="5QF-Oa-p0T" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Edit" id="W48-6f-4Dl" customClass="CompatNSMenu" customModule="Pahkat" customModuleProvider="target">
+                    <menu key="submenu" title="Edit" id="W48-6f-4Dl" customClass="CompatNSMenu" customModule="DivvunManager" customModuleProvider="target">
                         <items>
-                            <menuItem title="Undo" keyEquivalent="z" id="dRJ-4n-Yzg" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                            <menuItem title="Undo" keyEquivalent="z" id="dRJ-4n-Yzg" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="undo"/>
                                 </userDefinedRuntimeAttributes>
@@ -93,7 +94,7 @@
                                     <action selector="undo:" target="-1" id="M6e-cu-g7V"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Redo" keyEquivalent="Z" id="6dh-zS-Vam" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                            <menuItem title="Redo" keyEquivalent="Z" id="6dh-zS-Vam" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="redo"/>
                                 </userDefinedRuntimeAttributes>
@@ -101,8 +102,8 @@
                                     <action selector="redo:" target="-1" id="oIA-Rs-6OD"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="WRV-NI-Exz" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target"/>
-                            <menuItem title="Cut" keyEquivalent="x" id="uRl-iY-unG" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                            <menuItem isSeparatorItem="YES" id="WRV-NI-Exz" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target"/>
+                            <menuItem title="Cut" keyEquivalent="x" id="uRl-iY-unG" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="cut"/>
                                 </userDefinedRuntimeAttributes>
@@ -110,7 +111,7 @@
                                     <action selector="cut:" target="-1" id="YJe-68-I9s"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Copy" keyEquivalent="c" id="x3v-GG-iWU" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                            <menuItem title="Copy" keyEquivalent="c" id="x3v-GG-iWU" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="copy"/>
                                 </userDefinedRuntimeAttributes>
@@ -118,7 +119,7 @@
                                     <action selector="copy:" target="-1" id="G1f-GL-Joy"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Paste" keyEquivalent="v" id="gVA-U4-sdL" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                            <menuItem title="Paste" keyEquivalent="v" id="gVA-U4-sdL" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="paste"/>
                                 </userDefinedRuntimeAttributes>
@@ -126,7 +127,7 @@
                                     <action selector="paste:" target="-1" id="UvS-8e-Qdg"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Paste and Match Style" keyEquivalent="V" id="WeT-3V-zwk" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                            <menuItem title="Paste and Match Style" keyEquivalent="V" id="WeT-3V-zwk" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="pasteAndMatchStyle"/>
@@ -135,7 +136,7 @@
                                     <action selector="pasteAsPlainText:" target="-1" id="cEh-KX-wJQ"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Delete" id="pa3-QI-u2k" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                            <menuItem title="Delete" id="pa3-QI-u2k" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="delete"/>
@@ -144,7 +145,7 @@
                                     <action selector="delete:" target="-1" id="0Mk-Ml-PaM"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Select All" keyEquivalent="a" id="Ruw-6m-B2m" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                            <menuItem title="Select All" keyEquivalent="a" id="Ruw-6m-B2m" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="selectAll"/>
                                 </userDefinedRuntimeAttributes>
@@ -161,11 +162,11 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="edit"/>
                     </userDefinedRuntimeAttributes>
                 </menuItem>
-                <menuItem title="Window" id="aUF-d1-5bR" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                <menuItem title="Window" id="aUF-d1-5bR" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo" customClass="CompatNSMenu" customModule="Pahkat" customModuleProvider="target">
+                    <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo" customClass="CompatNSMenu" customModule="DivvunManager" customModuleProvider="target">
                         <items>
-                            <menuItem title="Close" keyEquivalent="w" id="att-dC-lxr" userLabel="Close" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                            <menuItem title="Close" keyEquivalent="w" id="att-dC-lxr" userLabel="Close" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="close"/>
                                 </userDefinedRuntimeAttributes>
@@ -173,7 +174,7 @@
                                     <action selector="performClose:" target="-1" id="FnF-no-nFY"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Minimize" keyEquivalent="m" id="OY7-WF-poV" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                            <menuItem title="Minimize" keyEquivalent="m" id="OY7-WF-poV" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="minimize"/>
                                 </userDefinedRuntimeAttributes>
@@ -181,7 +182,7 @@
                                     <action selector="performMiniaturize:" target="-1" id="VwT-WD-YPe"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Zoom" id="R4o-n2-Eq4" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                            <menuItem title="Zoom" id="R4o-n2-Eq4" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="zoom"/>
@@ -190,8 +191,8 @@
                                     <action selector="performZoom:" target="-1" id="DIl-cC-cCs"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="eu3-7i-yIM" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target"/>
-                            <menuItem title="Bring All to Front" id="LE2-aR-0XJ" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                            <menuItem isSeparatorItem="YES" id="eu3-7i-yIM" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target"/>
+                            <menuItem title="Bring All to Front" id="LE2-aR-0XJ" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="bringAllToFront"/>
@@ -209,16 +210,26 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="window"/>
                     </userDefinedRuntimeAttributes>
                 </menuItem>
-                <menuItem title="Help" id="wpr-3q-Mcd" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                <menuItem title="Help" id="wpr-3q-Mcd" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ" customClass="CompatNSMenu" customModule="Pahkat" customModuleProvider="target">
+                    <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ" customClass="CompatNSMenu" customModule="DivvunManager" customModuleProvider="target">
                         <items>
-                            <menuItem title="Divvun Manager Help" keyEquivalent="?" id="FKE-Sm-Kum" customClass="CompatNSMenuItem" customModule="Pahkat" customModuleProvider="target">
+                            <menuItem title="Generate Debug Zip File..." id="FKE-Sm-Kum" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="generateDebugZipFile"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="showHelp:" target="-1" id="y7X-2Q-9no"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="TLQ-dS-KAb" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target"/>
+                            <menuItem title="Divvun Manager Help" keyEquivalent="?" id="h0O-hu-VRM" customClass="CompatNSMenuItem" customModule="DivvunManager" customModuleProvider="target">
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="appHelp"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="showHelp:" target="-1" id="y7X-2Q-9no"/>
+                                    <action selector="showHelp:" target="-1" id="CC7-kd-8oW"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -232,8 +243,10 @@
                 </menuItem>
             </items>
             <connections>
+                <outlet property="genDebugZipFileItem" destination="FKE-Sm-Kum" id="aSC-OK-q80"/>
                 <outlet property="prefsMenuItem" destination="BOF-NM-1cW" id="jel-jl-Vaz"/>
             </connections>
+            <point key="canvasLocation" x="-109" y="154"/>
         </menu>
     </objects>
 </document>

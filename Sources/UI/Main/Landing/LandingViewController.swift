@@ -81,6 +81,7 @@ class LandingViewController: DisposableViewController<LandingView>, NSToolbarDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Divvun Manager"
         configureToolbar()
     }
 
