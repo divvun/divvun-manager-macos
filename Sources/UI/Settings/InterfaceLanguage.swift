@@ -6,6 +6,7 @@ enum InterfaceLanguage: String, Comparable {
     case nb = "nb"
     case nn = "nn"
     case nnRunic = "nn-Runr"
+    case ru = "ru"
     case se = "se"
 
     var description: String {
@@ -34,6 +35,7 @@ enum InterfaceLanguage: String, Comparable {
             InterfaceLanguage.nb,
             InterfaceLanguage.nn,
             InterfaceLanguage.nnRunic,
+            InterfaceLanguage.ru,
             InterfaceLanguage.se
         ].sorted()
 
