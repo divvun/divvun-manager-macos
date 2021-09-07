@@ -51,7 +51,7 @@
 "loading" = "Загрузка...";
 "minimize" = "Уменьшить";
 "nItemsRemaining" = "Осталось %1$@ элементов.";
-"nUpdatesAvailable" = "Доступно %1$@ обновлений.";
+"nUpdatesAvailable" = "Доступно %1$@ обновлений";
 "never" = "Никогда";
 "nextUpdateDue" = "Следующая проверка обновлений в: %1$@";
 "nightly" = "Еженощно";
