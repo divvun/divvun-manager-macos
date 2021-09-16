@@ -321,6 +321,8 @@ class PahkatClient: PahkatClientType {
             case let .uninstallStarted(res):
                 let packageKey = try? PackageKey.from(urlString: res.packageID)
                 event = .uninstallStarted(packageKey: packageKey!)
+            case let .verificationFailed(_):
+                event = .transactionError(packageKey: nil, error: "verification failed")
             }
             subject.onNext(event)
         }
@@ -510,9 +512,13 @@ class PahkatClient: PahkatClientType {
 
     private static func connect(path: URL, delegate: ConnectivityStateDelegate) -> Pahkat_PahkatClient {
         let group = MultiThreadedEventLoopGroup(numberOfThreads: 2)
-        let conn = ClientConnection(
-            configuration: .init(target: .unixDomainSocket(path.path),
-                                 eventLoopGroup: group))
+        var config = ClientConnection.Configuration.default(
+            target: .unixDomainSocket(path.path),
+            eventLoopGroup: group)
+        config.maximumReceiveMessageLength = Int.max
+        
+        let conn = ClientConnection(configuration: config)
+        
         conn.connectivity.delegate = delegate
 
         let client = Pahkat_PahkatClient(channel: conn)

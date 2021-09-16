@@ -30,13 +30,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        // Configure Sentry.io
-        do {
-            Client.shared = try Client(dsn: "https://554b508acddd44e98c5b3dc70f8641c1@sentry.io/1357390")
-            try Client.shared?.startCrashHandler()
-        } catch let error {
-            log.severe(error)
-            // Wrong DSN or KSCrash not installed
+        SentrySDK.start { options in
+            options.dsn = "https://554b508acddd44e98c5b3dc70f8641c1@sentry.io/1357390"
+            options.debug = true
         }
         
         AppDelegate.instance = self

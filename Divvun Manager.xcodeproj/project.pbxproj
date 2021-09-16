@@ -59,9 +59,28 @@
 		C63191D824472DE50055DA03 /* ObjcExceptionBridging in Frameworks */ = {isa = PBXBuildFile; productRef = C63191D724472DE50055DA03 /* ObjcExceptionBridging */; };
 		C63191DA24472DE50055DA03 /* XCGLogger in Frameworks */ = {isa = PBXBuildFile; productRef = C63191D924472DE50055DA03 /* XCGLogger */; };
 		C63191DD24472EF60055DA03 /* GRPC in Frameworks */ = {isa = PBXBuildFile; productRef = C63191DC24472EF60055DA03 /* GRPC */; };
-		C63191E0244730340055DA03 /* FlatBuffers in Frameworks */ = {isa = PBXBuildFile; productRef = C63191DF244730340055DA03 /* FlatBuffers */; };
 		C656A693203ECAF80004E7F1 /* CompletionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C656A692203ECAF80004E7F1 /* CompletionView.xib */; };
 		C656A696203EE5190004E7F1 /* base.yaml in Resources */ = {isa = PBXBuildFile; fileRef = C656A695203EE5190004E7F1 /* base.yaml */; };
+		C678E0B226F38E7E00626833 /* TableVerifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C678E09E26F38E7E00626833 /* TableVerifier.swift */; };
+		C678E0B326F38E7E00626833 /* Mutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C678E09F26F38E7E00626833 /* Mutable.swift */; };
+		C678E0B426F38E7E00626833 /* VeriferOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C678E0A026F38E7E00626833 /* VeriferOptions.swift */; };
+		C678E0B526F38E7E00626833 /* FlatBuffersUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C678E0A126F38E7E00626833 /* FlatBuffersUtils.swift */; };
+		C678E0B626F38E7E00626833 /* Struct.swift in Sources */ = {isa = PBXBuildFile; fileRef = C678E0A226F38E7E00626833 /* Struct.swift */; };
+		C678E0B726F38E7E00626833 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C678E0A326F38E7E00626833 /* Constants.swift */; };
+		C678E0B826F38E7E00626833 /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = C678E0A426F38E7E00626833 /* Table.swift */; };
+		C678E0B926F38E7E00626833 /* Verifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C678E0A526F38E7E00626833 /* Verifiable.swift */; };
+		C678E0BA26F38E7E00626833 /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = C678E0A626F38E7E00626833 /* Root.swift */; };
+		C678E0BB26F38E7E00626833 /* Offset.swift in Sources */ = {isa = PBXBuildFile; fileRef = C678E0A726F38E7E00626833 /* Offset.swift */; };
+		C678E0BC26F38E7E00626833 /* Verifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C678E0A826F38E7E00626833 /* Verifier.swift */; };
+		C678E0BD26F38E7E00626833 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C678E0A926F38E7E00626833 /* String+extension.swift */; };
+		C678E0BE26F38E7E00626833 /* Int+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C678E0AA26F38E7E00626833 /* Int+extension.swift */; };
+		C678E0BF26F38E7E00626833 /* FlatbuffersErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C678E0AB26F38E7E00626833 /* FlatbuffersErrors.swift */; };
+		C678E0C026F38E7E00626833 /* ByteBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C678E0AC26F38E7E00626833 /* ByteBuffer.swift */; };
+		C678E0C126F38E7E00626833 /* NativeObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C678E0AD26F38E7E00626833 /* NativeObject.swift */; };
+		C678E0C226F38E7E00626833 /* FlatBufferObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C678E0AE26F38E7E00626833 /* FlatBufferObject.swift */; };
+		C678E0C326F38E7E00626833 /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C678E0AF26F38E7E00626833 /* Enum.swift */; };
+		C678E0C426F38E7E00626833 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C678E0B026F38E7E00626833 /* Message.swift */; };
+		C678E0C526F38E7E00626833 /* FlatBufferBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C678E0B126F38E7E00626833 /* FlatBufferBuilder.swift */; };
 		C68E9F842384C2700083ACF4 /* WebBridgeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68E9F832384C2700083ACF4 /* WebBridgeService.swift */; };
 		C69F948E2028B1EA00127A47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69F948D2028B1EA00127A47 /* AppDelegate.swift */; };
 		C69F94902028B1EA00127A47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C69F948F2028B1EA00127A47 /* Assets.xcassets */; };
@@ -70,7 +89,7 @@
 		C6B742C7204BF19E00C7877D /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742C6204BF19E00C7877D /* MainMenu.swift */; };
 		C6B742C9204BF22600C7877D /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742C8204BF22600C7877D /* App.swift */; };
 		C6B742DC204C14BC00C7877D /* SettingsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742DB204C14BC00C7877D /* SettingsKey.swift */; };
-		C6B742E1204C456100C7877D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742E0204C456100C7877D /* Constants.swift */; };
+		C6B742E1204C456100C7877D /* PahkatConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B742E0204C456100C7877D /* PahkatConstants.swift */; };
 		C6C3242C2382F8660043DD18 /* SelectedPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3242B2382F8660043DD18 /* SelectedPackage.swift */; };
 		C6C3FA642382C3870006E81B /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3FA632382C3870006E81B /* UserDefaults.swift */; };
 		C6C3FA672382C3C40006E81B /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3FA662382C3C40006E81B /* Process.swift */; };
@@ -211,6 +230,26 @@
 		C6646CDA20507E7500602C20 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = ../nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C6646CDB20507E7700602C20 /* en-001 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-001"; path = "../en-001.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C6646CDB20507E7700602C21 /* nn-Runr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nn-Runr"; path = "../nn-Runr.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		C678E09E26F38E7E00626833 /* TableVerifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableVerifier.swift; sourceTree = "<group>"; };
+		C678E09F26F38E7E00626833 /* Mutable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mutable.swift; sourceTree = "<group>"; };
+		C678E0A026F38E7E00626833 /* VeriferOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VeriferOptions.swift; sourceTree = "<group>"; };
+		C678E0A126F38E7E00626833 /* FlatBuffersUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatBuffersUtils.swift; sourceTree = "<group>"; };
+		C678E0A226F38E7E00626833 /* Struct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Struct.swift; sourceTree = "<group>"; };
+		C678E0A326F38E7E00626833 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		C678E0A426F38E7E00626833 /* Table.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
+		C678E0A526F38E7E00626833 /* Verifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verifiable.swift; sourceTree = "<group>"; };
+		C678E0A626F38E7E00626833 /* Root.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
+		C678E0A726F38E7E00626833 /* Offset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Offset.swift; sourceTree = "<group>"; };
+		C678E0A826F38E7E00626833 /* Verifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verifier.swift; sourceTree = "<group>"; };
+		C678E0A926F38E7E00626833 /* String+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
+		C678E0AA26F38E7E00626833 /* Int+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+extension.swift"; sourceTree = "<group>"; };
+		C678E0AB26F38E7E00626833 /* FlatbuffersErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatbuffersErrors.swift; sourceTree = "<group>"; };
+		C678E0AC26F38E7E00626833 /* ByteBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ByteBuffer.swift; sourceTree = "<group>"; };
+		C678E0AD26F38E7E00626833 /* NativeObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeObject.swift; sourceTree = "<group>"; };
+		C678E0AE26F38E7E00626833 /* FlatBufferObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatBufferObject.swift; sourceTree = "<group>"; };
+		C678E0AF26F38E7E00626833 /* Enum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
+		C678E0B026F38E7E00626833 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		C678E0B126F38E7E00626833 /* FlatBufferBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatBufferBuilder.swift; sourceTree = "<group>"; };
 		C68E9F832384C2700083ACF4 /* WebBridgeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebBridgeService.swift; sourceTree = "<group>"; };
 		C69F948A2028B1EA00127A47 /* Divvun Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Divvun Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C69F948D2028B1EA00127A47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -222,7 +261,7 @@
 		C6B742C6204BF19E00C7877D /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		C6B742C8204BF22600C7877D /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		C6B742DB204C14BC00C7877D /* SettingsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsKey.swift; sourceTree = "<group>"; };
-		C6B742E0204C456100C7877D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		C6B742E0204C456100C7877D /* PahkatConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PahkatConstants.swift; sourceTree = "<group>"; };
 		C6C3242B2382F8660043DD18 /* SelectedPackage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedPackage.swift; sourceTree = "<group>"; };
 		C6C3FA632382C3870006E81B /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		C6C3FA662382C3C40006E81B /* Process.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Process.swift; sourceTree = "<group>"; };
@@ -307,7 +346,6 @@
 				C63191CA244723760055DA03 /* RxCocoa in Frameworks */,
 				C6E755AB2462CC7800620D6F /* RxBlocking in Frameworks */,
 				C63191DD24472EF60055DA03 /* GRPC in Frameworks */,
-				C63191E0244730340055DA03 /* FlatBuffers in Frameworks */,
 				C63191CD24472C9E0055DA03 /* RxFeedback in Frameworks */,
 				C63191DA24472DE50055DA03 /* XCGLogger in Frameworks */,
 				C6D56BDB252F4B4A00620D6F /* Security.framework in Frameworks */,
@@ -389,6 +427,33 @@
 			path = LocalisationResources;
 			sourceTree = "<group>";
 		};
+		C678E09D26F38E5600626833 /* FlatBuffers */ = {
+			isa = PBXGroup;
+			children = (
+				C678E0AC26F38E7E00626833 /* ByteBuffer.swift */,
+				C678E0A326F38E7E00626833 /* Constants.swift */,
+				C678E0AF26F38E7E00626833 /* Enum.swift */,
+				C678E0B126F38E7E00626833 /* FlatBufferBuilder.swift */,
+				C678E0AE26F38E7E00626833 /* FlatBufferObject.swift */,
+				C678E0AB26F38E7E00626833 /* FlatbuffersErrors.swift */,
+				C678E0A126F38E7E00626833 /* FlatBuffersUtils.swift */,
+				C678E0AA26F38E7E00626833 /* Int+extension.swift */,
+				C678E0B026F38E7E00626833 /* Message.swift */,
+				C678E09F26F38E7E00626833 /* Mutable.swift */,
+				C678E0AD26F38E7E00626833 /* NativeObject.swift */,
+				C678E0A726F38E7E00626833 /* Offset.swift */,
+				C678E0A626F38E7E00626833 /* Root.swift */,
+				C678E0A926F38E7E00626833 /* String+extension.swift */,
+				C678E0A226F38E7E00626833 /* Struct.swift */,
+				C678E0A426F38E7E00626833 /* Table.swift */,
+				C678E09E26F38E7E00626833 /* TableVerifier.swift */,
+				C678E0A026F38E7E00626833 /* VeriferOptions.swift */,
+				C678E0A526F38E7E00626833 /* Verifiable.swift */,
+				C678E0A826F38E7E00626833 /* Verifier.swift */,
+			);
+			path = FlatBuffers;
+			sourceTree = "<group>";
+		};
 		C67E3B4C24485FD100A5D372 /* BTree */ = {
 			isa = PBXGroup;
 			children = (
@@ -444,7 +509,7 @@
 				C62270592037344E00DBCD65 /* Support */,
 				C6CC912B2029A56F00CB0B10 /* UI */,
 				C62270532036EA8D00DBCD65 /* Utilities */,
-				C6B742E0204C456100C7877D /* Constants.swift */,
+				C6B742E0204C456100C7877D /* PahkatConstants.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -452,6 +517,7 @@
 		C6C3FA512382C1EA0006E81B /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				C678E09D26F38E5600626833 /* FlatBuffers */,
 				C6D56BA1252F4AED00620D6F /* DivvunManager-Bridging-Header.h */,
 				C6D56BA0252F4AD800620D6F /* SSZipArchive */,
 				C67E3B4C24485FD100A5D372 /* BTree */,
@@ -693,7 +759,6 @@
 				C63191D724472DE50055DA03 /* ObjcExceptionBridging */,
 				C63191D924472DE50055DA03 /* XCGLogger */,
 				C63191DC24472EF60055DA03 /* GRPC */,
-				C63191DF244730340055DA03 /* FlatBuffers */,
 				C6E755AA2462CC7800620D6F /* RxBlocking */,
 			);
 			productName = "Divvun Manager";
@@ -741,7 +806,6 @@
 				C63191D324472D910055DA03 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 				C63191D624472DE50055DA03 /* XCRemoteSwiftPackageReference "XCGLogger" */,
 				C63191DB24472EF60055DA03 /* XCRemoteSwiftPackageReference "grpc-swift" */,
-				C63191DE244730340055DA03 /* XCRemoteSwiftPackageReference "flatbuffers" */,
 			);
 			productRefGroup = C69F948B2028B1EA00127A47 /* Products */;
 			projectDirPath = "";
@@ -794,6 +858,7 @@
 				C6D56BC5252F4AEE00620D6F /* SSZipArchive.m in Sources */,
 				C6B742C7204BF19E00C7877D /* MainMenu.swift in Sources */,
 				C6D56BCE252F4AEE00620D6F /* mz_crypt.c in Sources */,
+				C678E0B426F38E7E00626833 /* VeriferOptions.swift in Sources */,
 				C6C3FA642382C3870006E81B /* UserDefaults.swift in Sources */,
 				C6D56BD5252F4AEE00620D6F /* mz_strm.c in Sources */,
 				C6C3FA672382C3C40006E81B /* Process.swift in Sources */,
@@ -803,9 +868,13 @@
 				C6F4BC5B2029BC57002EE523 /* MainViewController.swift in Sources */,
 				C612CFB62448605700EFEA98 /* Compatibility.swift in Sources */,
 				C6D56BCB252F4AEE00620D6F /* mz_zip_rw.c in Sources */,
+				C678E0C126F38E7E00626833 /* NativeObject.swift in Sources */,
 				C6E7559F2462A6A900620D6F /* LandingViewController.swift in Sources */,
+				C678E0BC26F38E7E00626833 /* Verifier.swift in Sources */,
 				C6F4BC6E2031DBCB002EE523 /* DownloadViewController.swift in Sources */,
+				C678E0B826F38E7E00626833 /* Table.swift in Sources */,
 				C612CFB42448605700EFEA98 /* List.swift in Sources */,
+				C678E0B526F38E7E00626833 /* FlatBuffersUtils.swift in Sources */,
 				C6D56BC7252F4AEE00620D6F /* mz_strm_pkcrypt.c in Sources */,
 				C612CFBE2448AA7100EFEA98 /* RPCService.swift in Sources */,
 				271249C12040449E009EE80B /* SettingsViewController.swift in Sources */,
@@ -814,10 +883,13 @@
 				C6E755A62462A93E00620D6F /* JSONValue.swift in Sources */,
 				C612CFB12448605700EFEA98 /* Weak.swift in Sources */,
 				C62462392201226300BE484B /* CompatNSMenuItem.swift in Sources */,
+				C678E0BF26F38E7E00626833 /* FlatbuffersErrors.swift in Sources */,
+				C678E0B926F38E7E00626833 /* Verifiable.swift in Sources */,
 				C6E755A82462A96800620D6F /* WebBridgeRPC.swift in Sources */,
 				C6F4BC5D202A410A002EE523 /* SettingsFile.swift in Sources */,
 				C612CFC02448AA8700EFEA98 /* PackageAction.swift in Sources */,
 				C6E392A5244755AF00560023 /* pahkat.pb.swift in Sources */,
+				C678E0BA26F38E7E00626833 /* Root.swift in Sources */,
 				271249BD2040448B009EE80B /* SettingsView.swift in Sources */,
 				C6E392A6244755AF00560023 /* pahkat.grpc.swift in Sources */,
 				271249B920404409009EE80B /* SettingsWindow.swift in Sources */,
@@ -825,13 +897,17 @@
 				276391AC203D7F620096E10C /* DownloadProgressView.swift in Sources */,
 				C6F4BC572029BC05002EE523 /* MainViewable.swift in Sources */,
 				C612CFBA2448605700EFEA98 /* BTree.swift in Sources */,
+				C678E0C326F38E7E00626833 /* Enum.swift in Sources */,
 				C612CFAD2448605700EFEA98 /* BTreeIterator.swift in Sources */,
+				C678E0BE26F38E7E00626833 /* Int+extension.swift in Sources */,
 				C6C3242C2382F8660043DD18 /* SelectedPackage.swift in Sources */,
 				276391A4203AE2660096E10C /* CompletionViewController.swift in Sources */,
 				C6F4BC662031DB81002EE523 /* DownloadViewable.swift in Sources */,
 				C6D56BD1252F4AEE00620D6F /* mz_os.c in Sources */,
 				C6E755A12462A6A900620D6F /* LandingView.swift in Sources */,
 				C6D56BD4252F4AEE00620D6F /* mz_strm_split.c in Sources */,
+				C678E0C226F38E7E00626833 /* FlatBufferObject.swift in Sources */,
+				C678E0C526F38E7E00626833 /* FlatBufferBuilder.swift in Sources */,
 				C6F8A81E2028B996009A016E /* MainView.swift in Sources */,
 				C6F4BC592029BC2C002EE523 /* MainPresenter.swift in Sources */,
 				C612CFAB2448605700EFEA98 /* BTreeBuilder.swift in Sources */,
@@ -843,6 +919,7 @@
 				C6F8A81B2028B404009A016E /* Cocoa.swift in Sources */,
 				C612CFB02448605700EFEA98 /* BTreeMerger.swift in Sources */,
 				C6B742C52049911B00C7877D /* MainOutlineModels.swift in Sources */,
+				C678E0BD26F38E7E00626833 /* String+extension.swift in Sources */,
 				C622706B203A247300DBCD65 /* ISO639.swift in Sources */,
 				C6B742C9204BF22600C7877D /* App.swift in Sources */,
 				C68E9F842384C2700083ACF4 /* WebBridgeService.swift in Sources */,
@@ -851,6 +928,7 @@
 				C6E755AD2463361B00620D6F /* InterfaceLanguage.swift in Sources */,
 				C6D56BCF252F4AEE00620D6F /* mz_strm_wzaes.c in Sources */,
 				C6C820D3204C53EF001682E8 /* PackageDownloadProgress.swift in Sources */,
+				C678E0B226F38E7E00626833 /* TableVerifier.swift in Sources */,
 				C612CFB22448605700EFEA98 /* BridgedList.swift in Sources */,
 				C612CFB32448605700EFEA98 /* Map.swift in Sources */,
 				C612CFB82448605700EFEA98 /* BTreePath.swift in Sources */,
@@ -868,15 +946,21 @@
 				C612CFBC2448770A00EFEA98 /* Config.swift in Sources */,
 				C6E755A42462A91C00620D6F /* WebBridgeFunctions.swift in Sources */,
 				C612CFAC2448605700EFEA98 /* BTreeCursor.swift in Sources */,
+				C678E0C026F38E7E00626833 /* ByteBuffer.swift in Sources */,
 				276391A0203ADDC30096E10C /* InstallViewController.swift in Sources */,
 				C612CFC22448AC0700EFEA98 /* LoadedRepository.swift in Sources */,
 				99F28AE4245966C8006F14EF /* ResolvedAction.swift in Sources */,
 				99AA94B12462B57E00E46795 /* AppContext.swift in Sources */,
+				C678E0B326F38E7E00626833 /* Mutable.swift in Sources */,
+				C678E0C426F38E7E00626833 /* Message.swift in Sources */,
 				C6D56BD3252F4AEE00620D6F /* mz_strm_buf.c in Sources */,
 				C612CFAE2448605700EFEA98 /* BTreeIndex.swift in Sources */,
 				C6F8A8262028BD91009A016E /* MainWindow.swift in Sources */,
+				C678E0B626F38E7E00626833 /* Struct.swift in Sources */,
+				C678E0B726F38E7E00626833 /* Constants.swift in Sources */,
 				C6F4BC722031DCF7002EE523 /* Cocoa+Rx.swift in Sources */,
-				C6B742E1204C456100C7877D /* Constants.swift in Sources */,
+				C678E0BB26F38E7E00626833 /* Offset.swift in Sources */,
+				C6B742E1204C456100C7877D /* PahkatConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1061,7 +1145,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 2K5J2584NX;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
@@ -1075,7 +1159,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1.0;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-liconv",
@@ -1101,7 +1185,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 2K5J2584NX;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
@@ -1115,7 +1199,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1.0;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-liconv",
@@ -1176,7 +1260,7 @@
 			repositoryURL = "https://github.com/getsentry/sentry-cocoa";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 4.5.0;
+				minimumVersion = 7.3.0;
 			};
 		};
 		C63191D624472DE50055DA03 /* XCRemoteSwiftPackageReference "XCGLogger" */ = {
@@ -1191,16 +1275,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/grpc/grpc-swift";
 			requirement = {
-				branch = "1.0.0-alpha.11";
-				kind = branch;
-			};
-		};
-		C63191DE244730340055DA03 /* XCRemoteSwiftPackageReference "flatbuffers" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mustiikhalil/flatbuffers";
-			requirement = {
-				branch = swift;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1240,11 +1316,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C63191DB24472EF60055DA03 /* XCRemoteSwiftPackageReference "grpc-swift" */;
 			productName = GRPC;
-		};
-		C63191DF244730340055DA03 /* FlatBuffers */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C63191DE244730340055DA03 /* XCRemoteSwiftPackageReference "flatbuffers" */;
-			productName = FlatBuffers;
 		};
 		C6E755AA2462CC7800620D6F /* RxBlocking */ = {
 			isa = XCSwiftPackageProductDependency;

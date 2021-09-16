@@ -1,12 +1,11 @@
 import Foundation
-import FlatBuffers
 
 enum LoadedRepositoryError: Error {
     case invalidURL(String)
     case invalidLinkedRepositoryURL(String)
     case invalidAcceptedRedirectionURL(String)
-    case missingDescriptorID(pahkat.Descriptor)
-    case missingVersion(pahkat.Release, Descriptor)
+    case missingDescriptorID(pahkat_Descriptor)
+    case missingVersion(pahkat_Release, Descriptor)
     case missingAgentName
     case missingAgentVersion
 }
@@ -54,7 +53,7 @@ class LoadedRepository: Hashable, Equatable {
     var descriptors: RefMap<String, Descriptor> { rawPackages.descriptors }
     
     static func from(protobuf: Pahkat_LoadedRepository) throws -> LoadedRepository {
-        let packagesFbs = pahkat.Packages.getRootAsPackages(bb: ByteBuffer(data: protobuf.packagesFbs))
+        let packagesFbs = pahkat_Packages.getRootAsPackages(bb: ByteBuffer(data: protobuf.packagesFbs))
         let rawPackages = Packages(packagesFbs)
         
         let meta = Meta(

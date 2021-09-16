@@ -1,5 +1,4 @@
 import Foundation
-import FlatBuffers
 
 extension LoadedRepository {
     static func mock(id: String) -> LoadedRepository {
@@ -15,7 +14,7 @@ extension LoadedRepository {
         let meta = LoadedRepository.Meta(channel: "MTV")
 
         let data = try! Data(contentsOf: URL(fileURLWithPath: "/Users/dylanhand/Projects/divvun/pahkat-client-macos/Pahkat/TestData/index.bin"))
-        let packagesFbs = pahkat.Packages.getRootAsPackages(bb: ByteBuffer(data: data))
+        let packagesFbs = pahkat_Packages.getRootAsPackages(bb: ByteBuffer(data: data))
         let rawPackages = Packages(packagesFbs)
 
         return LoadedRepository(index: index, meta: meta, packages: rawPackages)

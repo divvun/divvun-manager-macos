@@ -175,7 +175,7 @@ struct RefList<T: Hashable & Encodable>: Collection, Sequence, Equatable, Encoda
     }
 }
 
-extension pahkat.Descriptor {
+extension pahkat_Descriptor {
     var release: RefList<Release> {
         RefList(ptr: self.__buffer.memory, count: self.releaseCount) { (i) in
             return try self.release(at: i).map { try Release($0, descriptor: Descriptor(self)) }
@@ -205,7 +205,7 @@ extension pahkat.Descriptor {
     }
 }
 
-extension pahkat.Release {
+extension pahkat_Release {
     var authors: RefList<String> {
         RefList(ptr: self.__buffer.memory, count: self.authorsCount) { (i) in
             return self.authors(at: i)
@@ -299,7 +299,7 @@ extension RebootSpec {
 
 
 struct MacOSPackage: Equatable, Hashable, Encodable {
-    let inner: pahkat.MacOSPackage
+    let inner: pahkat_MacOSPackage
 
     var url: String? { inner.url }
     var pkgId: String? { inner.pkgId }
@@ -313,7 +313,7 @@ struct MacOSPackage: Equatable, Hashable, Encodable {
     var requiresReboot: Set<RebootSpec>
 
 
-    internal init(_ package: pahkat.MacOSPackage) {
+    internal init(_ package: pahkat_MacOSPackage) {
         self.inner = package
         self.targets = SystemTarget.from(bitFlags: package.flags)
         self.requiresReboot = RebootSpec.from(bitFlags: package.flags)
@@ -365,7 +365,7 @@ enum Payload: Equatable, Hashable, Encodable {
     case tarballPackage(TarballPackage)
 }
 
-extension pahkat.Target {
+extension pahkat_Target {
     var dependencies: RefMap<String, String> {
         RefMap(ptr: self.__buffer.memory, count: self.dependenciesKeysCount, keyGetter: { (i) in
             self.dependenciesKeys(at: i)
@@ -377,9 +377,9 @@ extension pahkat.Target {
 
 
 struct Target: Equatable, Hashable, Encodable {
-    private let inner: pahkat.Target
+    private let inner: pahkat_Target
 
-    internal init(_ target: pahkat.Target) {
+    internal init(_ target: pahkat_Target) {
         self.inner = target
     }
 
@@ -422,7 +422,7 @@ struct Target: Equatable, Hashable, Encodable {
         case .windowsexecutable:
             return Payload.windowsExecutable(WindowsExecutable())
         case .macospackage:
-            guard let x = inner.payload(type: pahkat.MacOSPackage.self) else {
+            guard let x = inner.payload(type: pahkat_MacOSPackage.self) else {
                 return nil
             }
             return Payload.macOSPackage(MacOSPackage(x))
@@ -474,7 +474,7 @@ struct Release: Equatable, Hashable, Encodable {
         try c.encode(target, forKey: .target)
     }
     
-    private let inner: pahkat.Release
+    private let inner: pahkat_Release
     
     let version: String
     var channel: String? { inner.channel }
@@ -486,7 +486,7 @@ struct Release: Equatable, Hashable, Encodable {
         return self.target.first(where: { $0.platform == "macos" })
     }
     
-    internal init(_ release: pahkat.Release, descriptor: Descriptor) throws {
+    internal init(_ release: pahkat_Release, descriptor: Descriptor) throws {
         self.inner = release
         guard let version = release.version else {
             throw LoadedRepositoryError.missingVersion(inner, descriptor)
@@ -515,7 +515,7 @@ struct Descriptor: Equatable, Hashable, Encodable, CustomDebugStringConvertible 
         try c.encode(release, forKey: .release)
     }
     
-    private let inner: pahkat.Descriptor
+    private let inner: pahkat_Descriptor
     
     let id: String
     var release: RefList<Release> { inner.release }
@@ -523,7 +523,7 @@ struct Descriptor: Equatable, Hashable, Encodable, CustomDebugStringConvertible 
     var description: RefMap<String, String> { inner.description }
     var tags: RefList<String> { inner.tags }
 
-    internal init(_ descriptor: pahkat.Descriptor) throws {
+    internal init(_ descriptor: pahkat_Descriptor) throws {
         self.inner = descriptor
 
         guard let id = descriptor.id else {
@@ -559,7 +559,7 @@ enum Package: Equatable, Hashable, Encodable {
 }
 
 
-extension pahkat.Packages {
+extension pahkat_Packages {
     var packages: RefMap<String, Package> {
         assert(self.packagesValuesCount == self.packagesKeysCount, "Packages must have same number of keys and values")
         
@@ -595,12 +595,12 @@ extension pahkat.Packages {
 }
 
 struct Packages: Equatable, Hashable, Packageable {
-    private let inner: pahkat.Packages
+    private let inner: pahkat_Packages
     
     var packages: RefMap<String, Package> { inner.packages }
     var descriptors: RefMap<String, Descriptor> { inner.descriptors }
 
-    internal init(_ packages: pahkat.Packages) {
+    internal init(_ packages: pahkat_Packages) {
         self.inner = packages
     }
 
