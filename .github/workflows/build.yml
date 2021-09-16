@@ -44,7 +44,7 @@ jobs:
       with:
         repo: https://pahkat.uit.no/devtools/
         channel: nightly
-        packages: pahkat-uploader
+        packages: pahkat-uploader, xcnotary
     - name: Build Pahkat Service daemon
       run: |
         source $RUNNER_TEMP/divvun-ci-config/enc/env.sh
