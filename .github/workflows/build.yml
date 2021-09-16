@@ -38,6 +38,7 @@ jobs:
         toolchain: stable
         profile: minimal
         override: true
+        target: x86_64-apple-darwin
         components: rustfmt
     - name: Install build tools from Pahkat for macOS
       uses: divvun/actions/pahkat/init@master
@@ -45,15 +46,28 @@ jobs:
         repo: https://pahkat.uit.no/devtools/
         channel: nightly
         packages: pahkat-uploader, xcnotary
-    - name: Build Pahkat Service daemon
+    - name: Build Pahkat Service daemon (aarch64)
       run: |
         source $RUNNER_TEMP/divvun-ci-config/enc/env.sh
         cd pahkat/pahkat-rpc
         cargo build --release --features launchd --bin server
         # Copy into installer build dir
-        cp ../target/release/server "$GITHUB_WORKSPACE/divvun-manager/scripts/pahkatd"
+        #cp ../target/release/server "$GITHUB_WORKSPACE/divvun-manager/scripts/pahkatd"
       env:
         CHANNEL: ${{ steps.self_update_channel.outputs.channel }}
+    - name: Build Pahkat Service daemon (x86_64)
+      run: |
+        source $RUNNER_TEMP/divvun-ci-config/enc/env.sh
+        cd pahkat/pahkat-rpc
+        cargo build --release --features launchd --bin server --target x86_64-apple-darwin
+        # Copy into installer build dir
+        #cp ../target/release/server "$GITHUB_WORKSPACE/divvun-manager/scripts/pahkatd"
+      env:
+        CHANNEL: ${{ steps.self_update_channel.outputs.channel }}
+    - name: Lipo into universal binary
+      run: |
+        cd pahkat
+        lipo -create target/release/server target/x86_64-apple-darwin/release/server -output "$GITHUB_WORKSPACE/divvun-manager/scripts/pahkatd"
     - name: Build Divvun Manager
       run: |
         source $RUNNER_TEMP/divvun-ci-config/enc/env.sh
