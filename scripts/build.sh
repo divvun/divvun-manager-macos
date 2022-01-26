@@ -8,8 +8,6 @@ export MACOS_CODE_SIGN_IDENTITY_INSTALLER="Developer ID Installer: The Universit
 APP_NAME="Divvun Manager.app"
 PKG_NAME="DivvunManager.pkg"
 
-echo "::add-mask::$MACOS_NOTARIZATION_APP_PWD"
-
 rm -rf tmp || echo "no tmp dir; continuing"
 rm -rf build || echo "no build dir; continuing"
 
@@ -35,7 +33,7 @@ cp scripts/pahkatd "$APP_NAME/Contents/MacOS/pahkatd"
 codesign --options=runtime -f --deep -s "$MACOS_CODE_SIGN_IDENTITY" "$APP_NAME"
 
 echo "Notarizing bundle"
-xcnotary notarize "$APP_NAME" --override-path-type app -d "$MACOS_DEVELOPER_ACCOUNT" -p "$MACOS_NOTARIZATION_APP_PWD"
+xcnotary notarize "$APP_NAME" --override-path-type app -d "$INPUT_MACOS_DEVELOPER_ACCOUNT" -p "$INPUT_MACOS_NOTARIZATION_APP_PWD"
 stapler validate "$APP_NAME"
 
 echo "::endgroup::"
@@ -77,6 +75,6 @@ productsign --sign "$MACOS_CODE_SIGN_IDENTITY_INSTALLER" divvun-manager.unsigned
 pkgutil --check-signature "$PKG_NAME"
 
 echo "Notarizing installer"
-xcnotary notarize "$PKG_NAME" --override-path-type pkg -d "$MACOS_DEVELOPER_ACCOUNT" -p "$MACOS_NOTARIZATION_APP_PWD"
+xcnotary notarize "$PKG_NAME" --override-path-type pkg -d "$INPUT_MACOS_DEVELOPER_ACCOUNT" -p "$INPUT_MACOS_NOTARIZATION_APP_PWD"
 stapler validate "$PKG_NAME"
 echo "::endgroup::"
