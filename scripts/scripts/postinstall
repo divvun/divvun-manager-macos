@@ -16,7 +16,5 @@ cp "$PLIST_FILE" "/Library/LaunchDaemons/$PLIST_FILE";
 /bin/launchctl load -w "/Library/LaunchDaemons/$PLIST_FILE";
 
 if [[ ! $COMMAND_LINE_INSTALL ]]; then
-  ls -lah $2
-  su "$USER" -c "open $2/Divvun\ Manager.app";
-
+  for i in $(seq 1 5); do su "$USER" -c "open /Applications/Divvun\ Manager.app" && s=0 && break || s=$? && sleep 1; done; (exit $s)
 fi
