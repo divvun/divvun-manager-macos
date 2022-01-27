@@ -1,5 +1,5 @@
 #!/bin/sh
-set -e
+set -ex
 
 PLIST_FILE="no.divvun.pahkatd.plist"
 
