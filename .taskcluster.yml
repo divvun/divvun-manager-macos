@@ -54,7 +54,7 @@ tasks:
           features:
             # Needed for the decision task to create other tasks
             taskclusterProxy: true
-         command:
+          command:
             - /bin/bash
             - '--login'
             - '-e'
