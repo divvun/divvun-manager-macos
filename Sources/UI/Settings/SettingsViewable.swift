@@ -2,7 +2,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-protocol SettingsViewable: class {
+protocol SettingsViewable: AnyObject {
 //    func setRepositories(repositories: [RepositoryTableRowData])
 //    var onAddRepoButtonTapped: Driver<Void> { get }
 //    var onRemoveRepoButtonTapped: Driver<Void> { get }

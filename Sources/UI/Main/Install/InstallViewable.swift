@@ -2,7 +2,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-protocol InstallViewable: class {
+protocol InstallViewable: AnyObject {
 //    var onCancelTapped: Driver<Void> { get }
     func set(totalPackages total: Int)
     func set(nextPackage resolvedAction: ResolvedAction)

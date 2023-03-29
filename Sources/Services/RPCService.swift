@@ -57,7 +57,7 @@ struct PackageQuery: Codable {
     let tags: [String]?
 }
 
-protocol PahkatClientType: class {
+protocol PahkatClientType: AnyObject {
     func notifications() -> Observable<PahkatNotification>
     func refresh() -> Completable
     func repoIndexes() -> Single<[LoadedRepository]>
