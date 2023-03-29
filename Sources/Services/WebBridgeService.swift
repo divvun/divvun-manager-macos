@@ -11,7 +11,7 @@ struct LanguageResponse: Encodable {
     var statuses: [String: String]
 }
 
-protocol WebBridgeViewable: class {
+protocol WebBridgeViewable: AnyObject {
     func toggleProgressIndicator(_ isVisible: Bool)
     func handle(error: Error)
 }

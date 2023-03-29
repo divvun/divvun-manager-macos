@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-protocol CompletionViewable: class {
+protocol CompletionViewable: AnyObject {
     var onRestartButtonTapped: Observable<Void> { get }
     var onFinishButtonTapped: Observable<Void> { get }
     

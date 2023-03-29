@@ -2,7 +2,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-protocol MainViewable: class {
+protocol MainViewable: AnyObject {
     var onPackageEvent: Observable<OutlineEvent> { get }
     var onPrimaryButtonPressed: Driver<Void> { get }
     var onSettingsTapped: Driver<Void> { get }
