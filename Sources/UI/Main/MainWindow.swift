@@ -87,7 +87,9 @@ class MainWindowController: WindowController<MainWindow> {
     
     override func windowDidLoad() {
         super.windowDidLoad()
-
+        DispatchQueue.main.async {
+            AppContext.windows.set(ConnectingViewController(), for: MainWindowController.self)
+        }
         AppContext.packageStore.getRepoRecords()
             .subscribe(onSuccess: { [weak self] records in
                 guard let `self` = self else { return }

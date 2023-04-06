@@ -24,6 +24,9 @@
 		99C6A536244E079800AF4247 /* LoadedRepository+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C6A535244E079800AF4247 /* LoadedRepository+mock.swift */; };
 		99C6A53924509D0700AF4247 /* index.bin in Resources */ = {isa = PBXBuildFile; fileRef = 99C6A53824509D0700AF4247 /* index.bin */; };
 		99F28AE4245966C8006F14EF /* ResolvedAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F28AE3245966C8006F14EF /* ResolvedAction.swift */; };
+		A8511AC529DEAFAE00CB17F1 /* ConnectingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8511AC429DEAFAE00CB17F1 /* ConnectingView.swift */; };
+		A8511AC729DEAFBB00CB17F1 /* ConnectingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8511AC629DEAFBB00CB17F1 /* ConnectingViewController.swift */; };
+		A8511ACB29DEB04000CB17F1 /* ConnectingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8511ACA29DEB04000CB17F1 /* ConnectingView.xib */; };
 		C60B22F220432AF400A2027A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C60B22F020432AF400A2027A /* InfoPlist.strings */; };
 		C612CFAB2448605700EFEA98 /* BTreeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C612CF9B2448605400EFEA98 /* BTreeBuilder.swift */; };
 		C612CFAC2448605700EFEA98 /* BTreeCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C612CF9C2448605500EFEA98 /* BTreeCursor.swift */; };
@@ -189,6 +192,9 @@
 		99C6A535244E079800AF4247 /* LoadedRepository+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoadedRepository+mock.swift"; sourceTree = "<group>"; };
 		99C6A53824509D0700AF4247 /* index.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = index.bin; sourceTree = "<group>"; };
 		99F28AE3245966C8006F14EF /* ResolvedAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolvedAction.swift; sourceTree = "<group>"; };
+		A8511AC429DEAFAE00CB17F1 /* ConnectingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectingView.swift; sourceTree = "<group>"; };
+		A8511AC629DEAFBB00CB17F1 /* ConnectingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectingViewController.swift; sourceTree = "<group>"; };
+		A8511ACA29DEB04000CB17F1 /* ConnectingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConnectingView.xib; sourceTree = "<group>"; };
 		C60B22ED2043217300A2027A /* nn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nn; path = ../nn.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C60B22F120432AF400A2027A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Sources/Base.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		C60B22F320432AF800A2027A /* nn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nn; path = ../nn.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -383,6 +389,16 @@
 			path = TestData;
 			sourceTree = "<group>";
 		};
+		A8511AC329DEAF6400CB17F1 /* Connecting */ = {
+			isa = PBXGroup;
+			children = (
+				A8511AC429DEAFAE00CB17F1 /* ConnectingView.swift */,
+				A8511AC629DEAFBB00CB17F1 /* ConnectingViewController.swift */,
+				A8511ACA29DEB04000CB17F1 /* ConnectingView.xib */,
+			);
+			path = Connecting;
+			sourceTree = "<group>";
+		};
 		C62270432035C1BE00DBCD65 /* Detailed */ = {
 			isa = PBXGroup;
 			children = (
@@ -570,6 +586,7 @@
 				C69F94912028B1EA00127A47 /* MainMenu.xib */,
 				C6F8A8252028BD91009A016E /* MainWindow.swift */,
 				C6CC91262028E69300CB0B10 /* MainWindow.xib */,
+				A8511AC329DEAF6400CB17F1 /* Connecting */,
 				C62270432035C1BE00DBCD65 /* Detailed */,
 				C6E7559B2462A65500620D6F /* Landing */,
 				C6F4BC642031DB6C002EE523 /* Download */,
@@ -827,6 +844,7 @@
 				271249B7204043F7009EE80B /* SettingsWindow.xib in Resources */,
 				C60B22F220432AF400A2027A /* InfoPlist.strings in Resources */,
 				C6227069203A243700DBCD65 /* iso639-autonyms.tsv in Resources */,
+				A8511ACB29DEB04000CB17F1 /* ConnectingView.xib in Resources */,
 				C656A696203EE5190004E7F1 /* base.yaml in Resources */,
 				C6CC91272028E69300CB0B10 /* MainWindow.xib in Resources */,
 				C6F8A8202028BBC2009A016E /* MainView.xib in Resources */,
@@ -863,6 +881,7 @@
 				C6D56BCE252F4AEE00620D6F /* mz_crypt.c in Sources */,
 				C678E0B426F38E7E00626833 /* VeriferOptions.swift in Sources */,
 				C6C3FA642382C3870006E81B /* UserDefaults.swift in Sources */,
+				A8511AC729DEAFBB00CB17F1 /* ConnectingViewController.swift in Sources */,
 				C6D56BD5252F4AEE00620D6F /* mz_strm.c in Sources */,
 				C6C3FA672382C3C40006E81B /* Process.swift in Sources */,
 				276391A6203AECE30096E10C /* CompletionView.swift in Sources */,
@@ -950,6 +969,7 @@
 				C6E755A42462A91C00620D6F /* WebBridgeFunctions.swift in Sources */,
 				C612CFAC2448605700EFEA98 /* BTreeCursor.swift in Sources */,
 				C678E0C026F38E7E00626833 /* ByteBuffer.swift in Sources */,
+				A8511AC529DEAFAE00CB17F1 /* ConnectingView.swift in Sources */,
 				276391A0203ADDC30096E10C /* InstallViewController.swift in Sources */,
 				C612CFC22448AC0700EFEA98 /* LoadedRepository.swift in Sources */,
 				99F28AE4245966C8006F14EF /* ResolvedAction.swift in Sources */,

@@ -650,6 +650,21 @@ class Strings {
         return string(for: "zoom")
     }
 
+    /** Connecting... */
+    static var connecting: String {
+        return string(for: "connecting")
+    }
+
+    /** This is taking too long */
+    static var takingTooLong: String {
+        return string(for: "takingTooLong")
+    }
+
+    /** Failed communicating to the language index service. Please restart the app and try again. If that does not help, try reinstalling Divvun Manager. */
+    static var connectionFailed: String {
+        return string(for: "connectionFailed")
+    }
+
     private init() {}
 }
 

@@ -355,3 +355,12 @@ wouldYouLikeToDownloadThemNow: Vil du lasta de ned nå?
 
 # Original: Zoom
 zoom: Zoom
+
+# Original: Connecting...
+#zoom: UNTRANSLATED
+
+# Original: This is taking too long
+#zoom: UNTRANSLATED
+
+# Original: Failed communicating to the language index service. Please restart the app and try again. If that does not help, try reinstalling Divvun Manager.
+#zoom: UNTRANSLATED

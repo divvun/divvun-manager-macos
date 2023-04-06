@@ -356,3 +356,12 @@ wouldYouLikeToDownloadThemNow: Would you like to download them now?
 
 # Original: Zoom
 zoom: Zoom
+
+# Original: Connecting...
+connecting: Connecting...
+
+# Original: This is taking too long
+takingTooLong: This is taking too long
+
+# Original: Failed communicating to the language index service. Please restart the app and try again. If that does not help, try reinstalling Divvun Manager.
+connectionFailed: Failed communicating to the language index service. Please restart the app and try again. If that does not help, try reinstalling Divvun Manager.

@@ -116,3 +116,6 @@
 "window" = "Window";
 "wouldYouLikeToDownloadThemNow" = "Would you like to download them now?";
 "zoom" = "Zoom";
+"connecting" = "Connecting...";
+"takingTooLong" = "This is taking too long";
+"connectionFailed" = "Failed communicating to the language index service. Please restart the app and try again. If that does not help, try reinstalling Divvun Manager.";
