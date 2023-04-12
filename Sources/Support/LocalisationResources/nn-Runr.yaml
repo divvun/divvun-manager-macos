@@ -2,7 +2,7 @@
 aboutApp: ᚮᛘ ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱᛂᚿ
 
 # Original: All Repositories
-#allRepositories: UNTRANSLATED
+#allRepositories: ᛆᛚᛚᛂ ᚱᛂᛔᚮᛌᛁᛐᚮᚱᛁᚢᛘ
 
 # Original: Alpha
 alpha: ᛆᛚᚠᛆ
@@ -37,7 +37,7 @@ cancelDownloadsBody: ᛂᚱ ᛑᚢ ᚡᛁᛌᛌ ᛔᚭ ᛆᛐ ᛑᚢ ᚡᛁᛚ �
 cancelDownloadsTitle: ᛆᚡᛒᚱᛦᛐ ᚿᛂᛑᛚᛆᛌᛐᛁᚿᚵᛆᚿᛂ
 
 # Original: Canceling...
-cancelling: ᛂᚵ ᛆᚡᛒᚱᛦᛐ...
+cancelling: ᛂᚵ ᛆᚡᛒᚱᛦᛐ…
 
 # Original: Category
 category: ᚴᛆᛐᛂᚵᚮᚱᛁ
@@ -46,7 +46,7 @@ category: ᚴᛆᛐᛂᚵᚮᚱᛁ
 channel: ᚴᛆᚿᛆᛚ
 
 # Original: Check For Updates...
-checkForUpdates: ᛌᛁᚭ ᛂᛐᛐᛂᚱ ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛆᚱ...
+checkForUpdates: ᛌᛁᚭ ᛂᛐᛐᛂᚱ ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛆᚱ…
 
 # Original: Completed
 completed: ᚠᚢᛚᛚᚠᚯᚱᛐ
@@ -75,7 +75,7 @@ downloadError: "ᚠᛂᛁᛚ \U0001F61E"
 downloaded: ᚿᛂᛑᛚᛆᛌᛐᛆ
 
 # Original: Downloading...
-downloading: ᛚᛆᛌᛐᛆᚱ ᚿᛂᛑ...
+downloading: ᛚᛆᛌᛐᛆᚱ ᚿᛂᛑ…
 
 # Original: Edit
 edit: ᚱᛂᛑᛁᚵᛂᚱ
@@ -135,7 +135,7 @@ installUser: ᛁᚿᛌᛐᛆᛚᛚᛂᚱ (ᚠᚮᚱ ᛒᚱᚢᚴᛆᚱ)
 installed: ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛐ
 
 # Original: Installing {name} {version}...
-installingPackage: 'ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ {name} {version}...'
+installingPackage: 'ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ {name}, {version}…'
 
 # Original: Installing/Uninstalling
 installingUninstalling: ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ/ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ
@@ -153,7 +153,7 @@ invalidUrlTitle: URL-ᛂᚿ ᛂᚱ ᚢᚵᛦᛚᛑᛁᚵ.
 language: ᛌᛔᚱᚭᚴ
 
 # Original: Loading...
-loading: ᛚᛆᛌᛐᛆᚱ ᛁᚿᚿ...
+loading: ᛚᛆᛌᛐᛆᚱ ᛁᚿᚿ…
 
 # Original: Minimize
 minimize: ᛘᛁᚿᛁᛘᛂᚱ
@@ -195,7 +195,7 @@ ok: ᚵᚱᛂᛁᛑᛐ
 openPackageManager: ᚮᛔᚿᛂ ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱᛂᚿ
 
 # Original: Open Settings…
-#openSettings: UNTRANSLATED
+#openSettings: ᚮᛔᚿᛂ ᛁᚿᚿᛌᛐᛁᛚᛚᛁᚿᚵᛆᚿᛂ
 
 # Original: Paste
 paste: ᛚᛁᛘ ᛁᚿᚿ
@@ -270,7 +270,7 @@ save: ᛚᛆᚵᚱᛂ
 selectAll: ᚡᛂᛚ ᛆᛚᛐ
 
 # Original: Select Repository
-#selectRepository: UNTRANSLATED
+#selectRepository: ᚡᛂᛚ ᛚᛆᚵᛂᚱ
 
 # Original: Services
 services: ᛐᛂᚿᛂᛌᛐᛂᚱ
@@ -291,7 +291,7 @@ sortBy: ᚮᚱᛑᚿᛆ ᛂᛐᛐᛂᚱ…
 stable: ᛌᛐᛆᛒᛁᛚ
 
 # Original: Starting...
-starting: ᛌᛐᛆᚱᛐᛆᚱ...
+starting: ᛌᛐᛆᚱᛐᛆᚱ…
 
 # Original: Default Language
 systemLocale: ᛌᛐᛆᚿᛑᛆᚱᛑᛌᛔᚱᚭᚴ
@@ -300,7 +300,7 @@ systemLocale: ᛌᛐᛆᚿᛑᛆᚱᛑᛌᛔᚱᚭᚴ
 thereAreNUpdatesAvailable: 'ᛑᛂᛐ ᚠᛁᚿᛌᛐ {count} ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛆᚱ!'
 
 # Original: To get started, add a repository in Settings.
-#toGetStartedAddARepoInSettings: UNTRANSLATED
+#toGetStartedAddARepoInSettings: ᚠᚮᚱ ᚭ ᛒᛦᚱᛁᛆ, ᛚᛂᚵᚵ ᛐᛁᛚ ᛂᛁᛐ ᛚᛆᚵᛂᚱ ᛁ ᛁᚿᚿᛌᛁᛚᛚᛁᚿᚵᛆᚿᛂ
 
 # Original: Undo
 undo: ᛆᚿᚵᚱᛂ
@@ -312,7 +312,7 @@ uninstall: ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱ
 uninstallNPackages: 'ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱ {count} ᛔᛆᚴᚴᛂᚱ'
 
 # Original: Uninstalling {name} {version}...
-uninstallingPackage: 'ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ {name} {version}...'
+uninstallingPackage: 'ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ {name}, {version}…'
 
 # Original: Update
 update: ᚮᛔᛔᛑᛆᛐᛂᚱ
@@ -342,7 +342,7 @@ userDescription: '{description} (ᚠᚮᚱ ᛒᚱᚢᚴᛆᚱᛂᚿ)'
 versionSkipped: ᛁᚵᚿᚮᚱᛂᚱᛐ ᚡᛂᚱᛌᛁᚮᚿ
 
 # Original: Waiting for process to finish...
-waitingForCompletion: ᚡᛂᚿᛐᛆᚱ ᛔᚭ ᛆᛐ ᚿᚮᚴᚮ ᛌᚴᛆᛚ ᛒᛚᛁ ᚠᛂᚱᛑᛁᚵ...
+waitingForCompletion: ᚡᛂᚿᛐᛆᚱ ᛔᚭ ᛆᛐ ᚿᚮᚴᚮ ᛌᚴᛆᛚ ᛒᛚᛁ ᚠᛂᚱᛑᛁᚵ…
 
 # Original: Weekly
 weekly: ᚴᚡᛆᚴᚱ ᚡᛂᚴᛂ
@@ -357,10 +357,10 @@ wouldYouLikeToDownloadThemNow: ᚡᛁᛚ ᛑᚢ ᛚᛆᛌᛐᛆ ᛑᛂᛁ ᚿᛂ
 zoom: ᛌᚮᚮᛘ
 
 # Original: Connecting...
-#zoom: UNTRANSLATED
+#zoom: ᚴᚮᛔᛚᛆᚱ ᛐᛁᛚ…
 
 # Original: This is taking too long
-#zoom: UNTRANSLATED
+#zoom: ᛑᛂᛐᛐᛂ ᛐᛂᚴ ᚠᚮᚱ ᛚᛆᚿᚵ ᛐᛁᛑ
 
 # Original: Failed communicating to the language index service. Please restart the app and try again. If that does not help, try reinstalling Divvun Manager.
-#zoom: UNTRANSLATED
+#zoom: ᚴᛚᛆᚱᛐᛂ ᛁᚴᚴᛁᛂ ᚭ ᛔᚱᛆᛐᛆ ᛘᛂᛑ ᛌᛔᚱᚭᚴᛁᚿᛑᛂᚴᛌᛐᛂᚿᛂᛌᛐᛆ. ᚡᛂᚱ ᚵᚱᛂᛁᛑ ᚮᚵ ᛌᛐᛆᚱᛐ ᛔᚱᚮᚵᚱᛆᛘᛘᛂᛐ ᛔᚭ ᚿᛦᛐᛐ ᚮᚵ ᛔᚱᚯᚡ ᛂᛁᚿ ᚵᚮᚿᚵ ᛐᛁᛚ. ᚮᛘ ᛑᛂᛐ ᛁᚴᚴᛁᛂ ᚼᛁᛂᛚᛔᛂᚱ, ᛔᚱᚯᚡ ᛘᛂᛑ ᚭ ᛁᚿᚿᛌᛐᛆᛚᛚᛂᚱᛆ ᛑᚡᚡᚢᚿ-ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱᛂᚿ ᛔᚭ ᚿᛦᛐᛐ.
