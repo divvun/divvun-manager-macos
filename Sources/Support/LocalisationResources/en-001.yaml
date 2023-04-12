@@ -135,7 +135,7 @@ installUser: Install (User)
 installed: Installed
 
 # Original: Installing {name} {version}...
-installingPackage: 'Installing {name} {version}…'
+installingPackage: 'Installing {name}, {version}…'
 
 # Original: Installing/Uninstalling
 installingUninstalling: Installing/Uninstalling

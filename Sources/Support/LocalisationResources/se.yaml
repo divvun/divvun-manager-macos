@@ -135,7 +135,7 @@ installUser: Sajáiduhte (geavaheaddji)
 installed: Sajáiduhtton
 
 # Original: Installing {name} {version}...
-installingPackage: 'Sajáiduhttimin {name} {version} …'
+installingPackage: 'Sajáiduhttimin {name}, {version} …'
 
 # Original: Installing/Uninstalling
 installingUninstalling: Sajáiduhttimin/Váldimin eret
@@ -310,7 +310,7 @@ uninstall: Váldde eret
 uninstallNPackages: 'Váldde eret {count} objeavtta'
 
 # Original: Uninstalling {name} {version}...
-uninstallingPackage: 'Váldimin eret {name} {version} …'
+uninstallingPackage: 'Váldimin eret {name}, {version} …'
 
 # Original: Update
 update: Ođastuhte
