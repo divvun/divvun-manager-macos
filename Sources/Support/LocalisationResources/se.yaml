@@ -15,8 +15,8 @@ appName: Package Manager
 
 # Original: Package Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
 appUpdateBody: >-
-  Dál manná viežžat Package Manager v{version}. Ođastuhte val vargga. Juogo
-  siđat ođastuhttit?
+  Dál sáhttá viežžat Package Manager v{version}. Ođastuhte fal fargga. Juogo
+  háliidat ođastuhttit?
 
 # Original: Package Manager Update Available
 appUpdateTitle: Package Manager ođđa vieččahahtti veršuvdna
@@ -31,13 +31,13 @@ bringAllToFront: Viežžal visot oidnosii
 cancel: Heaittit
 
 # Original: Are you sure you want to cancel all downloads?
-cancelDownloadsBody: Siđat go duođaid heaittihit viežžamis?
+cancelDownloadsBody: Háliidat go duođaid heaittihit viežžamis?
 
 # Original: Cancel Downloads
 cancelDownloadsTitle: Heaittit viežžamis
 
 # Original: Canceling...
-cancelling: Heaittiheame...
+cancelling: Gaskkalduhttimin …
 
 # Original: Category
 category: Kategoriija
@@ -46,7 +46,7 @@ category: Kategoriija
 channel: Kanála
 
 # Original: Check For Updates...
-checkForUpdates: Oza ođđa veršuvnna...
+checkForUpdates: Oza ođđa veršuvnnaid …
 
 # Original: Completed
 completed: Válmmas
@@ -56,7 +56,7 @@ copy: Máŋge
 
 # Original: Do you wish to send a crash report to the developers? No personal or private information is sent. (Recommended)
 crashReportBody: >-
-  Siđat go sáddet kráššadieđáhusa prográmmaráhkadeaddjái? Persovnnalaš dehe
+  Háliidat go sáddet kráššadieđáhusa prográmmaráhkadeaddjái? Persovnnalaš dahje
   priváhta dieđut eai sáddejuvvo. (Rekommenderejuvvon)
 
 # Original: Cut
@@ -75,10 +75,10 @@ downloadError: "Vihki \U0001F61E"
 downloaded: Vižžojuvvon
 
 # Original: Downloading...
-downloading: Viežžame...
+downloading: Viežžamin …
 
 # Original: Edit
-edit: Redigere
+edit: Doaimmat
 
 # Original: Error
 error: Vihki
@@ -102,7 +102,7 @@ everyFourWeeks: Juohke njealját vahku
 everyTwoWeeks: Juohke nuppi vahku
 
 # Original: Exit
-exit: Mana eret
+exit: Heaittit
 
 # Original: Finish
 finish: Válbme
@@ -114,7 +114,7 @@ help: Package Manager veahkki
 hideApp: Čiega Package Manager
 
 # Original: Hide Others
-hideOthers: Čiega iežáid
+hideOthers: Čiega earáid
 
 # Original: Install
 install: Sajáiduhte
@@ -135,10 +135,10 @@ installUser: Sajáiduhte (geavaheaddji)
 installed: Sajáiduhtton
 
 # Original: Installing {name} {version}...
-installingPackage: 'Sajáiduhttime {name} {version}...'
+installingPackage: 'Sajáiduhttimin {name} {version} …'
 
 # Original: Installing/Uninstalling
-installingUninstalling: Sajáiduhttime/Váldime eret
+installingUninstalling: Sajáiduhttimin/Váldimin eret
 
 # Original: Interface Language
 interfaceLanguage: Prográmmagiella
@@ -153,7 +153,7 @@ invalidUrlTitle: Addojuvvon URL lea boastut.
 language: Giella
 
 # Original: Loading...
-loading: Láddeme...
+loading: Láddemin …
 
 # Original: Minimize
 minimize: Minimere
@@ -195,7 +195,7 @@ ok: OK
 openPackageManager: Raba Package Manager
 
 # Original: Open Settings…
-#openSettings: UNTRANSLATED
+#openSettings: Raba heivehusaid …
 
 # Original: Paste
 paste: Liibme
@@ -204,16 +204,16 @@ paste: Liibme
 pasteAndMatchStyle: Liibme ja heivet stiilla
 
 # Original: Preferences…
-preferences: Heieveheamit
+preferences: Heivehusat …
 
 # Original: You may now close this window, or return to the main screen.
-processCompletedBody: Oaččut dál jáddadit dán láse dehe mannat ruovttoluotta váldolásii.
+processCompletedBody: Oaččut dál giddet dán láse dahje mannat ruovttoluotta váldolásii.
 
 # Original: Done!
 processCompletedTitle: Válmmas!
 
 # Original: Queued
-queued: Vuordime vuorus
+queued: Vuordimin vuorus
 
 # Original: Quit Package Manager
 quitApp: Heaittit Package Manager
@@ -225,7 +225,7 @@ redo: Daga ođđasis
 remindMeLater: Muittut munnje maŋŋil
 
 # Original: Are you sure you wish to remove this repository?
-removeRepoBody: Siđat go duođaid váldit eret dán prográmmavuorkká?
+removeRepoBody: Háliidat go duođaid váldit eret dán prográmmavuorkká?
 
 # Original: This will remove the selected repository.
 removeRepoTitle: Dát váldá eret válljejuvvon prográmmavuorkká.
@@ -240,7 +240,7 @@ repository: Prográmmavuorká
 repositoryError: Vihki prográmmavuorkkás
 
 # Original: There was an error while opening the repository:
-# 
+#
 # {message}
 repositoryErrorBody: |
   Juoga manai boastut rabadiin prográmmavuorkká:
@@ -253,13 +253,13 @@ restartLater: Álggat ođđasis maŋŋil
 restartNow: Álggat ođđasis dál
 
 # Original: It is highly recommended that you restart your computer in order for some changes to take effect.
-restartRequiredBody: Galggalit ođđasis álggahit dihtora vai rievdadusat álget doaibmat.
+restartRequiredBody: Galggašit ođđasis álggahit dihtora vai rievdadusat álget doaibmat.
 
 # Original: Time to reboot!
 restartRequiredTitle: Dál lea ođđasis álggahit!
 
 # Original: Restart the app for language changes to take effect.
-restartTheAppForLanguageChanges: Álggat áppa ođđasis vai giellarievdadusat álget doaibmat
+restartTheAppForLanguageChanges: Álggat áppa ođđasis vai giellarievdadusat doaibmagohtet
 
 # Original: Save
 save: Vurke
@@ -268,13 +268,13 @@ save: Vurke
 selectAll: Vállje visot
 
 # Original: Select Repository
-#selectRepository: UNTRANSLATED
+#selectRepository: Vállje prográmmavuorkká
 
 # Original: Services
 services: Bálvalusat
 
 # Original: Settings
-settings: Heiveheamit
+settings: Heivehusat
 
 # Original: Show All
 showAll: Čájet visot
@@ -289,16 +289,16 @@ sortBy: Čuoldde … mielde
 stable: Stabiila
 
 # Original: Starting...
-starting: Álgime...
+starting: Álgimin …
 
 # Original: Default Language
 systemLocale: Standárdagiella
 
 # Original: There are {count} updates available!
-thereAreNUpdatesAvailable: 'Leat {count} vieččahahtti ođđa veršuvnna!'
+thereAreNUpdatesAvailable: 'Leat {count} vieččahahtti ođđa veršuvnna'
 
 # Original: To get started, add a repository in Settings.
-#toGetStartedAddARepoInSettings: UNTRANSLATED
+#toGetStartedAddARepoInSettings: Lasit prográmmavuorkká heivehusain
 
 # Original: Undo
 undo: Gáđa
@@ -310,7 +310,7 @@ uninstall: Váldde eret
 uninstallNPackages: 'Váldde eret {count} objeavtta'
 
 # Original: Uninstalling {name} {version}...
-uninstallingPackage: 'Váldime eret {name} {version}...'
+uninstallingPackage: 'Váldimin eret {name} {version} …'
 
 # Original: Update
 update: Ođastuhte
@@ -340,7 +340,7 @@ userDescription: '{description} (Geavaheaddji)'
 versionSkipped: Veršuvdna hilgojuvvon
 
 # Original: Waiting for process to finish...
-waitingForCompletion: Vuordime ahte geargá...
+waitingForCompletion: Vuordimin ahte geargá …
 
 # Original: Weekly
 weekly: Vahkkošaččat
@@ -349,16 +349,16 @@ weekly: Vahkkošaččat
 window: Láse
 
 # Original: Would you like to download them now?
-wouldYouLikeToDownloadThemNow: Juogo siđat viežžat?
+wouldYouLikeToDownloadThemNow: Juogo háliidat viežžat?
 
 # Original: Zoom
 zoom: Zoom
 
 # Original: Connecting...
-#zoom: UNTRANSLATED
+#zoom: Laktimin …
 
 # Original: This is taking too long
-#zoom: UNTRANSLATED
+#zoom: Dát ádjána menddo guhká
 
 # Original: Failed communicating to the language index service. Please restart the app and try again. If that does not help, try reinstalling Divvun Manager.
-#zoom: UNTRANSLATED
+#zoom: Ii gulahallan giellabálvalusain. Álggát prográmma ođđasit ja geahččal ođđasis. Jus dat ii ábut, sajáiduhte Divvun Manager ođđasis.
