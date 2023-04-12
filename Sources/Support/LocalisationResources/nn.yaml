@@ -363,4 +363,4 @@ zoom: Zoom
 #zoom: Dette tek for lang tid
 
 # Original: Failed communicating to the language index service. Please restart the app and try again. If that does not help, try reinstalling Divvun Manager.
-#zoom: Klarte ikkje å prata med språkindekstenesta. Ver grei og start programmet på nytt og prøv ein gong til. Om det ikkje fungerer, prøv med å installera Divvun Manager om att.
+#zoom: Klarte ikkje å prata med språkindekstenesta. Ver grei og start programmet på nytt og prøv ein gong til. Om det ikkje fungerer, prøv med å installera Divvun-pakkehandteraren om att.
