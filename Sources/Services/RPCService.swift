@@ -321,7 +321,7 @@ class PahkatClient: PahkatClientType {
             case let .uninstallStarted(res):
                 let packageKey = try? PackageKey.from(urlString: res.packageID)
                 event = .uninstallStarted(packageKey: packageKey!)
-            case .verificationFailed:
+            case let .verificationFailed(_):
                 event = .transactionError(packageKey: nil, error: "verification failed")
             }
             subject.onNext(event)
