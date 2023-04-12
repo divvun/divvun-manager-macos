@@ -2,7 +2,7 @@
 aboutApp: Om Pakkehandteraren
 
 # Original: All Repositories
-#allRepositories: UNTRANSLATED
+#allRepositories: Alle repositorium
 
 # Original: Alpha
 alpha: Alfa
@@ -56,7 +56,7 @@ copy: Kopier
 
 # Original: Do you wish to send a crash report to the developers? No personal or private information is sent. (Recommended)
 crashReportBody: >-
-  Ynskjer du å senda ein kræsjrapport til utviklarane? Ingen personleg info blir
+  Ynskjer du å senda ein kræsjrapport til utviklarane? Personleg eller privat informasjon blir ikkje
   sendt inn. (Tilrådd)
 
 # Original: Cut
@@ -195,7 +195,7 @@ ok: Greidt
 openPackageManager: Opne Pakkehandteraren
 
 # Original: Open Settings…
-#openSettings: UNTRANSLATED
+#openSettings: Opne innstillingane…
 
 # Original: Paste
 paste: Lim inn
@@ -270,7 +270,7 @@ save: Lagre
 selectAll: Vel alt
 
 # Original: Select Repository
-#selectRepository: UNTRANSLATED
+#selectRepository: Vel repositorium
 
 # Original: Services
 services: Tenester
@@ -291,7 +291,7 @@ sortBy: Sorter etter…
 stable: Stabil
 
 # Original: Starting...
-starting: Startar...
+starting: Startar…
 
 # Original: Default Language
 systemLocale: Standardspråk
@@ -300,7 +300,7 @@ systemLocale: Standardspråk
 thereAreNUpdatesAvailable: 'Det finst {count} oppdateringar!'
 
 # Original: To get started, add a repository in Settings.
-#toGetStartedAddARepoInSettings: UNTRANSLATED
+#toGetStartedAddARepoInSettings: For å byrja, legg til eit repositorium i innstillingane.
 
 # Original: Undo
 undo: Angre
@@ -312,7 +312,7 @@ uninstall: Avinstaller
 uninstallNPackages: 'Avinstaller {count} pakker'
 
 # Original: Uninstalling {name} {version}...
-uninstallingPackage: 'Avinstallerer {name} {version}...'
+uninstallingPackage: 'Avinstallerer {name}, {version}…'
 
 # Original: Update
 update: Oppdater
@@ -342,7 +342,7 @@ userDescription: '{description} (for brukaren)'
 versionSkipped: Ingorert versjon
 
 # Original: Waiting for process to finish...
-waitingForCompletion: Ventar på at noko skal bli ferdig...
+waitingForCompletion: Ventar på at noko skal bli ferdig…
 
 # Original: Weekly
 weekly: Kvar veke
@@ -357,10 +357,10 @@ wouldYouLikeToDownloadThemNow: Vil du lasta dei ned no?
 zoom: Zoom
 
 # Original: Connecting...
-#zoom: UNTRANSLATED
+#zoom: Koplar til…
 
 # Original: This is taking too long
-#zoom: UNTRANSLATED
+#zoom: Dette tek for lang tid
 
 # Original: Failed communicating to the language index service. Please restart the app and try again. If that does not help, try reinstalling Divvun Manager.
-#zoom: UNTRANSLATED
+#zoom: Klarte ikkje å prata med språkindekstenesta. Ver grei og start programmet på nytt og prøv ein gong til. Om det ikkje fungerer, prøv med å installera Divvun Manager om att.
