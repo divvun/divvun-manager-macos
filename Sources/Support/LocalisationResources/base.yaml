@@ -37,7 +37,7 @@ cancelDownloadsBody: Are you sure you want to cancel all downloads?
 cancelDownloadsTitle: Cancel Downloads
 
 # Original: Canceling...
-cancelling: Canceling...
+cancelling: Canceling…
 
 # Original: Category
 category: Category
@@ -46,7 +46,7 @@ category: Category
 channel: Channel
 
 # Original: Check For Updates...
-checkForUpdates: Check For Updates...
+checkForUpdates: Check For Updates…
 
 # Original: Completed
 completed: Completed
@@ -75,7 +75,7 @@ downloadError: "Error \U0001F61E"
 downloaded: Downloaded
 
 # Original: Downloading...
-downloading: Downloading...
+downloading: Downloading…
 
 # Original: Edit
 edit: Edit
@@ -135,7 +135,7 @@ installUser: Install (User)
 installed: Installed
 
 # Original: Installing {name} {version}...
-installingPackage: 'Installing {name} {version}...'
+installingPackage: 'Installing {name} {version}…'
 
 # Original: Installing/Uninstalling
 installingUninstalling: Installing/Uninstalling
@@ -153,7 +153,7 @@ invalidUrlTitle: The provided URL is invalid.
 language: Language
 
 # Original: Loading...
-loading: Loading...
+loading: Loading…
 
 # Original: Minimize
 minimize: Minimize
@@ -292,7 +292,7 @@ sortBy: Sort by…
 stable: Stable
 
 # Original: Starting...
-starting: Starting...
+starting: Starting…
 
 # Original: Default Language
 systemLocale: Default Language
@@ -313,7 +313,7 @@ uninstall: Uninstall
 uninstallNPackages: 'Uninstall {count} Items'
 
 # Original: Uninstalling {name} {version}...
-uninstallingPackage: 'Uninstalling {name} {version}...'
+uninstallingPackage: 'Uninstalling {name}, {version}…'
 
 # Original: Update
 update: Update
@@ -343,7 +343,7 @@ userDescription: '{description} (User)'
 versionSkipped: Version Skipped
 
 # Original: Waiting for process to finish...
-waitingForCompletion: Waiting for process to finish...
+waitingForCompletion: Waiting for process to finish…
 
 # Original: Weekly
 weekly: Weekly
@@ -358,7 +358,7 @@ wouldYouLikeToDownloadThemNow: Would you like to download them now?
 zoom: Zoom
 
 # Original: Connecting...
-connecting: Connecting...
+connecting: Connecting…
 
 # Original: This is taking too long
 takingTooLong: This is taking too long
