@@ -52,10 +52,10 @@ checkForUpdates: Проверить обновления...
 completed: Готово
 
 # Original: Connecting…
-#connecting: UNTRANSLATED
+connecting: Соединяем…
 
 # Original: Failed communicating to the language index service. Please restart the app and try again. If that does not help, try reinstalling Divvun Manager.
-#connectionFailed: UNTRANSLATED
+connectionFailed: Не удалось установить связь со службой языкового индекса. Пожалуйста, перезапустите приложение и повторите попытку. Если это не поможет, попробуйте переустановить Divvun Manager.
 
 # Original: Copy
 copy: Копия
@@ -303,7 +303,7 @@ starting: Запуск...
 systemLocale: Язык по умолчанию
 
 # Original: This is taking too long
-#takingTooLong: UNTRANSLATED
+takingTooLong: Это занимает чуть больше времени, чем мы рассчитывали. Пожалуйста, подождите ещё немного.
 
 # Original: There are {count} updates available!
 thereAreNUpdatesAvailable: Доступно {count} обновлений!
