@@ -1,0 +1,366 @@
+# Original: About Divvun Manager
+aboutApp: О Divvun Manager
+
+# Original: All Repositories
+allRepositories: Все репозитории
+
+# Original: Alpha
+alpha: Альфа
+
+# Original: Help
+appHelp: Помощь
+
+# Original: Divvun Manager
+appName: Divvun Manager
+
+# Original: Divvun Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
+appUpdateBody: >-
+  Divvun Manager v{version} теперь доступен. Настоятельно рекомендуется выполнить
+  обновление как можно скорее. Обновить сейчас?
+
+# Original: Divvun Manager Update Available
+appUpdateTitle: Доступно обновление для Divvun Manager
+
+# Original: Beta
+beta: Бета
+
+# Original: Bring All to Front
+bringAllToFront: Вывести наперед
+
+# Original: Cancel
+cancel: Отмена
+
+# Original: Are you sure you want to cancel all downloads?
+cancelDownloadsBody: 'Вы уверены, что хотите отменить все скачивания?'
+
+# Original: Cancel Downloads
+cancelDownloadsTitle: Отменить загрузки
+
+# Original: Canceling…
+cancelling: Отмена...
+
+# Original: Category
+category: Категория
+
+# Original: Channel
+channel: Канал
+
+# Original: Check For Updates…
+checkForUpdates: Проверить обновления...
+
+# Original: Completed
+completed: Готово
+
+# Original: Connecting…
+#connecting: UNTRANSLATED
+
+# Original: Failed communicating to the language index service. Please restart the app and try again. If that does not help, try reinstalling Divvun Manager.
+#connectionFailed: UNTRANSLATED
+
+# Original: Copy
+copy: Копия
+
+# Original: Do you wish to send a crash report to the developers? No personal or private information is sent. (Recommended)
+crashReportBody: >-
+  Вы желаете отправить разработчикам отчет о сбое? Никакая личная или частная
+  информация не будет отправлена. (Рекомендуемые)
+
+# Original: Cut
+cut: Вырезать
+
+# Original: Daily
+daily: Ежедневно
+
+# Original: Delete
+delete: Удалить
+
+# Original: Error 😞
+downloadError: "Ошибка \U0001F61E"
+
+# Original: Downloaded
+downloaded: Загружено
+
+# Original: Downloading…
+downloading: Загружаю...
+
+# Original: Edit
+edit: Редактировать
+
+# Original: Error
+error: Ошибка
+
+# Original: An error occurring during installation.
+errorDuringInstallation: Произошла ошибка во время загрузки.
+
+# Original: Error: Invalid Version
+errorInvalidVersion: 'Ошибка: Версия Недействительна'
+
+# Original: Error: No Installer
+errorNoInstaller: 'Ошибка: Нет Установщика'
+
+# Original: Error: Unknown Item
+errorUnknownPackage: 'Ошибка: Неизвестный Элемент'
+
+# Original: Every 4 Weeks
+everyFourWeeks: Каждые четыре недели
+
+# Original: Every 2 Weeks
+everyTwoWeeks: Каждые две недели
+
+# Original: Exit
+exit: Выйти
+
+# Original: Finish
+finish: Закончить
+
+# Original: Help
+help: Помощь
+
+# Original: Hide Divvun Manager
+hideApp: Скрыть Divvun Manager
+
+# Original: Hide Others
+hideOthers: Скрыть остальные
+
+# Original: Install
+install: Установить
+
+# Original: Install {count} Items
+installNPackages: Установить {count} элементов
+
+# Original: Install (System)
+installSystem: Установить (Систему)
+
+# Original: Install/Uninstall {count} Items
+installUninstallNPackages: Установить/Удалить {count} элементов
+
+# Original: Install (User)
+installUser: Установить (пользователя)
+
+# Original: Installed
+installed: Установлено
+
+# Original: Installing {name}, {version}…
+installingPackage: Устанавливаю {name} {version}...
+
+# Original: Installing/Uninstalling
+installingUninstalling: Устанавливаю/Удаляю
+
+# Original: Interface Language
+interfaceLanguage: Язык программы
+
+# Original: Please ensure that the URL begins with "https" and try again.
+invalidUrlBody: 'Убедитесь, что URL-адрес начинается с "https", и повторите попытку.'
+
+# Original: The provided URL is invalid.
+invalidUrlTitle: Указанный URL недействителен
+
+# Original: Language
+language: Язык
+
+# Original: Loading…
+loading: Загрузка...
+
+# Original: Minimize
+minimize: Уменьшить
+
+# Original: {count} items remaining.
+nItemsRemaining: Осталось {count} элементов.
+
+# Original: {count} Updates Available
+nUpdatesAvailable: Доступно {count} обновлений.
+
+# Original: Never
+never: Никогда
+
+# Original: Next update check at: {date}
+nextUpdateDue: 'Следующая проверка обновлений в: {date}'
+
+# Original: Nightly
+nightly: Еженощно
+
+# Original: No Items Selected
+noPackagesSelected: Элемент не выбран
+
+# Original: No new updates were found.
+noUpdatesBody: Обновлений не найдено.
+
+# Original: No Updates
+noUpdatesTitle: Обновлений нет
+
+# Original: --
+notApplicable: '--'
+
+# Original: Not Installed
+notInstalled: Не установлено
+
+# Original: OK
+ok: Ок
+
+# Original: Open Divvun Manager
+openPackageManager: Открыть Divvun Manager
+
+# Original: Open Settings…
+openSettings: Открыть Настройки…
+
+# Original: Paste
+paste: Вставить
+
+# Original: Paste and Match Style
+pasteAndMatchStyle: Вставить и форматировать.
+
+# Original: Preferences…
+preferences: Установки...
+
+# Original: You may now close this window, or return to the main screen.
+processCompletedBody: Теперь вы можете закрыть это окно или вернуться на главный экран.
+
+# Original: Done!
+processCompletedTitle: Готово!
+
+# Original: Queued
+queued: В очереди
+
+# Original: Quit Divvun Manager
+quitApp: Выйти из Divvun Manager
+
+# Original: Redo
+redo: Повторить
+
+# Original: Remind Me Later
+remindMeLater: Напомнить позже
+
+# Original: Are you sure you wish to remove this repository?
+removeRepoBody: 'Вы уверены, что хотите удалить этот репозиторий?'
+
+# Original: This will remove the selected repository.
+removeRepoTitle: Это удалит выбранный репозиторий
+
+# Original: Repositories
+repositories: Репозитории
+
+# Original: Repository
+repository: Репозиторий
+
+# Original: Repository Error
+repositoryError: Ошибка репозитория
+
+# Original: There was an error while opening the repository:
+# 
+# {message}
+repositoryErrorBody: | 
+  Ошибка при открытии репозитория:
+  {message}
+
+# Original: Restart Later
+restartLater: Перезагрузить позже
+
+# Original: Restart Now
+restartNow: Перезакрузить сейчас
+
+# Original: It is highly recommended that you restart your computer in order for some changes to take effect.
+restartRequiredBody: >-
+  Настоятельно рекомендуется перезагрузить компьютер, чтобы некоторые изменения
+  вступили в силу.
+
+# Original: Time to reboot!
+restartRequiredTitle: Требуется перезагрузка!
+
+# Original: Restart the app for language changes to take effect.
+restartTheAppForLanguageChanges: Перезапустите приложение, чтобы изменения языка вступили в силу.
+
+# Original: Save
+save: Сохранить
+
+# Original: Select All
+selectAll: Выбрать все
+
+# Original: Select Repository
+selectRepository: Выбрать репозиторий
+
+# Original: Services
+services: Сервисы
+
+# Original: Settings
+settings: Настройки
+
+# Original: Show All
+showAll: Показать все
+
+# Original: Skip These Updates
+skipTheseUpdates: Пропустить эти обновления
+
+# Original: Sort by…
+sortBy: Сортировать по
+
+# Original: Stable
+stable: Стабильно
+
+# Original: Starting…
+starting: Запуск...
+
+# Original: Default Language
+systemLocale: Язык по умолчанию
+
+# Original: This is taking too long
+#takingTooLong: UNTRANSLATED
+
+# Original: There are {count} updates available!
+thereAreNUpdatesAvailable: Доступно {count} обновлений!
+
+# Original: To get started, add a repository in Settings.
+toGetStartedAddARepoInSettings: 'Чтобы начать, добавьте репозиторий в Настройках.'
+
+# Original: Undo
+undo: Отменить
+
+# Original: Uninstall
+uninstall: Удалить
+
+# Original: Uninstall {count} Items
+uninstallNPackages: Удалить {count} элементов
+
+# Original: Uninstalling {name}, {version}…
+uninstallingPackage: Удаляю {name} {version}...
+
+# Original: Update
+update: Обновить
+
+# Original: Update Available
+updateAvailable: Доступно обновление
+
+# Original: Update Channel
+updateChannel: Обновить канал
+
+# Original: Update Frequency
+updateFrequency: Частота обновлений
+
+# Original: Update (System)
+updateSystem: Обновить (Систему)
+
+# Original: Update (User)
+updateUser: Обновить (Пользователя)
+
+# Original: URL
+url: URL
+
+# Original: {description} (User)
+userDescription: '{description} (Пользователь)'
+
+# Original: Version Skipped
+versionSkipped: Версия пропущена
+
+# Original: Waiting for process to finish…
+waitingForCompletion: Ожидаю завершения процесса...
+
+# Original: Weekly
+weekly: Еженедельно
+
+# Original: Window
+window: Окно
+
+# Original: Would you like to download them now?
+wouldYouLikeToDownloadThemNow: Желаете загрузить их сейчас?
+
+# Original: Zoom
+zoom: Приблизить

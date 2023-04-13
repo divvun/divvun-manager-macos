@@ -674,5 +674,6 @@ fileprivate let localeTree = [
     "nb": ["nb"],
     "nn-Runr": ["nn-Runr","nn"],
     "nn": ["nn"],
+    "ru": ["ru"],
     "se": ["se"]
 ]
