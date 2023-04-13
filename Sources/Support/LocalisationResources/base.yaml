@@ -36,8 +36,8 @@ cancelDownloadsBody: Are you sure you want to cancel all downloads?
 # Original: Cancel Downloads
 cancelDownloadsTitle: Cancel Downloads
 
-# Original: Canceling...
-cancelling: Canceling...
+# Original: Canceling…
+cancelling: Canceling…
 
 # Original: Category
 category: Category
@@ -45,11 +45,19 @@ category: Category
 # Original: Channel
 channel: Channel
 
-# Original: Check For Updates...
-checkForUpdates: Check For Updates...
+# Original: Check For Updates…
+checkForUpdates: Check For Updates…
 
 # Original: Completed
 completed: Completed
+
+# Original: Connecting…
+connecting: Connecting…
+
+# Original: Failed communicating to the language index service. Please restart the app and try again. If that does not help, try reinstalling Divvun Manager.
+connectionFailed: >-
+  Failed communicating to the language index service. Please restart the app and
+  try again. If that does not help, try reinstalling Divvun Manager.
 
 # Original: Copy
 copy: Copy
@@ -74,8 +82,8 @@ downloadError: "Error \U0001F61E"
 # Original: Downloaded
 downloaded: Downloaded
 
-# Original: Downloading...
-downloading: Downloading...
+# Original: Downloading…
+downloading: Downloading…
 
 # Original: Edit
 edit: Edit
@@ -134,8 +142,8 @@ installUser: Install (User)
 # Original: Installed
 installed: Installed
 
-# Original: Installing {name} {version}...
-installingPackage: 'Installing {name} {version}...'
+# Original: Installing {name}, {version}…
+installingPackage: 'Installing {name}, {version}…'
 
 # Original: Installing/Uninstalling
 installingUninstalling: Installing/Uninstalling
@@ -152,8 +160,8 @@ invalidUrlTitle: The provided URL is invalid.
 # Original: Language
 language: Language
 
-# Original: Loading...
-loading: Loading...
+# Original: Loading…
+loading: Loading…
 
 # Original: Minimize
 minimize: Minimize
@@ -291,11 +299,14 @@ sortBy: Sort by…
 # Original: Stable
 stable: Stable
 
-# Original: Starting...
-starting: Starting...
+# Original: Starting…
+starting: Starting…
 
 # Original: Default Language
 systemLocale: Default Language
+
+# Original: This is taking too long
+takingTooLong: This is taking too long
 
 # Original: There are {count} updates available!
 thereAreNUpdatesAvailable: 'There are {count} updates available!'
@@ -312,8 +323,8 @@ uninstall: Uninstall
 # Original: Uninstall {count} Items
 uninstallNPackages: 'Uninstall {count} Items'
 
-# Original: Uninstalling {name} {version}...
-uninstallingPackage: 'Uninstalling {name} {version}...'
+# Original: Uninstalling {name}, {version}…
+uninstallingPackage: 'Uninstalling {name}, {version}…'
 
 # Original: Update
 update: Update
@@ -342,8 +353,8 @@ userDescription: '{description} (User)'
 # Original: Version Skipped
 versionSkipped: Version Skipped
 
-# Original: Waiting for process to finish...
-waitingForCompletion: Waiting for process to finish...
+# Original: Waiting for process to finish…
+waitingForCompletion: Waiting for process to finish…
 
 # Original: Weekly
 weekly: Weekly

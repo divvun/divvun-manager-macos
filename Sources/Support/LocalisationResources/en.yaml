@@ -1,349 +1,369 @@
-# Original: About Package Manager
-#aboutApp: UNTRANSLATED
+# Original: About Divvun Manager
+aboutApp: About Divvun Manager
 
 # Original: All Repositories
-#allRepositories: UNTRANSLATED
+allRepositories: All Repositories
 
 # Original: Alpha
-#alpha: UNTRANSLATED
+alpha: Alpha
 
 # Original: Help
-#appHelp: UNTRANSLATED
+appHelp: Help
 
-# Original: Package Manager
-#appName: UNTRANSLATED
+# Original: Divvun Manager
+appName: Divvun Manager
 
-# Original: Package Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
-#appUpdateBody: UNTRANSLATED
+# Original: Divvun Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
+appUpdateBody: >-
+  Divvun Manager v{version} is now available. It is highly recommended that you
+  update as soon as possible. Update now?
 
-# Original: Package Manager Update Available
-#appUpdateTitle: UNTRANSLATED
+# Original: Divvun Manager Update Available
+appUpdateTitle: Divvun Manager Update Available
 
 # Original: Beta
-#beta: UNTRANSLATED
+beta: Beta
 
 # Original: Bring All to Front
-#bringAllToFront: UNTRANSLATED
+bringAllToFront: Bring All to Front
 
 # Original: Cancel
-#cancel: UNTRANSLATED
+cancel: Cancel
 
 # Original: Are you sure you want to cancel all downloads?
-#cancelDownloadsBody: UNTRANSLATED
+cancelDownloadsBody: Are you sure you want to cancel all downloads?
 
 # Original: Cancel Downloads
-#cancelDownloadsTitle: UNTRANSLATED
+cancelDownloadsTitle: Cancel Downloads
 
-# Original: Canceling...
-#cancelling: UNTRANSLATED
+# Original: Canceling…
+cancelling: Canceling…
 
 # Original: Category
-#category: UNTRANSLATED
+category: Category
 
 # Original: Channel
-#channel: UNTRANSLATED
+channel: Channel
 
-# Original: Check For Updates...
-#checkForUpdates: UNTRANSLATED
+# Original: Check For Updates…
+checkForUpdates: Check For Updates…
 
 # Original: Completed
-#completed: UNTRANSLATED
+completed: Completed
+
+# Original: Connecting…
+connecting: Connecting…
+
+# Original: Failed communicating to the language index service. Please restart the app and try again. If that does not help, try reinstalling Divvun Manager.
+connectionFailed: >-
+  Failed communicating to the language index service. Please restart the app and
+  try again. If that does not help, try reinstalling Divvun Manager.
 
 # Original: Copy
-#copy: UNTRANSLATED
+copy: Copy
 
 # Original: Do you wish to send a crash report to the developers? No personal or private information is sent. (Recommended)
-#crashReportBody: UNTRANSLATED
+crashReportBody: >-
+  Do you wish to send a crash report to the developers? No personal or private
+  information is sent. (Recommended)
 
 # Original: Cut
-#cut: UNTRANSLATED
+cut: Cut
 
 # Original: Daily
-#daily: UNTRANSLATED
+daily: Daily
 
 # Original: Delete
-#delete: UNTRANSLATED
+delete: Delete
 
 # Original: Error 😞
-#downloadError: UNTRANSLATED
+downloadError: "Error \U0001F61E"
 
 # Original: Downloaded
-#downloaded: UNTRANSLATED
+downloaded: Downloaded
 
-# Original: Downloading...
-#downloading: UNTRANSLATED
+# Original: Downloading…
+downloading: Downloading…
 
 # Original: Edit
-#edit: UNTRANSLATED
+edit: Edit
 
 # Original: Error
-#error: UNTRANSLATED
+error: Error
 
 # Original: An error occurring during installation.
-#errorDuringInstallation: UNTRANSLATED
+errorDuringInstallation: An error occurring during installation.
 
 # Original: Error: Invalid Version
-#errorInvalidVersion: UNTRANSLATED
+errorInvalidVersion: 'Error: Invalid Version'
 
 # Original: Error: No Installer
-#errorNoInstaller: UNTRANSLATED
+errorNoInstaller: 'Error: No Installer'
 
 # Original: Error: Unknown Item
-#errorUnknownPackage: UNTRANSLATED
+errorUnknownPackage: 'Error: Unknown Item'
 
 # Original: Every 4 Weeks
-#everyFourWeeks: UNTRANSLATED
+everyFourWeeks: Every 4 Weeks
 
 # Original: Every 2 Weeks
-#everyTwoWeeks: UNTRANSLATED
+everyTwoWeeks: Every 2 Weeks
 
 # Original: Exit
-#exit: UNTRANSLATED
+exit: Exit
 
 # Original: Finish
-#finish: UNTRANSLATED
+finish: Finish
 
 # Original: Help
-#help: UNTRANSLATED
+help: Help
 
-# Original: Hide Package Manager
-#hideApp: UNTRANSLATED
+# Original: Hide Divvun Manager
+hideApp: Hide Divvun Manager
 
 # Original: Hide Others
-#hideOthers: UNTRANSLATED
+hideOthers: Hide Others
 
 # Original: Install
-#install: UNTRANSLATED
+install: Install
 
 # Original: Install {count} Items
-#installNPackages: UNTRANSLATED
+installNPackages: 'Install {count} Items'
 
 # Original: Install (System)
-#installSystem: UNTRANSLATED
+installSystem: Install (System)
 
 # Original: Install/Uninstall {count} Items
-#installUninstallNPackages: UNTRANSLATED
+installUninstallNPackages: 'Install/Uninstall {count} Items'
 
 # Original: Install (User)
-#installUser: UNTRANSLATED
+installUser: Install (User)
 
 # Original: Installed
-#installed: UNTRANSLATED
+installed: Installed
 
-# Original: Installing {name} {version}...
-#installingPackage: UNTRANSLATED
+# Original: Installing {name}, {version}…
+installingPackage: 'Installing {name}, {version}…'
 
 # Original: Installing/Uninstalling
-#installingUninstalling: UNTRANSLATED
+installingUninstalling: Installing/Uninstalling
 
 # Original: Interface Language
-#interfaceLanguage: UNTRANSLATED
+interfaceLanguage: Interface Language
 
 # Original: Please ensure that the URL begins with "https" and try again.
-#invalidUrlBody: UNTRANSLATED
+invalidUrlBody: Please ensure that the URL begins with "https" and try again.
 
 # Original: The provided URL is invalid.
-#invalidUrlTitle: UNTRANSLATED
+invalidUrlTitle: The provided URL is invalid.
 
 # Original: Language
-#language: UNTRANSLATED
+language: Language
 
-# Original: Loading...
-#loading: UNTRANSLATED
+# Original: Loading…
+loading: Loading…
 
 # Original: Minimize
-#minimize: UNTRANSLATED
+minimize: Minimize
 
 # Original: {count} items remaining.
-#nItemsRemaining: UNTRANSLATED
+nItemsRemaining: '{count} items remaining.'
 
 # Original: {count} Updates Available
-#nUpdatesAvailable: UNTRANSLATED
+nUpdatesAvailable: '{count} Updates Available'
 
 # Original: Never
-#never: UNTRANSLATED
+never: Never
 
 # Original: Next update check at: {date}
-#nextUpdateDue: UNTRANSLATED
+nextUpdateDue: 'Next update check at: {date}'
 
 # Original: Nightly
-#nightly: UNTRANSLATED
+nightly: Nightly
 
 # Original: No Items Selected
-#noPackagesSelected: UNTRANSLATED
+noPackagesSelected: No Items Selected
 
 # Original: No new updates were found.
-#noUpdatesBody: UNTRANSLATED
+noUpdatesBody: No new updates were found.
 
 # Original: No Updates
-#noUpdatesTitle: UNTRANSLATED
+noUpdatesTitle: No Updates
 
 # Original: --
-#notApplicable: UNTRANSLATED
+notApplicable: '--'
 
 # Original: Not Installed
-#notInstalled: UNTRANSLATED
+notInstalled: Not Installed
 
 # Original: OK
-#ok: UNTRANSLATED
+ok: OK
 
-# Original: Open Package Manager
-#openPackageManager: UNTRANSLATED
+# Original: Open Divvun Manager
+openPackageManager: Open Divvun Manager
 
 # Original: Open Settings…
-#openSettings: UNTRANSLATED
+openSettings: Open Settings…
 
 # Original: Paste
-#paste: UNTRANSLATED
+paste: Paste
 
 # Original: Paste and Match Style
-#pasteAndMatchStyle: UNTRANSLATED
+pasteAndMatchStyle: Paste and Match Style
 
 # Original: Preferences…
-#preferences: UNTRANSLATED
+preferences: Preferences…
 
 # Original: You may now close this window, or return to the main screen.
-#processCompletedBody: UNTRANSLATED
+processCompletedBody: 'You may now close this window, or return to the main screen.'
 
 # Original: Done!
-#processCompletedTitle: UNTRANSLATED
+processCompletedTitle: Done!
 
 # Original: Queued
-#queued: UNTRANSLATED
+queued: Queued
 
-# Original: Quit Package Manager
-#quitApp: UNTRANSLATED
+# Original: Quit Divvun Manager
+quitApp: Quit Divvun Manager
 
 # Original: Redo
-#redo: UNTRANSLATED
+redo: Redo
 
 # Original: Remind Me Later
-#remindMeLater: UNTRANSLATED
+remindMeLater: Remind Me Later
 
 # Original: Are you sure you wish to remove this repository?
-#removeRepoBody: UNTRANSLATED
+removeRepoBody: Are you sure you wish to remove this repository?
 
 # Original: This will remove the selected repository.
-#removeRepoTitle: UNTRANSLATED
+removeRepoTitle: This will remove the selected repository.
 
 # Original: Repositories
-#repositories: UNTRANSLATED
+repositories: Repositories
 
 # Original: Repository
-#repository: UNTRANSLATED
+repository: Repository
 
 # Original: Repository Error
-#repositoryError: UNTRANSLATED
+repositoryError: Repository Error
 
 # Original: There was an error while opening the repository:
 # 
 # {message}
-#repositoryErrorBody: UNTRANSLATED
+repositoryErrorBody: |-
+  There was an error while opening the repository:
+
+  {message}
 
 # Original: Restart Later
-#restartLater: UNTRANSLATED
+restartLater: Restart Later
 
 # Original: Restart Now
-#restartNow: UNTRANSLATED
+restartNow: Restart Now
 
 # Original: It is highly recommended that you restart your computer in order for some changes to take effect.
-#restartRequiredBody: UNTRANSLATED
+restartRequiredBody: >-
+  It is highly recommended that you restart your computer in order for some
+  changes to take effect.
 
 # Original: Time to reboot!
-#restartRequiredTitle: UNTRANSLATED
+restartRequiredTitle: Time to reboot!
 
 # Original: Restart the app for language changes to take effect.
-#restartTheAppForLanguageChanges: UNTRANSLATED
+restartTheAppForLanguageChanges: Restart the app for language changes to take effect.
 
 # Original: Save
-#save: UNTRANSLATED
+save: Save
 
 # Original: Select All
-#selectAll: UNTRANSLATED
+selectAll: Select All
 
 # Original: Select Repository
-#selectRepository: UNTRANSLATED
+selectRepository: Select Repository
 
 # Original: Services
-#services: UNTRANSLATED
+services: Services
 
 # Original: Settings
-#settings: UNTRANSLATED
+settings: Settings
 
 # Original: Show All
-#showAll: UNTRANSLATED
+showAll: Show All
 
 # Original: Skip These Updates
-#skipTheseUpdates: UNTRANSLATED
+skipTheseUpdates: Skip These Updates
 
 # Original: Sort by…
-#sortBy: UNTRANSLATED
+sortBy: Sort by…
 
 # Original: Stable
-#stable: UNTRANSLATED
+stable: Stable
 
-# Original: Starting...
-#starting: UNTRANSLATED
+# Original: Starting…
+starting: Starting…
 
 # Original: Default Language
-#systemLocale: UNTRANSLATED
+systemLocale: Default Language
+
+# Original: This is taking too long
+takingTooLong: This is taking too long
 
 # Original: There are {count} updates available!
-#thereAreNUpdatesAvailable: UNTRANSLATED
+thereAreNUpdatesAvailable: 'There are {count} updates available!'
 
 # Original: To get started, add a repository in Settings.
-#toGetStartedAddARepoInSettings: UNTRANSLATED
+toGetStartedAddARepoInSettings: 'To get started, add a repository in Settings.'
 
 # Original: Undo
-#undo: UNTRANSLATED
+undo: Undo
 
 # Original: Uninstall
-#uninstall: UNTRANSLATED
+uninstall: Uninstall
 
 # Original: Uninstall {count} Items
-#uninstallNPackages: UNTRANSLATED
+uninstallNPackages: 'Uninstall {count} Items'
 
-# Original: Uninstalling {name} {version}...
-#uninstallingPackage: UNTRANSLATED
+# Original: Uninstalling {name}, {version}…
+uninstallingPackage: 'Uninstalling {name}, {version}…'
 
 # Original: Update
-#update: UNTRANSLATED
+update: Update
 
 # Original: Update Available
-#updateAvailable: UNTRANSLATED
+updateAvailable: Update Available
 
 # Original: Update Channel
-#updateChannel: UNTRANSLATED
+updateChannel: Update Channel
 
 # Original: Update Frequency
-#updateFrequency: UNTRANSLATED
+updateFrequency: Update Frequency
 
 # Original: Update (System)
-#updateSystem: UNTRANSLATED
+updateSystem: Update (System)
 
 # Original: Update (User)
-#updateUser: UNTRANSLATED
+updateUser: Update (User)
 
 # Original: URL
-#url: UNTRANSLATED
+url: URL
 
 # Original: {description} (User)
-#userDescription: UNTRANSLATED
+userDescription: '{description} (User)'
 
 # Original: Version Skipped
-#versionSkipped: UNTRANSLATED
+versionSkipped: Version Skipped
 
-# Original: Waiting for process to finish...
-#waitingForCompletion: UNTRANSLATED
+# Original: Waiting for process to finish…
+waitingForCompletion: Waiting for process to finish…
 
 # Original: Weekly
-#weekly: UNTRANSLATED
+weekly: Weekly
 
 # Original: Window
-#window: UNTRANSLATED
+window: Window
 
 # Original: Would you like to download them now?
-#wouldYouLikeToDownloadThemNow: UNTRANSLATED
+wouldYouLikeToDownloadThemNow: Would you like to download them now?
 
 # Original: Zoom
-#zoom: UNTRANSLATED
+zoom: Zoom

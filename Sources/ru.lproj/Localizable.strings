@@ -15,6 +15,8 @@
 "channel" = "Канал";
 "checkForUpdates" = "Проверить обновления...";
 "completed" = "Готово";
+"connecting" = "Connecting…";
+"connectionFailed" = "Failed communicating to the language index service. Please restart the app and try again. If that does not help, try reinstalling Divvun Manager.";
 "copy" = "Копия";
 "crashReportBody" = "Вы желаете отправить разработчикам отчет о сбое? Никакая личная или частная информация не будет отправлена. (Рекомендуемые)";
 "cut" = "Вырезать";
@@ -95,6 +97,7 @@
 "stable" = "Стабильно";
 "starting" = "Запуск...";
 "systemLocale" = "Язык по умолчанию";
+"takingTooLong" = "This is taking too long";
 "thereAreNUpdatesAvailable" = "Доступно %1$@ обновлений!";
 "toGetStartedAddARepoInSettings" = "Чтобы начать, добавьте репозиторий в Настройках.";
 "undo" = "Отменить";

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="c22-O7-iKe" customClass="ConnectingView" customModule="DivvunManager" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="506" height="265"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SVq-A0-aNZ">
+                    <rect key="frame" x="18" y="125" width="470" height="16"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Label" id="flz-i6-vz8">
+                        <font key="font" usesAppearanceFont="YES"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <progressIndicator wantsLayer="YES" maxValue="100" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="XGd-Mz-GJK">
+                    <rect key="frame" x="237" y="85" width="32" height="32"/>
+                </progressIndicator>
+            </subviews>
+            <constraints>
+                <constraint firstItem="SVq-A0-aNZ" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" id="5Xd-BT-vko"/>
+                <constraint firstItem="XGd-Mz-GJK" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="E4q-xz-wuE"/>
+                <constraint firstItem="XGd-Mz-GJK" firstAttribute="top" secondItem="SVq-A0-aNZ" secondAttribute="bottom" constant="8" symbolic="YES" id="Jyk-ho-vsY"/>
+                <constraint firstItem="SVq-A0-aNZ" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="W8X-35-HWH"/>
+                <constraint firstItem="SVq-A0-aNZ" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="Y4N-91-U1y"/>
+                <constraint firstAttribute="trailing" secondItem="SVq-A0-aNZ" secondAttribute="trailing" constant="20" id="b2O-F6-DAW"/>
+            </constraints>
+            <connections>
+                <outlet property="primaryLabel" destination="SVq-A0-aNZ" id="Sai-wm-E8c"/>
+                <outlet property="progressIndicator" destination="XGd-Mz-GJK" id="ZUb-SB-ay1"/>
+            </connections>
+            <point key="canvasLocation" x="152" y="150.5"/>
+        </customView>
+    </objects>
+</document>

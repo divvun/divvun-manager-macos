@@ -1,8 +1,8 @@
-# Original: About Package Manager
+# Original: About Divvun Manager
 aboutApp: Om Pakkehandteraren
 
 # Original: All Repositories
-#allRepositories: UNTRANSLATED
+#allRepositories: Alle repositorium
 
 # Original: Alpha
 alpha: Alfa
@@ -10,15 +10,15 @@ alpha: Alfa
 # Original: Help
 appHelp: Hjelp
 
-# Original: Package Manager
+# Original: Divvun Manager
 appName: Pakkehandterar
 
-# Original: Package Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
+# Original: Divvun Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
 appUpdateBody: >-
   Pakkehandterar v{version} er no tilgjengeleg. Det er sterkt tilrådd at du
   oppdaterer så snart som råd. Vil du oppdatera no?
 
-# Original: Package Manager Update Available
+# Original: Divvun Manager Update Available
 appUpdateTitle: Pakkehandterar-oppdatering tilgjengeleg
 
 # Original: Beta
@@ -36,7 +36,7 @@ cancelDownloadsBody: Er du viss på at du vil avbryta nedlastingane?
 # Original: Cancel Downloads
 cancelDownloadsTitle: Avbryt nedlastingane
 
-# Original: Canceling...
+# Original: Canceling…
 cancelling: Eg avbryt...
 
 # Original: Category
@@ -45,19 +45,28 @@ category: Kategori
 # Original: Channel
 channel: Kanal
 
-# Original: Check For Updates...
+# Original: Check For Updates…
 checkForUpdates: Sjå etter oppateringar...
 
 # Original: Completed
 completed: Fullført
+
+# Original: Connecting…
+connecting: Koplar til…
+
+# Original: Failed communicating to the language index service. Please restart the app and try again. If that does not help, try reinstalling Divvun Manager.
+connectionFailed: >-
+  Klarte ikkje å prata med språkindekstenesta. Ver grei og start programmet på
+  nytt og prøv ein gong til. Om det ikkje fungerer, prøv med å installera
+  Divvun-pakkehandteraren om att.
 
 # Original: Copy
 copy: Kopier
 
 # Original: Do you wish to send a crash report to the developers? No personal or private information is sent. (Recommended)
 crashReportBody: >-
-  Ynskjer du å senda ein kræsjrapport til utviklarane? Ingen personleg info blir
-  sendt inn. (Tilrådd)
+  Ynskjer du å senda ein kræsjrapport til utviklarane? Personleg eller privat
+  informasjon blir ikkje sendt inn. (Tilrådd)
 
 # Original: Cut
 cut: Klypp ut
@@ -74,7 +83,7 @@ downloadError: "Feil \U0001F61E"
 # Original: Downloaded
 downloaded: Nedlasta
 
-# Original: Downloading...
+# Original: Downloading…
 downloading: Lastar ned...
 
 # Original: Edit
@@ -110,7 +119,7 @@ finish: Ferdig
 # Original: Help
 help: Pakkehandterar-hjelp
 
-# Original: Hide Package Manager
+# Original: Hide Divvun Manager
 hideApp: Gøym Pakkehandteraren
 
 # Original: Hide Others
@@ -134,8 +143,8 @@ installUser: Installer (for brukar)
 # Original: Installed
 installed: Installert
 
-# Original: Installing {name} {version}...
-installingPackage: 'Installerer {name} {version}...'
+# Original: Installing {name}, {version}…
+installingPackage: 'Installerer {name}, {version}...'
 
 # Original: Installing/Uninstalling
 installingUninstalling: Installerer/avinstallerer
@@ -152,7 +161,7 @@ invalidUrlTitle: URL-en er ugyldig.
 # Original: Language
 language: Språk
 
-# Original: Loading...
+# Original: Loading…
 loading: Lastar inn...
 
 # Original: Minimize
@@ -189,13 +198,13 @@ notApplicable: —
 notInstalled: Ikkje installert
 
 # Original: OK
-ok: Greidt
+ok: Greit
 
-# Original: Open Package Manager
+# Original: Open Divvun Manager
 openPackageManager: Opne Pakkehandteraren
 
 # Original: Open Settings…
-#openSettings: UNTRANSLATED
+#openSettings: Opne innstillingane…
 
 # Original: Paste
 paste: Lim inn
@@ -215,7 +224,7 @@ processCompletedTitle: Ferdig!
 # Original: Queued
 queued: I kø
 
-# Original: Quit Package Manager
+# Original: Quit Divvun Manager
 quitApp: Avslutt Pakkehandteraren
 
 # Original: Redo
@@ -270,7 +279,7 @@ save: Lagre
 selectAll: Vel alt
 
 # Original: Select Repository
-#selectRepository: UNTRANSLATED
+#selectRepository: Vel repositorium
 
 # Original: Services
 services: Tenester
@@ -290,17 +299,20 @@ sortBy: Sorter etter…
 # Original: Stable
 stable: Stabil
 
-# Original: Starting...
-starting: Startar...
+# Original: Starting…
+starting: Startar…
 
 # Original: Default Language
 systemLocale: Standardspråk
+
+# Original: This is taking too long
+takingTooLong: Dette tek for lang tid
 
 # Original: There are {count} updates available!
 thereAreNUpdatesAvailable: 'Det finst {count} oppdateringar!'
 
 # Original: To get started, add a repository in Settings.
-#toGetStartedAddARepoInSettings: UNTRANSLATED
+#toGetStartedAddARepoInSettings: For å byrja, legg til eit repositorium i innstillingane.
 
 # Original: Undo
 undo: Angre
@@ -311,8 +323,8 @@ uninstall: Avinstaller
 # Original: Uninstall {count} Items
 uninstallNPackages: 'Avinstaller {count} pakker'
 
-# Original: Uninstalling {name} {version}...
-uninstallingPackage: 'Avinstallerer {name} {version}...'
+# Original: Uninstalling {name}, {version}…
+uninstallingPackage: 'Avinstallerer {name}, {version}…'
 
 # Original: Update
 update: Oppdater
@@ -341,8 +353,8 @@ userDescription: '{description} (for brukaren)'
 # Original: Version Skipped
 versionSkipped: Ingorert versjon
 
-# Original: Waiting for process to finish...
-waitingForCompletion: Ventar på at noko skal bli ferdig...
+# Original: Waiting for process to finish…
+waitingForCompletion: Ventar på at noko skal bli ferdig…
 
 # Original: Weekly
 weekly: Kvar veke
