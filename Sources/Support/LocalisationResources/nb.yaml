@@ -1,4 +1,4 @@
-# Original: About Package Manager
+# Original: About Divvun Manager
 aboutApp: Om Pakkehåndtereren
 
 # Original: All Repositories
@@ -10,15 +10,15 @@ alpha: Alfa
 # Original: Help
 appHelp: Hjelp
 
-# Original: Package Manager
+# Original: Divvun Manager
 appName: Pakkehåndterer
 
-# Original: Package Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
+# Original: Divvun Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
 appUpdateBody: >-
   Pakkehåndterer v{version} er nå tilgjengelig. Det er sterkt anbefalt at du
   oppdaterer så snart som mulig. Vil du oppdatere nå?
 
-# Original: Package Manager Update Available
+# Original: Divvun Manager Update Available
 appUpdateTitle: Pakkehåndterer-oppdatering tilgjengelig
 
 # Original: Beta
@@ -36,7 +36,7 @@ cancelDownloadsBody: Er du sikker på at du vil avbryte nedlastingene?
 # Original: Cancel Downloads
 cancelDownloadsTitle: Avbryt nedlastingene
 
-# Original: Canceling...
+# Original: Canceling…
 cancelling: Avbryter…
 
 # Original: Category
@@ -45,19 +45,28 @@ category: Kategori
 # Original: Channel
 channel: Kanal
 
-# Original: Check For Updates...
+# Original: Check For Updates…
 checkForUpdates: Se etter oppateringer…
 
 # Original: Completed
 completed: Fullført
+
+# Original: Connecting…
+connecting: Kobler til…
+
+# Original: Failed communicating to the language index service. Please restart the app and try again. If that does not help, try reinstalling Divvun Manager.
+connectionFailed: >-
+  Klarte ikke å snakke med språkindekstjenesten. Ver så snill og start
+  programmet på nytt og prøv en gang til. Om det ikke fungerer, prøv med å
+  installere Divvun Manager om igjen.
 
 # Original: Copy
 copy: Kopier
 
 # Original: Do you wish to send a crash report to the developers? No personal or private information is sent. (Recommended)
 crashReportBody: >-
-  Ønsker du å sende en kræsjrapport til utviklerne? Personlig eller privat informasjon blir ikke
-  sendt inn. (Anbefalt)
+  Ønsker du å sende en kræsjrapport til utviklerne? Personlig eller privat
+  informasjon blir ikke sendt inn. (Anbefalt)
 
 # Original: Cut
 cut: Klipp ut
@@ -74,7 +83,7 @@ downloadError: "Feil \U0001F61E"
 # Original: Downloaded
 downloaded: Nedlastet
 
-# Original: Downloading...
+# Original: Downloading…
 downloading: Laster ned…
 
 # Original: Edit
@@ -110,7 +119,7 @@ finish: Ferdig
 # Original: Help
 help: Pakkehåndterer-hjelp
 
-# Original: Hide Package Manager
+# Original: Hide Divvun Manager
 hideApp: Skjul Pakkehåndtereren
 
 # Original: Hide Others
@@ -134,7 +143,7 @@ installUser: Installer (for bruker)
 # Original: Installed
 installed: Installert
 
-# Original: Installing {name} {version}...
+# Original: Installing {name}, {version}…
 installingPackage: 'Installerer {name}, {version}…'
 
 # Original: Installing/Uninstalling
@@ -152,7 +161,7 @@ invalidUrlTitle: URL-en er ugyldig.
 # Original: Language
 language: Språk
 
-# Original: Loading...
+# Original: Loading…
 loading: Laster inn…
 
 # Original: Minimize
@@ -191,7 +200,7 @@ notInstalled: Ikke installert
 # Original: OK
 ok: OK
 
-# Original: Open Package Manager
+# Original: Open Divvun Manager
 openPackageManager: Åpne Pakkehåndtereren
 
 # Original: Open Settings…
@@ -215,7 +224,7 @@ processCompletedTitle: Ferdig!
 # Original: Queued
 queued: I kø
 
-# Original: Quit Package Manager
+# Original: Quit Divvun Manager
 quitApp: Avslutt Pakkehåndtereren
 
 # Original: Redo
@@ -290,11 +299,14 @@ sortBy: Sorter etter…
 # Original: Stable
 stable: Stabil
 
-# Original: Starting...
+# Original: Starting…
 starting: Starter…
 
 # Original: Default Language
 systemLocale: Standardspråk
+
+# Original: This is taking too long
+takingTooLong: Dette tar for lang tid
 
 # Original: There are {count} updates available!
 thereAreNUpdatesAvailable: 'Det finnes {count} oppdateringer!'
@@ -311,7 +323,7 @@ uninstall: Avinstaller
 # Original: Uninstall {count} Items
 uninstallNPackages: 'Avinstaller {count} pakker'
 
-# Original: Uninstalling {name} {version}...
+# Original: Uninstalling {name}, {version}…
 uninstallingPackage: 'Avinstallerer {name}, {version}…'
 
 # Original: Update
@@ -341,7 +353,7 @@ userDescription: '{description} (for brukeren)'
 # Original: Version Skipped
 versionSkipped: Ignorert versjon
 
-# Original: Waiting for process to finish...
+# Original: Waiting for process to finish…
 waitingForCompletion: Venter på at noe skal bli ferdig…
 
 # Original: Weekly
@@ -355,12 +367,3 @@ wouldYouLikeToDownloadThemNow: Vil du laste de ned nå?
 
 # Original: Zoom
 zoom: Zoom
-
-# Original: Connecting...
-#zoom: Kobler til…
-
-# Original: This is taking too long
-#zoom: Dette tar for lang tid
-
-# Original: Failed communicating to the language index service. Please restart the app and try again. If that does not help, try reinstalling Divvun Manager.
-#zoom: Klarte ikke å snakke med språkindekstjenesten. Ver så snill og start programmet på nytt og prøv en gang til. Om det ikke fungerer, prøv med å installere Divvun Manager om igjen.

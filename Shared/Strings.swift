@@ -117,7 +117,7 @@ class Strings {
         return string(for: "cancelDownloadsTitle")
     }
 
-    /** Canceling... */
+    /** Canceling… */
     static var cancelling: String {
         return string(for: "cancelling")
     }
@@ -132,7 +132,7 @@ class Strings {
         return string(for: "channel")
     }
 
-    /** Check For Updates... */
+    /** Check For Updates… */
     static var checkForUpdates: String {
         return string(for: "checkForUpdates")
     }
@@ -140,6 +140,16 @@ class Strings {
     /** Completed */
     static var completed: String {
         return string(for: "completed")
+    }
+
+    /** Connecting… */
+    static var connecting: String {
+        return string(for: "connecting")
+    }
+
+    /** Failed communicating to the language index service. Please restart the app and try again. If that does not help, try reinstalling Divvun Manager. */
+    static var connectionFailed: String {
+        return string(for: "connectionFailed")
     }
 
     /** Copy */
@@ -177,7 +187,7 @@ class Strings {
         return string(for: "downloaded")
     }
 
-    /** Downloading... */
+    /** Downloading… */
     static var downloading: String {
         return string(for: "downloading")
     }
@@ -279,7 +289,7 @@ class Strings {
         return string(for: "installed")
     }
 
-    /** Installing {name} {version}... */
+    /** Installing {name}, {version}… */
     static func installingPackage(name: String, version: String) -> String {
         let format = string(for: "installingPackage")
         return String(format: format, name, version)
@@ -310,7 +320,7 @@ class Strings {
         return string(for: "language")
     }
 
-    /** Loading... */
+    /** Loading… */
     static var loading: String {
         return string(for: "loading")
     }
@@ -536,7 +546,7 @@ class Strings {
         return string(for: "stable")
     }
 
-    /** Starting... */
+    /** Starting… */
     static var starting: String {
         return string(for: "starting")
     }
@@ -544,6 +554,11 @@ class Strings {
     /** Default Language */
     static var systemLocale: String {
         return string(for: "systemLocale")
+    }
+
+    /** This is taking too long */
+    static var takingTooLong: String {
+        return string(for: "takingTooLong")
     }
 
     /** There are {count} updates available! */
@@ -573,7 +588,7 @@ class Strings {
         return String(format: format, count)
     }
 
-    /** Uninstalling {name} {version}... */
+    /** Uninstalling {name}, {version}… */
     static func uninstallingPackage(name: String, version: String) -> String {
         let format = string(for: "uninstallingPackage")
         return String(format: format, name, version)
@@ -625,7 +640,7 @@ class Strings {
         return string(for: "versionSkipped")
     }
 
-    /** Waiting for process to finish... */
+    /** Waiting for process to finish… */
     static var waitingForCompletion: String {
         return string(for: "waitingForCompletion")
     }
@@ -648,21 +663,6 @@ class Strings {
     /** Zoom */
     static var zoom: String {
         return string(for: "zoom")
-    }
-
-    /** Connecting... */
-    static var connecting: String {
-        return string(for: "connecting")
-    }
-
-    /** This is taking too long */
-    static var takingTooLong: String {
-        return string(for: "takingTooLong")
-    }
-
-    /** Failed communicating to the language index service. Please restart the app and try again. If that does not help, try reinstalling Divvun Manager. */
-    static var connectionFailed: String {
-        return string(for: "connectionFailed")
     }
 
     private init() {}

@@ -1,4 +1,4 @@
-# Original: About Package Manager
+# Original: About Divvun Manager
 aboutApp: ᚮᛘ ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱᛂᚿ
 
 # Original: All Repositories
@@ -10,15 +10,15 @@ alpha: ᛆᛚᚠᛆ
 # Original: Help
 appHelp: ᚼᛁᛂᛚᛔ
 
-# Original: Package Manager
+# Original: Divvun Manager
 appName: ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱ
 
-# Original: Package Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
+# Original: Divvun Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
 appUpdateBody: >-
   ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱ v{version} ᛂᚱ ᚿᚮ ᛐᛁᛚᚵᛁᛂᚿᚵᛂᛚᛂᚵ. ᛞᛂᛐ ᛂᚱ ᛌᛐᛂᚱᚴᛐ ᛐᛁᛚᚱᚭᛑᛑ ᛆᛐ ᛑᚢ
   ᚮᛔᛔᛑᛆᛐᛂᚱᛂᚱ ᛌᚭ ᛌᚿᛆᚱᛐ ᛌᚮᛘ ᚱᚭᛑ. ᚹᛁᛚ ᛑᚢ ᚮᛔᛔᛑᛆᛐᛂᚱᛆ ᚿᚮ?
 
-# Original: Package Manager Update Available
+# Original: Divvun Manager Update Available
 appUpdateTitle: ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱ-ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵ ᛐᛁᛚᚵᛁᛂᚿᚵᛂᛚᛂᚵ
 
 # Original: Beta
@@ -36,7 +36,7 @@ cancelDownloadsBody: ᛂᚱ ᛑᚢ ᚡᛁᛌᛌ ᛔᚭ ᛆᛐ ᛑᚢ ᚡᛁᛚ �
 # Original: Cancel Downloads
 cancelDownloadsTitle: ᛆᚡᛒᚱᛦᛐ ᚿᛂᛑᛚᛆᛌᛐᛁᚿᚵᛆᚿᛂ
 
-# Original: Canceling...
+# Original: Canceling…
 cancelling: ᛂᚵ ᛆᚡᛒᚱᛦᛐ…
 
 # Original: Category
@@ -45,11 +45,20 @@ category: ᚴᛆᛐᛂᚵᚮᚱᛁ
 # Original: Channel
 channel: ᚴᛆᚿᛆᛚ
 
-# Original: Check For Updates...
+# Original: Check For Updates…
 checkForUpdates: ᛌᛁᚭ ᛂᛐᛐᛂᚱ ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛆᚱ…
 
 # Original: Completed
 completed: ᚠᚢᛚᛚᚠᚯᚱᛐ
+
+# Original: Connecting…
+connecting: ᚴᚮᛔᛚᛆᚱ ᛐᛁᛚ…
+
+# Original: Failed communicating to the language index service. Please restart the app and try again. If that does not help, try reinstalling Divvun Manager.
+connectionFailed: >-
+  ᚴᛚᛆᚱᛐᛂ ᛁᚴᚴᛁᛂ ᚭ ᛔᚱᛆᛐᛆ ᛘᛂᛑ ᛌᛔᚱᚭᚴᛁᚿᛑᛂᚴᛌᛐᛂᚿᛂᛌᛐᛆ. ᚡᛂᚱ ᚵᚱᛂᛁᛑ ᚮᚵ ᛌᛐᛆᚱᛐ ᛔᚱᚮᚵᚱᛆᛘᛘᛂᛐ ᛔᚭ
+  ᚿᛦᛐᛐ ᚮᚵ ᛔᚱᚯᚡ ᛂᛁᚿ ᚵᚮᚿᚵ ᛐᛁᛚ. ᚮᛘ ᛑᛂᛐ ᛁᚴᚴᛁᛂ ᚼᛁᛂᛚᛔᛂᚱ, ᛔᚱᚯᚡ ᛘᛂᛑ ᚭ ᛁᚿᚿᛌᛐᛆᛚᛚᛂᚱᛆ
+  ᛑᚡᚡᚢᚿ-ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱᛂᚿ ᛔᚭ ᚿᛦᛐᛐ.
 
 # Original: Copy
 copy: ᚴᚮᛔᛁᛂᚱ
@@ -74,7 +83,7 @@ downloadError: "ᚠᛂᛁᛚ \U0001F61E"
 # Original: Downloaded
 downloaded: ᚿᛂᛑᛚᛆᛌᛐᛆ
 
-# Original: Downloading...
+# Original: Downloading…
 downloading: ᛚᛆᛌᛐᛆᚱ ᚿᛂᛑ…
 
 # Original: Edit
@@ -110,7 +119,7 @@ finish: ᚠᛂᚱᛑᛁᚵ
 # Original: Help
 help: ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱ-ᚼᛁᛂᛚᛔ
 
-# Original: Hide Package Manager
+# Original: Hide Divvun Manager
 hideApp: ᚵᚯᛦᛘ ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱᛂᚿ
 
 # Original: Hide Others
@@ -134,7 +143,7 @@ installUser: ᛁᚿᛌᛐᛆᛚᛚᛂᚱ (ᚠᚮᚱ ᛒᚱᚢᚴᛆᚱ)
 # Original: Installed
 installed: ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛐ
 
-# Original: Installing {name} {version}...
+# Original: Installing {name}, {version}…
 installingPackage: 'ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ {name}, {version}…'
 
 # Original: Installing/Uninstalling
@@ -152,7 +161,7 @@ invalidUrlTitle: URL-ᛂᚿ ᛂᚱ ᚢᚵᛦᛚᛑᛁᚵ.
 # Original: Language
 language: ᛌᛔᚱᚭᚴ
 
-# Original: Loading...
+# Original: Loading…
 loading: ᛚᛆᛌᛐᛆᚱ ᛁᚿᚿ…
 
 # Original: Minimize
@@ -191,7 +200,7 @@ notInstalled: ᛁᚴᚴᛁᛂ ᛁᚿᛌᛐᛆᛚᛚᛂᚱᛐ
 # Original: OK
 ok: ᚵᚱᛂᛁᛑᛐ
 
-# Original: Open Package Manager
+# Original: Open Divvun Manager
 openPackageManager: ᚮᛔᚿᛂ ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱᛂᚿ
 
 # Original: Open Settings…
@@ -215,7 +224,7 @@ processCompletedTitle: ᚠᛂᚱᛑᛁᚵ!
 # Original: Queued
 queued: ᛁ ᚴᚯ
 
-# Original: Quit Package Manager
+# Original: Quit Divvun Manager
 quitApp: ᛆᚡᛌᛚᚢᛐᛐ ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱᛂᚿ
 
 # Original: Redo
@@ -290,17 +299,20 @@ sortBy: ᚮᚱᛑᚿᛆ ᛂᛐᛐᛂᚱ…
 # Original: Stable
 stable: ᛌᛐᛆᛒᛁᛚ
 
-# Original: Starting...
+# Original: Starting…
 starting: ᛌᛐᛆᚱᛐᛆᚱ…
 
 # Original: Default Language
 systemLocale: ᛌᛐᛆᚿᛑᛆᚱᛑᛌᛔᚱᚭᚴ
 
+# Original: This is taking too long
+takingTooLong: ᛑᛂᛐᛐᛂ ᛐᛂᚴ ᚠᚮᚱ ᛚᛆᚿᚵ ᛐᛁᛑ
+
 # Original: There are {count} updates available!
 thereAreNUpdatesAvailable: 'ᛑᛂᛐ ᚠᛁᚿᛌᛐ {count} ᚮᛔᛔᛑᛆᛐᛂᚱᛁᚿᚵᛆᚱ!'
 
 # Original: To get started, add a repository in Settings.
-#toGetStartedAddARepoInSettings: ᚠᚮᚱ ᚭ ᛒᛦᚱᛁᛆ, ᛚᛂᚵᚵ ᛐᛁᛚ ᛂᛁᛐ ᛚᛆᚵᛂᚱ ᛁ ᛁᚿᚿᛌᛁᛚᛚᛁᚿᚵᛆᚿᛂ
+#toGetStartedAddARepoInSettings: UNTRANSLATED
 
 # Original: Undo
 undo: ᛆᚿᚵᚱᛂ
@@ -311,7 +323,7 @@ uninstall: ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱ
 # Original: Uninstall {count} Items
 uninstallNPackages: 'ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱ {count} ᛔᛆᚴᚴᛂᚱ'
 
-# Original: Uninstalling {name} {version}...
+# Original: Uninstalling {name}, {version}…
 uninstallingPackage: 'ᛆᚡᛁᚿᛌᛐᛆᛚᛚᛂᚱᛂᚱ {name}, {version}…'
 
 # Original: Update
@@ -341,7 +353,7 @@ userDescription: '{description} (ᚠᚮᚱ ᛒᚱᚢᚴᛆᚱᛂᚿ)'
 # Original: Version Skipped
 versionSkipped: ᛁᚵᚿᚮᚱᛂᚱᛐ ᚡᛂᚱᛌᛁᚮᚿ
 
-# Original: Waiting for process to finish...
+# Original: Waiting for process to finish…
 waitingForCompletion: ᚡᛂᚿᛐᛆᚱ ᛔᚭ ᛆᛐ ᚿᚮᚴᚮ ᛌᚴᛆᛚ ᛒᛚᛁ ᚠᛂᚱᛑᛁᚵ…
 
 # Original: Weekly
@@ -355,12 +367,3 @@ wouldYouLikeToDownloadThemNow: ᚡᛁᛚ ᛑᚢ ᛚᛆᛌᛐᛆ ᛑᛂᛁ ᚿᛂ
 
 # Original: Zoom
 zoom: ᛌᚮᚮᛘ
-
-# Original: Connecting...
-#zoom: ᚴᚮᛔᛚᛆᚱ ᛐᛁᛚ…
-
-# Original: This is taking too long
-#zoom: ᛑᛂᛐᛐᛂ ᛐᛂᚴ ᚠᚮᚱ ᛚᛆᚿᚵ ᛐᛁᛑ
-
-# Original: Failed communicating to the language index service. Please restart the app and try again. If that does not help, try reinstalling Divvun Manager.
-#zoom: ᚴᛚᛆᚱᛐᛂ ᛁᚴᚴᛁᛂ ᚭ ᛔᚱᛆᛐᛆ ᛘᛂᛑ ᛌᛔᚱᚭᚴᛁᚿᛑᛂᚴᛌᛐᛂᚿᛂᛌᛐᛆ. ᚡᛂᚱ ᚵᚱᛂᛁᛑ ᚮᚵ ᛌᛐᛆᚱᛐ ᛔᚱᚮᚵᚱᛆᛘᛘᛂᛐ ᛔᚭ ᚿᛦᛐᛐ ᚮᚵ ᛔᚱᚯᚡ ᛂᛁᚿ ᚵᚮᚿᚵ ᛐᛁᛚ. ᚮᛘ ᛑᛂᛐ ᛁᚴᚴᛁᛂ ᚼᛁᛂᛚᛔᛂᚱ, ᛔᚱᚯᚡ ᛘᛂᛑ ᚭ ᛁᚿᚿᛌᛐᛆᛚᛚᛂᚱᛆ ᛑᚡᚡᚢᚿ-ᛔᛆᚴᚴᛂᚼᛆᚿᛑᛐᛂᚱᛆᚱᛂᚿ ᛔᚭ ᚿᛦᛐᛐ.

@@ -1,4 +1,4 @@
-# Original: About Package Manager
+# Original: About Divvun Manager
 aboutApp: Package Manager birra
 
 # Original: All Repositories
@@ -10,15 +10,15 @@ alpha: Alpha
 # Original: Help
 appHelp: Veahkki
 
-# Original: Package Manager
+# Original: Divvun Manager
 appName: Package Manager
 
-# Original: Package Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
+# Original: Divvun Manager v{version} is now available. It is highly recommended that you update as soon as possible. Update now?
 appUpdateBody: >-
   Dál sáhttá viežžat Package Manager v{version}. Ođastuhte fal fargga. Juogo
   háliidat ođastuhttit?
 
-# Original: Package Manager Update Available
+# Original: Divvun Manager Update Available
 appUpdateTitle: Package Manager ođđa vieččahahtti veršuvdna
 
 # Original: Beta
@@ -36,7 +36,7 @@ cancelDownloadsBody: Háliidat go duođaid heaittihit viežžamis?
 # Original: Cancel Downloads
 cancelDownloadsTitle: Heaittit viežžamis
 
-# Original: Canceling...
+# Original: Canceling…
 cancelling: Gaskkalduhttimin …
 
 # Original: Category
@@ -45,11 +45,19 @@ category: Kategoriija
 # Original: Channel
 channel: Kanála
 
-# Original: Check For Updates...
+# Original: Check For Updates…
 checkForUpdates: Oza ođđa veršuvnnaid …
 
 # Original: Completed
 completed: Válmmas
+
+# Original: Connecting…
+connecting: Laktimin …
+
+# Original: Failed communicating to the language index service. Please restart the app and try again. If that does not help, try reinstalling Divvun Manager.
+connectionFailed: >-
+  Ii gulahallan giellabálvalusain. Álggát prográmma ođđasit ja geahččal ođđasis.
+  Jus dat ii ábut, sajáiduhte Divvun Manager ođđasis.
 
 # Original: Copy
 copy: Máŋge
@@ -74,7 +82,7 @@ downloadError: "Vihki \U0001F61E"
 # Original: Downloaded
 downloaded: Vižžojuvvon
 
-# Original: Downloading...
+# Original: Downloading…
 downloading: Viežžamin …
 
 # Original: Edit
@@ -110,7 +118,7 @@ finish: Válbme
 # Original: Help
 help: Package Manager veahkki
 
-# Original: Hide Package Manager
+# Original: Hide Divvun Manager
 hideApp: Čiega Package Manager
 
 # Original: Hide Others
@@ -134,7 +142,7 @@ installUser: Sajáiduhte (geavaheaddji)
 # Original: Installed
 installed: Sajáiduhtton
 
-# Original: Installing {name} {version}...
+# Original: Installing {name}, {version}…
 installingPackage: 'Sajáiduhttimin {name}, {version} …'
 
 # Original: Installing/Uninstalling
@@ -152,7 +160,7 @@ invalidUrlTitle: Addojuvvon URL lea boastut.
 # Original: Language
 language: Giella
 
-# Original: Loading...
+# Original: Loading…
 loading: Láddemin …
 
 # Original: Minimize
@@ -191,7 +199,7 @@ notInstalled: Ii leat sajáiduhtton
 # Original: OK
 ok: OK
 
-# Original: Open Package Manager
+# Original: Open Divvun Manager
 openPackageManager: Raba Package Manager
 
 # Original: Open Settings…
@@ -215,7 +223,7 @@ processCompletedTitle: Válmmas!
 # Original: Queued
 queued: Vuordimin vuorus
 
-# Original: Quit Package Manager
+# Original: Quit Divvun Manager
 quitApp: Heaittit Package Manager
 
 # Original: Redo
@@ -240,7 +248,7 @@ repository: Prográmmavuorká
 repositoryError: Vihki prográmmavuorkkás
 
 # Original: There was an error while opening the repository:
-#
+# 
 # {message}
 repositoryErrorBody: |
   Juoga manai boastut rabadiin prográmmavuorkká:
@@ -288,11 +296,14 @@ sortBy: Čuoldde … mielde
 # Original: Stable
 stable: Stabiila
 
-# Original: Starting...
+# Original: Starting…
 starting: Álgimin …
 
 # Original: Default Language
 systemLocale: Standárdagiella
+
+# Original: This is taking too long
+takingTooLong: Dát ádjána menddo guhká
 
 # Original: There are {count} updates available!
 thereAreNUpdatesAvailable: 'Leat {count} vieččahahtti ođđa veršuvnna'
@@ -309,7 +320,7 @@ uninstall: Váldde eret
 # Original: Uninstall {count} Items
 uninstallNPackages: 'Váldde eret {count} objeavtta'
 
-# Original: Uninstalling {name} {version}...
+# Original: Uninstalling {name}, {version}…
 uninstallingPackage: 'Váldimin eret {name}, {version} …'
 
 # Original: Update
@@ -339,7 +350,7 @@ userDescription: '{description} (Geavaheaddji)'
 # Original: Version Skipped
 versionSkipped: Veršuvdna hilgojuvvon
 
-# Original: Waiting for process to finish...
+# Original: Waiting for process to finish…
 waitingForCompletion: Vuordimin ahte geargá …
 
 # Original: Weekly
@@ -353,12 +364,3 @@ wouldYouLikeToDownloadThemNow: Juogo háliidat viežžat?
 
 # Original: Zoom
 zoom: Zoom
-
-# Original: Connecting...
-#zoom: Laktimin …
-
-# Original: This is taking too long
-#zoom: Dát ádjána menddo guhká
-
-# Original: Failed communicating to the language index service. Please restart the app and try again. If that does not help, try reinstalling Divvun Manager.
-#zoom: Ii gulahallan giellabálvalusain. Álggát prográmma ođđasit ja geahččal ođđasis. Jus dat ii ábut, sajáiduhte Divvun Manager ođđasis.
