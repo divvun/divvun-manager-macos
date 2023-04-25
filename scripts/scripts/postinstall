@@ -17,6 +17,7 @@ cp "$PLIST_FILE" "/Library/LaunchDaemons/$PLIST_FILE";
 
 # Create log directory
 mkdir -p /Library/Logs/Pahkat
+chmod +x /Library/Logs/Pahkat
 su "$USER" -c "mkdir -p ~/Library/Logs/MacDivvun"
 
 if [[ ! $COMMAND_LINE_INSTALL ]]; then
