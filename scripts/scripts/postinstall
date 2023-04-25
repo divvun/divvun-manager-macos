@@ -15,6 +15,11 @@ rm -f "/Library/LaunchDaemons/$PLIST_FILE";
 cp "$PLIST_FILE" "/Library/LaunchDaemons/$PLIST_FILE";
 /bin/launchctl load -w "/Library/LaunchDaemons/$PLIST_FILE";
 
+# Create log directory
+mkdir -p /Library/Logs/Pahkat
+chmod +x /Library/Logs/Pahkat
+su "$USER" -c "mkdir -p ~/Library/Logs/MacDivvun"
+
 if [[ ! $COMMAND_LINE_INSTALL ]]; then
   for i in $(seq 1 5); do su "$USER" -c "open /Applications/Divvun\ Manager.app" && s=0 && break || s=$? && sleep 1; done; (exit $s)
 fi
