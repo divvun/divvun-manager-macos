@@ -15,7 +15,9 @@
 	<false/>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/Applications/Divvun Manager.app/Contents/MacOS/pahkatd</string>
+		<string>/bin/bash</string>
+		<string>-c</string>
+		<string>chmod +x /Library/Logs/Pahkat; exec /Applications/Divvun\ Manager.app/Contents/MacOS/pahkatd</string>
 	</array>
 	<key>RunAtLoad</key>
 	<true/>
