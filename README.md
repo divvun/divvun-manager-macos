@@ -24,6 +24,9 @@ strut-icu-generate swift Support/LocalisationResources/base.yaml Support/Localis
     - keyboards: add entries in `keyboard-XXX/XXX.kbdgen/project.yaml`
     - spellers: add entries in `lang-XXX/manifest.toml.in` (not yet supported)
 
+## Logging
+Log files can be bundled and exported in the help menu. It gather log files from Divvun Manager, Pahkatd and MacDivvun.
+Since the app is running as user, all log folders need to be accessible by others. (Pahkatd service checks folder permission on every launch)
 ## License
 
 GPLv3 — see LICENSE file.
