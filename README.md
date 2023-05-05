@@ -2,6 +2,11 @@
 
 [![Build Status](https://github.com/divvun/divvun-installer-macos/workflows/CI/badge.svg)](https://github.com/divvun/divvun-installer-macos/actions)
 
+## Download
+
+- [Stable](https://pahkat.uit.no/divvun-installer/download/divvun-installer?platform=macos)
+- [Nightly build](https://pahkat.uit.no/divvun-installer/download/divvun-installer?channel=nightly&platform=macos)
+
 ## Building
 
 `xcodebuild`
