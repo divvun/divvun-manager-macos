@@ -45,7 +45,7 @@ To fix a situation like this, do as follows:
 - reinstall **MacDivvun Speller Engine** by checkmarking it and run install
 - restart your computer
 
-It should really not be necessary to do this. If it happens more than once, try to notice what caused it to happen, and file a bug report in [issues](issues).
+It should really not be necessary to do this. If it happens more than once, try to notice what caused it to happen, and file a bug report in [issues](/divvun-manager-macos/issues).
 
 ## License
 
