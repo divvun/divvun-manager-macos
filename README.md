@@ -39,7 +39,7 @@ If for some reason [MacDivvun](https://github.com/divvun/macdivvun-service) has 
 removed without the help of Divvun Manager, it can't be fixed automatically by it.
 To fix a situation like this, do as follows:
 
-- add the following url to the repo list in the Divvun Manager settings: <https://pahkat.uit.no/tools>
+- add the following url to the repo list in the Divvun Manager settings: `https://pahkat.uit.no/tools`
 - a section **Divvun Tools** should appear at the end of the **All Repositories** listing
 - uninstall **MacDivvun Speller Engine** by checkmarking it and run uninstall
 - reinstall **MacDivvun Speller Engine** by checkmarking it and run install
