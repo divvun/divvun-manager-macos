@@ -32,6 +32,21 @@ strut-icu-generate swift Support/LocalisationResources/base.yaml Support/Localis
 ## Logging
 Log files can be bundled and exported in the help menu. It gather log files from Divvun Manager, Pahkatd and MacDivvun.
 Since the app is running as user, all log folders need to be accessible by others. (Pahkatd service checks folder permission on every launch)
+
+## Cleanup MacDivvun
+
+If for some reason [MacDivvun](https://github.com/divvun/macdivvun-service) has been uninstalled or
+removed without the help of Divvun Manager, it can't be fixed automatically by it.
+To fix a situation like this, do as follows:
+
+- add the following url to the repo list in the Divvun Manager settings: <https://pahkat.uit.no/tools>
+- a section **Divvun Tools** should appear at the end of the **All Repositories** listing
+- uninstall **MacDivvun Speller Engine** by checkmarking it and run uninstall
+- reinstall **MacDivvun Speller Engine** by checkmarking it and run install
+- restart your computer
+
+It should really not be necessary to do this. If it happens more than once, try to notice what caused it to happen, and file a bug report in [issues](issues).
+
 ## License
 
 GPLv3 — see LICENSE file.
