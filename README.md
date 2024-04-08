@@ -1,6 +1,6 @@
 # Divvun Manager for macOS
 
-[![Build Status](https://github.com/divvun/divvun-installer-macos/workflows/CI/badge.svg)](https://github.com/divvun/divvun-installer-macos/actions)
+[![Build Status](https://divvun-tc.giellalt.org/api/github/v1/repository/divvun/divvun-installer-macos/main/badge.svg)](https://divvun-tc.giellalt.org/api/github/v1/repository/divvun/divvun-installer-macos/main/latest)
 
 ## Download
 
