@@ -33,7 +33,7 @@ cp scripts/pahkatd "$APP_NAME/Contents/MacOS/pahkatd"
 codesign --options=runtime -f --deep -s "$MACOS_CODE_SIGN_IDENTITY" "$APP_NAME"
 
 echo "Notarizing bundle"
-xcnotary notarize "$APP_NAME" --override-path-type app -d "$INPUT_MACOS_DEVELOPER_ACCOUNT" -p "$INPUT_MACOS_NOTARIZATION_APP_PWD"
+xcrun notarytool submit "$APP_NAME" --apple-id "$INPUT_MACOS_DEVELOPER_ACCOUNT" --password "$INPUT_MACOS_NOTARIZATION_APP_PWD" --wait
 stapler validate "$APP_NAME"
 
 echo "::endgroup::"
@@ -75,6 +75,6 @@ productsign --sign "$MACOS_CODE_SIGN_IDENTITY_INSTALLER" divvun-manager.unsigned
 pkgutil --check-signature "$PKG_NAME"
 
 echo "Notarizing installer"
-xcnotary notarize "$PKG_NAME" --override-path-type pkg -d "$INPUT_MACOS_DEVELOPER_ACCOUNT" -p "$INPUT_MACOS_NOTARIZATION_APP_PWD"
+xcrun notarytool submit "$PKG_NAME" --apple-id "$INPUT_MACOS_DEVELOPER_ACCOUNT" --password "$INPUT_MACOS_NOTARIZATION_APP_PWD" --wait
 stapler validate "$PKG_NAME"
 echo "::endgroup::"
