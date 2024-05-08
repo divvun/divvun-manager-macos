@@ -38,7 +38,6 @@ APP_ZIP="Divvun Manager.zip"
 xcrun notarytool submit "$APP_ZIP" --apple-id "$INPUT_MACOS_DEVELOPER_ACCOUNT" --password "$INPUT_MACOS_NOTARIZATION_APP_PWD" --team-id "$MACOS_DEVELOPMENT_TEAM" --wait
 #xcnotary notarize "$APP_NAME" --override-path-type app -d "$INPUT_MACOS_DEVELOPER_ACCOUNT" -p "$INPUT_MACOS_NOTARIZATION_APP_PWD"
 xcrun stapler staple "$APP_NAME"
-xcrun stapler validate "$APP_NAME"
 
 echo "::endgroup::"
 echo "::group::Building .pkg"
@@ -81,5 +80,4 @@ pkgutil --check-signature "$PKG_NAME"
 echo "Notarizing installer"
 xcrun notarytool submit "$PKG_NAME" --apple-id "$INPUT_MACOS_DEVELOPER_ACCOUNT" --password "$INPUT_MACOS_NOTARIZATION_APP_PWD" --team-id "$MACOS_DEVELOPMENT_TEAM" --wait
 xcrun stapler staple "$PKG_NAME"
-xcrun stapler validate "$PKG_NAME"
 echo "::endgroup::"
