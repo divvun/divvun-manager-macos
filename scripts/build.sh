@@ -33,8 +33,8 @@ cp scripts/pahkatd "$APP_NAME/Contents/MacOS/pahkatd"
 codesign --options=runtime -f --deep -s "$MACOS_CODE_SIGN_IDENTITY" "$APP_NAME"
 
 echo "Notarizing bundle"
-APP_ZIP="$APP_NAME.zip"
-zip "$APP_ZIP" -r "$APP_NAME"
+APP_ZIP="Divvun Manager.zip"
+/usr/bin/ditto -c -k --keepParent "$APP_NAME" "$APP_ZIP" 
 xcrun notarytool submit "$APP_ZIP" --apple-id "$INPUT_MACOS_DEVELOPER_ACCOUNT" --password "$INPUT_MACOS_NOTARIZATION_APP_PWD" --team-id "$MACOS_DEVELOPMENT_TEAM" --wait
 #xcnotary notarize "$APP_NAME" --override-path-type app -d "$INPUT_MACOS_DEVELOPER_ACCOUNT" -p "$INPUT_MACOS_NOTARIZATION_APP_PWD"
 stapler validate "$APP_NAME"
