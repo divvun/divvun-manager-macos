@@ -169,7 +169,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
         switch itemIdentifier.rawValue {
         case "settings":
             let item = NSToolbarItem(view: contentView.settingsButton, identifier: itemIdentifier)
-            item.maxSize = NSSize(width: CGFloat(48.0), height: item.maxSize.height)
+            item.view?.widthAnchor.constraint(equalToConstant: 48.0).isActive = true
             return item
         case "button":
             contentView.primaryButton.sizeToFit()
@@ -179,7 +179,7 @@ class MainViewController: DisposableViewController<MainView>, MainViewable, NSTo
             return NSToolbarItem(view: contentView.refreshButton, identifier: itemIdentifier)
         case "repo-selector":
             let item = NSToolbarItem.init(view: contentView.popupButton, identifier: itemIdentifier)
-            item.minSize = NSSize(width: CGFloat(160.0), height: item.maxSize.height)
+            item.view?.widthAnchor.constraint(greaterThanOrEqualToConstant: 160.0).isActive = true
             return item
         case "title":
             return NSToolbarItem.init(view: contentView.primaryLabel, identifier: itemIdentifier)
