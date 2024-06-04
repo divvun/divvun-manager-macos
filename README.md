@@ -32,7 +32,7 @@ To run everything locally, you must also run `pahkat-rpc` locally. To do this:
 1. Clone <https://github.com/divvun/pahkat>
 2. Make sure the socket path is the same between [macOS](https://github.com/divvun/divvun-manager-macos/blob/d20581050bde718a18f36ab0af0212726267e9e3/Sources/AppContext.swift#L67) and [pahkat-rpc](https://github.com/divvun/pahkat/blob/df904637978abb8f9c0ae545d58ee442c6169e12/pahkat-rpc/src/bin/server.rs#L8) (you might need to temporarily change it in Pahkat to match the one in macOS)
 3. If you have Divvun Manager installed, make sure pahkatd is not running. The easiest way to do this is to delete `/Applications/Divvun Manager.app/Contents/MacOS/pahkatd` and kill `pahkatd` in Activity Monitor.app
-4. Run pahkat-rpc with `cargo run --bin server --features macos`
+4. Run `pahkat-rpc`. Go to the pahkat-rpc dir and run `cargo run --bin server --features macos`
 5. Run Divvun Manager from Xcode.
 
 You should see evidence that Divvun Manager is connecting to your locally running instance of pahkatd.
