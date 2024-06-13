@@ -50,7 +50,7 @@ strut-icu-generate swift Support/LocalisationResources/base.yaml Support/Localis
 
 ## Localisation of entries
 
-- language names: [make PR here](https://github.com/bbqsrc/iso639-databases)
+- language names: [make PR here](https://github.com/divvun/iso639-databases)
 - package names/descriptions:
   - keyboards: add entries in `keyboard-XXX/XXX.kbdgen/project.yaml`
   - spellers: add entries in `lang-XXX/manifest.toml.in` (not yet supported)
