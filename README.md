@@ -77,3 +77,4 @@ It should really not be necessary to do this. If it happens more than once, try 
 ## License
 
 GPLv3 — see LICENSE file.
+
