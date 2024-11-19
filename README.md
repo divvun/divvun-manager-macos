@@ -15,7 +15,7 @@ Spellers are installed in `/Library/Services/`.
 - [Stable](https://pahkat.uit.no/divvun-installer/download/divvun-installer?platform=macos)
 - [Nightly build](https://pahkat.uit.no/divvun-installer/download/divvun-installer?channel=nightly&platform=macos)
 
-## Architecure
+## Architecture
 
 Divvun Manager installs and communicates with Pahkatd via RPC over a UNIX socket. Pahkatd is a service that manages package installation and removal. It is written in Rust and is available at [divvun/pahkat](https://github.com/divvun/pahkat).
 
