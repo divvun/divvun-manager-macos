@@ -39,13 +39,15 @@ You should see evidence that Divvun Manager is connecting to your locally runnin
 
 ## Generating Localisations
 
-This project uses [bbqsrc/strut-icu](https://github.com/bbqsrc/strut-icu) to manage the generation of localisations.
+This project uses [bbqsrc/i18n-eller](https://github.com/bbqsrc/i18n-eller) to manage the generation of localisations.
 
-If you make an update to anything in `Sources/Support/LocalisationResources/`, run from the `Pahkat/` directory:
+If you make an update to anything in `Sources/Support/LocalisationResources/`, run from the `divvun-manager-macos/` directory:
 
 ```bash
-strut-icu-generate swift Support/LocalisationResources/base.yaml Support/LocalisationResources/{your other langs}.yaml
--o .
+i18n-eller generate swift \
+  Sources/Support/LocalisationResources/base.yaml \
+  Sources/Support/LocalisationResources/{your target lang}.yaml \
+  -o Sources/
 ```
 
 ## Localisation of entries
