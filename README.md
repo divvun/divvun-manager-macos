@@ -8,7 +8,7 @@ Divvun Manager is a macOS app that manages the installation and configuration of
 
 - Keyboards are installed in `/Library/Keyboard Layouts/`
 - Spellers are installed in `/Library/Services/`
-- Voices are installed somewhere, and exposed to the system via the app `Divvun Speech.app`
+- Voices are installed in `/Library/Speech/Synthesizers/Divvun`, and exposed to the system via the app `Divvun Speech.app`
 
 ## Download
 
