@@ -55,7 +55,7 @@ i18n-eller generate swift \
 - language names: [make PR here](https://github.com/divvun/iso639-databases)
 - package names/descriptions:
   - keyboards: add entries in `keyboard-XXX/XXX.kbdgen/project.yaml`
-  - spellers: add entries in `lang-XXX/manifest.toml.in` (not yet supported)
+  - spellers: add entries in `lang-XXX/manifest.toml.in`
 
 ## Logging
 
