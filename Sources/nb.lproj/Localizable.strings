@@ -16,7 +16,7 @@
 "checkForUpdates" = "Se etter oppateringer…";
 "completed" = "Fullført";
 "connecting" = "Kobler til…";
-"connectionFailed" = "Klarte ikke å snakke med språkindekstjenesten. Ver så snill og start programmet på nytt og prøv en gang til. Om det ikke fungerer, prøv med å installere Divvun Manager om igjen.";
+"connectionFailed" = "Klarte ikke å snakke med språkindekstjenesten. Vær så snill og start programmet på nytt og prøv en gang til. Om det ikke fungerer, prøv med å installere Divvun Manager om igjen.";
 "copy" = "Kopier";
 "crashReportBody" = "Ønsker du å sende en kræsjrapport til utviklerne? Personlig eller privat informasjon blir ikke sendt inn. (Anbefalt)";
 "cut" = "Klipp ut";
