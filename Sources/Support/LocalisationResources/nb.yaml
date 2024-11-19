@@ -56,7 +56,7 @@ connecting: Kobler til…
 
 # Original: Failed communicating to the language index service. Please restart the app and try again. If that does not help, try reinstalling Divvun Manager.
 connectionFailed: >-
-  Klarte ikke å snakke med språkindekstjenesten. Ver så snill og start
+  Klarte ikke å snakke med språkindekstjenesten. Vær så snill og start
   programmet på nytt og prøv en gang til. Om det ikke fungerer, prøv med å
   installere Divvun Manager om igjen.
 
