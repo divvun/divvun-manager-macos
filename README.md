@@ -4,11 +4,11 @@
 
 ## Overview
 
-Divvun Manager is a macOS app that manages the installation and configuration of Divvun spellers and keyboards via [Pahkat](https://github.com/divvun/pahkat).
+Divvun Manager is a macOS app that manages the installation and configuration of Divvun spellers, keyboards and text-to-speech voices via [Pahkat](https://github.com/divvun/pahkat).
 
-Keyboards are installed in `/Library/Keyboard Layouts/`.
-
-Spellers are installed in `/Library/Services/`.
+- Keyboards are installed in `/Library/Keyboard Layouts/`
+- Spellers are installed in `/Library/Services/`
+- Voices are installed somewhere, and exposed to the system via the app `Divvun Speech.app`
 
 ## Download
 
